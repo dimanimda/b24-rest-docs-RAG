@@ -1,78 +1,147 @@
 <?php
-
 declare(strict_types=1);
-require __DIR__ . '/vendor/autoload.php';
 
-$docsDir = __DIR__ . '/b24-rest-docs-RAG';
+// Base web path of this app (folder under site root). Auto-detect by default.
+$webDir = rtrim(str_replace('\\','/', dirname($_SERVER['SCRIPT_NAME'] ?? '/')), '/');
+if ($webDir === '' || $webDir === '.') { $webDir = '/'; }
+
+$baseDir = __DIR__;
+$docsDir = $baseDir;
 $indexFile = $docsDir . '/rest-index.json';
 if (!is_file($indexFile)) {
     http_response_code(500);
-    echo "rest-index.json not found";
+    echo 'rest-index.json not found';
     exit;
 }
 
-$idx = json_decode(file_get_contents($indexFile), true);
-$methods = $idx['methods'] ?? [];
+$index = json_decode((string)file_get_contents($indexFile), true) ?: [];
+$methods = $index['methods'] ?? [];
+
+// Router: /<webDir>/method/<method>
+if (isset($_SERVER['REQUEST_URI'])) {
+    $uri = strtok($_SERVER['REQUEST_URI'], '?');
+    $pattern = '~^' . preg_quote($webDir === '/' ? '' : $webDir, '~') . '/method/(.+)$~';
+    if (preg_match($pattern, $uri, $m)) {
+        $_GET['m'] = $m[1];
+    }
+}
+
 $methodParam = isset($_GET['m']) ? trim((string)$_GET['m']) : '';
 $methodToPath = [];
 foreach ($methods as $m) {
-    $methodToPath[$m['method']] = $docsDir . '/' . str_replace(['\\'], '/', $m['path']);
+    $rel = str_replace(['\\','/'], DIRECTORY_SEPARATOR, (string)$m['path']);
+    $methodToPath[$m['method']] = $docsDir . DIRECTORY_SEPARATOR . $rel;
 }
 
-function renderMarkdown(string $file): string
-{
+function h(string $s): string { return htmlspecialchars($s, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8'); }
+
+function renderMarkdown(string $file): string {
     $md = @file_get_contents($file);
-    if ($md === false) return "<p>File not found</p>";
-    $p = new Parsedown();
-    $p->setSafeMode(true);
-    return $p->text($md);
+    if ($md === false) return '<p>File not found</p>';
+    // try Parsedown
+    $html = '';
+    if (class_exists('Parsedown')) {
+        $p = new Parsedown();
+        if (method_exists($p, 'setSafeMode')) { $p->setSafeMode(true); }
+        $html = $p->text($md);
+    } else {
+        // very simple fallback: wrap code fences and paragraphs
+        $html = nl2br(h($md));
+        $html = preg_replace('/```([\s\S]*?)```/m', '<pre><code>$1</code></pre>', (string)$html);
+    }
+    return $html;
 }
 
-function h($s)
-{
-    return htmlspecialchars($s, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
-}
+$pageTitle = 'Bitrix24 REST (RAG)';
+$contentHtml = '';
 
-$body = '';
 if ($methodParam !== '' && isset($methodToPath[$methodParam])) {
-    $file = $methodToPath[$methodParam];
-    if (!str_starts_with(realpath($file) ?: '', realpath($docsDir) ?: '')) {
-        http_response_code(400);
-        exit('Bad path');
+    $file = realpath($methodToPath[$methodParam]) ?: $methodToPath[$methodParam];
+    $allowedRoot = realpath($docsDir) ?: $docsDir;
+    if ($file === false || !str_starts_with($file, $allowedRoot)) {
+        http_response_code(404);
+        $contentHtml = '<p>Method not found</p>';
+    } else {
+        $pageTitle = $methodParam . ' - ' . $pageTitle;
+        $parts = explode('.', $methodParam);
+        $scope = array_shift($parts);
+        $home = rtrim($webDir, '/'); if ($home==='') { $home = '/'; }
+        $contentHtml .= '<nav><a href="'.$home.'/">Home</a> › <a href="'.$home.'/?scope='.h($scope).'">'.h($scope).'</a> › '.h($methodParam).'</nav>';
+        $contentHtml .= '<h1>'.h($methodParam).'</h1>';
+        $contentHtml .= renderMarkdown($file);
+        $contentHtml .= '<p><a href="'.$webDir.'/">← Back</a></p>';
     }
-    $body .= "<h1>" . h($methodParam) . "</h1>";
-    $body .= renderMarkdown($file);
-    $body .= "<p><a href=\"/\">← К списку</a></p>";
 } else {
-    // Главная: список методов по scope
-    $byScope = [];
-    foreach ($methods as $m) {
-        $byScope[$m['scope']][] = $m;
-    }
-    ksort($byScope);
-    $body .= "<h1>Bitrix24 REST (RAG)</h1>";
-    foreach ($byScope as $scope => $list) {
-        $body .= "<h2>" . h($scope) . "</h2><ul>";
-        foreach ($list as $m) {
-            $q = rawurlencode($m['method']);
-            $flags = [];
-            if (!empty($m['deprecated'])) $flags[] = 'deprecated';
-            if (!empty($m['pagination'])) $flags[] = $m['pagination'];
-            if (!empty($m['has_example'])) $flags[] = 'example';
-            $label = $m['method'] . (count($flags) ? ' [' . implode(', ', $flags) . ']' : '');
-            $body .= "<li><a href=\"?m={$q}\">" . h($label) . "</a></li>";
-        }
-        $body .= "</ul>";
-    }
+    // List view
+    $pageTitle = $pageTitle;
+    $contentHtml .= '<h1>Bitrix24 REST (RAG)</h1>';
+    $contentHtml .= '<div id="controls">'
+        .'<input id="q" type="search" placeholder="Search method (e.g. crm.deal.get)" /> '
+        .'<select id="scope"><option value="">All scopes</option></select> '
+        .'<label><input type="checkbox" id="flag-deprecated"/> deprecated</label> '
+        .'<label><input type="checkbox" id="flag-example"/> example</label> '
+        .'<select id="pagination"><option value="">any pagination</option><option value="start">start</option><option value="nav_params">nav_params</option><option value="none">none</option><option value="unknown">unknown</option></select> '
+        .'<button id="clear">Clear</button>'
+        .'</div>';
+    $contentHtml .= '<div id="list"></div>';
 }
 
-echo "<!doctype html><html><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><title>Bitrix24 REST (RAG)</title>
-<style>
-body{font-family:system-ui,Segoe UI,Roboto,Arial,sans-serif;max-width:1100px;margin:24px auto;padding:0 16px;line-height:1.5;}
-code,pre{background:#f6f8fa;}
-pre{padding:12px;overflow:auto;}
-h1,h2{margin-top:1.2em;}
-ul{margin:0.5em 0 1.2em 1.2em;}
-a{text-decoration:none;color:#0366d6;}
-a:hover{text-decoration:underline;}
-</style></head><body>{$body}</body></html>";
+// Embed index for client-side filtering
+$embeddedIndex = json_encode($index, JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);
+
+?><!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title><?=h($pageTitle)?></title>
+  <link rel="stylesheet" href="<?= rtrim($webDir,'/') ?>/assets/style.css"/>
+  <script>
+    window.__REST_INDEX__ = <?=$embeddedIndex?>;
+    window.__WEB_DIR__ = <?= json_encode(rtrim($webDir,'/'), JSON_UNESCAPED_SLASHES) ?>;
+  </script>
+  <script defer src="<?= rtrim($webDir,'/') ?>/assets/app.js"></script>
+</head>
+<body>
+<header>
+  <a href="<?= rtrim($webDir,'/') ?>/" class="brand">Bitrix24 REST (RAG)</a>
+  <nav class="top-nav">
+    <a href="<?= rtrim($webDir,'/') ?>/rest-index.json" target="_blank">rest-index.json</a>
+    <a href="<?= rtrim($webDir,'/') ?>/sitemap.xml" target="_blank">sitemap.xml</a>
+  </nav>
+  <hr/>
+</header>
+
+<main>
+  <?=$contentHtml?>
+</main>
+
+<footer>
+  <hr/>
+  <p>Generated for AI agents • <?=date('Y-m-d')?></p>
+</footer>
+
+<script>
+// Enhance headings with anchors and add copy buttons to code blocks
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('h2,h3').forEach(h => {
+    const txt = h.textContent || '';
+    const id = txt.toLowerCase().replace(/[^a-z0-9_.\-]+/g,'-');
+    if (id && !h.id) { h.id = id; }
+  });
+  document.querySelectorAll('pre > code').forEach(code => {
+    const pre = code.parentElement;
+    const btn = document.createElement('button');
+    btn.className = 'copy-btn'; btn.textContent = 'Copy';
+    btn.addEventListener('click', () => {
+      navigator.clipboard.writeText(code.textContent || '').then(()=>{ btn.textContent='Copied'; setTimeout(()=>btn.textContent='Copy',1200);});
+    });
+    pre.style.position = 'relative';
+    btn.style.position = 'absolute'; btn.style.top='6px'; btn.style.right='6px';
+    pre.appendChild(btn);
+  });
+});
+</script>
+
+</body>
+</html>
