@@ -1,0 +1,13 @@
+{
+    "name": "root/b24-rest-docs-rag",
+    "type": "project",
+    "authors": [
+        {
+            "name": "dimanimda",
+            "email": "dima-vas@yandex.ru"
+        }
+    ],
+    "require": {
+        "erusev/parsedown": "^1.7"
+    }
+}
