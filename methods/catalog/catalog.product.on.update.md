@@ -10,3 +10,25 @@ returns: {"type":"object"}
 ---
 
 Auto-generated stub. Fill in params/returns/examples.
+
+---
+
+# Событие на обновление товара onCrmProductUpdate
+
+
+
+Событие `onCrmProductUpdate` продолжает работать, но у него есть более актуальный аналог [CATALOG.PRODUCT.ON.UPDATE](../../../../catalog/product/events/catalog-product-on-update.md).
+
+
+
+Событие вызывается при обновлении товара.
+
+## Параметры
+
+
+
+#|
+|| **Название**
+`тип` | **Описание** ||
+|| **FIELDS** | Массив содержит поле ID со значением идентификатора обновлённого товара ||
+|#

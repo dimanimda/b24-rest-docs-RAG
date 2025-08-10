@@ -43,10 +43,22 @@ function detect_deprecated(string $path, string $content): bool { $lp=strtolower
 function derive_params_schema(string $m): array { $m=strtolower($m); if(is_task_legacy($m)) return ['type'=>'array','positional'=>['order','filter','select','params']]; if(str_ends_with($m,'.list')||str_contains($m,'.getlist')) return ['type'=>'object','properties'=>['filter'=>['type'=>'object'],'order'=>['type'=>'object'],'select'=>['type'=>'array','items'=>['type'=>'string']],'start'=>['type'=>['integer','string']]]]; if(preg_match('/\.(get|delete)$/',$m)) return ['type'=>'object','required'=>['id'],'properties'=>['id'=>['type'=>'integer']]]; if(preg_match('/\.add$/',$m)) return ['type'=>'object','required'=>['fields'],'properties'=>['fields'=>['type'=>'object']]]; if(preg_match('/\.update$/',$m)) return ['type'=>'object','required'=>['id','fields'],'properties'=>['id'=>['type'=>'integer'],'fields'=>['type'=>'object']]]; return ['type'=>'object']; }
 function derive_return_schema(string $m): array { $m=strtolower($m); if(str_ends_with($m,'.list')||str_contains($m,'.getlist')) return ['type'=>'array','items'=>['type'=>'object']]; return ['type'=>'object']; }
 
-function write_method_stub(string $outDir, string $method, bool $deprecated, array $aliases=[], ?string $exampleCurl=null): string {
+function write_method_stub(string $outDir, string $method, bool $deprecated, array $aliases=[], ?string $exampleCurl=null, ?string $importMd=null): string {
     $scope = method_scope($method); $dir=rtrim($outDir,'/\\').DIRECTORY_SEPARATOR.'methods'.DIRECTORY_SEPARATOR.$scope; ensure_dir($dir);
     $file = $dir.DIRECTORY_SEPARATOR.$method.'.md'; $should=true; if(file_exists($file)){ $ex=(string)file_get_contents($file); if($ex!=='' && !str_contains($ex,'Auto-generated stub')) $should=false; }
-    if($should){ $front=['method'=>$method,'scope'=>$scope,'deprecated'=>$deprecated,'aliases'=>$aliases,'rate_limit_per_sec'=>2,'pagination'=>detect_pagination($method),'params'=>derive_params_schema($method),'returns'=>derive_return_schema($method)]; $yaml="---\n"; foreach($front as $k=>$v){ if(is_bool($v)) $yaml.=sprintf("%s: %s\n",$k,$v?'true':'false'); elseif(is_array($v)) $yaml.=sprintf("%s: %s\n",$k,json_encode($v,JSON_UNESCAPED_UNICODE)); else $yaml.=sprintf("%s: %s\n",$k,$v);} $yaml.="---\n\n"; $body="Auto-generated stub. Fill in params/returns/examples.\n"; if($exampleCurl){ $body.="\nExample (curl):\n\n```bash\n".$exampleCurl."\n```\n"; } file_put_contents($file,$yaml.$body);} return $file;
+    if($should){
+        $front=['method'=>$method,'scope'=>$scope,'deprecated'=>$deprecated,'aliases'=>$aliases,'rate_limit_per_sec'=>2,'pagination'=>detect_pagination($method),'params'=>derive_params_schema($method),'returns'=>derive_return_schema($method)];
+        $yaml="---\n"; foreach($front as $k=>$v){ if(is_bool($v)) $yaml.=sprintf("%s: %s\n",$k,$v?'true':'false'); elseif(is_array($v)) $yaml.=sprintf("%s: %s\n",$k,json_encode($v,JSON_UNESCAPED_UNICODE)); else $yaml.=sprintf("%s: %s\n",$k,$v);} $yaml.="---\n\n";
+        $body="Auto-generated stub. Fill in params/returns/examples.\n";
+        if($exampleCurl){ $body.="\nExample (curl):\n\n```bash\n".$exampleCurl."\n```\n"; }
+        if($importMd){
+            // Append source markdown from api-reference (best-effort). Strip some templating tags.
+            $clean = preg_replace('/\{\%[^\n]*\%\}|\{\{[^\n]*\}\}/u','', $importMd);
+            $body .= "\n---\n\n".$clean."\n";
+        }
+        file_put_contents($file,$yaml.$body);
+    }
+    return $file;
 }
 
 function main(array $argv): void {
@@ -55,9 +67,9 @@ function main(array $argv): void {
     if(!is_dir($src)) { fwrite(STDERR,"source not found: {$src}\n"); exit(2);} ensure_dir($out);
     $indexPath=rtrim($out,'/\\').DIRECTORY_SEPARATOR.'rest-index.json'; $index=load_index($indexPath); $existing=[]; foreach(($index['methods']??[]) as $m){ if(isset($m['method'])) $existing[$m['method']]=$m; }
     $rii=new RecursiveIteratorIterator(new RecursiveDirectoryIterator($src, FilesystemIterator::SKIP_DOTS)); $found=[];
-    foreach($rii as $f){ if(!$f->isFile()) continue; if(strtolower($f->getExtension())!=='md') continue; $p=$f->getPathname(); $c=(string)file_get_contents($p); $methods=collect_methods_from_markdown($c); $dep=detect_deprecated($p,$c); foreach($methods as $meth){ $found[$meth]=['deprecated'=>$dep,'source'=>$p,'example'=>extract_curl_example($c,$meth)]; }}
+    foreach($rii as $f){ if(!$f->isFile()) continue; if(strtolower($f->getExtension())!=='md') continue; $p=$f->getPathname(); $c=(string)file_get_contents($p); $methods=collect_methods_from_markdown($c); $dep=detect_deprecated($p,$c); foreach($methods as $meth){ $found[$meth]=['deprecated'=>$dep,'source'=>$p,'example'=>extract_curl_example($c,$meth),'md'=>$c]; }}
     $aliases=['task.items.getlist'=>['tasks.task.list'],'task.item.list'=>['tasks.task.list','task.items.getlist'],'tasks.task.list'=>['task.items.getlist','task.item.list']];
-    $added=0; $updated=0; foreach($found as $meth=>$meta){ $al=$aliases[$meth]??[]; write_method_stub($out,$meth,$meta['deprecated'],$al,$meta['example']??null); $rel=str_replace(['\\','/'],DIRECTORY_SEPARATOR,'methods/'.method_scope($meth).'/'.$meth.'.md'); $e=['method'=>$meth,'scope'=>method_scope($meth),'path'=>$rel,'deprecated'=>$meta['deprecated'],'pagination'=>detect_pagination($meth),'has_example'=>($meta['example']??null)!==null]; if(!empty($al)) $e['aliases']=$al; if(!isset($existing[$meth])){ $index['methods'][]=$e; $added++; } else { foreach($index['methods'] as &$m){ if(($m['method']??'')===$meth){ $m=array_merge($m,$e); $updated++; break; } } } }
+    $added=0; $updated=0; foreach($found as $meth=>$meta){ $al=$aliases[$meth]??[]; write_method_stub($out,$meth,$meta['deprecated'],$al,$meta['example']??null, $meta['md']??null); $rel=str_replace(['\\','/'],DIRECTORY_SEPARATOR,'methods/'.method_scope($meth).'/'.$meth.'.md'); $e=['method'=>$meth,'scope'=>method_scope($meth),'path'=>$rel,'deprecated'=>$meta['deprecated'],'pagination'=>detect_pagination($meth),'has_example'=>($meta['example']??null)!==null]; if(!empty($al)) $e['aliases']=$al; if(!isset($existing[$meth])){ $index['methods'][]=$e; $added++; } else { foreach($index['methods'] as &$m){ if(($m['method']??'')===$meth){ $m=array_merge($m,$e); $updated++; break; } } } }
     save_index($indexPath,$index); echo "Scanned: ".count($found)." methods; added: {$added}, updated: {$updated}.\n";
 }
 

@@ -4,7 +4,7 @@
         {
             "method": "disk.file.getexternallink",
             "scope": "disk",
-            "path": "methods/disk/disk.file.getexternallink.md",
+            "path": "methods\\disk\\disk.file.getexternallink.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -12,7 +12,7 @@
         {
             "method": "crm.activity.list",
             "scope": "crm",
-            "path": "methods/crm/crm.activity.list.md",
+            "path": "methods\\crm\\crm.activity.list.md",
             "deprecated": false,
             "pagination": "start",
             "has_example": false
@@ -20,7 +20,7 @@
         {
             "method": "crm.activity.get",
             "scope": "crm",
-            "path": "methods/crm/crm.activity.get.md",
+            "path": "methods\\crm\\crm.activity.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -28,7 +28,7 @@
         {
             "method": "crm.timeline.comment.list",
             "scope": "crm",
-            "path": "methods/crm/crm.timeline.comment.list.md",
+            "path": "methods\\crm\\crm.timeline.comment.list.md",
             "deprecated": false,
             "pagination": "start",
             "has_example": false
@@ -36,7 +36,7 @@
         {
             "method": "crm.deal.get",
             "scope": "crm",
-            "path": "methods/crm/crm.deal.get.md",
+            "path": "methods\\crm\\crm.deal.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -44,7 +44,7 @@
         {
             "method": "crm.deal.list",
             "scope": "crm",
-            "path": "methods/crm/crm.deal.list.md",
+            "path": "methods\\crm\\crm.deal.list.md",
             "deprecated": false,
             "pagination": "start",
             "has_example": false
@@ -52,7 +52,7 @@
         {
             "method": "crm.deal.userfield.list",
             "scope": "crm",
-            "path": "methods/crm/crm.deal.userfield.list.md",
+            "path": "methods\\crm\\crm.deal.userfield.list.md",
             "deprecated": false,
             "pagination": "start",
             "has_example": false
@@ -109,7 +109,7 @@
         {
             "method": "sale.cashbox.handler.add",
             "scope": "sale",
-            "path": "methods/sale/sale.cashbox.handler.add.md",
+            "path": "methods\\sale\\sale.cashbox.handler.add.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -125,7 +125,7 @@
         {
             "method": "crm.deal.add",
             "scope": "crm",
-            "path": "methods/crm/crm.deal.add.md",
+            "path": "methods\\crm\\crm.deal.add.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -285,7 +285,7 @@
         {
             "method": "bizproc.activity.add",
             "scope": "bizproc",
-            "path": "methods/bizproc/bizproc.activity.add.md",
+            "path": "methods\\bizproc\\bizproc.activity.add.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -293,7 +293,7 @@
         {
             "method": "bizproc.activity.delete",
             "scope": "bizproc",
-            "path": "methods/bizproc/bizproc.activity.delete.md",
+            "path": "methods\\bizproc\\bizproc.activity.delete.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -301,7 +301,7 @@
         {
             "method": "bizproc.activity.list",
             "scope": "bizproc",
-            "path": "methods/bizproc/bizproc.activity.list.md",
+            "path": "methods\\bizproc\\bizproc.activity.list.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -309,7 +309,7 @@
         {
             "method": "bizproc.activity.log",
             "scope": "bizproc",
-            "path": "methods/bizproc/bizproc.activity.log.md",
+            "path": "methods\\bizproc\\bizproc.activity.log.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -317,7 +317,7 @@
         {
             "method": "bizproc.activity.update",
             "scope": "bizproc",
-            "path": "methods/bizproc/bizproc.activity.update.md",
+            "path": "methods\\bizproc\\bizproc.activity.update.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -325,7 +325,7 @@
         {
             "method": "bizproc.event.send",
             "scope": "bizproc",
-            "path": "methods/bizproc/bizproc.event.send.md",
+            "path": "methods\\bizproc\\bizproc.event.send.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -333,7 +333,7 @@
         {
             "method": "bizproc.robot.add",
             "scope": "bizproc",
-            "path": "methods/bizproc/bizproc.robot.add.md",
+            "path": "methods\\bizproc\\bizproc.robot.add.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -341,7 +341,7 @@
         {
             "method": "bizproc.robot.update",
             "scope": "bizproc",
-            "path": "methods/bizproc/bizproc.robot.update.md",
+            "path": "methods\\bizproc\\bizproc.robot.update.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -349,7 +349,7 @@
         {
             "method": "bizproc.robot.delete",
             "scope": "bizproc",
-            "path": "methods/bizproc/bizproc.robot.delete.md",
+            "path": "methods\\bizproc\\bizproc.robot.delete.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -357,7 +357,7 @@
         {
             "method": "bizproc.robot.list",
             "scope": "bizproc",
-            "path": "methods/bizproc/bizproc.robot.list.md",
+            "path": "methods\\bizproc\\bizproc.robot.list.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -365,7 +365,7 @@
         {
             "method": "bizproc.task.complete",
             "scope": "bizproc",
-            "path": "methods/bizproc/bizproc.task.complete.md",
+            "path": "methods\\bizproc\\bizproc.task.complete.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -373,7 +373,7 @@
         {
             "method": "bizproc.task.list",
             "scope": "bizproc",
-            "path": "methods/bizproc/bizproc.task.list.md",
+            "path": "methods\\bizproc\\bizproc.task.list.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -381,7 +381,7 @@
         {
             "method": "bizproc.workflow.instances",
             "scope": "bizproc",
-            "path": "methods/bizproc/bizproc.workflow.instances.md",
+            "path": "methods\\bizproc\\bizproc.workflow.instances.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -389,7 +389,7 @@
         {
             "method": "bizproc.workflow.instance.list",
             "scope": "bizproc",
-            "path": "methods/bizproc/bizproc.workflow.instance.list.md",
+            "path": "methods\\bizproc\\bizproc.workflow.instance.list.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -397,7 +397,7 @@
         {
             "method": "bizproc.workflow.kill",
             "scope": "bizproc",
-            "path": "methods/bizproc/bizproc.workflow.kill.md",
+            "path": "methods\\bizproc\\bizproc.workflow.kill.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -405,7 +405,7 @@
         {
             "method": "bizproc.workflow.start",
             "scope": "bizproc",
-            "path": "methods/bizproc/bizproc.workflow.start.md",
+            "path": "methods\\bizproc\\bizproc.workflow.start.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -413,7 +413,7 @@
         {
             "method": "bizproc.workflow.terminate",
             "scope": "bizproc",
-            "path": "methods/bizproc/bizproc.workflow.terminate.md",
+            "path": "methods\\bizproc\\bizproc.workflow.terminate.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -421,7 +421,7 @@
         {
             "method": "bizproc.workflow.template.add",
             "scope": "bizproc",
-            "path": "methods/bizproc/bizproc.workflow.template.add.md",
+            "path": "methods\\bizproc\\bizproc.workflow.template.add.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": true
@@ -429,7 +429,7 @@
         {
             "method": "bizproc.workflow.template.update",
             "scope": "bizproc",
-            "path": "methods/bizproc/bizproc.workflow.template.update.md",
+            "path": "methods\\bizproc\\bizproc.workflow.template.update.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": true
@@ -437,7 +437,7 @@
         {
             "method": "bizproc.workflow.template.delete",
             "scope": "bizproc",
-            "path": "methods/bizproc/bizproc.workflow.template.delete.md",
+            "path": "methods\\bizproc\\bizproc.workflow.template.delete.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -445,7 +445,7 @@
         {
             "method": "bizproc.workflow.template.list",
             "scope": "bizproc",
-            "path": "methods/bizproc/bizproc.workflow.template.list.md",
+            "path": "methods\\bizproc\\bizproc.workflow.template.list.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -477,7 +477,7 @@
         {
             "method": "imopenlines.network.join",
             "scope": "imopenlines",
-            "path": "methods/imopenlines/imopenlines.network.join.md",
+            "path": "methods\\imopenlines\\imopenlines.network.join.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -485,7 +485,7 @@
         {
             "method": "calendar.accessibility.get",
             "scope": "calendar",
-            "path": "methods/calendar/calendar.accessibility.get.md",
+            "path": "methods\\calendar\\calendar.accessibility.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -493,7 +493,7 @@
         {
             "method": "calendar.event.add",
             "scope": "calendar",
-            "path": "methods/calendar/calendar.event.add.md",
+            "path": "methods\\calendar\\calendar.event.add.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -501,7 +501,7 @@
         {
             "method": "calendar.event.delete",
             "scope": "calendar",
-            "path": "methods/calendar/calendar.event.delete.md",
+            "path": "methods\\calendar\\calendar.event.delete.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -509,7 +509,7 @@
         {
             "method": "calendar.event.get",
             "scope": "calendar",
-            "path": "methods/calendar/calendar.event.get.md",
+            "path": "methods\\calendar\\calendar.event.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -517,7 +517,7 @@
         {
             "method": "calendar.event.get.nearest",
             "scope": "calendar",
-            "path": "methods/calendar/calendar.event.get.nearest.md",
+            "path": "methods\\calendar\\calendar.event.get.nearest.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -525,7 +525,7 @@
         {
             "method": "calendar.event.getbyid",
             "scope": "calendar",
-            "path": "methods/calendar/calendar.event.getbyid.md",
+            "path": "methods\\calendar\\calendar.event.getbyid.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -533,7 +533,7 @@
         {
             "method": "calendar.event.update",
             "scope": "calendar",
-            "path": "methods/calendar/calendar.event.update.md",
+            "path": "methods\\calendar\\calendar.event.update.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -541,7 +541,7 @@
         {
             "method": "calendar.meeting.status.get",
             "scope": "calendar",
-            "path": "methods/calendar/calendar.meeting.status.get.md",
+            "path": "methods\\calendar\\calendar.meeting.status.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -549,7 +549,7 @@
         {
             "method": "calendar.meeting.status.set",
             "scope": "calendar",
-            "path": "methods/calendar/calendar.meeting.status.set.md",
+            "path": "methods\\calendar\\calendar.meeting.status.set.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -565,7 +565,7 @@
         {
             "method": "calendar.section.add",
             "scope": "calendar",
-            "path": "methods/calendar/calendar.section.add.md",
+            "path": "methods\\calendar\\calendar.section.add.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -573,7 +573,7 @@
         {
             "method": "calendar.section.delete",
             "scope": "calendar",
-            "path": "methods/calendar/calendar.section.delete.md",
+            "path": "methods\\calendar\\calendar.section.delete.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -581,7 +581,7 @@
         {
             "method": "calendar.section.get",
             "scope": "calendar",
-            "path": "methods/calendar/calendar.section.get.md",
+            "path": "methods\\calendar\\calendar.section.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -589,7 +589,7 @@
         {
             "method": "calendar.section.update",
             "scope": "calendar",
-            "path": "methods/calendar/calendar.section.update.md",
+            "path": "methods\\calendar\\calendar.section.update.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -597,7 +597,7 @@
         {
             "method": "calendar.settings.get",
             "scope": "calendar",
-            "path": "methods/calendar/calendar.settings.get.md",
+            "path": "methods\\calendar\\calendar.settings.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -605,7 +605,7 @@
         {
             "method": "calendar.user.settings.get",
             "scope": "calendar",
-            "path": "methods/calendar/calendar.user.settings.get.md",
+            "path": "methods\\calendar\\calendar.user.settings.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -613,7 +613,7 @@
         {
             "method": "calendar.user.settings.set",
             "scope": "calendar",
-            "path": "methods/calendar/calendar.user.settings.set.md",
+            "path": "methods\\calendar\\calendar.user.settings.set.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -621,7 +621,7 @@
         {
             "method": "calendar.resource.add",
             "scope": "calendar",
-            "path": "methods/calendar/calendar.resource.add.md",
+            "path": "methods\\calendar\\calendar.resource.add.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -629,7 +629,7 @@
         {
             "method": "calendar.resource.update",
             "scope": "calendar",
-            "path": "methods/calendar/calendar.resource.update.md",
+            "path": "methods\\calendar\\calendar.resource.update.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -637,7 +637,7 @@
         {
             "method": "calendar.resource.delete",
             "scope": "calendar",
-            "path": "methods/calendar/calendar.resource.delete.md",
+            "path": "methods\\calendar\\calendar.resource.delete.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -645,7 +645,7 @@
         {
             "method": "calendar.resource.list",
             "scope": "calendar",
-            "path": "methods/calendar/calendar.resource.list.md",
+            "path": "methods\\calendar\\calendar.resource.list.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -653,7 +653,7 @@
         {
             "method": "calendar.resource.booking.list",
             "scope": "calendar",
-            "path": "methods/calendar/calendar.resource.booking.list.md",
+            "path": "methods\\calendar\\calendar.resource.booking.list.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -661,7 +661,7 @@
         {
             "method": "crm.lead.get",
             "scope": "crm",
-            "path": "methods/crm/crm.lead.get.md",
+            "path": "methods\\crm\\crm.lead.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -669,7 +669,7 @@
         {
             "method": "crm.lead.list",
             "scope": "crm",
-            "path": "methods/crm/crm.lead.list.md",
+            "path": "methods\\crm\\crm.lead.list.md",
             "deprecated": false,
             "pagination": "start",
             "has_example": false
@@ -677,7 +677,7 @@
         {
             "method": "crm.lead.userfield.list",
             "scope": "crm",
-            "path": "methods/crm/crm.lead.userfield.list.md",
+            "path": "methods\\crm\\crm.lead.userfield.list.md",
             "deprecated": false,
             "pagination": "start",
             "has_example": false
@@ -869,8 +869,8 @@
         {
             "method": "crm.currency.list",
             "scope": "crm",
-            "path": "methods/crm/crm.currency.list.md",
-            "deprecated": false,
+            "path": "methods\\crm\\crm.currency.list.md",
+            "deprecated": true,
             "pagination": "start",
             "has_example": false
         },
@@ -2061,7 +2061,7 @@
         {
             "method": "im.chat.setowner",
             "scope": "im",
-            "path": "methods/im/im.chat.setowner.md",
+            "path": "methods\\im\\im.chat.setowner.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -2069,7 +2069,7 @@
         {
             "method": "im.chat.updateavatar",
             "scope": "im",
-            "path": "methods/im/im.chat.updateavatar.md",
+            "path": "methods\\im\\im.chat.updateavatar.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -2077,7 +2077,7 @@
         {
             "method": "im.chat.updatecolor",
             "scope": "im",
-            "path": "methods/im/im.chat.updatecolor.md",
+            "path": "methods\\im\\im.chat.updatecolor.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -2085,7 +2085,7 @@
         {
             "method": "im.chat.updatetitle",
             "scope": "im",
-            "path": "methods/im/im.chat.updatetitle.md",
+            "path": "methods\\im\\im.chat.updatetitle.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -2093,7 +2093,7 @@
         {
             "method": "im.chat.add",
             "scope": "im",
-            "path": "methods/im/im.chat.add.md",
+            "path": "methods\\im\\im.chat.add.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -2101,7 +2101,7 @@
         {
             "method": "im.chat.leave",
             "scope": "im",
-            "path": "methods/im/im.chat.leave.md",
+            "path": "methods\\im\\im.chat.leave.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -2109,7 +2109,7 @@
         {
             "method": "im.chat.user.add",
             "scope": "im",
-            "path": "methods/im/im.chat.user.add.md",
+            "path": "methods\\im\\im.chat.user.add.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -2117,7 +2117,7 @@
         {
             "method": "im.chat.user.delete",
             "scope": "im",
-            "path": "methods/im/im.chat.user.delete.md",
+            "path": "methods\\im\\im.chat.user.delete.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -2125,7 +2125,7 @@
         {
             "method": "im.chat.user.list",
             "scope": "im",
-            "path": "methods/im/im.chat.user.list.md",
+            "path": "methods\\im\\im.chat.user.list.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -2133,7 +2133,7 @@
         {
             "method": "im.dialog.users.list",
             "scope": "im",
-            "path": "methods/im/im.dialog.users.list.md",
+            "path": "methods\\im\\im.dialog.users.list.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -2149,7 +2149,7 @@
         {
             "method": "im.department.colleagues.list",
             "scope": "im",
-            "path": "methods/im/im.department.colleagues.list.md",
+            "path": "methods\\im\\im.department.colleagues.list.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -2157,7 +2157,7 @@
         {
             "method": "im.department.employees.get",
             "scope": "im",
-            "path": "methods/im/im.department.employees.get.md",
+            "path": "methods\\im\\im.department.employees.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -2165,7 +2165,7 @@
         {
             "method": "im.department.get",
             "scope": "im",
-            "path": "methods/im/im.department.get.md",
+            "path": "methods\\im\\im.department.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -2173,7 +2173,7 @@
         {
             "method": "im.department.managers.get",
             "scope": "im",
-            "path": "methods/im/im.department.managers.get.md",
+            "path": "methods\\im\\im.department.managers.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -2181,7 +2181,7 @@
         {
             "method": "im.disk.file.commit",
             "scope": "im",
-            "path": "methods/im/im.disk.file.commit.md",
+            "path": "methods\\im\\im.disk.file.commit.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -2189,7 +2189,7 @@
         {
             "method": "disk.folder.uploadfile",
             "scope": "disk",
-            "path": "methods/disk/disk.folder.uploadfile.md",
+            "path": "methods\\disk\\disk.folder.uploadfile.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -2197,7 +2197,7 @@
         {
             "method": "im.disk.file.delete",
             "scope": "im",
-            "path": "methods/im/im.disk.file.delete.md",
+            "path": "methods\\im\\im.disk.file.delete.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -2205,7 +2205,7 @@
         {
             "method": "im.disk.file.save",
             "scope": "im",
-            "path": "methods/im/im.disk.file.save.md",
+            "path": "methods\\im\\im.disk.file.save.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -2213,7 +2213,7 @@
         {
             "method": "im.disk.folder.get",
             "scope": "im",
-            "path": "methods/im/im.disk.folder.get.md",
+            "path": "methods\\im\\im.disk.folder.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -2221,7 +2221,7 @@
         {
             "method": "im.chat.get",
             "scope": "im",
-            "path": "methods/im/im.chat.get.md",
+            "path": "methods\\im\\im.chat.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -2229,7 +2229,7 @@
         {
             "method": "disk.folder.getchildren",
             "scope": "disk",
-            "path": "methods/disk/disk.folder.getchildren.md",
+            "path": "methods\\disk\\disk.folder.getchildren.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -2237,7 +2237,7 @@
         {
             "method": "im.counters.get",
             "scope": "im",
-            "path": "methods/im/im.counters.get.md",
+            "path": "methods\\im\\im.counters.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -2245,7 +2245,7 @@
         {
             "method": "im.dialog.get",
             "scope": "im",
-            "path": "methods/im/im.dialog.get.md",
+            "path": "methods\\im\\im.dialog.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -2253,7 +2253,7 @@
         {
             "method": "im.recent.get",
             "scope": "im",
-            "path": "methods/im/im.recent.get.md",
+            "path": "methods\\im\\im.recent.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -2261,7 +2261,7 @@
         {
             "method": "im.user.status.idle.start",
             "scope": "im",
-            "path": "methods/im/im.user.status.idle.start.md",
+            "path": "methods\\im\\im.user.status.idle.start.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -2269,7 +2269,7 @@
         {
             "method": "im.recent.list",
             "scope": "im",
-            "path": "methods/im/im.recent.list.md",
+            "path": "methods\\im\\im.recent.list.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -2277,7 +2277,7 @@
         {
             "method": "im.dialog.messages.get",
             "scope": "im",
-            "path": "methods/im/im.dialog.messages.get.md",
+            "path": "methods\\im\\im.dialog.messages.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -2285,7 +2285,7 @@
         {
             "method": "im.dialog.read",
             "scope": "im",
-            "path": "methods/im/im.dialog.read.md",
+            "path": "methods\\im\\im.dialog.read.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -2293,7 +2293,7 @@
         {
             "method": "im.dialog.unread",
             "scope": "im",
-            "path": "methods/im/im.dialog.unread.md",
+            "path": "methods\\im\\im.dialog.unread.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -2301,7 +2301,7 @@
         {
             "method": "im.dialog.writing",
             "scope": "im",
-            "path": "methods/im/im.dialog.writing.md",
+            "path": "methods\\im\\im.dialog.writing.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -2309,7 +2309,7 @@
         {
             "method": "im.message.add",
             "scope": "im",
-            "path": "methods/im/im.message.add.md",
+            "path": "methods\\im\\im.message.add.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -2317,7 +2317,7 @@
         {
             "method": "im.message.command",
             "scope": "im",
-            "path": "methods/im/im.message.command.md",
+            "path": "methods\\im\\im.message.command.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -2325,7 +2325,7 @@
         {
             "method": "im.message.delete",
             "scope": "im",
-            "path": "methods/im/im.message.delete.md",
+            "path": "methods\\im\\im.message.delete.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -2333,7 +2333,7 @@
         {
             "method": "im.message.like",
             "scope": "im",
-            "path": "methods/im/im.message.like.md",
+            "path": "methods\\im\\im.message.like.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -2341,7 +2341,7 @@
         {
             "method": "im.message.share",
             "scope": "im",
-            "path": "methods/im/im.message.share.md",
+            "path": "methods\\im\\im.message.share.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -2349,7 +2349,7 @@
         {
             "method": "im.message.update",
             "scope": "im",
-            "path": "methods/im/im.message.update.md",
+            "path": "methods\\im\\im.message.update.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -2357,7 +2357,7 @@
         {
             "method": "im.notify.answer",
             "scope": "im",
-            "path": "methods/im/im.notify.answer.md",
+            "path": "methods\\im\\im.notify.answer.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -2365,7 +2365,7 @@
         {
             "method": "im.notify.confirm",
             "scope": "im",
-            "path": "methods/im/im.notify.confirm.md",
+            "path": "methods\\im\\im.notify.confirm.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -2373,7 +2373,7 @@
         {
             "method": "im.notify.delete",
             "scope": "im",
-            "path": "methods/im/im.notify.delete.md",
+            "path": "methods\\im\\im.notify.delete.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -2381,7 +2381,7 @@
         {
             "method": "im.notify.personal.add",
             "scope": "im",
-            "path": "methods/im/im.notify.personal.add.md",
+            "path": "methods\\im\\im.notify.personal.add.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -2389,7 +2389,7 @@
         {
             "method": "im.notify.read.list",
             "scope": "im",
-            "path": "methods/im/im.notify.read.list.md",
+            "path": "methods\\im\\im.notify.read.list.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -2397,7 +2397,7 @@
         {
             "method": "im.notify.read",
             "scope": "im",
-            "path": "methods/im/im.notify.read.md",
+            "path": "methods\\im\\im.notify.read.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -2405,7 +2405,7 @@
         {
             "method": "im.notify.system.add",
             "scope": "im",
-            "path": "methods/im/im.notify.system.add.md",
+            "path": "methods\\im\\im.notify.system.add.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -2413,7 +2413,7 @@
         {
             "method": "im.search.chat.list",
             "scope": "im",
-            "path": "methods/im/im.search.chat.list.md",
+            "path": "methods\\im\\im.search.chat.list.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -2421,7 +2421,7 @@
         {
             "method": "im.search.department.list",
             "scope": "im",
-            "path": "methods/im/im.search.department.list.md",
+            "path": "methods\\im\\im.search.department.list.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -2429,7 +2429,7 @@
         {
             "method": "im.search.last.add",
             "scope": "im",
-            "path": "methods/im/im.search.last.add.md",
+            "path": "methods\\im\\im.search.last.add.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -2437,7 +2437,7 @@
         {
             "method": "im.search.last.delete",
             "scope": "im",
-            "path": "methods/im/im.search.last.delete.md",
+            "path": "methods\\im\\im.search.last.delete.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -2445,7 +2445,7 @@
         {
             "method": "im.search.last.get",
             "scope": "im",
-            "path": "methods/im/im.search.last.get.md",
+            "path": "methods\\im\\im.search.last.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -2453,7 +2453,7 @@
         {
             "method": "im.search.user.list",
             "scope": "im",
-            "path": "methods/im/im.search.user.list.md",
+            "path": "methods\\im\\im.search.user.list.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -2461,7 +2461,7 @@
         {
             "method": "im.chat.mute",
             "scope": "im",
-            "path": "methods/im/im.chat.mute.md",
+            "path": "methods\\im\\im.chat.mute.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -2469,7 +2469,7 @@
         {
             "method": "im.dialog.read.all",
             "scope": "im",
-            "path": "methods/im/im.dialog.read.all.md",
+            "path": "methods\\im\\im.dialog.read.all.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -2477,7 +2477,7 @@
         {
             "method": "im.recent.hide",
             "scope": "im",
-            "path": "methods/im/im.recent.hide.md",
+            "path": "methods\\im\\im.recent.hide.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -2485,7 +2485,7 @@
         {
             "method": "im.recent.pin",
             "scope": "im",
-            "path": "methods/im/im.recent.pin.md",
+            "path": "methods\\im\\im.recent.pin.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -2493,7 +2493,7 @@
         {
             "method": "im.recent.unread",
             "scope": "im",
-            "path": "methods/im/im.recent.unread.md",
+            "path": "methods\\im\\im.recent.unread.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -2501,7 +2501,7 @@
         {
             "method": "im.user.get",
             "scope": "im",
-            "path": "methods/im/im.user.get.md",
+            "path": "methods\\im\\im.user.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -2509,7 +2509,7 @@
         {
             "method": "im.user.list.get",
             "scope": "im",
-            "path": "methods/im/im.user.list.get.md",
+            "path": "methods\\im\\im.user.list.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -2517,7 +2517,7 @@
         {
             "method": "im.user.status.get",
             "scope": "im",
-            "path": "methods/im/im.user.status.get.md",
+            "path": "methods\\im\\im.user.status.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -2525,7 +2525,7 @@
         {
             "method": "im.user.status.idle.end",
             "scope": "im",
-            "path": "methods/im/im.user.status.idle.end.md",
+            "path": "methods\\im\\im.user.status.idle.end.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -2533,7 +2533,7 @@
         {
             "method": "im.user.status.set",
             "scope": "im",
-            "path": "methods/im/im.user.status.set.md",
+            "path": "methods\\im\\im.user.status.set.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -2549,7 +2549,7 @@
         {
             "method": "im.user.business.list",
             "scope": "im",
-            "path": "methods/im/im.user.business.list.md",
+            "path": "methods\\im\\im.user.business.list.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -2565,7 +2565,7 @@
         {
             "method": "user.option.set",
             "scope": "user",
-            "path": "methods/user/user.option.set.md",
+            "path": "methods\\user\\user.option.set.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": true
@@ -2573,7 +2573,7 @@
         {
             "method": "user.option.get",
             "scope": "user",
-            "path": "methods/user/user.option.get.md",
+            "path": "methods\\user\\user.option.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": true
@@ -2597,7 +2597,7 @@
         {
             "method": "crm.lead.add",
             "scope": "crm",
-            "path": "methods/crm/crm.lead.add.md",
+            "path": "methods\\crm\\crm.lead.add.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -2661,7 +2661,7 @@
         {
             "method": "crm.automation.trigger",
             "scope": "crm",
-            "path": "methods/crm/crm.automation.trigger.md",
+            "path": "methods\\crm\\crm.automation.trigger.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -2669,7 +2669,7 @@
         {
             "method": "crm.automation.trigger.execute",
             "scope": "crm",
-            "path": "methods/crm/crm.automation.trigger.execute.md",
+            "path": "methods\\crm\\crm.automation.trigger.execute.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -2677,7 +2677,7 @@
         {
             "method": "crm.automation.trigger.add",
             "scope": "crm",
-            "path": "methods/crm/crm.automation.trigger.add.md",
+            "path": "methods\\crm\\crm.automation.trigger.add.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -2685,7 +2685,7 @@
         {
             "method": "crm.automation.trigger.delete",
             "scope": "crm",
-            "path": "methods/crm/crm.automation.trigger.delete.md",
+            "path": "methods\\crm\\crm.automation.trigger.delete.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -2693,7 +2693,7 @@
         {
             "method": "crm.enum.ownertype",
             "scope": "crm",
-            "path": "methods/crm/crm.enum.ownertype.md",
+            "path": "methods\\crm\\crm.enum.ownertype.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -2701,7 +2701,7 @@
         {
             "method": "crm.automation.trigger.list",
             "scope": "crm",
-            "path": "methods/crm/crm.automation.trigger.list.md",
+            "path": "methods\\crm\\crm.automation.trigger.list.md",
             "deprecated": false,
             "pagination": "start",
             "has_example": false
@@ -2709,7 +2709,7 @@
         {
             "method": "crm.enum.addresstype",
             "scope": "crm",
-            "path": "methods/crm/crm.enum.addresstype.md",
+            "path": "methods\\crm\\crm.enum.addresstype.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -2717,7 +2717,7 @@
         {
             "method": "crm.enum.fields",
             "scope": "crm",
-            "path": "methods/crm/crm.enum.fields.md",
+            "path": "methods\\crm\\crm.enum.fields.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -2733,7 +2733,7 @@
         {
             "method": "crm.enum.settings.mode",
             "scope": "crm",
-            "path": "methods/crm/crm.enum.settings.mode.md",
+            "path": "methods\\crm\\crm.enum.settings.mode.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -2741,7 +2741,7 @@
         {
             "method": "crm.settings.mode.get",
             "scope": "crm",
-            "path": "methods/crm/crm.settings.mode.get.md",
+            "path": "methods\\crm\\crm.settings.mode.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": true
@@ -2749,7 +2749,7 @@
         {
             "method": "crm.address.list",
             "scope": "crm",
-            "path": "methods/crm/crm.address.list.md",
+            "path": "methods\\crm\\crm.address.list.md",
             "deprecated": false,
             "pagination": "start",
             "has_example": false
@@ -2757,7 +2757,7 @@
         {
             "method": "crm.enum.contenttype",
             "scope": "crm",
-            "path": "methods/crm/crm.enum.contenttype.md",
+            "path": "methods\\crm\\crm.enum.contenttype.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -2765,7 +2765,7 @@
         {
             "method": "crm.enum.activitytype",
             "scope": "crm",
-            "path": "methods/crm/crm.enum.activitytype.md",
+            "path": "methods\\crm\\crm.enum.activitytype.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -2773,7 +2773,7 @@
         {
             "method": "crm.enum.activitystatus",
             "scope": "crm",
-            "path": "methods/crm/crm.enum.activitystatus.md",
+            "path": "methods\\crm\\crm.enum.activitystatus.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -2781,7 +2781,7 @@
         {
             "method": "crm.enum.activitypriority",
             "scope": "crm",
-            "path": "methods/crm/crm.enum.activitypriority.md",
+            "path": "methods\\crm\\crm.enum.activitypriority.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -2789,7 +2789,7 @@
         {
             "method": "crm.enum.activitydirection",
             "scope": "crm",
-            "path": "methods/crm/crm.enum.activitydirection.md",
+            "path": "methods\\crm\\crm.enum.activitydirection.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -2797,7 +2797,7 @@
         {
             "method": "crm.enum.activitynotifytype",
             "scope": "crm",
-            "path": "methods/crm/crm.enum.activitynotifytype.md",
+            "path": "methods\\crm\\crm.enum.activitynotifytype.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -2813,7 +2813,7 @@
         {
             "method": "crm.multifield.fields",
             "scope": "crm",
-            "path": "methods/crm/crm.multifield.fields.md",
+            "path": "methods\\crm\\crm.multifield.fields.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": true
@@ -2877,7 +2877,7 @@
         {
             "method": "crm.activity.delete",
             "scope": "crm",
-            "path": "methods/crm/crm.activity.delete.md",
+            "path": "methods\\crm\\crm.activity.delete.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -2885,7 +2885,7 @@
         {
             "method": "crm.deal.delete",
             "scope": "crm",
-            "path": "methods/crm/crm.deal.delete.md",
+            "path": "methods\\crm\\crm.deal.delete.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -2893,7 +2893,7 @@
         {
             "method": "crm.company.contact.add",
             "scope": "crm",
-            "path": "methods/crm/crm.company.contact.add.md",
+            "path": "methods\\crm\\crm.company.contact.add.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -2901,7 +2901,7 @@
         {
             "method": "crm.company.fields",
             "scope": "crm",
-            "path": "methods/crm/crm.company.fields.md",
+            "path": "methods\\crm\\crm.company.fields.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -2909,7 +2909,7 @@
         {
             "method": "crm.company.contact.delete",
             "scope": "crm",
-            "path": "methods/crm/crm.company.contact.delete.md",
+            "path": "methods\\crm\\crm.company.contact.delete.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -2917,7 +2917,7 @@
         {
             "method": "crm.company.contact.fields",
             "scope": "crm",
-            "path": "methods/crm/crm.company.contact.fields.md",
+            "path": "methods\\crm\\crm.company.contact.fields.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -2933,7 +2933,7 @@
         {
             "method": "crm.company.contact.items.get",
             "scope": "crm",
-            "path": "methods/crm/crm.company.contact.items.get.md",
+            "path": "methods\\crm\\crm.company.contact.items.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -2941,7 +2941,7 @@
         {
             "method": "crm.company.contact.items.set",
             "scope": "crm",
-            "path": "methods/crm/crm.company.contact.items.set.md",
+            "path": "methods\\crm\\crm.company.contact.items.set.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -2949,7 +2949,7 @@
         {
             "method": "crm.company.contact.items.delete",
             "scope": "crm",
-            "path": "methods/crm/crm.company.contact.items.delete.md",
+            "path": "methods\\crm\\crm.company.contact.items.delete.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -2957,7 +2957,7 @@
         {
             "method": "crm.company.add",
             "scope": "crm",
-            "path": "methods/crm/crm.company.add.md",
+            "path": "methods\\crm\\crm.company.add.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -2965,7 +2965,7 @@
         {
             "method": "crm.company.delete",
             "scope": "crm",
-            "path": "methods/crm/crm.company.delete.md",
+            "path": "methods\\crm\\crm.company.delete.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -2973,7 +2973,7 @@
         {
             "method": "crm.company.get",
             "scope": "crm",
-            "path": "methods/crm/crm.company.get.md",
+            "path": "methods\\crm\\crm.company.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -2981,7 +2981,7 @@
         {
             "method": "crm.company.list",
             "scope": "crm",
-            "path": "methods/crm/crm.company.list.md",
+            "path": "methods\\crm\\crm.company.list.md",
             "deprecated": false,
             "pagination": "start",
             "has_example": false
@@ -2989,7 +2989,7 @@
         {
             "method": "crm.company.update",
             "scope": "crm",
-            "path": "methods/crm/crm.company.update.md",
+            "path": "methods\\crm\\crm.company.update.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -2997,7 +2997,7 @@
         {
             "method": "crm.company.details.configuration.forcecommonscopeforall",
             "scope": "crm",
-            "path": "methods/crm/crm.company.details.configuration.forcecommonscopeforall.md",
+            "path": "methods\\crm\\crm.company.details.configuration.forcecommonscopeforall.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -3005,7 +3005,7 @@
         {
             "method": "crm.company.details.configuration.get",
             "scope": "crm",
-            "path": "methods/crm/crm.company.details.configuration.get.md",
+            "path": "methods\\crm\\crm.company.details.configuration.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -3013,7 +3013,7 @@
         {
             "method": "crm.company.details.configuration.reset",
             "scope": "crm",
-            "path": "methods/crm/crm.company.details.configuration.reset.md",
+            "path": "methods\\crm\\crm.company.details.configuration.reset.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -3021,7 +3021,7 @@
         {
             "method": "crm.company.details.configuration.set",
             "scope": "crm",
-            "path": "methods/crm/crm.company.details.configuration.set.md",
+            "path": "methods\\crm\\crm.company.details.configuration.set.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -3045,7 +3045,7 @@
         {
             "method": "crm.company.userfield.add",
             "scope": "crm",
-            "path": "methods/crm/crm.company.userfield.add.md",
+            "path": "methods\\crm\\crm.company.userfield.add.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -3053,7 +3053,7 @@
         {
             "method": "crm.company.userfield.update",
             "scope": "crm",
-            "path": "methods/crm/crm.company.userfield.update.md",
+            "path": "methods\\crm\\crm.company.userfield.update.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -3061,7 +3061,7 @@
         {
             "method": "crm.company.userfield.get",
             "scope": "crm",
-            "path": "methods/crm/crm.company.userfield.get.md",
+            "path": "methods\\crm\\crm.company.userfield.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -3069,7 +3069,7 @@
         {
             "method": "crm.company.userfield.list",
             "scope": "crm",
-            "path": "methods/crm/crm.company.userfield.list.md",
+            "path": "methods\\crm\\crm.company.userfield.list.md",
             "deprecated": false,
             "pagination": "start",
             "has_example": false
@@ -3077,7 +3077,7 @@
         {
             "method": "crm.company.userfield.delete",
             "scope": "crm",
-            "path": "methods/crm/crm.company.userfield.delete.md",
+            "path": "methods\\crm\\crm.company.userfield.delete.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -3085,7 +3085,7 @@
         {
             "method": "crm.userfield.fields",
             "scope": "crm",
-            "path": "methods/crm/crm.userfield.fields.md",
+            "path": "methods\\crm\\crm.userfield.fields.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -3101,7 +3101,7 @@
         {
             "method": "crm.userfield.types",
             "scope": "crm",
-            "path": "methods/crm/crm.userfield.types.md",
+            "path": "methods\\crm\\crm.userfield.types.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -3109,7 +3109,7 @@
         {
             "method": "crm.userfield.settings.fields",
             "scope": "crm",
-            "path": "methods/crm/crm.userfield.settings.fields.md",
+            "path": "methods\\crm\\crm.userfield.settings.fields.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -3117,7 +3117,7 @@
         {
             "method": "crm.contact.company.add",
             "scope": "crm",
-            "path": "methods/crm/crm.contact.company.add.md",
+            "path": "methods\\crm\\crm.contact.company.add.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -3125,7 +3125,7 @@
         {
             "method": "crm.contact.list",
             "scope": "crm",
-            "path": "methods/crm/crm.contact.list.md",
+            "path": "methods\\crm\\crm.contact.list.md",
             "deprecated": false,
             "pagination": "start",
             "has_example": false
@@ -3133,7 +3133,7 @@
         {
             "method": "crm.contact.add",
             "scope": "crm",
-            "path": "methods/crm/crm.contact.add.md",
+            "path": "methods\\crm\\crm.contact.add.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -3141,7 +3141,7 @@
         {
             "method": "crm.contact.company.delete",
             "scope": "crm",
-            "path": "methods/crm/crm.contact.company.delete.md",
+            "path": "methods\\crm\\crm.contact.company.delete.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -3149,7 +3149,7 @@
         {
             "method": "crm.contact.company.fields",
             "scope": "crm",
-            "path": "methods/crm/crm.contact.company.fields.md",
+            "path": "methods\\crm\\crm.contact.company.fields.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -3157,7 +3157,7 @@
         {
             "method": "crm.contact.company.items.delete",
             "scope": "crm",
-            "path": "methods/crm/crm.contact.company.items.delete.md",
+            "path": "methods\\crm\\crm.contact.company.items.delete.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -3165,7 +3165,7 @@
         {
             "method": "crm.contact.company.items.get",
             "scope": "crm",
-            "path": "methods/crm/crm.contact.company.items.get.md",
+            "path": "methods\\crm\\crm.contact.company.items.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -3173,7 +3173,7 @@
         {
             "method": "crm.contact.company.items.set",
             "scope": "crm",
-            "path": "methods/crm/crm.contact.company.items.set.md",
+            "path": "methods\\crm\\crm.contact.company.items.set.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -3189,7 +3189,7 @@
         {
             "method": "crm.status.list",
             "scope": "crm",
-            "path": "methods/crm/crm.status.list.md",
+            "path": "methods\\crm\\crm.status.list.md",
             "deprecated": false,
             "pagination": "start",
             "has_example": false
@@ -3197,7 +3197,7 @@
         {
             "method": "crm.contact.userfield.add",
             "scope": "crm",
-            "path": "methods/crm/crm.contact.userfield.add.md",
+            "path": "methods\\crm\\crm.contact.userfield.add.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -3205,7 +3205,7 @@
         {
             "method": "crm.contact.delete",
             "scope": "crm",
-            "path": "methods/crm/crm.contact.delete.md",
+            "path": "methods\\crm\\crm.contact.delete.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -3213,7 +3213,7 @@
         {
             "method": "crm.contact.fields",
             "scope": "crm",
-            "path": "methods/crm/crm.contact.fields.md",
+            "path": "methods\\crm\\crm.contact.fields.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -3221,7 +3221,7 @@
         {
             "method": "crm.contact.update",
             "scope": "crm",
-            "path": "methods/crm/crm.contact.update.md",
+            "path": "methods\\crm\\crm.contact.update.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -3229,7 +3229,7 @@
         {
             "method": "crm.contact.get",
             "scope": "crm",
-            "path": "methods/crm/crm.contact.get.md",
+            "path": "methods\\crm\\crm.contact.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -3245,7 +3245,7 @@
         {
             "method": "crm.contact.details.configuration.forcecommonscopeforall",
             "scope": "crm",
-            "path": "methods/crm/crm.contact.details.configuration.forcecommonscopeforall.md",
+            "path": "methods\\crm\\crm.contact.details.configuration.forcecommonscopeforall.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -3253,7 +3253,7 @@
         {
             "method": "crm.contact.details.configuration.get",
             "scope": "crm",
-            "path": "methods/crm/crm.contact.details.configuration.get.md",
+            "path": "methods\\crm\\crm.contact.details.configuration.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -3261,7 +3261,7 @@
         {
             "method": "crm.contact.details.configuration.reset",
             "scope": "crm",
-            "path": "methods/crm/crm.contact.details.configuration.reset.md",
+            "path": "methods\\crm\\crm.contact.details.configuration.reset.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -3269,7 +3269,7 @@
         {
             "method": "crm.contact.details.configuration.set",
             "scope": "crm",
-            "path": "methods/crm/crm.contact.details.configuration.set.md",
+            "path": "methods\\crm\\crm.contact.details.configuration.set.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -3301,7 +3301,7 @@
         {
             "method": "crm.contact.userfield.update",
             "scope": "crm",
-            "path": "methods/crm/crm.contact.userfield.update.md",
+            "path": "methods\\crm\\crm.contact.userfield.update.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -3309,7 +3309,7 @@
         {
             "method": "crm.contact.userfield.get",
             "scope": "crm",
-            "path": "methods/crm/crm.contact.userfield.get.md",
+            "path": "methods\\crm\\crm.contact.userfield.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -3317,7 +3317,7 @@
         {
             "method": "crm.contact.userfield.list",
             "scope": "crm",
-            "path": "methods/crm/crm.contact.userfield.list.md",
+            "path": "methods\\crm\\crm.contact.userfield.list.md",
             "deprecated": false,
             "pagination": "start",
             "has_example": false
@@ -3325,7 +3325,7 @@
         {
             "method": "crm.contact.userfield.delete",
             "scope": "crm",
-            "path": "methods/crm/crm.contact.userfield.delete.md",
+            "path": "methods\\crm\\crm.contact.userfield.delete.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -3333,7 +3333,7 @@
         {
             "method": "crm.status.entity.types",
             "scope": "crm",
-            "path": "methods/crm/crm.status.entity.types.md",
+            "path": "methods\\crm\\crm.status.entity.types.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -3349,7 +3349,7 @@
         {
             "method": "crm.currency.add",
             "scope": "crm",
-            "path": "methods/crm/crm.currency.add.md",
+            "path": "methods\\crm\\crm.currency.add.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -3357,7 +3357,7 @@
         {
             "method": "crm.currency.localizations.set",
             "scope": "crm",
-            "path": "methods/crm/crm.currency.localizations.set.md",
+            "path": "methods\\crm\\crm.currency.localizations.set.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -3365,7 +3365,7 @@
         {
             "method": "crm.currency.base.get",
             "scope": "crm",
-            "path": "methods/crm/crm.currency.base.get.md",
+            "path": "methods\\crm\\crm.currency.base.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -3373,7 +3373,7 @@
         {
             "method": "crm.currency.base.set",
             "scope": "crm",
-            "path": "methods/crm/crm.currency.base.set.md",
+            "path": "methods\\crm\\crm.currency.base.set.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -3381,7 +3381,7 @@
         {
             "method": "crm.currency.delete",
             "scope": "crm",
-            "path": "methods/crm/crm.currency.delete.md",
+            "path": "methods\\crm\\crm.currency.delete.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -3389,7 +3389,7 @@
         {
             "method": "crm.currency.fields",
             "scope": "crm",
-            "path": "methods/crm/crm.currency.fields.md",
+            "path": "methods\\crm\\crm.currency.fields.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -3397,7 +3397,7 @@
         {
             "method": "crm.currency.get",
             "scope": "crm",
-            "path": "methods/crm/crm.currency.get.md",
+            "path": "methods\\crm\\crm.currency.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -3405,7 +3405,7 @@
         {
             "method": "crm.currency.update",
             "scope": "crm",
-            "path": "methods/crm/crm.currency.update.md",
+            "path": "methods\\crm\\crm.currency.update.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -3421,7 +3421,7 @@
         {
             "method": "crm.currency.localizations.delete",
             "scope": "crm",
-            "path": "methods/crm/crm.currency.localizations.delete.md",
+            "path": "methods\\crm\\crm.currency.localizations.delete.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -3429,7 +3429,7 @@
         {
             "method": "crm.currency.localizations.fields",
             "scope": "crm",
-            "path": "methods/crm/crm.currency.localizations.fields.md",
+            "path": "methods\\crm\\crm.currency.localizations.fields.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -3437,7 +3437,7 @@
         {
             "method": "crm.currency.localizations.get",
             "scope": "crm",
-            "path": "methods/crm/crm.currency.localizations.get.md",
+            "path": "methods\\crm\\crm.currency.localizations.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -3445,7 +3445,7 @@
         {
             "method": "crm.quote.get",
             "scope": "crm",
-            "path": "methods/crm/crm.quote.get.md",
+            "path": "methods\\crm\\crm.quote.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -3469,7 +3469,7 @@
         {
             "method": "crm.deal.contact.add",
             "scope": "crm",
-            "path": "methods/crm/crm.deal.contact.add.md",
+            "path": "methods\\crm\\crm.deal.contact.add.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -3477,7 +3477,7 @@
         {
             "method": "crm.deal.contact.fields",
             "scope": "crm",
-            "path": "methods/crm/crm.deal.contact.fields.md",
+            "path": "methods\\crm\\crm.deal.contact.fields.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -3485,7 +3485,7 @@
         {
             "method": "crm.deal.contact.delete",
             "scope": "crm",
-            "path": "methods/crm/crm.deal.contact.delete.md",
+            "path": "methods\\crm\\crm.deal.contact.delete.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -3501,7 +3501,7 @@
         {
             "method": "crm.deal.contact.items.get",
             "scope": "crm",
-            "path": "methods/crm/crm.deal.contact.items.get.md",
+            "path": "methods\\crm\\crm.deal.contact.items.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -3509,7 +3509,7 @@
         {
             "method": "crm.deal.contact.items.set",
             "scope": "crm",
-            "path": "methods/crm/crm.deal.contact.items.set.md",
+            "path": "methods\\crm\\crm.deal.contact.items.set.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -3517,7 +3517,7 @@
         {
             "method": "crm.deal.contact.items.delete",
             "scope": "crm",
-            "path": "methods/crm/crm.deal.contact.items.delete.md",
+            "path": "methods\\crm\\crm.deal.contact.items.delete.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -3533,7 +3533,7 @@
         {
             "method": "crm.deal.userfield.add",
             "scope": "crm",
-            "path": "methods/crm/crm.deal.userfield.add.md",
+            "path": "methods\\crm\\crm.deal.userfield.add.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -3541,7 +3541,7 @@
         {
             "method": "crm.deal.fields",
             "scope": "crm",
-            "path": "methods/crm/crm.deal.fields.md",
+            "path": "methods\\crm\\crm.deal.fields.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -3549,7 +3549,7 @@
         {
             "method": "crm.deal.productrows.get",
             "scope": "crm",
-            "path": "methods/crm/crm.deal.productrows.get.md",
+            "path": "methods\\crm\\crm.deal.productrows.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -3557,7 +3557,7 @@
         {
             "method": "crm.deal.productrows.set",
             "scope": "crm",
-            "path": "methods/crm/crm.deal.productrows.set.md",
+            "path": "methods\\crm\\crm.deal.productrows.set.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -3565,7 +3565,7 @@
         {
             "method": "crm.deal.update",
             "scope": "crm",
-            "path": "methods/crm/crm.deal.update.md",
+            "path": "methods\\crm\\crm.deal.update.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -3573,7 +3573,7 @@
         {
             "method": "crm.deal.details.configuration.forcecommonscopeforall",
             "scope": "crm",
-            "path": "methods/crm/crm.deal.details.configuration.forcecommonscopeforall.md",
+            "path": "methods\\crm\\crm.deal.details.configuration.forcecommonscopeforall.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -3581,7 +3581,7 @@
         {
             "method": "crm.deal.details.configuration.get",
             "scope": "crm",
-            "path": "methods/crm/crm.deal.details.configuration.get.md",
+            "path": "methods\\crm\\crm.deal.details.configuration.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -3589,7 +3589,7 @@
         {
             "method": "crm.deal.details.configuration.reset",
             "scope": "crm",
-            "path": "methods/crm/crm.deal.details.configuration.reset.md",
+            "path": "methods\\crm\\crm.deal.details.configuration.reset.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -3597,7 +3597,7 @@
         {
             "method": "crm.deal.details.configuration.set",
             "scope": "crm",
-            "path": "methods/crm/crm.deal.details.configuration.set.md",
+            "path": "methods\\crm\\crm.deal.details.configuration.set.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -3637,7 +3637,7 @@
         {
             "method": "crm.deal.recurring.add",
             "scope": "crm",
-            "path": "methods/crm/crm.deal.recurring.add.md",
+            "path": "methods\\crm\\crm.deal.recurring.add.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -3645,7 +3645,7 @@
         {
             "method": "crm.deal.recurring.fields",
             "scope": "crm",
-            "path": "methods/crm/crm.deal.recurring.fields.md",
+            "path": "methods\\crm\\crm.deal.recurring.fields.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -3653,7 +3653,7 @@
         {
             "method": "crm.deal.recurring.expose",
             "scope": "crm",
-            "path": "methods/crm/crm.deal.recurring.expose.md",
+            "path": "methods\\crm\\crm.deal.recurring.expose.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -3661,7 +3661,7 @@
         {
             "method": "crm.deal.recurring.update",
             "scope": "crm",
-            "path": "methods/crm/crm.deal.recurring.update.md",
+            "path": "methods\\crm\\crm.deal.recurring.update.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -3669,7 +3669,7 @@
         {
             "method": "crm.deal.recurring.get",
             "scope": "crm",
-            "path": "methods/crm/crm.deal.recurring.get.md",
+            "path": "methods\\crm\\crm.deal.recurring.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -3677,7 +3677,7 @@
         {
             "method": "crm.deal.recurring.list",
             "scope": "crm",
-            "path": "methods/crm/crm.deal.recurring.list.md",
+            "path": "methods\\crm\\crm.deal.recurring.list.md",
             "deprecated": false,
             "pagination": "start",
             "has_example": false
@@ -3685,7 +3685,7 @@
         {
             "method": "crm.deal.recurring.delete",
             "scope": "crm",
-            "path": "methods/crm/crm.deal.recurring.delete.md",
+            "path": "methods\\crm\\crm.deal.recurring.delete.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -3693,7 +3693,7 @@
         {
             "method": "crm.deal.userfield.update",
             "scope": "crm",
-            "path": "methods/crm/crm.deal.userfield.update.md",
+            "path": "methods\\crm\\crm.deal.userfield.update.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -3701,7 +3701,7 @@
         {
             "method": "crm.deal.userfield.get",
             "scope": "crm",
-            "path": "methods/crm/crm.deal.userfield.get.md",
+            "path": "methods\\crm\\crm.deal.userfield.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -3709,7 +3709,7 @@
         {
             "method": "crm.deal.userfield.delete",
             "scope": "crm",
-            "path": "methods/crm/crm.deal.userfield.delete.md",
+            "path": "methods\\crm\\crm.deal.userfield.delete.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -3869,7 +3869,7 @@
         {
             "method": "crm.duplicate.findbycomm",
             "scope": "crm",
-            "path": "methods/crm/crm.duplicate.findbycomm.md",
+            "path": "methods\\crm\\crm.duplicate.findbycomm.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -3941,7 +3941,7 @@
         {
             "method": "crm.lead.fields",
             "scope": "crm",
-            "path": "methods/crm/crm.lead.fields.md",
+            "path": "methods\\crm\\crm.lead.fields.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -3949,7 +3949,7 @@
         {
             "method": "crm.lead.delete",
             "scope": "crm",
-            "path": "methods/crm/crm.lead.delete.md",
+            "path": "methods\\crm\\crm.lead.delete.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -3957,7 +3957,7 @@
         {
             "method": "crm.lead.productrows.get",
             "scope": "crm",
-            "path": "methods/crm/crm.lead.productrows.get.md",
+            "path": "methods\\crm\\crm.lead.productrows.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -3965,7 +3965,7 @@
         {
             "method": "crm.lead.productrows.set",
             "scope": "crm",
-            "path": "methods/crm/crm.lead.productrows.set.md",
+            "path": "methods\\crm\\crm.lead.productrows.set.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -3973,7 +3973,7 @@
         {
             "method": "crm.productrow.fields",
             "scope": "crm",
-            "path": "methods/crm/crm.productrow.fields.md",
+            "path": "methods\\crm\\crm.productrow.fields.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -3981,7 +3981,7 @@
         {
             "method": "crm.lead.update",
             "scope": "crm",
-            "path": "methods/crm/crm.lead.update.md",
+            "path": "methods\\crm\\crm.lead.update.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -3989,7 +3989,7 @@
         {
             "method": "crm.lead.details.configuration.forcecommonscopeforall",
             "scope": "crm",
-            "path": "methods/crm/crm.lead.details.configuration.forcecommonscopeforall.md",
+            "path": "methods\\crm\\crm.lead.details.configuration.forcecommonscopeforall.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -3997,7 +3997,7 @@
         {
             "method": "crm.lead.details.configuration.get",
             "scope": "crm",
-            "path": "methods/crm/crm.lead.details.configuration.get.md",
+            "path": "methods\\crm\\crm.lead.details.configuration.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -4005,7 +4005,7 @@
         {
             "method": "crm.lead.details.configuration.reset",
             "scope": "crm",
-            "path": "methods/crm/crm.lead.details.configuration.reset.md",
+            "path": "methods\\crm\\crm.lead.details.configuration.reset.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -4013,7 +4013,7 @@
         {
             "method": "crm.lead.details.configuration.set",
             "scope": "crm",
-            "path": "methods/crm/crm.lead.details.configuration.set.md",
+            "path": "methods\\crm\\crm.lead.details.configuration.set.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -4029,7 +4029,7 @@
         {
             "method": "crm.lead.contact.add",
             "scope": "crm",
-            "path": "methods/crm/crm.lead.contact.add.md",
+            "path": "methods\\crm\\crm.lead.contact.add.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -4037,7 +4037,7 @@
         {
             "method": "crm.lead.contact.delete",
             "scope": "crm",
-            "path": "methods/crm/crm.lead.contact.delete.md",
+            "path": "methods\\crm\\crm.lead.contact.delete.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -4045,7 +4045,7 @@
         {
             "method": "crm.lead.contact.items.get",
             "scope": "crm",
-            "path": "methods/crm/crm.lead.contact.items.get.md",
+            "path": "methods\\crm\\crm.lead.contact.items.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -4053,7 +4053,7 @@
         {
             "method": "crm.lead.contact.items.set",
             "scope": "crm",
-            "path": "methods/crm/crm.lead.contact.items.set.md",
+            "path": "methods\\crm\\crm.lead.contact.items.set.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -4061,7 +4061,7 @@
         {
             "method": "crm.lead.contact.items.delete",
             "scope": "crm",
-            "path": "methods/crm/crm.lead.contact.items.delete.md",
+            "path": "methods\\crm\\crm.lead.contact.items.delete.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -4069,7 +4069,7 @@
         {
             "method": "crm.lead.contact.fields",
             "scope": "crm",
-            "path": "methods/crm/crm.lead.contact.fields.md",
+            "path": "methods\\crm\\crm.lead.contact.fields.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -4077,7 +4077,7 @@
         {
             "method": "crm.lead.userfield.add",
             "scope": "crm",
-            "path": "methods/crm/crm.lead.userfield.add.md",
+            "path": "methods\\crm\\crm.lead.userfield.add.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -4085,7 +4085,7 @@
         {
             "method": "crm.lead.userfield.update",
             "scope": "crm",
-            "path": "methods/crm/crm.lead.userfield.update.md",
+            "path": "methods\\crm\\crm.lead.userfield.update.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -4093,7 +4093,7 @@
         {
             "method": "crm.lead.userfield.get",
             "scope": "crm",
-            "path": "methods/crm/crm.lead.userfield.get.md",
+            "path": "methods\\crm\\crm.lead.userfield.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -4101,7 +4101,7 @@
         {
             "method": "crm.lead.userfield.delete",
             "scope": "crm",
-            "path": "methods/crm/crm.lead.userfield.delete.md",
+            "path": "methods\\crm\\crm.lead.userfield.delete.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -4109,7 +4109,7 @@
         {
             "method": "crm.quote.list",
             "scope": "crm",
-            "path": "methods/crm/crm.quote.list.md",
+            "path": "methods\\crm\\crm.quote.list.md",
             "deprecated": false,
             "pagination": "start",
             "has_example": false
@@ -4117,7 +4117,7 @@
         {
             "method": "crm.requisite.fields",
             "scope": "crm",
-            "path": "methods/crm/crm.requisite.fields.md",
+            "path": "methods\\crm\\crm.requisite.fields.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -4125,7 +4125,7 @@
         {
             "method": "crm.requisite.list",
             "scope": "crm",
-            "path": "methods/crm/crm.requisite.list.md",
+            "path": "methods\\crm\\crm.requisite.list.md",
             "deprecated": false,
             "pagination": "start",
             "has_example": false
@@ -4133,7 +4133,7 @@
         {
             "method": "crm.requisite.preset.list",
             "scope": "crm",
-            "path": "methods/crm/crm.requisite.preset.list.md",
+            "path": "methods\\crm\\crm.requisite.preset.list.md",
             "deprecated": false,
             "pagination": "start",
             "has_example": false
@@ -4141,7 +4141,7 @@
         {
             "method": "crm.requisite.userfield.add",
             "scope": "crm",
-            "path": "methods/crm/crm.requisite.userfield.add.md",
+            "path": "methods\\crm\\crm.requisite.userfield.add.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": true
@@ -4149,7 +4149,7 @@
         {
             "method": "crm.requisite.bankdetail.fields",
             "scope": "crm",
-            "path": "methods/crm/crm.requisite.bankdetail.fields.md",
+            "path": "methods\\crm\\crm.requisite.bankdetail.fields.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -4157,7 +4157,7 @@
         {
             "method": "crm.requisite.preset.countries",
             "scope": "crm",
-            "path": "methods/crm/crm.requisite.preset.countries.md",
+            "path": "methods\\crm\\crm.requisite.preset.countries.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -4165,7 +4165,7 @@
         {
             "method": "crm.requisite.preset.fields",
             "scope": "crm",
-            "path": "methods/crm/crm.requisite.preset.fields.md",
+            "path": "methods\\crm\\crm.requisite.preset.fields.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -4173,7 +4173,7 @@
         {
             "method": "crm.requisite.preset.field.fields",
             "scope": "crm",
-            "path": "methods/crm/crm.requisite.preset.field.fields.md",
+            "path": "methods\\crm\\crm.requisite.preset.field.fields.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -4181,7 +4181,7 @@
         {
             "method": "crm.address.fields",
             "scope": "crm",
-            "path": "methods/crm/crm.address.fields.md",
+            "path": "methods\\crm\\crm.address.fields.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -4189,7 +4189,7 @@
         {
             "method": "crm.activity.fields",
             "scope": "crm",
-            "path": "methods/crm/crm.activity.fields.md",
+            "path": "methods\\crm\\crm.activity.fields.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -4197,32 +4197,32 @@
         {
             "method": "crm.catalog.fields",
             "scope": "crm",
-            "path": "methods/crm/crm.catalog.fields.md",
-            "deprecated": false,
+            "path": "methods\\crm\\crm.catalog.fields.md",
+            "deprecated": true,
             "pagination": "none",
             "has_example": false
         },
         {
             "method": "crm.catalog.get",
             "scope": "crm",
-            "path": "methods/crm/crm.catalog.get.md",
-            "deprecated": false,
+            "path": "methods\\crm\\crm.catalog.get.md",
+            "deprecated": true,
             "pagination": "none",
             "has_example": false
         },
         {
             "method": "crm.catalog.list",
             "scope": "crm",
-            "path": "methods/crm/crm.catalog.list.md",
-            "deprecated": false,
+            "path": "methods\\crm\\crm.catalog.list.md",
+            "deprecated": true,
             "pagination": "start",
             "has_example": false
         },
         {
             "method": "crm.dealcategory.add",
             "scope": "crm",
-            "path": "methods/crm/crm.dealcategory.add.md",
-            "deprecated": false,
+            "path": "methods\\crm\\crm.dealcategory.add.md",
+            "deprecated": true,
             "pagination": "none",
             "has_example": true
         },
@@ -4237,32 +4237,32 @@
         {
             "method": "crm.dealcategory.fields",
             "scope": "crm",
-            "path": "methods/crm/crm.dealcategory.fields.md",
-            "deprecated": false,
+            "path": "methods\\crm\\crm.dealcategory.fields.md",
+            "deprecated": true,
             "pagination": "none",
             "has_example": false
         },
         {
             "method": "crm.dealcategory.default.get",
             "scope": "crm",
-            "path": "methods/crm/crm.dealcategory.default.get.md",
-            "deprecated": false,
+            "path": "methods\\crm\\crm.dealcategory.default.get.md",
+            "deprecated": true,
             "pagination": "none",
             "has_example": true
         },
         {
             "method": "crm.dealcategory.default.set",
             "scope": "crm",
-            "path": "methods/crm/crm.dealcategory.default.set.md",
-            "deprecated": false,
+            "path": "methods\\crm\\crm.dealcategory.default.set.md",
+            "deprecated": true,
             "pagination": "unknown",
             "has_example": true
         },
         {
             "method": "crm.dealcategory.delete",
             "scope": "crm",
-            "path": "methods/crm/crm.dealcategory.delete.md",
-            "deprecated": false,
+            "path": "methods\\crm\\crm.dealcategory.delete.md",
+            "deprecated": true,
             "pagination": "none",
             "has_example": true
         },
@@ -4285,39 +4285,39 @@
         {
             "method": "crm.dealcategory.get",
             "scope": "crm",
-            "path": "methods/crm/crm.dealcategory.get.md",
-            "deprecated": false,
+            "path": "methods\\crm\\crm.dealcategory.get.md",
+            "deprecated": true,
             "pagination": "none",
             "has_example": true
         },
         {
             "method": "crm.dealcategory.list",
             "scope": "crm",
-            "path": "methods/crm/crm.dealcategory.list.md",
-            "deprecated": false,
+            "path": "methods\\crm\\crm.dealcategory.list.md",
+            "deprecated": true,
             "pagination": "start",
             "has_example": true
         },
         {
             "method": "crm.dealcategory.stage.list",
             "scope": "crm",
-            "path": "methods/crm/crm.dealcategory.stage.list.md",
-            "deprecated": false,
+            "path": "methods\\crm\\crm.dealcategory.stage.list.md",
+            "deprecated": true,
             "pagination": "start",
             "has_example": true
         },
         {
             "method": "crm.dealcategory.status",
             "scope": "crm",
-            "path": "methods/crm/crm.dealcategory.status.md",
-            "deprecated": false,
+            "path": "methods\\crm\\crm.dealcategory.status.md",
+            "deprecated": true,
             "pagination": "unknown",
             "has_example": true
         },
         {
             "method": "crm.status.add",
             "scope": "crm",
-            "path": "methods/crm/crm.status.add.md",
+            "path": "methods\\crm\\crm.status.add.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -4325,8 +4325,8 @@
         {
             "method": "crm.dealcategory.update",
             "scope": "crm",
-            "path": "methods/crm/crm.dealcategory.update.md",
-            "deprecated": false,
+            "path": "methods\\crm\\crm.dealcategory.update.md",
+            "deprecated": true,
             "pagination": "none",
             "has_example": true
         },
@@ -4421,15 +4421,15 @@
         {
             "method": "crm.invoice.add",
             "scope": "crm",
-            "path": "methods/crm/crm.invoice.add.md",
-            "deprecated": false,
+            "path": "methods\\crm\\crm.invoice.add.md",
+            "deprecated": true,
             "pagination": "none",
             "has_example": false
         },
         {
             "method": "crm.requisite.link.register",
             "scope": "crm",
-            "path": "methods/crm/crm.requisite.link.register.md",
+            "path": "methods\\crm\\crm.requisite.link.register.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -4437,39 +4437,39 @@
         {
             "method": "crm.invoice.fields",
             "scope": "crm",
-            "path": "methods/crm/crm.invoice.fields.md",
-            "deprecated": false,
+            "path": "methods\\crm\\crm.invoice.fields.md",
+            "deprecated": true,
             "pagination": "none",
             "has_example": false
         },
         {
             "method": "crm.invoice.delete",
             "scope": "crm",
-            "path": "methods/crm/crm.invoice.delete.md",
-            "deprecated": false,
+            "path": "methods\\crm\\crm.invoice.delete.md",
+            "deprecated": true,
             "pagination": "none",
             "has_example": false
         },
         {
             "method": "crm.invoice.getexternallink",
             "scope": "crm",
-            "path": "methods/crm/crm.invoice.getexternallink.md",
-            "deprecated": false,
+            "path": "methods\\crm\\crm.invoice.getexternallink.md",
+            "deprecated": true,
             "pagination": "unknown",
             "has_example": false
         },
         {
             "method": "crm.invoice.get",
             "scope": "crm",
-            "path": "methods/crm/crm.invoice.get.md",
-            "deprecated": false,
+            "path": "methods\\crm\\crm.invoice.get.md",
+            "deprecated": true,
             "pagination": "none",
             "has_example": false
         },
         {
             "method": "crm.invoice.list",
             "scope": "crm",
-            "path": "methods/crm/crm.invoice.list.md",
+            "path": "methods\\crm\\crm.invoice.list.md",
             "deprecated": false,
             "pagination": "start",
             "has_example": false
@@ -4477,135 +4477,135 @@
         {
             "method": "crm.invoice.recurring.add",
             "scope": "crm",
-            "path": "methods/crm/crm.invoice.recurring.add.md",
-            "deprecated": false,
+            "path": "methods\\crm\\crm.invoice.recurring.add.md",
+            "deprecated": true,
             "pagination": "none",
             "has_example": false
         },
         {
             "method": "crm.invoice.recurring.fields",
             "scope": "crm",
-            "path": "methods/crm/crm.invoice.recurring.fields.md",
-            "deprecated": false,
+            "path": "methods\\crm\\crm.invoice.recurring.fields.md",
+            "deprecated": true,
             "pagination": "none",
             "has_example": false
         },
         {
             "method": "crm.invoice.recurring.delete",
             "scope": "crm",
-            "path": "methods/crm/crm.invoice.recurring.delete.md",
-            "deprecated": false,
+            "path": "methods\\crm\\crm.invoice.recurring.delete.md",
+            "deprecated": true,
             "pagination": "none",
             "has_example": false
         },
         {
             "method": "crm.invoice.recurring.expose",
             "scope": "crm",
-            "path": "methods/crm/crm.invoice.recurring.expose.md",
-            "deprecated": false,
+            "path": "methods\\crm\\crm.invoice.recurring.expose.md",
+            "deprecated": true,
             "pagination": "unknown",
             "has_example": false
         },
         {
             "method": "crm.invoice.recurring.get",
             "scope": "crm",
-            "path": "methods/crm/crm.invoice.recurring.get.md",
-            "deprecated": false,
+            "path": "methods\\crm\\crm.invoice.recurring.get.md",
+            "deprecated": true,
             "pagination": "none",
             "has_example": false
         },
         {
             "method": "crm.invoice.recurring.list",
             "scope": "crm",
-            "path": "methods/crm/crm.invoice.recurring.list.md",
-            "deprecated": false,
+            "path": "methods\\crm\\crm.invoice.recurring.list.md",
+            "deprecated": true,
             "pagination": "start",
             "has_example": false
         },
         {
             "method": "crm.invoice.recurring.update",
             "scope": "crm",
-            "path": "methods/crm/crm.invoice.recurring.update.md",
-            "deprecated": false,
+            "path": "methods\\crm\\crm.invoice.recurring.update.md",
+            "deprecated": true,
             "pagination": "none",
             "has_example": false
         },
         {
             "method": "crm.invoice.update",
             "scope": "crm",
-            "path": "methods/crm/crm.invoice.update.md",
-            "deprecated": false,
+            "path": "methods\\crm\\crm.invoice.update.md",
+            "deprecated": true,
             "pagination": "none",
             "has_example": false
         },
         {
             "method": "crm.invoice.userfield.add",
             "scope": "crm",
-            "path": "methods/crm/crm.invoice.userfield.add.md",
-            "deprecated": false,
+            "path": "methods\\crm\\crm.invoice.userfield.add.md",
+            "deprecated": true,
             "pagination": "none",
             "has_example": false
         },
         {
             "method": "crm.paysystem.list",
             "scope": "crm",
-            "path": "methods/crm/crm.paysystem.list.md",
-            "deprecated": false,
+            "path": "methods\\crm\\crm.paysystem.list.md",
+            "deprecated": true,
             "pagination": "start",
             "has_example": false
         },
         {
             "method": "crm.invoice.userfield.delete",
             "scope": "crm",
-            "path": "methods/crm/crm.invoice.userfield.delete.md",
-            "deprecated": false,
+            "path": "methods\\crm\\crm.invoice.userfield.delete.md",
+            "deprecated": true,
             "pagination": "none",
             "has_example": false
         },
         {
             "method": "crm.invoice.userfield.get",
             "scope": "crm",
-            "path": "methods/crm/crm.invoice.userfield.get.md",
-            "deprecated": false,
+            "path": "methods\\crm\\crm.invoice.userfield.get.md",
+            "deprecated": true,
             "pagination": "none",
             "has_example": false
         },
         {
             "method": "crm.invoice.userfield.list",
             "scope": "crm",
-            "path": "methods/crm/crm.invoice.userfield.list.md",
-            "deprecated": false,
+            "path": "methods\\crm\\crm.invoice.userfield.list.md",
+            "deprecated": true,
             "pagination": "start",
             "has_example": false
         },
         {
             "method": "crm.invoice.userfield.update",
             "scope": "crm",
-            "path": "methods/crm/crm.invoice.userfield.update.md",
-            "deprecated": false,
+            "path": "methods\\crm\\crm.invoice.userfield.update.md",
+            "deprecated": true,
             "pagination": "none",
             "has_example": false
         },
         {
             "method": "crm.paysystem.fields",
             "scope": "crm",
-            "path": "methods/crm/crm.paysystem.fields.md",
-            "deprecated": false,
+            "path": "methods\\crm\\crm.paysystem.fields.md",
+            "deprecated": true,
             "pagination": "none",
             "has_example": false
         },
         {
             "method": "crm.persontype.fields",
             "scope": "crm",
-            "path": "methods/crm/crm.persontype.fields.md",
-            "deprecated": false,
+            "path": "methods\\crm\\crm.persontype.fields.md",
+            "deprecated": true,
             "pagination": "none",
             "has_example": false
         },
         {
             "method": "crm.persontype.list",
             "scope": "crm",
-            "path": "methods/crm/crm.persontype.list.md",
+            "path": "methods\\crm\\crm.persontype.list.md",
             "deprecated": false,
             "pagination": "start",
             "has_example": false
@@ -4621,31 +4621,31 @@
         {
             "method": "crm.invoice.status.add",
             "scope": "crm",
-            "path": "methods/crm/crm.invoice.status.add.md",
-            "deprecated": false,
+            "path": "methods\\crm\\crm.invoice.status.add.md",
+            "deprecated": true,
             "pagination": "none",
             "has_example": false
         },
         {
             "method": "crm.invoice.status.fields",
             "scope": "crm",
-            "path": "methods/crm/crm.invoice.status.fields.md",
-            "deprecated": false,
+            "path": "methods\\crm\\crm.invoice.status.fields.md",
+            "deprecated": true,
             "pagination": "none",
             "has_example": false
         },
         {
             "method": "crm.invoice.status.delete",
             "scope": "crm",
-            "path": "methods/crm/crm.invoice.status.delete.md",
-            "deprecated": false,
+            "path": "methods\\crm\\crm.invoice.status.delete.md",
+            "deprecated": true,
             "pagination": "none",
             "has_example": false
         },
         {
             "method": "crm.status.delete",
             "scope": "crm",
-            "path": "methods/crm/crm.status.delete.md",
+            "path": "methods\\crm\\crm.status.delete.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -4653,7 +4653,7 @@
         {
             "method": "crm.status.fields",
             "scope": "crm",
-            "path": "methods/crm/crm.status.fields.md",
+            "path": "methods\\crm\\crm.status.fields.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -4661,15 +4661,15 @@
         {
             "method": "crm.invoice.status.get",
             "scope": "crm",
-            "path": "methods/crm/crm.invoice.status.get.md",
-            "deprecated": false,
+            "path": "methods\\crm\\crm.invoice.status.get.md",
+            "deprecated": true,
             "pagination": "none",
             "has_example": false
         },
         {
             "method": "crm.status.get",
             "scope": "crm",
-            "path": "methods/crm/crm.status.get.md",
+            "path": "methods\\crm\\crm.status.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -4677,23 +4677,23 @@
         {
             "method": "crm.invoice.status.list",
             "scope": "crm",
-            "path": "methods/crm/crm.invoice.status.list.md",
-            "deprecated": false,
+            "path": "methods\\crm\\crm.invoice.status.list.md",
+            "deprecated": true,
             "pagination": "start",
             "has_example": false
         },
         {
             "method": "crm.invoice.status.update",
             "scope": "crm",
-            "path": "methods/crm/crm.invoice.status.update.md",
-            "deprecated": false,
+            "path": "methods\\crm\\crm.invoice.status.update.md",
+            "deprecated": true,
             "pagination": "none",
             "has_example": false
         },
         {
             "method": "crm.status.update",
             "scope": "crm",
-            "path": "methods/crm/crm.status.update.md",
+            "path": "methods\\crm\\crm.status.update.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -4701,96 +4701,96 @@
         {
             "method": "crm.measure.add",
             "scope": "crm",
-            "path": "methods/crm/crm.measure.add.md",
-            "deprecated": false,
+            "path": "methods\\crm\\crm.measure.add.md",
+            "deprecated": true,
             "pagination": "none",
             "has_example": false
         },
         {
             "method": "crm.measure.fields",
             "scope": "crm",
-            "path": "methods/crm/crm.measure.fields.md",
-            "deprecated": false,
+            "path": "methods\\crm\\crm.measure.fields.md",
+            "deprecated": true,
             "pagination": "none",
             "has_example": false
         },
         {
             "method": "crm.measure.delete",
             "scope": "crm",
-            "path": "methods/crm/crm.measure.delete.md",
-            "deprecated": false,
+            "path": "methods\\crm\\crm.measure.delete.md",
+            "deprecated": true,
             "pagination": "none",
             "has_example": false
         },
         {
             "method": "crm.measure.get",
             "scope": "crm",
-            "path": "methods/crm/crm.measure.get.md",
-            "deprecated": false,
+            "path": "methods\\crm\\crm.measure.get.md",
+            "deprecated": true,
             "pagination": "none",
             "has_example": false
         },
         {
             "method": "crm.measure.list",
             "scope": "crm",
-            "path": "methods/crm/crm.measure.list.md",
-            "deprecated": false,
+            "path": "methods\\crm\\crm.measure.list.md",
+            "deprecated": true,
             "pagination": "start",
             "has_example": false
         },
         {
             "method": "crm.measure.update",
             "scope": "crm",
-            "path": "methods/crm/crm.measure.update.md",
-            "deprecated": false,
+            "path": "methods\\crm\\crm.measure.update.md",
+            "deprecated": true,
             "pagination": "none",
             "has_example": false
         },
         {
             "method": "crm.productsection.add",
             "scope": "crm",
-            "path": "methods/crm/crm.productsection.add.md",
-            "deprecated": false,
+            "path": "methods\\crm\\crm.productsection.add.md",
+            "deprecated": true,
             "pagination": "none",
             "has_example": false
         },
         {
             "method": "crm.productsection.fields",
             "scope": "crm",
-            "path": "methods/crm/crm.productsection.fields.md",
-            "deprecated": false,
+            "path": "methods\\crm\\crm.productsection.fields.md",
+            "deprecated": true,
             "pagination": "none",
             "has_example": false
         },
         {
             "method": "crm.productsection.delete",
             "scope": "crm",
-            "path": "methods/crm/crm.productsection.delete.md",
-            "deprecated": false,
+            "path": "methods\\crm\\crm.productsection.delete.md",
+            "deprecated": true,
             "pagination": "none",
             "has_example": false
         },
         {
             "method": "crm.productsection.get",
             "scope": "crm",
-            "path": "methods/crm/crm.productsection.get.md",
-            "deprecated": false,
+            "path": "methods\\crm\\crm.productsection.get.md",
+            "deprecated": true,
             "pagination": "none",
             "has_example": false
         },
         {
             "method": "crm.productsection.list",
             "scope": "crm",
-            "path": "methods/crm/crm.productsection.list.md",
-            "deprecated": false,
+            "path": "methods\\crm\\crm.productsection.list.md",
+            "deprecated": true,
             "pagination": "start",
             "has_example": false
         },
         {
             "method": "crm.productsection.update",
             "scope": "crm",
-            "path": "methods/crm/crm.productsection.update.md",
-            "deprecated": false,
+            "path": "methods\\crm\\crm.productsection.update.md",
+            "deprecated": true,
             "pagination": "none",
             "has_example": false
         },
@@ -4805,136 +4805,136 @@
         {
             "method": "crm.productrow.list",
             "scope": "crm",
-            "path": "methods/crm/crm.productrow.list.md",
-            "deprecated": false,
+            "path": "methods\\crm\\crm.productrow.list.md",
+            "deprecated": true,
             "pagination": "start",
             "has_example": false
         },
         {
             "method": "crm.product.add",
             "scope": "crm",
-            "path": "methods/crm/crm.product.add.md",
-            "deprecated": false,
+            "path": "methods\\crm\\crm.product.add.md",
+            "deprecated": true,
             "pagination": "none",
             "has_example": false
         },
         {
             "method": "crm.product.fields",
             "scope": "crm",
-            "path": "methods/crm/crm.product.fields.md",
-            "deprecated": false,
+            "path": "methods\\crm\\crm.product.fields.md",
+            "deprecated": true,
             "pagination": "none",
             "has_example": false
         },
         {
             "method": "crm.product.delete",
             "scope": "crm",
-            "path": "methods/crm/crm.product.delete.md",
-            "deprecated": false,
+            "path": "methods\\crm\\crm.product.delete.md",
+            "deprecated": true,
             "pagination": "none",
             "has_example": false
         },
         {
             "method": "crm.product.get",
             "scope": "crm",
-            "path": "methods/crm/crm.product.get.md",
-            "deprecated": false,
+            "path": "methods\\crm\\crm.product.get.md",
+            "deprecated": true,
             "pagination": "none",
             "has_example": false
         },
         {
             "method": "crm.product.list",
             "scope": "crm",
-            "path": "methods/crm/crm.product.list.md",
-            "deprecated": false,
+            "path": "methods\\crm\\crm.product.list.md",
+            "deprecated": true,
             "pagination": "start",
             "has_example": false
         },
         {
             "method": "crm.product.property.add",
             "scope": "crm",
-            "path": "methods/crm/crm.product.property.add.md",
-            "deprecated": false,
+            "path": "methods\\crm\\crm.product.property.add.md",
+            "deprecated": true,
             "pagination": "none",
             "has_example": false
         },
         {
             "method": "crm.product.property.fields",
             "scope": "crm",
-            "path": "methods/crm/crm.product.property.fields.md",
-            "deprecated": false,
+            "path": "methods\\crm\\crm.product.property.fields.md",
+            "deprecated": true,
             "pagination": "none",
             "has_example": false
         },
         {
             "method": "crm.product.property.delete",
             "scope": "crm",
-            "path": "methods/crm/crm.product.property.delete.md",
-            "deprecated": false,
+            "path": "methods\\crm\\crm.product.property.delete.md",
+            "deprecated": true,
             "pagination": "none",
             "has_example": false
         },
         {
             "method": "crm.product.property.enumeration.fields",
             "scope": "crm",
-            "path": "methods/crm/crm.product.property.enumeration.fields.md",
-            "deprecated": false,
+            "path": "methods\\crm\\crm.product.property.enumeration.fields.md",
+            "deprecated": true,
             "pagination": "none",
             "has_example": false
         },
         {
             "method": "crm.product.property.get",
             "scope": "crm",
-            "path": "methods/crm/crm.product.property.get.md",
-            "deprecated": false,
+            "path": "methods\\crm\\crm.product.property.get.md",
+            "deprecated": true,
             "pagination": "none",
             "has_example": false
         },
         {
             "method": "crm.product.property.list",
             "scope": "crm",
-            "path": "methods/crm/crm.product.property.list.md",
-            "deprecated": false,
+            "path": "methods\\crm\\crm.product.property.list.md",
+            "deprecated": true,
             "pagination": "start",
             "has_example": false
         },
         {
             "method": "crm.product.property.settings.fields",
             "scope": "crm",
-            "path": "methods/crm/crm.product.property.settings.fields.md",
-            "deprecated": false,
+            "path": "methods\\crm\\crm.product.property.settings.fields.md",
+            "deprecated": true,
             "pagination": "none",
             "has_example": false
         },
         {
             "method": "crm.product.property.types",
             "scope": "crm",
-            "path": "methods/crm/crm.product.property.types.md",
-            "deprecated": false,
+            "path": "methods\\crm\\crm.product.property.types.md",
+            "deprecated": true,
             "pagination": "none",
             "has_example": false
         },
         {
             "method": "crm.product.property.update",
             "scope": "crm",
-            "path": "methods/crm/crm.product.property.update.md",
-            "deprecated": false,
+            "path": "methods\\crm\\crm.product.property.update.md",
+            "deprecated": true,
             "pagination": "none",
             "has_example": false
         },
         {
             "method": "crm.product.update",
             "scope": "crm",
-            "path": "methods/crm/crm.product.update.md",
-            "deprecated": false,
+            "path": "methods\\crm\\crm.product.update.md",
+            "deprecated": true,
             "pagination": "none",
             "has_example": false
         },
         {
             "method": "crm.livefeedmessage.add",
             "scope": "crm",
-            "path": "methods/crm/crm.livefeedmessage.add.md",
-            "deprecated": false,
+            "path": "methods\\crm\\crm.livefeedmessage.add.md",
+            "deprecated": true,
             "pagination": "none",
             "has_example": true
         },
@@ -4957,55 +4957,55 @@
         {
             "method": "crm.vat.add",
             "scope": "crm",
-            "path": "methods/crm/crm.vat.add.md",
-            "deprecated": false,
+            "path": "methods\\crm\\crm.vat.add.md",
+            "deprecated": true,
             "pagination": "none",
             "has_example": false
         },
         {
             "method": "crm.vat.delete",
             "scope": "crm",
-            "path": "methods/crm/crm.vat.delete.md",
-            "deprecated": false,
+            "path": "methods\\crm\\crm.vat.delete.md",
+            "deprecated": true,
             "pagination": "none",
             "has_example": false
         },
         {
             "method": "crm.vat.list",
             "scope": "crm",
-            "path": "methods/crm/crm.vat.list.md",
-            "deprecated": false,
+            "path": "methods\\crm\\crm.vat.list.md",
+            "deprecated": true,
             "pagination": "start",
             "has_example": false
         },
         {
             "method": "crm.vat.fields",
             "scope": "crm",
-            "path": "methods/crm/crm.vat.fields.md",
-            "deprecated": false,
+            "path": "methods\\crm\\crm.vat.fields.md",
+            "deprecated": true,
             "pagination": "none",
             "has_example": false
         },
         {
             "method": "crm.vat.get",
             "scope": "crm",
-            "path": "methods/crm/crm.vat.get.md",
-            "deprecated": false,
+            "path": "methods\\crm\\crm.vat.get.md",
+            "deprecated": true,
             "pagination": "none",
             "has_example": false
         },
         {
             "method": "crm.vat.update",
             "scope": "crm",
-            "path": "methods/crm/crm.vat.update.md",
-            "deprecated": false,
+            "path": "methods\\crm\\crm.vat.update.md",
+            "deprecated": true,
             "pagination": "none",
             "has_example": false
         },
         {
             "method": "crm.quote.add",
             "scope": "crm",
-            "path": "methods/crm/crm.quote.add.md",
+            "path": "methods\\crm\\crm.quote.add.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -5013,7 +5013,7 @@
         {
             "method": "crm.quote.fields",
             "scope": "crm",
-            "path": "methods/crm/crm.quote.fields.md",
+            "path": "methods\\crm\\crm.quote.fields.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -5021,7 +5021,7 @@
         {
             "method": "crm.quote.delete",
             "scope": "crm",
-            "path": "methods/crm/crm.quote.delete.md",
+            "path": "methods\\crm\\crm.quote.delete.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -5029,7 +5029,7 @@
         {
             "method": "crm.quote.userfield.add",
             "scope": "crm",
-            "path": "methods/crm/crm.quote.userfield.add.md",
+            "path": "methods\\crm\\crm.quote.userfield.add.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -5037,7 +5037,7 @@
         {
             "method": "crm.quote.productrows.get",
             "scope": "crm",
-            "path": "methods/crm/crm.quote.productrows.get.md",
+            "path": "methods\\crm\\crm.quote.productrows.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -5045,7 +5045,7 @@
         {
             "method": "crm.quote.productrows.set",
             "scope": "crm",
-            "path": "methods/crm/crm.quote.productrows.set.md",
+            "path": "methods\\crm\\crm.quote.productrows.set.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -5053,7 +5053,7 @@
         {
             "method": "crm.quote.update",
             "scope": "crm",
-            "path": "methods/crm/crm.quote.update.md",
+            "path": "methods\\crm\\crm.quote.update.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -5069,7 +5069,7 @@
         {
             "method": "crm.quote.userfield.update",
             "scope": "crm",
-            "path": "methods/crm/crm.quote.userfield.update.md",
+            "path": "methods\\crm\\crm.quote.userfield.update.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -5077,7 +5077,7 @@
         {
             "method": "crm.quote.userfield.get",
             "scope": "crm",
-            "path": "methods/crm/crm.quote.userfield.get.md",
+            "path": "methods\\crm\\crm.quote.userfield.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -5085,7 +5085,7 @@
         {
             "method": "crm.quote.userfield.list",
             "scope": "crm",
-            "path": "methods/crm/crm.quote.userfield.list.md",
+            "path": "methods\\crm\\crm.quote.userfield.list.md",
             "deprecated": false,
             "pagination": "start",
             "has_example": false
@@ -5093,7 +5093,7 @@
         {
             "method": "crm.quote.userfield.delete",
             "scope": "crm",
-            "path": "methods/crm/crm.quote.userfield.delete.md",
+            "path": "methods\\crm\\crm.quote.userfield.delete.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -5101,7 +5101,7 @@
         {
             "method": "crm.address.add",
             "scope": "crm",
-            "path": "methods/crm/crm.address.add.md",
+            "path": "methods\\crm\\crm.address.add.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -5109,7 +5109,7 @@
         {
             "method": "crm.address.delete",
             "scope": "crm",
-            "path": "methods/crm/crm.address.delete.md",
+            "path": "methods\\crm\\crm.address.delete.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -5117,7 +5117,7 @@
         {
             "method": "crm.address.update",
             "scope": "crm",
-            "path": "methods/crm/crm.address.update.md",
+            "path": "methods\\crm\\crm.address.update.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -5125,7 +5125,7 @@
         {
             "method": "crm.requisite.bankdetail.add",
             "scope": "crm",
-            "path": "methods/crm/crm.requisite.bankdetail.add.md",
+            "path": "methods\\crm\\crm.requisite.bankdetail.add.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -5133,7 +5133,7 @@
         {
             "method": "crm.requisite.bankdetail.delete",
             "scope": "crm",
-            "path": "methods/crm/crm.requisite.bankdetail.delete.md",
+            "path": "methods\\crm\\crm.requisite.bankdetail.delete.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -5141,7 +5141,7 @@
         {
             "method": "crm.requisite.bankdetail.list",
             "scope": "crm",
-            "path": "methods/crm/crm.requisite.bankdetail.list.md",
+            "path": "methods\\crm\\crm.requisite.bankdetail.list.md",
             "deprecated": false,
             "pagination": "start",
             "has_example": false
@@ -5149,7 +5149,7 @@
         {
             "method": "crm.requisite.bankdetail.get",
             "scope": "crm",
-            "path": "methods/crm/crm.requisite.bankdetail.get.md",
+            "path": "methods\\crm\\crm.requisite.bankdetail.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -5157,7 +5157,7 @@
         {
             "method": "crm.requisite.bankdetail.update",
             "scope": "crm",
-            "path": "methods/crm/crm.requisite.bankdetail.update.md",
+            "path": "methods\\crm\\crm.requisite.bankdetail.update.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -5189,7 +5189,7 @@
         {
             "method": "crm.requisite.add",
             "scope": "crm",
-            "path": "methods/crm/crm.requisite.add.md",
+            "path": "methods\\crm\\crm.requisite.add.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -5197,7 +5197,7 @@
         {
             "method": "crm.requisite.update",
             "scope": "crm",
-            "path": "methods/crm/crm.requisite.update.md",
+            "path": "methods\\crm\\crm.requisite.update.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -5205,7 +5205,7 @@
         {
             "method": "crm.requisite.get",
             "scope": "crm",
-            "path": "methods/crm/crm.requisite.get.md",
+            "path": "methods\\crm\\crm.requisite.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -5213,7 +5213,7 @@
         {
             "method": "crm.requisite.delete",
             "scope": "crm",
-            "path": "methods/crm/crm.requisite.delete.md",
+            "path": "methods\\crm\\crm.requisite.delete.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -5261,7 +5261,7 @@
         {
             "method": "crm.requisite.link.get",
             "scope": "crm",
-            "path": "methods/crm/crm.requisite.link.get.md",
+            "path": "methods\\crm\\crm.requisite.link.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -5269,7 +5269,7 @@
         {
             "method": "crm.requisite.link.list",
             "scope": "crm",
-            "path": "methods/crm/crm.requisite.link.list.md",
+            "path": "methods\\crm\\crm.requisite.link.list.md",
             "deprecated": false,
             "pagination": "start",
             "has_example": false
@@ -5277,7 +5277,7 @@
         {
             "method": "crm.requisite.link.unregister",
             "scope": "crm",
-            "path": "methods/crm/crm.requisite.link.unregister.md",
+            "path": "methods\\crm\\crm.requisite.link.unregister.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -5285,7 +5285,7 @@
         {
             "method": "crm.requisite.link.fields",
             "scope": "crm",
-            "path": "methods/crm/crm.requisite.link.fields.md",
+            "path": "methods\\crm\\crm.requisite.link.fields.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -5293,7 +5293,7 @@
         {
             "method": "crm.requisite.preset.add",
             "scope": "crm",
-            "path": "methods/crm/crm.requisite.preset.add.md",
+            "path": "methods\\crm\\crm.requisite.preset.add.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -5301,7 +5301,7 @@
         {
             "method": "crm.requisite.preset.update",
             "scope": "crm",
-            "path": "methods/crm/crm.requisite.preset.update.md",
+            "path": "methods\\crm\\crm.requisite.preset.update.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -5309,7 +5309,7 @@
         {
             "method": "crm.requisite.preset.get",
             "scope": "crm",
-            "path": "methods/crm/crm.requisite.preset.get.md",
+            "path": "methods\\crm\\crm.requisite.preset.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -5317,7 +5317,7 @@
         {
             "method": "crm.requisite.preset.delete",
             "scope": "crm",
-            "path": "methods/crm/crm.requisite.preset.delete.md",
+            "path": "methods\\crm\\crm.requisite.preset.delete.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -5325,7 +5325,7 @@
         {
             "method": "crm.requisite.preset.field.add",
             "scope": "crm",
-            "path": "methods/crm/crm.requisite.preset.field.add.md",
+            "path": "methods\\crm\\crm.requisite.preset.field.add.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -5333,7 +5333,7 @@
         {
             "method": "crm.requisite.preset.field.update",
             "scope": "crm",
-            "path": "methods/crm/crm.requisite.preset.field.update.md",
+            "path": "methods\\crm\\crm.requisite.preset.field.update.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -5341,7 +5341,7 @@
         {
             "method": "crm.requisite.preset.field.availabletoadd",
             "scope": "crm",
-            "path": "methods/crm/crm.requisite.preset.field.availabletoadd.md",
+            "path": "methods\\crm\\crm.requisite.preset.field.availabletoadd.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -5349,7 +5349,7 @@
         {
             "method": "crm.requisite.preset.field.get",
             "scope": "crm",
-            "path": "methods/crm/crm.requisite.preset.field.get.md",
+            "path": "methods\\crm\\crm.requisite.preset.field.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -5357,7 +5357,7 @@
         {
             "method": "crm.requisite.preset.field.list",
             "scope": "crm",
-            "path": "methods/crm/crm.requisite.preset.field.list.md",
+            "path": "methods\\crm\\crm.requisite.preset.field.list.md",
             "deprecated": false,
             "pagination": "start",
             "has_example": false
@@ -5365,7 +5365,7 @@
         {
             "method": "crm.requisite.preset.field.delete",
             "scope": "crm",
-            "path": "methods/crm/crm.requisite.preset.field.delete.md",
+            "path": "methods\\crm\\crm.requisite.preset.field.delete.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -5373,7 +5373,7 @@
         {
             "method": "crm.requisite.userfield.delete",
             "scope": "crm",
-            "path": "methods/crm/crm.requisite.userfield.delete.md",
+            "path": "methods\\crm\\crm.requisite.userfield.delete.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": true
@@ -5381,7 +5381,7 @@
         {
             "method": "crm.requisite.userfield.list",
             "scope": "crm",
-            "path": "methods/crm/crm.requisite.userfield.list.md",
+            "path": "methods\\crm\\crm.requisite.userfield.list.md",
             "deprecated": false,
             "pagination": "start",
             "has_example": false
@@ -5389,7 +5389,7 @@
         {
             "method": "crm.requisite.userfield.get",
             "scope": "crm",
-            "path": "methods/crm/crm.requisite.userfield.get.md",
+            "path": "methods\\crm\\crm.requisite.userfield.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": true
@@ -5397,7 +5397,7 @@
         {
             "method": "crm.requisite.userfield.update",
             "scope": "crm",
-            "path": "methods/crm/crm.requisite.userfield.update.md",
+            "path": "methods\\crm\\crm.requisite.userfield.update.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": true
@@ -5405,7 +5405,7 @@
         {
             "method": "crm.status.entity.items",
             "scope": "crm",
-            "path": "methods/crm/crm.status.entity.items.md",
+            "path": "methods\\crm\\crm.status.entity.items.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -5437,7 +5437,7 @@
         {
             "method": "crm.activity.add",
             "scope": "crm",
-            "path": "methods/crm/crm.activity.add.md",
+            "path": "methods\\crm\\crm.activity.add.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -5453,7 +5453,7 @@
         {
             "method": "crm.activity.configurable.add",
             "scope": "crm",
-            "path": "methods/crm/crm.activity.configurable.add.md",
+            "path": "methods\\crm\\crm.activity.configurable.add.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -5461,7 +5461,7 @@
         {
             "method": "crm.activity.communication.fields",
             "scope": "crm",
-            "path": "methods/crm/crm.activity.communication.fields.md",
+            "path": "methods\\crm\\crm.activity.communication.fields.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -5477,7 +5477,7 @@
         {
             "method": "crm.activity.update",
             "scope": "crm",
-            "path": "methods/crm/crm.activity.update.md",
+            "path": "methods\\crm\\crm.activity.update.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -5493,7 +5493,7 @@
         {
             "method": "crm.activity.configurable.update",
             "scope": "crm",
-            "path": "methods/crm/crm.activity.configurable.update.md",
+            "path": "methods\\crm\\crm.activity.configurable.update.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -5557,7 +5557,7 @@
         {
             "method": "crm.activity.type.add",
             "scope": "crm",
-            "path": "methods/crm/crm.activity.type.add.md",
+            "path": "methods\\crm\\crm.activity.type.add.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -5565,7 +5565,7 @@
         {
             "method": "crm.activity.configurable.get",
             "scope": "crm",
-            "path": "methods/crm/crm.activity.configurable.get.md",
+            "path": "methods\\crm\\crm.activity.configurable.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -5597,7 +5597,7 @@
         {
             "method": "telephony.externalcall.finish",
             "scope": "telephony",
-            "path": "methods/telephony/telephony.externalcall.finish.md",
+            "path": "methods\\telephony\\telephony.externalcall.finish.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -5653,7 +5653,7 @@
         {
             "method": "crm.activity.type.list",
             "scope": "crm",
-            "path": "methods/crm/crm.activity.type.list.md",
+            "path": "methods\\crm\\crm.activity.type.list.md",
             "deprecated": false,
             "pagination": "start",
             "has_example": false
@@ -5661,7 +5661,7 @@
         {
             "method": "crm.activity.type.delete",
             "scope": "crm",
-            "path": "methods/crm/crm.activity.type.delete.md",
+            "path": "methods\\crm\\crm.activity.type.delete.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -5709,7 +5709,7 @@
         {
             "method": "crm.timeline.bindings.bind",
             "scope": "crm",
-            "path": "methods/crm/crm.timeline.bindings.bind.md",
+            "path": "methods\\crm\\crm.timeline.bindings.bind.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -5717,7 +5717,7 @@
         {
             "method": "crm.timeline.bindings.fields",
             "scope": "crm",
-            "path": "methods/crm/crm.timeline.bindings.fields.md",
+            "path": "methods\\crm\\crm.timeline.bindings.fields.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -5725,7 +5725,7 @@
         {
             "method": "crm.timeline.bindings.list",
             "scope": "crm",
-            "path": "methods/crm/crm.timeline.bindings.list.md",
+            "path": "methods\\crm\\crm.timeline.bindings.list.md",
             "deprecated": false,
             "pagination": "start",
             "has_example": false
@@ -5733,7 +5733,7 @@
         {
             "method": "crm.timeline.bindings.unbind",
             "scope": "crm",
-            "path": "methods/crm/crm.timeline.bindings.unbind.md",
+            "path": "methods\\crm\\crm.timeline.bindings.unbind.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -5749,7 +5749,7 @@
         {
             "method": "crm.timeline.comment.fields",
             "scope": "crm",
-            "path": "methods/crm/crm.timeline.comment.fields.md",
+            "path": "methods\\crm\\crm.timeline.comment.fields.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -5757,7 +5757,7 @@
         {
             "method": "crm.timeline.comment.get",
             "scope": "crm",
-            "path": "methods/crm/crm.timeline.comment.get.md",
+            "path": "methods\\crm\\crm.timeline.comment.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -6197,7 +6197,7 @@
         {
             "method": "crm.item.details.configuration.forcecommonscopeforall",
             "scope": "crm",
-            "path": "methods/crm/crm.item.details.configuration.forcecommonscopeforall.md",
+            "path": "methods\\crm\\crm.item.details.configuration.forcecommonscopeforall.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -6205,7 +6205,7 @@
         {
             "method": "crm.item.details.configuration.get",
             "scope": "crm",
-            "path": "methods/crm/crm.item.details.configuration.get.md",
+            "path": "methods\\crm\\crm.item.details.configuration.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -6213,7 +6213,7 @@
         {
             "method": "crm.item.details.configuration.reset",
             "scope": "crm",
-            "path": "methods/crm/crm.item.details.configuration.reset.md",
+            "path": "methods\\crm\\crm.item.details.configuration.reset.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -6221,7 +6221,7 @@
         {
             "method": "crm.item.details.configuration.set",
             "scope": "crm",
-            "path": "methods/crm/crm.item.details.configuration.set.md",
+            "path": "methods\\crm\\crm.item.details.configuration.set.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -6277,7 +6277,7 @@
         {
             "method": "crm.userfield.enumeration.fields",
             "scope": "crm",
-            "path": "methods/crm/crm.userfield.enumeration.fields.md",
+            "path": "methods\\crm\\crm.userfield.enumeration.fields.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -6317,7 +6317,7 @@
         {
             "method": "disk.attachedobject.get",
             "scope": "disk",
-            "path": "methods/disk/disk.attachedobject.get.md",
+            "path": "methods\\disk\\disk.attachedobject.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -6325,7 +6325,7 @@
         {
             "method": "disk.file.copyto",
             "scope": "disk",
-            "path": "methods/disk/disk.file.copyto.md",
+            "path": "methods\\disk\\disk.file.copyto.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -6333,7 +6333,7 @@
         {
             "method": "disk.file.get",
             "scope": "disk",
-            "path": "methods/disk/disk.file.get.md",
+            "path": "methods\\disk\\disk.file.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -6341,7 +6341,7 @@
         {
             "method": "disk.file.delete",
             "scope": "disk",
-            "path": "methods/disk/disk.file.delete.md",
+            "path": "methods\\disk\\disk.file.delete.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -6349,7 +6349,7 @@
         {
             "method": "disk.file.getfields",
             "scope": "disk",
-            "path": "methods/disk/disk.file.getfields.md",
+            "path": "methods\\disk\\disk.file.getfields.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -6357,7 +6357,7 @@
         {
             "method": "disk.file.getversions",
             "scope": "disk",
-            "path": "methods/disk/disk.file.getversions.md",
+            "path": "methods\\disk\\disk.file.getversions.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -6373,7 +6373,7 @@
         {
             "method": "disk.version.get",
             "scope": "disk",
-            "path": "methods/disk/disk.version.get.md",
+            "path": "methods\\disk\\disk.version.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -6381,7 +6381,7 @@
         {
             "method": "disk.file.markdeleted",
             "scope": "disk",
-            "path": "methods/disk/disk.file.markdeleted.md",
+            "path": "methods\\disk\\disk.file.markdeleted.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -6389,7 +6389,7 @@
         {
             "method": "disk.file.moveto",
             "scope": "disk",
-            "path": "methods/disk/disk.file.moveto.md",
+            "path": "methods\\disk\\disk.file.moveto.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -6397,7 +6397,7 @@
         {
             "method": "disk.file.rename",
             "scope": "disk",
-            "path": "methods/disk/disk.file.rename.md",
+            "path": "methods\\disk\\disk.file.rename.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -6405,7 +6405,7 @@
         {
             "method": "disk.file.restorefromversion",
             "scope": "disk",
-            "path": "methods/disk/disk.file.restorefromversion.md",
+            "path": "methods\\disk\\disk.file.restorefromversion.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -6413,7 +6413,7 @@
         {
             "method": "disk.file.restore",
             "scope": "disk",
-            "path": "methods/disk/disk.file.restore.md",
+            "path": "methods\\disk\\disk.file.restore.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -6421,7 +6421,7 @@
         {
             "method": "disk.file.uploadversion",
             "scope": "disk",
-            "path": "methods/disk/disk.file.uploadversion.md",
+            "path": "methods\\disk\\disk.file.uploadversion.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": true
@@ -6429,7 +6429,7 @@
         {
             "method": "disk.folder.addsubfolder",
             "scope": "disk",
-            "path": "methods/disk/disk.folder.addsubfolder.md",
+            "path": "methods\\disk\\disk.folder.addsubfolder.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -6437,7 +6437,7 @@
         {
             "method": "disk.folder.get",
             "scope": "disk",
-            "path": "methods/disk/disk.folder.get.md",
+            "path": "methods\\disk\\disk.folder.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -6445,7 +6445,7 @@
         {
             "method": "disk.folder.copyto",
             "scope": "disk",
-            "path": "methods/disk/disk.folder.copyto.md",
+            "path": "methods\\disk\\disk.folder.copyto.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -6453,7 +6453,7 @@
         {
             "method": "disk.folder.deletetree",
             "scope": "disk",
-            "path": "methods/disk/disk.folder.deletetree.md",
+            "path": "methods\\disk\\disk.folder.deletetree.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -6461,7 +6461,7 @@
         {
             "method": "disk.folder.getfields",
             "scope": "disk",
-            "path": "methods/disk/disk.folder.getfields.md",
+            "path": "methods\\disk\\disk.folder.getfields.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -6469,7 +6469,7 @@
         {
             "method": "disk.folder.getexternallink",
             "scope": "disk",
-            "path": "methods/disk/disk.folder.getexternallink.md",
+            "path": "methods\\disk\\disk.folder.getexternallink.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -6477,7 +6477,7 @@
         {
             "method": "disk.folder.markdeleted",
             "scope": "disk",
-            "path": "methods/disk/disk.folder.markdeleted.md",
+            "path": "methods\\disk\\disk.folder.markdeleted.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -6485,7 +6485,7 @@
         {
             "method": "disk.folder.moveto",
             "scope": "disk",
-            "path": "methods/disk/disk.folder.moveto.md",
+            "path": "methods\\disk\\disk.folder.moveto.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -6493,7 +6493,7 @@
         {
             "method": "disk.folder.rename",
             "scope": "disk",
-            "path": "methods/disk/disk.folder.rename.md",
+            "path": "methods\\disk\\disk.folder.rename.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -6501,7 +6501,7 @@
         {
             "method": "disk.folder.restore",
             "scope": "disk",
-            "path": "methods/disk/disk.folder.restore.md",
+            "path": "methods\\disk\\disk.folder.restore.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -6509,7 +6509,7 @@
         {
             "method": "disk.rights.gettasks",
             "scope": "disk",
-            "path": "methods/disk/disk.rights.gettasks.md",
+            "path": "methods\\disk\\disk.rights.gettasks.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -6517,7 +6517,7 @@
         {
             "method": "disk.storage.getfields",
             "scope": "disk",
-            "path": "methods/disk/disk.storage.getfields.md",
+            "path": "methods\\disk\\disk.storage.getfields.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -6525,7 +6525,7 @@
         {
             "method": "disk.storage.get",
             "scope": "disk",
-            "path": "methods/disk/disk.storage.get.md",
+            "path": "methods\\disk\\disk.storage.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -6533,7 +6533,7 @@
         {
             "method": "disk.storage.rename",
             "scope": "disk",
-            "path": "methods/disk/disk.storage.rename.md",
+            "path": "methods\\disk\\disk.storage.rename.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -6541,7 +6541,7 @@
         {
             "method": "disk.storage.getforapp",
             "scope": "disk",
-            "path": "methods/disk/disk.storage.getforapp.md",
+            "path": "methods\\disk\\disk.storage.getforapp.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -6549,7 +6549,7 @@
         {
             "method": "disk.storage.getlist",
             "scope": "disk",
-            "path": "methods/disk/disk.storage.getlist.md",
+            "path": "methods\\disk\\disk.storage.getlist.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -6557,7 +6557,7 @@
         {
             "method": "disk.storage.gettypes",
             "scope": "disk",
-            "path": "methods/disk/disk.storage.gettypes.md",
+            "path": "methods\\disk\\disk.storage.gettypes.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -6565,7 +6565,7 @@
         {
             "method": "disk.storage.addfolder",
             "scope": "disk",
-            "path": "methods/disk/disk.storage.addfolder.md",
+            "path": "methods\\disk\\disk.storage.addfolder.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -6573,7 +6573,7 @@
         {
             "method": "disk.storage.getchildren",
             "scope": "disk",
-            "path": "methods/disk/disk.storage.getchildren.md",
+            "path": "methods\\disk\\disk.storage.getchildren.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -6581,7 +6581,7 @@
         {
             "method": "disk.storage.uploadfile",
             "scope": "disk",
-            "path": "methods/disk/disk.storage.uploadfile.md",
+            "path": "methods\\disk\\disk.storage.uploadfile.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -6845,7 +6845,7 @@
         {
             "method": "entity.section.get",
             "scope": "entity",
-            "path": "methods/entity/entity.section.get.md",
+            "path": "methods\\entity\\entity.section.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -6853,7 +6853,7 @@
         {
             "method": "entity.section.add",
             "scope": "entity",
-            "path": "methods/entity/entity.section.add.md",
+            "path": "methods\\entity\\entity.section.add.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -6861,7 +6861,7 @@
         {
             "method": "entity.section.update",
             "scope": "entity",
-            "path": "methods/entity/entity.section.update.md",
+            "path": "methods\\entity\\entity.section.update.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -6869,7 +6869,7 @@
         {
             "method": "entity.section.delete",
             "scope": "entity",
-            "path": "methods/entity/entity.section.delete.md",
+            "path": "methods\\entity\\entity.section.delete.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -6877,7 +6877,7 @@
         {
             "method": "entity.item.get",
             "scope": "entity",
-            "path": "methods/entity/entity.item.get.md",
+            "path": "methods\\entity\\entity.item.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -6885,7 +6885,7 @@
         {
             "method": "entity.item.add",
             "scope": "entity",
-            "path": "methods/entity/entity.item.add.md",
+            "path": "methods\\entity\\entity.item.add.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -6893,7 +6893,7 @@
         {
             "method": "entity.item.update",
             "scope": "entity",
-            "path": "methods/entity/entity.item.update.md",
+            "path": "methods\\entity\\entity.item.update.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -6901,7 +6901,7 @@
         {
             "method": "entity.item.delete",
             "scope": "entity",
-            "path": "methods/entity/entity.item.delete.md",
+            "path": "methods\\entity\\entity.item.delete.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -6909,7 +6909,7 @@
         {
             "method": "entity.item.property.get",
             "scope": "entity",
-            "path": "methods/entity/entity.item.property.get.md",
+            "path": "methods\\entity\\entity.item.property.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -6917,7 +6917,7 @@
         {
             "method": "entity.item.property.add",
             "scope": "entity",
-            "path": "methods/entity/entity.item.property.add.md",
+            "path": "methods\\entity\\entity.item.property.add.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -6925,7 +6925,7 @@
         {
             "method": "entity.item.property.update",
             "scope": "entity",
-            "path": "methods/entity/entity.item.property.update.md",
+            "path": "methods\\entity\\entity.item.property.update.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -6933,7 +6933,7 @@
         {
             "method": "entity.item.property.delete",
             "scope": "entity",
-            "path": "methods/entity/entity.item.property.delete.md",
+            "path": "methods\\entity\\entity.item.property.delete.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -7053,7 +7053,7 @@
         {
             "method": "lists.element.update",
             "scope": "lists",
-            "path": "methods/lists/lists.element.update.md",
+            "path": "methods\\lists\\lists.element.update.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -7061,7 +7061,7 @@
         {
             "method": "lists.element.get",
             "scope": "lists",
-            "path": "methods/lists/lists.element.get.md",
+            "path": "methods\\lists\\lists.element.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -7069,7 +7069,7 @@
         {
             "method": "lists.element.add",
             "scope": "lists",
-            "path": "methods/lists/lists.element.add.md",
+            "path": "methods\\lists\\lists.element.add.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -7077,8 +7077,8 @@
         {
             "method": "telephony.externalcall.attachrecord",
             "scope": "telephony",
-            "path": "methods/telephony/telephony.externalcall.attachrecord.md",
-            "deprecated": false,
+            "path": "methods\\telephony\\telephony.externalcall.attachrecord.md",
+            "deprecated": true,
             "pagination": "unknown",
             "has_example": false
         },
@@ -7117,7 +7117,7 @@
         {
             "method": "imopenlines.bot.session.finish",
             "scope": "imopenlines",
-            "path": "methods/imopenlines/imopenlines.bot.session.finish.md",
+            "path": "methods\\imopenlines\\imopenlines.bot.session.finish.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -7125,7 +7125,7 @@
         {
             "method": "imopenlines.bot.session.message.send",
             "scope": "imopenlines",
-            "path": "methods/imopenlines/imopenlines.bot.session.message.send.md",
+            "path": "methods\\imopenlines\\imopenlines.bot.session.message.send.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -7133,7 +7133,7 @@
         {
             "method": "imopenlines.bot.session.operator",
             "scope": "imopenlines",
-            "path": "methods/imopenlines/imopenlines.bot.session.operator.md",
+            "path": "methods\\imopenlines\\imopenlines.bot.session.operator.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -7141,7 +7141,7 @@
         {
             "method": "imopenlines.bot.session.transfer",
             "scope": "imopenlines",
-            "path": "methods/imopenlines/imopenlines.bot.session.transfer.md",
+            "path": "methods\\imopenlines\\imopenlines.bot.session.transfer.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -7157,7 +7157,7 @@
         {
             "method": "imopenlines.crm.chat.getlastid",
             "scope": "imopenlines",
-            "path": "methods/imopenlines/imopenlines.crm.chat.getlastid.md",
+            "path": "methods\\imopenlines\\imopenlines.crm.chat.getlastid.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -7165,7 +7165,7 @@
         {
             "method": "imopenlines.crm.chat.get",
             "scope": "imopenlines",
-            "path": "methods/imopenlines/imopenlines.crm.chat.get.md",
+            "path": "methods\\imopenlines\\imopenlines.crm.chat.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -7173,7 +7173,7 @@
         {
             "method": "imopenlines.crm.chat.user.add",
             "scope": "imopenlines",
-            "path": "methods/imopenlines/imopenlines.crm.chat.user.add.md",
+            "path": "methods\\imopenlines\\imopenlines.crm.chat.user.add.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -7181,7 +7181,7 @@
         {
             "method": "imopenlines.crm.chat.user.delete",
             "scope": "imopenlines",
-            "path": "methods/imopenlines/imopenlines.crm.chat.user.delete.md",
+            "path": "methods\\imopenlines\\imopenlines.crm.chat.user.delete.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -7189,7 +7189,7 @@
         {
             "method": "imopenlines.session.start",
             "scope": "imopenlines",
-            "path": "methods/imopenlines/imopenlines.session.start.md",
+            "path": "methods\\imopenlines\\imopenlines.session.start.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -7197,7 +7197,7 @@
         {
             "method": "imopenlines.crm.message.add",
             "scope": "imopenlines",
-            "path": "methods/imopenlines/imopenlines.crm.message.add.md",
+            "path": "methods\\imopenlines\\imopenlines.crm.message.add.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -7205,7 +7205,7 @@
         {
             "method": "imopenlines.config.add",
             "scope": "imopenlines",
-            "path": "methods/imopenlines/imopenlines.config.add.md",
+            "path": "methods\\imopenlines\\imopenlines.config.add.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -7213,7 +7213,7 @@
         {
             "method": "imopenlines.config.delete",
             "scope": "imopenlines",
-            "path": "methods/imopenlines/imopenlines.config.delete.md",
+            "path": "methods\\imopenlines\\imopenlines.config.delete.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -7221,7 +7221,7 @@
         {
             "method": "imopenlines.config.get",
             "scope": "imopenlines",
-            "path": "methods/imopenlines/imopenlines.config.get.md",
+            "path": "methods\\imopenlines\\imopenlines.config.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -7229,7 +7229,7 @@
         {
             "method": "imopenlines.config.list.get",
             "scope": "imopenlines",
-            "path": "methods/imopenlines/imopenlines.config.list.get.md",
+            "path": "methods\\imopenlines\\imopenlines.config.list.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -7237,7 +7237,7 @@
         {
             "method": "imopenlines.config.path.get",
             "scope": "imopenlines",
-            "path": "methods/imopenlines/imopenlines.config.path.get.md",
+            "path": "methods\\imopenlines\\imopenlines.config.path.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -7245,7 +7245,7 @@
         {
             "method": "imopenlines.config.update",
             "scope": "imopenlines",
-            "path": "methods/imopenlines/imopenlines.config.update.md",
+            "path": "methods\\imopenlines\\imopenlines.config.update.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -7253,7 +7253,7 @@
         {
             "method": "imopenlines.network.message.add",
             "scope": "imopenlines",
-            "path": "methods/imopenlines/imopenlines.network.message.add.md",
+            "path": "methods\\imopenlines\\imopenlines.network.message.add.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": true
@@ -7261,7 +7261,7 @@
         {
             "method": "imopenlines.revision.get",
             "scope": "imopenlines",
-            "path": "methods/imopenlines/imopenlines.revision.get.md",
+            "path": "methods\\imopenlines\\imopenlines.revision.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -7269,7 +7269,7 @@
         {
             "method": "imopenlines.message.quick.save",
             "scope": "imopenlines",
-            "path": "methods/imopenlines/imopenlines.message.quick.save.md",
+            "path": "methods\\imopenlines\\imopenlines.message.quick.save.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -7277,7 +7277,7 @@
         {
             "method": "imopenlines.operator.another.finish",
             "scope": "imopenlines",
-            "path": "methods/imopenlines/imopenlines.operator.another.finish.md",
+            "path": "methods\\imopenlines\\imopenlines.operator.another.finish.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -7285,7 +7285,7 @@
         {
             "method": "imopenlines.operator.answer",
             "scope": "imopenlines",
-            "path": "methods/imopenlines/imopenlines.operator.answer.md",
+            "path": "methods\\imopenlines\\imopenlines.operator.answer.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -7293,7 +7293,7 @@
         {
             "method": "imopenlines.operator.finish",
             "scope": "imopenlines",
-            "path": "methods/imopenlines/imopenlines.operator.finish.md",
+            "path": "methods\\imopenlines\\imopenlines.operator.finish.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -7301,7 +7301,7 @@
         {
             "method": "imopenlines.operator.skip",
             "scope": "imopenlines",
-            "path": "methods/imopenlines/imopenlines.operator.skip.md",
+            "path": "methods\\imopenlines\\imopenlines.operator.skip.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -7309,7 +7309,7 @@
         {
             "method": "imopenlines.operator.spam",
             "scope": "imopenlines",
-            "path": "methods/imopenlines/imopenlines.operator.spam.md",
+            "path": "methods\\imopenlines\\imopenlines.operator.spam.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -7317,7 +7317,7 @@
         {
             "method": "imopenlines.operator.transfer",
             "scope": "imopenlines",
-            "path": "methods/imopenlines/imopenlines.operator.transfer.md",
+            "path": "methods\\imopenlines\\imopenlines.operator.transfer.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -7325,7 +7325,7 @@
         {
             "method": "imopenlines.crm.lead.create",
             "scope": "imopenlines",
-            "path": "methods/imopenlines/imopenlines.crm.lead.create.md",
+            "path": "methods\\imopenlines\\imopenlines.crm.lead.create.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -7333,7 +7333,7 @@
         {
             "method": "imopenlines.dialog.get",
             "scope": "imopenlines",
-            "path": "methods/imopenlines/imopenlines.dialog.get.md",
+            "path": "methods\\imopenlines\\imopenlines.dialog.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -7341,7 +7341,7 @@
         {
             "method": "imopenlines.message.session.start",
             "scope": "imopenlines",
-            "path": "methods/imopenlines/imopenlines.message.session.start.md",
+            "path": "methods\\imopenlines\\imopenlines.message.session.start.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -7349,7 +7349,7 @@
         {
             "method": "imopenlines.session.head.vote",
             "scope": "imopenlines",
-            "path": "methods/imopenlines/imopenlines.session.head.vote.md",
+            "path": "methods\\imopenlines\\imopenlines.session.head.vote.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -7357,7 +7357,7 @@
         {
             "method": "imopenlines.session.history.get",
             "scope": "imopenlines",
-            "path": "methods/imopenlines/imopenlines.session.history.get.md",
+            "path": "methods\\imopenlines\\imopenlines.session.history.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -7365,7 +7365,7 @@
         {
             "method": "imopenlines.session.intercept",
             "scope": "imopenlines",
-            "path": "methods/imopenlines/imopenlines.session.intercept.md",
+            "path": "methods\\imopenlines\\imopenlines.session.intercept.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -7373,7 +7373,7 @@
         {
             "method": "imopenlines.session.join",
             "scope": "imopenlines",
-            "path": "methods/imopenlines/imopenlines.session.join.md",
+            "path": "methods\\imopenlines\\imopenlines.session.join.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -7381,7 +7381,7 @@
         {
             "method": "imopenlines.session.mode.pinall",
             "scope": "imopenlines",
-            "path": "methods/imopenlines/imopenlines.session.mode.pinall.md",
+            "path": "methods\\imopenlines\\imopenlines.session.mode.pinall.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -7389,7 +7389,7 @@
         {
             "method": "imopenlines.session.mode.pin",
             "scope": "imopenlines",
-            "path": "methods/imopenlines/imopenlines.session.mode.pin.md",
+            "path": "methods\\imopenlines\\imopenlines.session.mode.pin.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -7397,7 +7397,7 @@
         {
             "method": "imopenlines.session.mode.silent",
             "scope": "imopenlines",
-            "path": "methods/imopenlines/imopenlines.session.mode.silent.md",
+            "path": "methods\\imopenlines\\imopenlines.session.mode.silent.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -7405,7 +7405,7 @@
         {
             "method": "imopenlines.session.mode.unpinall",
             "scope": "imopenlines",
-            "path": "methods/imopenlines/imopenlines.session.mode.unpinall.md",
+            "path": "methods\\imopenlines\\imopenlines.session.mode.unpinall.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -7413,7 +7413,7 @@
         {
             "method": "imopenlines.session.open",
             "scope": "imopenlines",
-            "path": "methods/imopenlines/imopenlines.session.open.md",
+            "path": "methods\\imopenlines\\imopenlines.session.open.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -8229,7 +8229,7 @@
         {
             "method": "lists.element.delete",
             "scope": "lists",
-            "path": "methods/lists/lists.element.delete.md",
+            "path": "methods\\lists\\lists.element.delete.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -8237,7 +8237,7 @@
         {
             "method": "lists.element.get.file.url",
             "scope": "lists",
-            "path": "methods/lists/lists.element.get.file.url.md",
+            "path": "methods\\lists\\lists.element.get.file.url.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -8245,7 +8245,7 @@
         {
             "method": "lists.field.add",
             "scope": "lists",
-            "path": "methods/lists/lists.field.add.md",
+            "path": "methods\\lists\\lists.field.add.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -8253,7 +8253,7 @@
         {
             "method": "lists.field.delete",
             "scope": "lists",
-            "path": "methods/lists/lists.field.delete.md",
+            "path": "methods\\lists\\lists.field.delete.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -8261,7 +8261,7 @@
         {
             "method": "lists.field.get",
             "scope": "lists",
-            "path": "methods/lists/lists.field.get.md",
+            "path": "methods\\lists\\lists.field.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -8269,7 +8269,7 @@
         {
             "method": "lists.field.type.get",
             "scope": "lists",
-            "path": "methods/lists/lists.field.type.get.md",
+            "path": "methods\\lists\\lists.field.type.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -8277,7 +8277,7 @@
         {
             "method": "lists.field.update",
             "scope": "lists",
-            "path": "methods/lists/lists.field.update.md",
+            "path": "methods\\lists\\lists.field.update.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -8285,7 +8285,7 @@
         {
             "method": "lists.get.iblock.type.id",
             "scope": "lists",
-            "path": "methods/lists/lists.get.iblock.type.id.md",
+            "path": "methods\\lists\\lists.get.iblock.type.id.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -8293,7 +8293,7 @@
         {
             "method": "lists.section.add",
             "scope": "lists",
-            "path": "methods/lists/lists.section.add.md",
+            "path": "methods\\lists\\lists.section.add.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -8301,7 +8301,7 @@
         {
             "method": "lists.section.get",
             "scope": "lists",
-            "path": "methods/lists/lists.section.get.md",
+            "path": "methods\\lists\\lists.section.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -8309,7 +8309,7 @@
         {
             "method": "lists.section.update",
             "scope": "lists",
-            "path": "methods/lists/lists.section.update.md",
+            "path": "methods\\lists\\lists.section.update.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -8317,7 +8317,7 @@
         {
             "method": "lists.section.delete",
             "scope": "lists",
-            "path": "methods/lists/lists.section.delete.md",
+            "path": "methods\\lists\\lists.section.delete.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -8325,7 +8325,7 @@
         {
             "method": "messageservice.message.status.update",
             "scope": "messageservice",
-            "path": "methods/messageservice/messageservice.message.status.update.md",
+            "path": "methods\\messageservice\\messageservice.message.status.update.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -8333,7 +8333,7 @@
         {
             "method": "messageservice.sender.add",
             "scope": "messageservice",
-            "path": "methods/messageservice/messageservice.sender.add.md",
+            "path": "methods\\messageservice\\messageservice.sender.add.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -8341,7 +8341,7 @@
         {
             "method": "messageservice.sender.delete",
             "scope": "messageservice",
-            "path": "methods/messageservice/messageservice.sender.delete.md",
+            "path": "methods\\messageservice\\messageservice.sender.delete.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -8349,7 +8349,7 @@
         {
             "method": "messageservice.sender.list",
             "scope": "messageservice",
-            "path": "methods/messageservice/messageservice.sender.list.md",
+            "path": "methods\\messageservice\\messageservice.sender.list.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -8357,7 +8357,7 @@
         {
             "method": "messageservice.sender.update",
             "scope": "messageservice",
-            "path": "methods/messageservice/messageservice.sender.update.md",
+            "path": "methods\\messageservice\\messageservice.sender.update.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": true
@@ -8365,7 +8365,7 @@
         {
             "method": "sale.paysystem.handler.add",
             "scope": "sale",
-            "path": "methods/sale/sale.paysystem.handler.add.md",
+            "path": "methods\\sale\\sale.paysystem.handler.add.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -8373,7 +8373,7 @@
         {
             "method": "sale.paysystem.handler.update",
             "scope": "sale",
-            "path": "methods/sale/sale.paysystem.handler.update.md",
+            "path": "methods\\sale\\sale.paysystem.handler.update.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": true
@@ -8381,7 +8381,7 @@
         {
             "method": "sale.paysystem.handler.list",
             "scope": "sale",
-            "path": "methods/sale/sale.paysystem.handler.list.md",
+            "path": "methods\\sale\\sale.paysystem.handler.list.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -8389,7 +8389,7 @@
         {
             "method": "sale.paysystem.handler.delete",
             "scope": "sale",
-            "path": "methods/sale/sale.paysystem.handler.delete.md",
+            "path": "methods\\sale\\sale.paysystem.handler.delete.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": true
@@ -8397,7 +8397,7 @@
         {
             "method": "sale.paysystem.add",
             "scope": "sale",
-            "path": "methods/sale/sale.paysystem.add.md",
+            "path": "methods\\sale\\sale.paysystem.add.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -8405,7 +8405,7 @@
         {
             "method": "sale.paysystem.update",
             "scope": "sale",
-            "path": "methods/sale/sale.paysystem.update.md",
+            "path": "methods\\sale\\sale.paysystem.update.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": true
@@ -8413,7 +8413,7 @@
         {
             "method": "sale.paysystem.list",
             "scope": "sale",
-            "path": "methods/sale/sale.paysystem.list.md",
+            "path": "methods\\sale\\sale.paysystem.list.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -8421,7 +8421,7 @@
         {
             "method": "sale.paysystem.settings.get",
             "scope": "sale",
-            "path": "methods/sale/sale.paysystem.settings.get.md",
+            "path": "methods\\sale\\sale.paysystem.settings.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": true
@@ -8429,7 +8429,7 @@
         {
             "method": "sale.paysystem.settings.update",
             "scope": "sale",
-            "path": "methods/sale/sale.paysystem.settings.update.md",
+            "path": "methods\\sale\\sale.paysystem.settings.update.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": true
@@ -8437,7 +8437,7 @@
         {
             "method": "sale.paysystem.delete",
             "scope": "sale",
-            "path": "methods/sale/sale.paysystem.delete.md",
+            "path": "methods\\sale\\sale.paysystem.delete.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": true
@@ -8445,7 +8445,7 @@
         {
             "method": "sale.paysystem.pay.payment",
             "scope": "sale",
-            "path": "methods/sale/sale.paysystem.pay.payment.md",
+            "path": "methods\\sale\\sale.paysystem.pay.payment.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": true
@@ -8453,7 +8453,7 @@
         {
             "method": "sale.paysystem.pay.invoice",
             "scope": "sale",
-            "path": "methods/sale/sale.paysystem.pay.invoice.md",
+            "path": "methods\\sale\\sale.paysystem.pay.invoice.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": true
@@ -8461,7 +8461,7 @@
         {
             "method": "sale.paysystem.settings.payment.get",
             "scope": "sale",
-            "path": "methods/sale/sale.paysystem.settings.payment.get.md",
+            "path": "methods\\sale\\sale.paysystem.settings.payment.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": true
@@ -8469,7 +8469,7 @@
         {
             "method": "sale.paysystem.settings.invoice.get",
             "scope": "sale",
-            "path": "methods/sale/sale.paysystem.settings.invoice.get.md",
+            "path": "methods\\sale\\sale.paysystem.settings.invoice.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": true
@@ -8653,7 +8653,7 @@
         {
             "method": "sale.cashbox.handler.update",
             "scope": "sale",
-            "path": "methods/sale/sale.cashbox.handler.update.md",
+            "path": "methods\\sale\\sale.cashbox.handler.update.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": true
@@ -8661,7 +8661,7 @@
         {
             "method": "sale.cashbox.handler.list",
             "scope": "sale",
-            "path": "methods/sale/sale.cashbox.handler.list.md",
+            "path": "methods\\sale\\sale.cashbox.handler.list.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -8669,7 +8669,7 @@
         {
             "method": "sale.cashbox.handler.delete",
             "scope": "sale",
-            "path": "methods/sale/sale.cashbox.handler.delete.md",
+            "path": "methods\\sale\\sale.cashbox.handler.delete.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": true
@@ -8677,7 +8677,7 @@
         {
             "method": "sale.cashbox.add",
             "scope": "sale",
-            "path": "methods/sale/sale.cashbox.add.md",
+            "path": "methods\\sale\\sale.cashbox.add.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": true
@@ -8685,7 +8685,7 @@
         {
             "method": "sale.cashbox.update",
             "scope": "sale",
-            "path": "methods/sale/sale.cashbox.update.md",
+            "path": "methods\\sale\\sale.cashbox.update.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": true
@@ -8693,7 +8693,7 @@
         {
             "method": "sale.cashbox.list",
             "scope": "sale",
-            "path": "methods/sale/sale.cashbox.list.md",
+            "path": "methods\\sale\\sale.cashbox.list.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -8701,7 +8701,7 @@
         {
             "method": "sale.cashbox.delete",
             "scope": "sale",
-            "path": "methods/sale/sale.cashbox.delete.md",
+            "path": "methods\\sale\\sale.cashbox.delete.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": true
@@ -8709,7 +8709,7 @@
         {
             "method": "sale.cashbox.check.apply",
             "scope": "sale",
-            "path": "methods/sale/sale.cashbox.check.apply.md",
+            "path": "methods\\sale\\sale.cashbox.check.apply.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": true
@@ -9589,7 +9589,7 @@
         {
             "method": "telephony.externalcall.register",
             "scope": "telephony",
-            "path": "methods/telephony/telephony.externalcall.register.md",
+            "path": "methods\\telephony\\telephony.externalcall.register.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -9597,7 +9597,7 @@
         {
             "method": "sonet_group.feature.access",
             "scope": "sonet_group",
-            "path": "methods/sonet_group/sonet_group.feature.access.md",
+            "path": "methods\\sonet_group\\sonet_group.feature.access.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -9605,7 +9605,7 @@
         {
             "method": "sonet_group.user.groups",
             "scope": "sonet_group",
-            "path": "methods/sonet_group/sonet_group.user.groups.md",
+            "path": "methods\\sonet_group\\sonet_group.user.groups.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -9613,7 +9613,7 @@
         {
             "method": "sonet_group.user.invite",
             "scope": "sonet_group",
-            "path": "methods/sonet_group/sonet_group.user.invite.md",
+            "path": "methods\\sonet_group\\sonet_group.user.invite.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -9621,7 +9621,7 @@
         {
             "method": "sonet_group.user.request",
             "scope": "sonet_group",
-            "path": "methods/sonet_group/sonet_group.user.request.md",
+            "path": "methods\\sonet_group\\sonet_group.user.request.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -9629,7 +9629,7 @@
         {
             "method": "sonet_group.user.add",
             "scope": "sonet_group",
-            "path": "methods/sonet_group/sonet_group.user.add.md",
+            "path": "methods\\sonet_group\\sonet_group.user.add.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -9637,7 +9637,7 @@
         {
             "method": "sonet_group.user.update",
             "scope": "sonet_group",
-            "path": "methods/sonet_group/sonet_group.user.update.md",
+            "path": "methods\\sonet_group\\sonet_group.user.update.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -9645,7 +9645,7 @@
         {
             "method": "sonet_group.user.get",
             "scope": "sonet_group",
-            "path": "methods/sonet_group/sonet_group.user.get.md",
+            "path": "methods\\sonet_group\\sonet_group.user.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -9653,7 +9653,7 @@
         {
             "method": "sonet_group.user.delete",
             "scope": "sonet_group",
-            "path": "methods/sonet_group/sonet_group.user.delete.md",
+            "path": "methods\\sonet_group\\sonet_group.user.delete.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -10705,7 +10705,7 @@
         {
             "method": "task.item.userfield.add",
             "scope": "task",
-            "path": "methods/task/task.item.userfield.add.md",
+            "path": "methods\\task\\task.item.userfield.add.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -10889,7 +10889,7 @@
         {
             "method": "telephony.externalcall.searchcrmentities",
             "scope": "telephony",
-            "path": "methods/telephony/telephony.externalcall.searchcrmentities.md",
+            "path": "methods\\telephony\\telephony.externalcall.searchcrmentities.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -10897,7 +10897,7 @@
         {
             "method": "telephony.externalcall.show",
             "scope": "telephony",
-            "path": "methods/telephony/telephony.externalcall.show.md",
+            "path": "methods\\telephony\\telephony.externalcall.show.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -10905,7 +10905,7 @@
         {
             "method": "telephony.externalcall.hide",
             "scope": "telephony",
-            "path": "methods/telephony/telephony.externalcall.hide.md",
+            "path": "methods\\telephony\\telephony.externalcall.hide.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -10913,7 +10913,7 @@
         {
             "method": "telephony.call.attachtranscription",
             "scope": "telephony",
-            "path": "methods/telephony/telephony.call.attachtranscription.md",
+            "path": "methods\\telephony\\telephony.call.attachtranscription.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": false
@@ -10921,7 +10921,7 @@
         {
             "method": "telephony.externalline.add",
             "scope": "telephony",
-            "path": "methods/telephony/telephony.externalline.add.md",
+            "path": "methods\\telephony\\telephony.externalline.add.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -10929,7 +10929,7 @@
         {
             "method": "telephony.externalline.update",
             "scope": "telephony",
-            "path": "methods/telephony/telephony.externalline.update.md",
+            "path": "methods\\telephony\\telephony.externalline.update.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -10937,7 +10937,7 @@
         {
             "method": "telephony.externalline.get",
             "scope": "telephony",
-            "path": "methods/telephony/telephony.externalline.get.md",
+            "path": "methods\\telephony\\telephony.externalline.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -10945,7 +10945,7 @@
         {
             "method": "telephony.externalline.delete",
             "scope": "telephony",
-            "path": "methods/telephony/telephony.externalline.delete.md",
+            "path": "methods\\telephony\\telephony.externalline.delete.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": false
@@ -10961,7 +10961,7 @@
         {
             "method": "timeman.timecontrol.report.add",
             "scope": "timeman",
-            "path": "methods/timeman/timeman.timecontrol.report.add.md",
+            "path": "methods\\timeman\\timeman.timecontrol.report.add.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": true
@@ -10969,7 +10969,7 @@
         {
             "method": "timeman.timecontrol.reports.get",
             "scope": "timeman",
-            "path": "methods/timeman/timeman.timecontrol.reports.get.md",
+            "path": "methods\\timeman\\timeman.timecontrol.reports.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": true
@@ -10977,7 +10977,7 @@
         {
             "method": "timeman.timecontrol.settings.get",
             "scope": "timeman",
-            "path": "methods/timeman/timeman.timecontrol.settings.get.md",
+            "path": "methods\\timeman\\timeman.timecontrol.settings.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": true
@@ -10985,7 +10985,7 @@
         {
             "method": "timeman.timecontrol.settings.set",
             "scope": "timeman",
-            "path": "methods/timeman/timeman.timecontrol.settings.set.md",
+            "path": "methods\\timeman\\timeman.timecontrol.settings.set.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": true
@@ -10993,7 +10993,7 @@
         {
             "method": "timeman.timecontrol.reports.settings.get",
             "scope": "timeman",
-            "path": "methods/timeman/timeman.timecontrol.reports.settings.get.md",
+            "path": "methods\\timeman\\timeman.timecontrol.reports.settings.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": true
@@ -11001,7 +11001,7 @@
         {
             "method": "timeman.timecontrol.reports.users.get",
             "scope": "timeman",
-            "path": "methods/timeman/timeman.timecontrol.reports.users.get.md",
+            "path": "methods\\timeman\\timeman.timecontrol.reports.users.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": true
@@ -11009,7 +11009,7 @@
         {
             "method": "timeman.networkrange.get",
             "scope": "timeman",
-            "path": "methods/timeman/timeman.networkrange.get.md",
+            "path": "methods\\timeman\\timeman.networkrange.get.md",
             "deprecated": false,
             "pagination": "none",
             "has_example": true
@@ -11017,7 +11017,7 @@
         {
             "method": "timeman.networkrange.set",
             "scope": "timeman",
-            "path": "methods/timeman/timeman.networkrange.set.md",
+            "path": "methods\\timeman\\timeman.networkrange.set.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": true
@@ -11025,7 +11025,7 @@
         {
             "method": "timeman.networkrange.check",
             "scope": "timeman",
-            "path": "methods/timeman/timeman.networkrange.check.md",
+            "path": "methods\\timeman\\timeman.networkrange.check.md",
             "deprecated": false,
             "pagination": "unknown",
             "has_example": true
