@@ -9,11 +9,10 @@ params: {"type":"object","required":["id"],"properties":{"id":{"type":"integer"}
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Методы работы с элементами хранилища
+# Удалить элемент хранилища entity.item.delete
 
 
 
@@ -21,14 +20,64 @@ Auto-generated stub. Fill in params/returns/examples.
 
 
 
+
+
+
+
+- отсутствуют примеры
+- отсутствует ответ в случае ошибки
+
+
+
+
+
 > Scope: [`entity`](../../scopes/permissions.md)
 >
 > Кто может выполнять метод: любой пользователь
 
+Метод `entity.item.delete` удаляет элемент хранилища. Пользователь должен обладать хотя бы правами на запись (**W**) в хранилище.
+
+## Параметры
+
 #|
-|| **Метод** | **Описание** ||
-|| [entity.item.get](./entity-item-get.md) | Получение списка элементов хранилища. Списочный метод. ||
-|| [entity.item.add](./entity-item-add.md) | Добавление элемента хранилища. ||
-|| [entity.item.update](./entity-item-update.md) | Обновление элемента хранилища. ||
-|| [entity.item.delete](./entity-item-delete.md) | Удаление элемента хранилища. ||
+|| **Параметр** | **Описание** ||
+|| **ENTITY^*^**
+[`string`](../../data-types.md) | Обязательный. Строковый идентификатор хранилища. ||
+|| **ID^*^**
+[`integer`](../../data-types.md) | Обязательный. Идентификатор элемента. ||
 |#
+
+
+
+## Пример
+
+
+
+- JS
+
+    ```js
+    BX24.callMethod(
+        'entity.item.delete',
+        {
+            ENTITY: 'menu_new',
+            ID: 842
+        }
+    );
+    ```
+
+- HTTP
+
+    ```http
+    https://my.bitrix24.ru/rest/entity.item.delete.json?ENTITY=menu_new&ID=842&auth=340bf57f35ee95e0debf98399632999c
+    ```
+
+
+
+
+
+## Ответ в случае успеха
+
+> 200 OK
+```json
+{"result":true}
+```

@@ -9,20 +9,162 @@ params: {"type":"object","required":["fields"],"properties":{"fields":{"type":"o
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Обзор методов
+# Добавить товарную позицию в оплату crm.item.payment.product.add
 
 > Scope: [`crm`](../../../../scopes/permissions.md)
 >
-> Кто может выполнять методы: в зависимости от метода
+> Кто может выполнять метод: требуется право на изменение заказа, в оплату которого добавляется товарная позиция
+
+
+Метод добавляет товарную позицию в оплату.
+
+## Параметры метода
+
+
 
 #|
-|| **Метод** | **Описание** ||
-|| [crm.item.payment.product.add](./crm-item-payment-product-add.md) | Добавляет товарную позицию в оплату ||
-|| [crm.item.payment.product.list](./crm-item-payment-product-list.md) | Получает список товарных позиций в оплате  ||
-|| [crm.item.payment.product.delete](./crm-item-payment-product-delete.md) | Удаляет товарную позицию из оплаты ||
-|| [crm.item.payment.product.setQuantity](./crm-item-payment-product-set-quantity.md) | Изменяет количество товара в товарной позиции оплаты ||
+|| **Название**
+`тип` | **Описание** ||
+|| **paymentId***
+[`sale_order_payment.id`](../../../../sale/data-types.md#sale_order_payment) | Идентификатор оплаты.
+Можно получить с помощью метода [`sale.payment.list`](../../../../sale/payment/sale-payment-list.md)
+ ||
+ || **rowId***
+[`integer`](../../../../data-types.md) | Идентификатор товарной позиции в объекте CRM.
+Можно получить с помощью [`crm.item.productrow.list`](../../../../crm/universal/product-rows/crm-item-productrow-list.md)
+ ||
+ || **quantity***
+[`double`](../../../../data-types.md)| Количество товара ||
 |#
+
+## Примеры кода
+
+
+
+
+
+- cURL (Webhook)
+
+    ```http
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"paymentId":1039,"rowId":17587,"quantity":2}' \
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webhook_here**/crm.item.payment.product.add
+    ```
+
+- cURL (OAuth)
+
+    ```http
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"paymentId":1039,"rowId":17587,"quantity":2,"auth":"**put_access_token_here**"}' \
+    https://**put_your_bitrix24_address**/rest/crm.item.payment.product.add
+    ```
+
+- JS
+
+    ```js
+    BX24.callMethod(
+        'crm.item.payment.product.add', {
+            paymentId: 1039,
+            rowId: 17587,
+            quantity: 2
+        },
+        function(result) {
+            if (result.error()) {
+                console.error(result.error());
+            } else {
+                console.log(result.data());
+            }
+        }
+    );
+    ```
+
+- PHP
+
+    ```php
+    require_once('crest.php');
+
+    $result = CRest::call(
+        'crm.item.payment.product.add',
+        [
+            'paymentId' => 1039,
+            'rowId' => 17587,
+            'quantity' => 2
+        ]
+    );
+
+    echo '<PRE>';
+    print_r($result);
+    echo '</PRE>';
+    ```
+
+
+
+## Ответ в случае успеха
+
+HTTP-статус: **200**
+
+```json
+{
+   "result":1193,
+   "time":{
+      "start":1716276648.349503,
+      "finish":1716276649.261574,
+      "duration":0.9120709896087646,
+      "processing":0.6422691345214844,
+      "date_start":"2024-05-21T10:30:48+03:00",
+      "date_finish":"2024-05-21T10:30:49+03:00"
+   }
+}
+```
+
+### Возвращаемые данные
+
+#|
+|| **Название**
+`тип` | **Описание** ||
+|| **result**
+[`integer`](../../../../data-types.md) | Идентификатор товарной позиции в оплате ||
+|| **time**
+[`time`](../../../../data-types.md) | Информация о времени выполнения запроса ||
+|#
+
+## Обработка ошибок
+
+HTTP-статус: **400**
+
+```json
+{
+   "error":0,
+   "error_description":"Payment has not been found"
+}
+```
+
+
+
+### Возможные коды ошибок
+
+#|
+|| **Код** | **Описание** ||
+|| `0` | Оплата не найдена ||
+|| `0` | Доступ запрещен ||
+|| `0` | Товарная позиция не найдена ||
+|| `0` | Недостаточно товара для добавления в оплату ||
+|| `0` | Количество товара не может быть меньше либо равно 0 ||
+|| `100` | Не переданы обязательные поля ||
+|| `0` | Другие ошибки (например, фатальные ошибки) ||
+|#
+
+
+
+## Продолжите изучение
+
+- [{#T}](./crm-item-payment-product-set-quantity.md)
+- [{#T}](./crm-item-payment-product-list.md)
+- [{#T}](./crm-item-payment-product-delete.md)

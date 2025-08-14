@@ -9,11 +9,10 @@ params: {"type":"object"}
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Сообщения в открытых линиях
+# Сохранить сообщение в качестве быстрого ответа imopenlines.message.quick.save
 
 
 
@@ -25,15 +24,89 @@ Auto-generated stub. Fill in params/returns/examples.
 
 
 
-- из файла Сергея: где указываются, как это выглядит в интерфейсе
+- не указаны типы параметров
+- отсутствуют примеры
+- отсутствует ответ в случае успеха
+- отсутствует ответ в случае ошибки
 
 
+
+
+
+> Scope: [`imopenlines`](../../../scopes/permissions.md)
+>
+> Кто может выполнять метод: любой пользователь
+
+Метод сохраняет сообщение в быстрые ответы.
+
+## Параметры метода
 
 
 
 #|
-|| **Метод** | **Описание** ||
-|| [imopenlines.crm.message.add](./imopenlines-crm-message-add.md) | Отправляет сообщение в открытую линию ||
-|| [imopenlines.message.quick.save](./imopenlines-message-quick-save.md) | Сохраняет сообщение в качестве быстрого ответа ||
+|| **Название**
+`Тип` | **Пример** | **Описание** ||
+|| **CHAT_ID***
+[`unknown`](../../../data-types.md) | `2014` | Идентификатор чата ||
+|| **MESSAGE_ID***
+[`unknown`](../../../data-types.md) | `18715` | Идентификатор сообщения ||
 |#
 
+## Примеры
+
+
+
+
+
+- cURL (Webhook)
+
+    // пример для cURL (Webhook)
+
+- cURL (OAuth)
+
+    // пример для cURL (OAuth)
+
+- JS
+
+    ```js
+    BX.callMethod(
+        'imopenlines.message.quick.save',
+        {
+            CHAT_ID: 2014,
+            MESSAGE_ID: 18715
+        },
+        function(result)
+        {
+            if(result.error())
+            {
+                console.error(result.error().ex);
+            }
+            else
+            {
+                console.log(result.data());
+            }
+        }
+    );
+    ```
+
+- PHP
+
+    // пример для php
+
+
+
+## Ответ в случае успеха
+
+```json
+true
+```
+
+## Ответ в случае ошибки
+
+### Возможные коды ошибок
+
+#|
+|| **Код** | **Описание** ||
+|| **ACCESS_DENIED** | У текущего пользователя нет доступа к указанному методу ||
+|| **CANT_SAVE_QUICK_ANSWER** | Ошибка сохранения быстрого ответа ||
+|#

@@ -9,76 +9,168 @@ params: {"type":"object","required":["id"],"properties":{"id":{"type":"integer"}
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Источники: обзор методов
-
-Источник — это отдельное подключение к внешней системе в модуле BIconnector. Источник определяет, какие именно данные внешней системы будут доступны для использования в отчетах и аналитике Битрикс24.
-
-> Быстрый переход: [все методы](#all-methods) 
-
-
-
-Методы работают только в контексте [приложения](../../app-installation/index.md)
-
-
-
-## Связь источника с коннектором и датасетами
-
-Источник регистрируется через коннектор. В иерархии модуля BIconnector источники занимают промежуточный уровень:
-- **Коннектор** устанавливает связь с внешним источником данных.
-- **Источник** определяет параметры доступа к данным.
-- **Датасет** формирует итоговый набор данных, который можно использовать в отчетах и аналитике.
-
-## Описание полей источника {#fields}
-
-#|
-|| **Название**
-`тип` | **Описание** | Чтение | Запись ||
-|| **id**
-[`integer`](../../data-types.md) | Уникальный идентификатор источника | ✅ | ❌ ||
-|| **title**
-[`string`](../../data-types.md) | Название источника | ✅ | ✅ ||
-|| **type**
-[`string`](../../data-types.md) | Тип источника, значение всегда равно `rest` | ✅ | ❌ ||
-|| **code**
-[`string`](../../data-types.md) | Код источника, служебное поле | ✅ | ❌ ||
-|| **description**
-[`string`](../../data-types.md) | Описание источника | ✅ | ✅ ||
-|| **active**
-[`boolean`](../../data-types.md) | Статус активности источника | ✅ | ✅ ||
-|| **dateCreate**
-[`datetime`](../../data-types.md) | Дата создания источника | ✅ | ❌ ||
-|| **dateUpdate**
-[`datetime`](../../data-types.md) | Дата обновления источника | ✅ | ❌ ||
-|| **createdById**
-[`integer`](../../data-types.md) | Идентификатор пользователя, создавшего источник | ✅ | ❌ ||
-|| **updatedById**
-[`integer`](../../data-types.md) | Идентификатор пользователя, обновившего источник | ✅ | ❌ ||
-|| **connectorId**
-[`integer`](../../data-types.md) | Идентификатор коннектора, к которому привязан источник | ✅ | ✅ ||
-|| **settings**
-[`array`](../../data-types.md) | [Список параметров авторизации](#settings) | ✅ | ✅ ||
-|#
-
-### Поле settings {#settings}
-
-Поле `settings` содержит список параметров для авторизации через коннектор. Параметры передаются в формате объекта, где ключ это идентификатор параметра — `code`. Значения `code` можно получить с помощью методов [biconnector.connector.list](../connector/biconnector-connector-list.md) или [biconnector.connector.get](../connector/biconnector-connector-get.md).
-
-## Обзор методов {#all-methods}
+# Получить источник по id biconnector.source.get
 
 > Scope: [`biconnector`](../../scopes/permissions.md)
 >
-> Кто может выполнять методы: пользователь с доступом к разделу «Рабочее место аналитика»
+> Кто может выполнять метод: пользователь с доступом к разделу «Рабочее место аналитика»
+
+Метод `biconnector.source.get` возвращает информацию об источнике по идентификатору.
+
+## Параметры метода
+
+
 
 #|
-|| **Метод** | **Описание** ||
-|| [biconnector.source.add](./biconnector-source-add.md) | Добавляет новый источник ||
-|| [biconnector.source.update](./biconnector-source-update.md) | Обновляет существующий источник ||
-|| [biconnector.source.get](./biconnector-source-get.md) | Возвращает информацию об источнике ||
-|| [biconnector.source.list](./biconnector-source-list.md) | Возвращает список доступных источников ||
-|| [biconnector.source.delete](./biconnector-source-delete.md) | Удаляет источник ||
-|| [biconnector.source.fields](./biconnector-source-fields.md) | Возвращает описание полей источника ||
+|| **Название**
+`тип` | **Описание** ||
+|| **id***
+[`integer`](../../data-types.md) | Идентификатор источника, можно получить методами [biconnector.source.list](./biconnector-source-list.md) и [biconnector.source.add](./biconnector-source-add.md) ||
 |#
+
+## Примеры кода
+
+
+
+
+
+- JS
+
+    ```js
+    BX24.callMethod(
+        'biconnector.source.get',
+        {
+            id: 6,
+        },
+        (result) => {
+            result.error() ? console.error(result.error()) : console.info(result.data());
+        }
+    );
+    ```
+
+- cURL (Webhook)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"id":6}' \
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/biconnector.source.get
+    ```
+
+- cURL (OAuth)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"id":6,"auth":"**put_access_token_here**"}' \
+    https://**put_your_bitrix24_address**/rest/biconnector.source.get
+    ```
+
+- PHP
+
+    ```php
+    require_once('crest.php');
+
+    $result = CRest::call(
+        'biconnector.source.get',
+        [
+            'id' => 6
+        ]
+    );
+
+    echo '<PRE>';
+    print_r($result);
+    echo '</PRE>';
+    ```
+
+
+
+## Обработка ответа
+
+HTTP-статус: **200**
+
+```json
+{
+    "result": {
+        "item": {
+            "connection": {
+                "id": 6,
+                "type": "rest",
+                "code": "rest_1",
+                "title": "Rest source SQL",
+                "description": "Подключение для работы с mySql",
+                "active": true,
+                "dateCreate": "2025-03-20 14:50:06",
+                "dateUpdate": "2025-03-20 14:50:06",
+                "createdById": 1,
+                "updatedById": 1
+            },
+            "connectorId": 1,
+            "settings": [
+                {
+                    "code": "token",
+                    "name": "Токен",
+                    "type": "STRING",
+                    "value": "beliberda",
+                    "id": 8
+                }
+            ]
+        }
+    },
+    "time": {
+        "start": 1742929480.368097,
+        "finish": 1742929480.449558,
+        "duration": 0.08146095275878906,
+        "processing": 0.006555080413818359,
+        "date_start": "2025-03-25T19:04:40+00:00",
+        "date_finish": "2025-03-25T19:04:40+00:00"
+    }
+}
+```
+
+### Возвращаемые данные
+
+#|
+|| **Название**
+`тип` | **Описание** ||
+|| **result**
+[`item`](../../data-types.md) | Корневой элемент ответа. Содержит информацию о полях источника. Описание полей в статье [Источники: обзор методов](./index.md#fields) ||
+|| **time**
+[`time`](../../data-types.md#time) | Информация о времени выполнения запроса ||
+|#
+
+## Обработка ошибок
+
+HTTP-статус: **200**
+
+```json
+{
+    "error": "VALIDATION_ID_NOT_PROVIDED",
+    "error_description": "ID is missing."
+}
+```
+
+
+### Возможные коды ошибок
+
+#|
+|| **Код** | **Описание** | **Значение** ||
+|| `VALIDATION_ID_NOT_PROVIDED` | ID is missing. | Идентификатор не указан ||
+|| `VALIDATION_INVALID_ID_FORMAT` | ID has to be a positive integer. | Неверный формат ID ||
+|| `SOURCE_NOT_FOUND` | Source was not found. | Источник не найден ||
+|#
+
+
+
+## Продолжите изучение
+
+- [{#T}](./biconnector-source-update.md)
+- [{#T}](./biconnector-source-add.md)
+- [{#T}](./biconnector-source-list.md)
+- [{#T}](./biconnector-source-delete.md)
+- [{#T}](./biconnector-source-fields.md)

@@ -9,11 +9,10 @@ params: {"type":"object","required":["id","fields"],"properties":{"id":{"type":"
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Пользовательские поля документов складского учёта
+# Изменить значения пользовательских полей документов складского учета catalog.userfield.document.update
 
 
 
@@ -25,7 +24,10 @@ Auto-generated stub. Fill in params/returns/examples.
 
 
 
-- добавить ссылку на [`userfieldconfig.*`](.)
+- не указана обязательность параметров
+- отсутствует ответ в случае ошибки 
+- нет примеров на др. языках
+- добавить ссылку на [`userfieldconfig.list`](.)
   
 
 
@@ -35,13 +37,53 @@ Auto-generated stub. Fill in params/returns/examples.
 >
 > Кто может выполнять метод: любой пользователь
 
-Для создания пользовательских полей документов складского учёта используются стандартные методы класса [`userfieldconfig.*`](.).
+```http
+catalog.userfield.document.update(documentId, fields)
+```
 
-Получить список значений пользовательских полей документов складского учёта и обновить информацию в них можно с помощью следующих методов:
+Метод обновляет значения пользовательских полей документов складского учёта.
+
+## Параметры
 
 #|
-|| **Метод** | **Описание** ||
-|| [catalog.userfield.document.list](./catalog-userfield-document-list.md) | Возвращает список значений пользовательских полей документов складского учёта. ||
-|| [catalog.userfield.document.update](./catalog-userfield-document-update.md) | Обновляет значения пользовательских полей документов складского учёта. ||
+|| **Параметр** | **Описание**  ||
+|| **documentId** 
+[`integer`](../../data-types.md) | Идентификатор документа складского учёта. | ||
+|| **fields** 
+[`object`](../../data-types.md)| Поля, которые нужно обновить, и их новые значения. Обязательно должен быть указан `documentType` – [тип документов складского учёта](../enum/catalog-enum-get-store-document-types.md). | ||
 |#
+
+
+
+### Пример
+
+В API используются названия полей в виде `field[ID поля в базе]` – например, `field287`. ID поля можно узнать с помощью метода [`userfieldconfig.list`](.).
+
+
+
+- JS
+
+    ```js
+    BX24.callMethod(
+        'catalog.userfield.document.update',
+        {
+            documentId: 64,
+            fields: {
+                'documentType': 'S',
+                'field287': 'new value'
+            }
+        },
+        function(result)
+        {
+            if(result.error())
+                console.error(result.error().ex);
+            else
+                console.log(result.data());
+        }
+    );
+    ```
+
+
+
+
 

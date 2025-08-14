@@ -9,7 +9,6 @@ params: {"type":"object","required":["id"],"properties":{"id":{"type":"integer"}
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 

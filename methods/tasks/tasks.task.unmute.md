@@ -9,7 +9,6 @@ params: {"type":"object"}
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 

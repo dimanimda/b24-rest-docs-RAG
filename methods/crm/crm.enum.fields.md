@@ -9,82 +9,190 @@ params: {"type":"object"}
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Обзор вспомогательных методов
+# Получить поля элементов перечислений crm.enum.fields
 
-К вспомогательным группам методов относятся множественные поля, перечисления и ставки НДС. 
+> Scope: [`crm`](../../../scopes/permissions.md)
+>
+> Кто может выполнять метод: любой пользователь
 
-> Быстрый переход: [все методы и события](#all-methods) 
+Метод `crm.enum.fields` возвращает информацию о полях элементов перечислений.
 
-## Множественные поля
+## Параметры метода
 
-Метод [crm.multifield.fields](./multifield/crm-multifield-fields.md) возвращает информацию о структуре множественных полей, таких как номер телефона или e-mail. Чтобы заполнить поле значением [с типом](../data-types.md#crm_multifield), передавайте данные по той структуре, которую вернул метод. 
-Пример передачи данных для заполнения номера телефона с типом мобильный:
+Без параметров.
 
-```js
-PHONE: [
-            { 
-                VALUE: "555888",
-                VALUE_TYPE: "MOBILE",
-            },
-        ] ,
+## Примеры кода
+
+
+
+
+
+- JS
+
+    ```js
+    BX24.callMethod(
+        "crm.enum.fields",
+        {},
+        function(result) {
+            if (result.error())
+                console.error(result.error());
+            else
+                console.dir(result.data());
+        }
+    );
+    ```
+
+- cURL (Webhook)
+
+    ```bash
+    curl -X POST \
+         -H "Content-Type: application/json" \
+         -H "Accept: application/json" \
+         -d '{}' \
+         https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/crm.enum.fields
+    ```
+
+- cURL (OAuth)
+
+    ```bash
+    curl -X POST \
+         -H "Content-Type: application/json" \
+         -H "Accept: application/json" \
+         -d '{"auth":"**put_access_token_here**"}' \
+         https://**put_your_bitrix24_address**/rest/crm.enum.fields
+    ```
+
+- PHP
+
+    ```php
+    require_once('crest.php');
+
+    $result = CRest::call(
+        'crm.enum.fields',
+        []
+    );
+
+    echo '<PRE>';
+    print_r($result);
+    echo '</PRE>';
+    ```
+
+
+
+## Обработка ответа
+
+HTTP-статус: **200**
+
+```json
+{
+"result": {
+    "ID": {
+        "type": "int",
+        "isRequired": false,
+        "isReadOnly": true,
+        "isImmutable": false,
+        "isMultiple": false,
+        "isDynamic": false,
+        "title": "ID"
+    },
+    "NAME": {
+        "type": "string",
+        "isRequired": false,
+        "isReadOnly": true,
+        "isImmutable": false,
+        "isMultiple": false,
+        "isDynamic": false,
+        "title": "Название"
+    },
+    "SYMBOL_CODE": {
+        "type": "string",
+        "isRequired": false,
+        "isReadOnly": true,
+        "isImmutable": false,
+        "isMultiple": false,
+        "isDynamic": false,
+        "title": "Символьный код"
+    },
+    "SYMBOL_CODE_SHORT": {
+        "type": "string",
+        "isRequired": false,
+        "isReadOnly": true,
+        "isImmutable": false,
+        "isMultiple": false,
+        "isDynamic": false,
+        "title": "Краткий символьный код"
+    }
+},
+"time": {
+    "start": 1750152521.485259,
+    "finish": 1750152521.526358,
+    "duration": 0.041098833084106445,
+    "processing": 0.00034499168395996094,
+    "date_start": "2025-06-17T12:28:41+03:00",
+    "date_finish": "2025-06-17T12:28:41+03:00",
+    "operating_reset_at": 1750153121,
+    "operating": 0
+}
+}
 ```
 
-
-
-- [Как изменить номера телефонов и e-mail на примере контакта](../../../tutorials/crm/how-to-edit-crm-objects/how-to-change-email-or-phone.md)
-- [Создать новый лид crm.lead.add](../leads/crm-lead-add.md)
-
-
-
-## Перечисления
-
-Группа методов перечислений [crm.enum.*](./enum/index.md) возвращает информацию о названии и идентификаторе объектов CRM. Например метод [crm.enum.ownertype](./enum/crm-enum-owner-type.md) возвращает идентификаторы смарт-процессов, а метод [crm.enum.addresstype](./enum/crm-enum-address-type.md) — идентификаторы типов адресов: юридический, физический, адрес доставки. 
-
-
-
-- [Как добавить комментарий в таймлайн смарт-процесса](../../../tutorials/crm/how-to-add-crm-objects/how-to-add-comment-to-spa.md)
-- [Как получить адрес клиента из CRM](../../../tutorials/crm/how-to-get-lists/how-to-get-address.md)
-
-
-
-## Ставки НДС 
-
-Группа методов [catalog.vat.*](../../catalog/vat/index.md) управляет ставками НДС. Методы позволяют [создавать](../../catalog/vat/catalog-vat-add.md), [удалять](../../catalog/vat/catalog-vat-delete.md), [изменять](../../catalog/vat/catalog-vat-update.md) и [получать](../../catalog/vat/catalog-vat-list.md) значения ставок. 
-
-Чтобы задать НДС товара в сделке или другом объекте CRM, используйте параметр `taxRate` группы методов  [crm.item.productrow.*](../universal/product-rows/index.md). 
-
-Чтобы задать НДС товара или услуги в торговом каталоге, используйте параметр `vatId` групп методов [catalog.product.*](../../catalog/product/index.md). 
-
-## Обзор методов {#all-methods}
-
-> Scope: [`crm`](../../scopes/permissions.md)
->
-> Кто может выполнять методы: в зависимости от метода
-
-### Множественные поля
+### Возвращаемые данные
 
 #|
-|| **Метод** | **Описание** ||
-|| [crm.multifield.fields](./multifield/crm-multifield-fields.md) | Возвращает описание множественных полей ||
+|| **Название**
+`тип` | **Описание** ||
+|| **result**
+[`object`](../../../data-types.md) | Объект с описанием полей [(подробное описание)](#result) ||
+|| **time**
+[`time`](../../../data-types.md#time) | Информация о времени выполнения запроса ||
 |#
 
-### Перечисления
+#### Поля объекта result {#result}
 
 #|
-|| **Метод** | **Описание** ||
-|| [crm.enum.fields](./enum/crm-enum-fields.md) | Возвращает описание полей перечисления ||
-|| [crm.enum.ownertype](./enum/crm-enum-owner-type.md) | Возвращает типы объектов в CRM ||
-|| [crm.enum.getorderownertypes](./enum/crm-enum-get-order-owner-types.md) | Возвращает идентификаторы типов объектов, к которым доступна привязка заказа ||
-|| [crm.enum.addresstype](./enum/crm-enum-address-type.md) | Возвращает типы адресов ||
-|| [crm.enum.settings.mode](./enum/crm-enum-settings-mode.md) | Возвращает описание режимов работы CRM ||
-|| [crm.enum.activitytype](./enum/outdated/crm-enum-activity-type.md) | Возвращает элементы перечисления «Типы дел» ||
-|| [crm.enum.activitypriority](./enum/outdated/crm-enum-activity-priority.md) | Возвращает элементы перечисления «Приоритеты дел» ||
-|| [crm.enum.activitydirection](./enum/outdated/crm-enum-activity-direction.md) | Возвращает элементы перечисления «Направление активности», для писем и звонков||
-|| [crm.enum.activitynotifytype](./enum/outdated/crm-enum-activity-notify-type.md) | Возвращает элементы перечисления «Тип уведомления о начале активности», для встреч и звонков ||
-|| [crm.enum.activitystatus](./enum/outdated/crm-enum-activity-status.md) | Возвращает элементы перечисления «Статус» ||
-|| [crm.enum.contenttype](./enum/outdated/crm-enum-content-type.md) Возвращает элементы перечисления «Тип описания» ||
+|| **Название**
+`тип` | **Описание** ||
+|| **ID**
+[`object`](../../../data-types.md) | Идентификатор ||
+|| **NAME**
+[`object`](../../../data-types.md) | Название ||
+|| **SYMBOL_CODE**
+[`object`](../../../data-types.md) | Символьный код ||
+|| **SYMBOL_CODE_SHORT**
+[`object`](../../../data-types.md) | Краткий символьный код ||
 |#
+
+#### Описание характеристик полей
+
+#|
+|| **Название**
+`тип` | **Описание** ||
+|| **type**
+[`string`](../../../data-types.md) | Тип данных поля ||
+|| **isRequired**
+[`boolean`](../../../data-types.md) | Обязательное ||
+|| **isReadOnly**
+[`boolean`](../../../data-types.md) | Доступно только для чтения ||
+|| **isImmutable**
+[`boolean`](../../../data-types.md) | Неизменяемое ||
+|| **isMultiple**
+[`boolean`](../../../data-types.md) | Множественное ||
+|| **isDynamic**
+[`boolean`](../../../data-types.md) | Динамичное ||
+|| **title**
+[`string`](../../../data-types.md) | Название поля ||
+|#
+
+## Обработка ошибок
+
+Метод не возвращает ошибки.
+
+
+
+## Продолжите изучение
+
+- [{#T}](./index.md)
+

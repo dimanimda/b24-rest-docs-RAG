@@ -9,11 +9,10 @@ params: {"type":"object"}
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Операторы открытых линий
+# Передать диалог другому оператору или в другую линию imopenlines.operator.transfer
 
 
 
@@ -25,19 +24,29 @@ Auto-generated stub. Fill in params/returns/examples.
 
 
 
-- из файла Сергея: где указываются, как это выглядит в интерфейсе
+- не указаны типы параметров
+- не указана обязательность параметров
+- отсутствуют примеры
+- отсутствует ответ в случае успеха
+- отсутствует ответ в случае ошибки
 
 
 
 
+
+> Scope: [`imopenlines`](../../../scopes/permissions.md)
+>
+> Кто может выполнять метод: любой пользователь
+
+Метод для перевода диалога текущим оператором на другого оператора/линию.
+
+## Параметры метода
 
 #|
-|| **Метод** | **Описание** ||
-|| [imopenlines.operator.another.finish](./imopenlines-operator-another-finish.md) | Завершает диалог другого оператора ||
-|| [imopenlines.operator.answer](./imopenlines-operator-answer.md) | Забирает диалог себе ||
-|| [imopenlines.operator.finish](./imopenlines-operator-finish.md) | Завершает свой диалог ||
-|| [imopenlines.operator.skip](./imopenlines-operator-skip.md) | Пропускает диалог ||
-|| [imopenlines.operator.spam](./imopenlines-operator-spam.md) | Отмечает диалог в качестве «спама» ||
-|| [imopenlines.operator.transfer](./imopenlines-operator-transfer.md) | Передает диалог другому оператору или в другую линию ||
+|| **Название**
+`Тип` | **Описание** | **С версии** ||
+|| **CHAT_ID**
+[`unknown`](../../../data-types.md) | Идентификатор чата, который текущий оператор завершает | ||
+|| **TRANSFER_ID**
+[`unknown`](../../../data-types.md) | Идентификатор сущности, на которую переводится диалог. Если нужно перевести диалог на оператора, в качестве значения передается ID оператора. Если на линию — код вида «queue#ID линии#» | ||
 |#
-

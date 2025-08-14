@@ -9,11 +9,10 @@ params: {"type":"object"}
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Диалоги открытых линий
+# Переключить диалог в «скрытый» режим imopenlines.session.mode.silent
 
 
 
@@ -25,27 +24,86 @@ Auto-generated stub. Fill in params/returns/examples.
 
 
 
-- из файла Сергея: диалоги/сессии - что это, как они работают
+- не указаны типы параметров
+- отсутствуют примеры
+- отсутствует ответ в случае успеха
+- отсутствует ответ в случае ошибки
 
 
 
+
+
+> Scope: [`imopenlines`](../../../scopes/permissions.md)
+>
+> Кто может выполнять метод: любой пользователь
+
+Метод для включения и выключения режима скрытой переписки.
+
+## Параметры метода
 
 
 
 #|
-|| **Метод** | **Описание** ||
-|| [imopenlines.crm.lead.create](./imopenlines-crm-lead-create.md) | Создает лид на основании диалога ||
-|| [imopenlines.dialog.get](./imopenlines-dialog-get.md) | Получает информацию о диалоге (чате) оператора открытой линии ||
-|| [imopenlines.message.session.start](./imopenlines-message-session-start.md) | Начинает новый диалог на основании сообщения ||
-|| [imopenlines.session.head.vote](./imopenlines-session-head-vote.md) | Ставит оценку работе сотрудника в диалоге ||
-|| [imopenlines.session.history.get](./imopenlines-session-history-get.md) | Получает сообщения чата и диалога ||
-|| [imopenlines.session.intercept](./imopenlines-session-intercept.md) | Забирает диалог у текущего оператора ||
-|| [imopenlines.session.join](./imopenlines-session-join.md) | Присоединяется к диалогу ||
-|| [imopenlines.session.mode.pinAll](./imopenlines-session-mode-pin-all.md) | Закрепляет все доступные диалоги за оператором ||
-|| [imopenlines.session.mode.pin](./imopenlines-session-mode-pin.md) | Закрепляет или открепляет диалог ||
-|| [imopenlines.session.mode.silent](./imopenlines-session-mode-silent.md) | Переключает диалог в «скрытый» режим ||
-|| [imopenlines.session.mode.unpinAll](./imopenlines-session-mode-unpin-all.md) | Открепляет все диалоги от оператора ||
-|| [imopenlines.session.open](./imopenlines-session-open.md) | Получает чат по символьному коду ||
-|| [imopenlines.session.start](./imopenlines-session-start.md) | Начинает новый диалог ||
+|| **Название**
+`Тип` | **Пример** | **По умолчанию** | **Описание** ||
+|| **CHAT_ID***
+[`unknown`](../../../data-types.md) | 2020 | | Идентификатор чата ||
+|| **ACTIVATE**
+[`unknown`](../../../data-types.md) | Y | N | Флаг активации ||
 |#
 
+## Примеры
+
+
+
+
+
+- cURL (Webhook)
+
+    // пример для cURL (Webhook)
+
+- cURL (OAuth)
+
+    // пример для cURL (OAuth)
+
+- JS
+
+    ```js
+    BX24.callMethod(
+        'imopenlines.session.mode.silent',
+        {
+            CHAT_ID: 2024
+        },
+        function(result)
+        {
+            if(result.error())
+            {
+                console.warn(result.error().ex);
+                return false;
+            }
+
+            console.log(result.data());
+        }
+    );
+    ```
+
+- PHP
+
+    // пример для php
+
+
+
+## Ответ в случае успеха
+
+```json
+true
+```
+
+### Возможные коды ошибок
+
+#|
+|| **Код** | **Описание** ||
+|| **ACCESS_DENIED** | У текущего пользователя нет доступа к указанному чату ||
+|| **CHAT_TYPE** | Указанный чат не является открытой линией ||
+|| **CHAT_ID** | Указан не корректный идентификатор чата ||
+|#

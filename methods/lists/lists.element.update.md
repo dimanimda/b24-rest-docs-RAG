@@ -9,103 +9,373 @@ params: {"type":"object","required":["id","fields"],"properties":{"id":{"type":"
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Универсальные списки: обзор методов
-
-Универсальные списки — это инструмент для создания и управления структурированной информацией. Они позволяют создавать настраиваемые таблицы c различными типами полей: текст, число, дата, файл и другие.
-
-Универсальные списки интегрируются с модулями *Битрикс24*, что дает возможность автоматизировать обработку данных и управлять доступом. Представьте, что есть список заявок на отпуск сотрудников. Для списка настроен бизнес-процесс и заданы права так, что только руководитель и сотрудники HR-отдела могут изменять заявки. В результате, когда сотрудник подает заявку на отпуск, HR-менеджер автоматически получает уведомление, чтобы рассмотреть и одобрить или отклонить заявку.
-
-Каждый список представляет собой [информационный блок](*iblock). Используйте группу методов [lists.*](./lists/index.md) для работы со списками.
-
-> Быстрый переход: [все методы](#all-methods) 
->
-> Пользовательская документация: [списки в Битрикс24](https://helpdesk.bitrix24.ru/open/5316091/)
-
-## Структура списков
-
-**Разделы**. Используются для группировки информации и построения удобной иерархии. Управление разделами выполняется через методы [lists.section.*](./sections/index.md).
-
-**Элементы**. Хранят основную информацию. Управляются группой методов [lists.element.*](./elements/index.md).
-
-## Бизнес-процессы
-
-Бизнес-процессы в универсальных списках создают индивидуальный сценарий обработки элементов. Управление бизнес-процессами выполняется с помощью групп методов [bizproc.workflow.*](../bizproc/index.md) и [bizproc.task.*](../bizproc/bizproc-task/bizproc-task-list.md).
+# Изменить элемент списка lists.element.update
 
 
 
-- [Включение бизнес-процессов в списке](https://helpdesk.bitrix24.ru/open/5322575/)
+Тут может не хватать некоторых данных — дополним в ближайшее время
 
 
 
-## Поля
 
-Поля элементов уникальны для каждого списка. Создавать, изменять и удалять поля можно с помощью группы методов [lists.field.*](./fields/index.md).
 
-Параметр `TYPE` определяет тип данных поля. Перечень доступных типов приведен в описании параметра `FIELDS` метода [lists.field.add](./fields/lists-field-add.md). 
 
-Информация в универсальных списках может быть связана с CRM и Диском через поля следующих типов:
-- Привязка к элементам CRM (`S:ECrm`)
-- Файл (Диск) (`S:DiskFile`)
 
-Об особенностях этих типов читайте в статье [Поля универсального списка: обзор методов](./fields/index.md).
+- нужны правки под стандарт написания
+- не указаны типы параметров
+- отсутствуют примеры
+- отсутствует ответ в случае успеха
+- отсутствует ответ в случае ошибки
+- не прописаны ссылки на несозданные ещё страницы
 
-## Рабочие группы и проекты
 
-Универсальные списки интегрированы [в рабочие группы и проекты](../sonet-group/sonet-group-create.md). Создавать свои списки можно внутри любой группы или проекта с различными уровнями доступа для участников.
 
-Идентификатор типа инфоблоков `IBLOCK_TYPE_ID` для списков групп принимает значение `lists_socnet`.
 
-## Обзор методов {#all-methods}
 
-> Scope: [`lists`](../scopes/permissions.md)
+> Scope: [`lists`](../../scopes/permissions.md)
 >
 > Кто может выполнять метод: любой пользователь
 
-### Списки
+Метод `lists.element.update` обновляет элемент списка. В случае успешного обновления элемента ответ `true`, иначе *Exception*.
+
+
+
+Все поля элемента и их значения должны передаваться в запросе.
+
+
+
+
+## Параметры
+
+
 
 #|
-|| **Метод** | **Описание** ||
-|| [lists.add](./lists/lists-add.md) | Создает список ||
-|| [lists.delete](./lists/lists-delete.md) | Удаляет список ||
-|| [lists.get](./lists/lists-get.md) | Возвращает данные по спискам ||
-|| [lists.update](./lists/lists-update.md) | Обновляет существующий список ||
-|| [lists.get.iblock.type.id](./lists/lists-get-iblock-type-id.md) | Возвращает идентификатор типа инфоблока ||
+|| **Название**
+`тип` | **Описание** ||
+|| **IBLOCK_TYPE_ID***
+[`unknown`](../../data-types.md) | `id` типа инфоблока:
+- `lists` — тип инфоблока списка
+- `bitrix_processes` — тип инфоблока процессов
+- `lists_socnet` — тип инфоблока списков групп ||
+|| **IBLOCK_CODE/IBLOCK_ID***
+[`unknown`](../../data-types.md) | Код или `id` инфоблока ||
+|| **ELEMENT_CODE/ELEMENT_ID***
+[`unknown`](../../data-types.md) | Код или `id` элемента ||
+|| **FIELDS**
+[`unknown`](../../data-types.md) | Массив полей и значений. В поле типа «Файл» `F` передавайте файл в формате [Base64](../../files/how-to-update-files.md)  ||
+|| **SOCNET_GROUP_ID***
+[`unknown`](../../data-types.md) | `id` группы. Параметр обязателен, если список создается для группы ||
 |#
 
-### Элементы
+## Примеры
 
-#|
-|| **Метод** | **Описание** ||
-|| [lists.element.add](./elements/lists-element-add.md) | Создает элемент списка ||
-|| [lists.element.delete](./elements/lists-element-delete.md) | Удаляет элемент списка ||
-|| [lists.element.get](./elements/lists-element-get.md) | Возвращает список элементов или элемент ||
-|| [lists.element.update](./elements/lists-element-update.md) | Обновляет элемент списка ||
-|| [lists.element.get.file.url](./elements/lists-element-get-file-url.md) | Возвращает путь к файлу ||
-|#
 
-### Поля
 
-#|
-|| **Метод** | **Описание** ||
-|| [lists.field.add](./fields/lists-field-add.md) | Создает поле списка ||
-|| [lists.field.delete](./fields/lists-field-delete.md) | Удаляет поле списка ||
-|| [lists.field.get](./fields/lists-field-get.md) | Возвращает данные поля ||
-|| [lists.field.type.get](./fields/lists-field-type-get.md) | Возвращает доступные типы полей для указанного списка ||
-|| [lists.field.update](./fields/lists-field-update.md) | Обновляет поле списка ||
-|#
 
-### Разделы
 
-#|
-|| **Метод** | **Описание** ||
-|| [lists.section.add](./sections/lists-section-add.md) | Создает раздел списка ||
-|| [lists.section.get](./sections/lists-section-get.md) | Возвращает даные о разделах ||
-|| [lists.section.update](./sections/lists-section-update.md) | Обновляет раздел списка ||
-|| [lists.section.delete](./sections/lists-section-delete.md) | Удаляет раздел списка ||
-|#
+- cURL (Webhook)
 
-[*iblock]: Информационный блок — это специальный объект для хранения новостей, услуг, статей, каталогов товаров и других данных, имеющих четкую структуру.
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"IBLOCK_TYPE_ID":"lists_socnet","IBLOCK_CODE":"rest_1","ELEMENT_CODE":"element_1","FIELDS":{"NAME":"Test element (Update)","PROPERTY_62":{"599":"Text string (Update)"},"PROPERTY_63":{"600":"73","601":"97","602":"17"}}}' \
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/lists.element.update
+    ```
+
+- cURL (OAuth)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"IBLOCK_TYPE_ID":"lists_socnet","IBLOCK_CODE":"rest_1","ELEMENT_CODE":"element_1","FIELDS":{"NAME":"Test element (Update)","PROPERTY_62":{"599":"Text string (Update)"},"PROPERTY_63":{"600":"73","601":"97","602":"17"}},"auth":"**put_access_token_here**"}' \
+    https://**put_your_bitrix24_address**/rest/lists.element.update
+    ```
+
+- JS
+
+    ```js
+    var params = {
+        'IBLOCK_TYPE_ID': 'lists_socnet',
+        'IBLOCK_CODE': 'rest_1',
+        'ELEMENT_CODE': 'element_1',
+        'FIELDS': {
+            'NAME': 'Test element (Update)',
+            'PROPERTY_62': {
+            '599': 'Text string (Update)'
+            },
+            'PROPERTY_63': {
+            '600': '73',
+            '601': '97',
+            '602': '17'
+            }
+        }
+    };
+    BX24.callMethod(
+        'lists.element.update',
+        params,
+        function(result)
+        {
+            if(result.error())
+                alert("Error: " + result.error());
+            else
+                alert("Success: " + result.data());
+        }
+    );
+    ```
+
+- PHP
+
+    ```php
+    require_once('crest.php');
+
+    $result = CRest::call(
+        'lists.element.update',
+        [
+            'IBLOCK_TYPE_ID' => 'lists_socnet',
+            'IBLOCK_CODE' => 'rest_1',
+            'ELEMENT_CODE' => 'element_1',
+            'FIELDS' => [
+                'NAME' => 'Test element (Update)',
+                'PROPERTY_62' => [
+                    '599' => 'Text string (Update)'
+                ],
+                'PROPERTY_63' => [
+                    '600' => '73',
+                    '601' => '97',
+                    '602' => '17'
+                ]
+            ]
+        ]
+    );
+
+    echo '<PRE>';
+    print_r($result);
+    echo '</PRE>';
+    ```
+
+
+
+### Как загрузить файл в поле типа Файл (Диск)
+
+1. Используйте rest api модуля disk: `disk.folder.uploadfile` и `disk.storage.uploadfile`. В ответе при загрузке этих файлов вы получите `"ID": 290`.
+2. Получите список `ID` загруженных файлов.
+3. С помощью rest api модуля lists добавьте файлы в нужное поле. Если у поля уже есть прикрепленные файлы, вам нужно получить предыдущие значения из [lists.element.get](./lists-element-get.md) и передать их вместе с новыми.
+
+
+
+- cURL (Webhook)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"IBLOCK_TYPE_ID":"lists","IBLOCK_ID":"41","ELEMENT_CODE":"element1","FIELDS":{"NAME":"Test element 1","PROPERTY_121":{"4754":["50","n1582"]}}}' \
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/lists.element.update
+    ```
+
+- cURL (OAuth)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"IBLOCK_TYPE_ID":"lists","IBLOCK_ID":"41","ELEMENT_CODE":"element1","FIELDS":{"NAME":"Test element 1","PROPERTY_121":{"4754":["50","n1582"]}},"auth":"**put_access_token_here**"}' \
+    https://**put_your_bitrix24_address**/rest/lists.element.update
+    ```
+
+- JS
+
+    ```js
+    var params = {
+        'IBLOCK_TYPE_ID': 'lists',
+        'IBLOCK_ID': '41',
+        'ELEMENT_CODE': 'element1',
+        'FIELDS': {
+            'NAME': 'Test element 1',
+            'PROPERTY_121': {'4754': ['50', 'n1582']} // либо без id 'PROPERTY_121': {'n0': ['50', 'n1582']}
+        }
+    };
+    BX24.callMethod(
+        'lists.element.update',
+        params,
+        function(result)
+        {
+            if(result.error())
+                alert("Error: " + result.error());
+            else
+                alert("Success: " + result.data());
+        }
+    );
+    ```
+
+- PHP
+
+    ```php
+    require_once('crest.php');
+
+    $result = CRest::call(
+        'lists.element.update',
+        [
+            'IBLOCK_TYPE_ID' => 'lists',
+            'IBLOCK_ID' => '41',
+            'ELEMENT_CODE' => 'element1',
+            'FIELDS' => [
+                'NAME' => 'Test element 1',
+                'PROPERTY_121' => ['4754' => ['50', 'n1582']]
+            ]
+        ]
+    );
+
+    echo '<PRE>';
+    print_r($result);
+    echo '</PRE>';
+    ```
+
+
+
+Значения в поле Файл (Диск) без префикса `"n"` — это уже прикрепленные файлы (`attachedId`), а с префиксом — ваши новые файлы, уже загруженные предварительно на диск.
+
+### Как удалить файл
+
+Узнайте ID значений файлов с помощью метода [lists.element.get](./lists-element-get.md).
+
+
+
+- cURL (Webhook)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"IBLOCK_TYPE_ID":"bitrix_processes","IBLOCK_ID":47}' \
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/lists.element.get
+    ```
+
+- cURL (OAuth)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"IBLOCK_TYPE_ID":"bitrix_processes","IBLOCK_ID":47,"auth":"**put_access_token_here**"}' \
+    https://**put_your_bitrix24_address**/rest/lists.element.get
+    ```
+
+- JS
+
+    ```js
+    BX24.callMethod(
+        'lists.element.get', {IBLOCK_TYPE_ID: 'bitrix_processes', IBLOCK_ID: 47}
+    );
+    ```
+
+- PHP
+
+    ```php
+    require_once('crest.php');
+
+    $result = CRest::call(
+        'lists.element.get',
+        [
+            'IBLOCK_TYPE_ID' => 'bitrix_processes',
+            'IBLOCK_ID' => 47
+        ]
+    );
+
+    echo '<PRE>';
+    print_r($result);
+    echo '</PRE>';
+    ```
+
+
+
+Вы получите ответ следующего вида.
+
+```json
+"result": [
+    {
+        "ID": "480",
+        "IBLOCK_ID": "47",
+        "NAME": "1",
+        "IBLOCK_SECTION_ID": null,
+        "CREATED_BY": "1",
+        "BP_PUBLISHED": "Y",
+        "CODE": "",
+        "PROPERTY_133": {
+            "2857": "375",
+            "2858": "376"
+        }
+    }
+],
+```
+
+Здесь `PROPERTY_133` — множественное поле типа Файл. Представляет собой объект, где ключ — это `ID` значения свойства, который понадобится для удаления, а значение — это `ID` файла.
+
+Чтобы удалить значение свойства, передайте в метод `lists.element.update` поле с постфиксом `_DEL`. В нем укажите список значений, которые нужно удалить. В качестве ключа пропишите `ID` значения свойства, а в качестве значения — `"Y"`.
+
+
+
+- cURL (Webhook)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"IBLOCK_TYPE_ID":"bitrix_processes","IBLOCK_ID":47,"ELEMENT_ID":480,"FIELDS":{"NAME":"1","PROPERTY_133_DEL":{"2857":"Y"}}}' \
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/lists.element.update
+    ```
+
+- cURL (OAuth)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"IBLOCK_TYPE_ID":"bitrix_processes","IBLOCK_ID":47,"ELEMENT_ID":480,"FIELDS":{"NAME":"1","PROPERTY_133_DEL":{"2857":"Y"}},"auth":"**put_access_token_here**"}' \
+    https://**put_your_bitrix24_address**/rest/lists.element.update
+    ```
+
+- JS
+
+    ```js
+    BX24.callMethod(
+        'lists.element.update', {
+        IBLOCK_TYPE_ID: 'bitrix_processes',
+        IBLOCK_ID: 47,
+        ELEMENT_ID: 480,
+        FIELDS: { NAME: '1', PROPERTY_133_DEL: {"2857": "Y"} }
+    }
+    );
+    ```
+
+- PHP
+
+    ```php
+    require_once('crest.php');
+
+    $result = CRest::call(
+        'lists.element.update',
+        [
+            'IBLOCK_TYPE_ID' => 'bitrix_processes',
+            'IBLOCK_ID' => 47,
+            'ELEMENT_ID' => 480,
+            'FIELDS' => [
+                'NAME' => '1',
+                'PROPERTY_133_DEL' => ["2857" => "Y"]
+            ]
+        ]
+    );
+
+    echo '<PRE>';
+    print_r($result);
+    echo '</PRE>';
+    ```
+
+
+
+

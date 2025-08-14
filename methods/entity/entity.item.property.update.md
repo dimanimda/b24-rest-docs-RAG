@@ -9,11 +9,10 @@ params: {"type":"object","required":["id","fields"],"properties":{"id":{"type":"
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Методы работы со свойствами элементов хранилища данных
+# Изменить дополнительное свойство элементов хранилища entity.item.property.update
 
 
 
@@ -21,14 +20,73 @@ Auto-generated stub. Fill in params/returns/examples.
 
 
 
+
+
+
+
+- нужны правки под стандарт написания
+- не указаны типы параметров
+- отсутствуют примеры
+- отсутствует ответ в случае ошибки
+
+
+
+
+
 > Scope: [`entity`](../../../scopes/permissions.md)
 >
 > Кто может выполнять метод: любой пользователь
 
+Метод `entity.item.property.update` обновляет дополнительное свойство элементов хранилища. Пользователь должен обладать правами на управление (**Х**) хранилищем.
+
+## Параметры
+
 #|
-|| **Метод** | **Описание** ||
-|| [entity.item.property.get](./entity-item-property-get.md) | Получение списка дополнительных свойств элементов хранилища. ||
-|| [entity.item.property.add](./entity-item-property-add.md) | Добавление дополнительного свойства элементов хранилища. ||
-|| [entity.item.property.update](./entity-item-property-update.md) | Обновление дополнительного свойства элементов хранилища. ||
-|| [entity.item.property.delete](./entity-item-property-delete.md) | Удаление дополнительного свойства элементов хранилища. ||
+|| **Параметр** | **Описание** ||
+|| **ENTITY^*^**
+[`string`](../../../data-types.md) | Обязательный. Строковый идентификатор хранилища. ||
+|| **PROPERTY^*^**
+[`string`](../../../data-types.md) | Обязательный. Строковый идентификатор свойства. ||
+|| **PROPERTY_NEW**
+[`string`](../../../data-types.md) | Новый строковый идентификатор свойства. ||
+|| **NAME**
+[`string`](../../../data-types.md) | Наименование свойства. ||
+|| **TYPE**
+[`unknown`](../../../data-types.md) | Тип свойства (**S** - строка, **N** - число, **F** - файл). ||
 |#
+
+
+
+## Пример
+
+
+
+- JS
+
+    ```js
+    BX24.callMethod(
+        'entity.item.property.update',
+        {
+            ENTITY: 'menu_new',
+            PROPERTY: 'new_prop',
+            NAME: 'Уже не новое свойство'
+        }
+    );
+    ```
+
+- HTTP
+
+    ```http
+    https://my.bitrix24.ru/rest/entity.item.property.update.json?ENTITY=menu_new&NAME=%D0%A3%D0%B6%D0%B5%20%D0%BD%D0%B5%20%D0%BD%D0%BE%D0%B2%D0%BE%D0%B5%20%D1%81%D0%B2%D0%BE%D0%B9%D1%81%D1%82%D0%B2%D0%BE&PROPERTY=new_prop&auth=ad5a6f34f14f644136830eb8a936f07f
+    ```
+
+
+
+
+
+## Ответ в случае успеха
+
+> 200 OK
+```json
+{"result":true}
+```

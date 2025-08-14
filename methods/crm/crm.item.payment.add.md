@@ -9,25 +9,154 @@ params: {"type":"object","required":["fields"],"properties":{"fields":{"type":"o
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Обзор методов
+# Добавить оплату crm.item.payment.add
 
 > Scope: [`crm`](../../../scopes/permissions.md)
 >
-> Кто может выполнять методы: в зависимости от метода
+> Кто может выполнять метод: требуется право на изменение объекта CRM, в который добавляется оплата
+
+Метод создает оплату для объекта CRM.
+
+## Параметры метода
+
+
 
 #|
-|| **Метод** | **Описание** ||
-|| [crm.item.payment.add](./crm-item-payment-add.md) | Создает оплату для объекта CRM ||
-|| [crm.item.payment.update](./crm-item-payment-update.md) | Изменяет набор полей оплаты ||
-|| [crm.item.payment.get](./crm-item-payment-get.md) | Получает краткую информацию об оплате ||
-|| [crm.item.payment.list](./crm-item-payment-list.md) | Получает список оплат конкретного объекта CRM ||
-|| [crm.item.payment.delete](./crm-item-payment-delete.md) | Удаляет оплату   ||
-|| [crm.item.payment.pay](./crm-item-payment-pay.md) | Изменяет статус оплаты на «Оплачено» ||
-|| [crm.item.payment.unpay](./crm-item-payment-unpay.md) | Изменяет статус оплаты на «Не оплачено» ||
+|| **Название**
+`тип` | **Описание** ||
+|| **entityId***
+[`integer`](../../../../api-reference/data-types.md) | Идентификатор объекта CRM ||
+|| **entityTypeId***
+[`integer`](../../../../api-reference/data-types.md) | Идентификатор [`типа объекта CRM`](../../data-types.md#object_type) ||
+|#
+
+## Примеры кода
+
+
+
+
+
+- cURL (Webhook)
+
+    ```http
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"entityId":13123,"entityTypeId":2}' \
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webhook_here**/crm.item.payment.add
+    ```
+
+- cURL (OAuth) 
+
+    ```http
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"entityId":13123,"entityTypeId":2,"auth":"**put_access_token_here**"}' \
+    https://**put_your_bitrix24_address**/rest/crm.item.payment.add
+    ```
+
+- JS
+
+    ```js
+    BX24.callMethod(
+        'crm.item.payment.add', {
+            entityId: 13123,
+            entityTypeId: 2
+        },
+        function(result) {
+            if (result.error()) {
+                console.error(result.error());
+            } else {
+                console.log(result.data());
+            }
+        }
+    );
+    ```
+
+- PHP
+
+    ```php
+    require_once('crest.php');
+
+    $result = CRest::call(
+        'crm.item.payment.add',
+        [
+            'entityId' => 13123,
+            'entityTypeId' => 2
+        ]
+    );
+
+    echo '<PRE>';
+    print_r($result);
+    echo '</PRE>';
+    ```
+
+
+
+## Ответ в случае успеха
+
+HTTP-статус: **200**
+
+```json
+{
+    "result": 1033,
+    "time": {
+        "start": 1716193064.749158,
+        "finish": 1716193065.656833,
+        "duration": 0.90767502784729,
+        "processing": 0.6450831890106201,
+        "date_start": "2024-05-20T11:17:44+03:00",
+        "date_finish": "2024-05-20T11:17:45+03:00"
+    }
+}
+```
+
+### Возвращаемые данные
+
+#|
+|| **Название**
+`тип` | **Описание** ||
+|| **result**
+[`sale_order_payment.id`](../../../sale/data-types.md#sale_order_payment) | Идентификатор созданной оплаты ||
+|| **time**
+[`time`](../../../../api-reference/data-types.md) | Информация о времени выполнения запроса ||
+|#
+
+## Обработка ошибок
+
+HTTP-статус: **400**
+
+```json
+{
+   "error":0,
+   "error_description":"Сущность с идентификатором №13123000 не существует"
+}
+```
+
+
+
+### Возможные коды ошибок
+
+#|
+|| **Код** | **Описание** ||
+|| `0` | Доступ запрещен ||
+|| `0` | Некорректный тип объекта CRM  ||
+|| `0` | Переданный объект CRM не найден ||
+|| `100` | Не переданы обязательные поля ||
+|| `0` | Другие ошибки (например, фатальные ошибки) ||
 |#
 
 
+
+## Продолжите изучение
+
+- [{#T}](./crm-item-payment-delete.md)
+- [{#T}](./crm-item-payment-get.md)
+- [{#T}](./crm-item-payment-list.md)
+- [{#T}](./crm-item-payment-pay.md)
+- [{#T}](./crm-item-payment-unpay.md)
+- [{#T}](./crm-item-payment-update.md)

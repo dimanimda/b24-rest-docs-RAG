@@ -9,11 +9,10 @@ params: {"type":"object","required":["id"],"properties":{"id":{"type":"integer"}
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Список файлов и папок в корне хранилища disk.storage.getchildren
+# Получить параметры папки по идентификатору disk.folder.get
 
 
 
@@ -38,23 +37,15 @@ Auto-generated stub. Fill in params/returns/examples.
 >
 > Кто может выполнять метод: любой пользователь
 
-Метод `disk.storage.getchildren` возвращает список файлов и папок, которые находятся непосредственно в корне хранилища.
+Метод `disk.folder.get` возвращает папку по идентификатору.
 
 ## Параметры
 
 #|
 ||  **Параметр** / **Тип**| **Описание** ||
 || **id**
-[`unknown`](../../data-types.md) | Идентификатор хранилища. ||
-|| **filter**
-[`unknown`](../../data-types.md) |  Необязательный параметр. Поддерживает фильтрацию по полям, которые указаны в [disk.folder.getfields](../folder/disk-folder-get-fields.md) как `USE_IN_FILTER: true`. ||
+[`unknown`](../../data-types.md) | Идентификатор папки. ||
 |#
-
-
-
-Cм. также описание [списочных методов](../../how-to-call-rest-api/list-methods-pecularities.md).
-
-
 
 ## Пример
 
@@ -64,12 +55,9 @@ Cм. также описание [списочных методов](../../how-t
 
     ```js
     BX24.callMethod(
-        "disk.storage.getchildren",
+        "disk.folder.get",
         {
-            id: 4,
-            filter: {
-                CREATED_BY: 1
-            }
+            id: 8
         },
         function (result)
         {
@@ -89,58 +77,21 @@ Cм. также описание [списочных методов](../../how-t
 
 > 200 OK
 
-В ответе массив объектов, структура которых аналогична [disk.folder.get](../folder/disk-folder-get.md), [disk.file.get](../file/disk-file-get.md).
-
 ```json
-"result": [
-{
-    "ID": "13",
-    "NAME": "near",
-    "CODE": null,
-    "STORAGE_ID": "4",
+"result": {
+    "ID": "8", //идентификатор
+    "NAME": "newfolder", //название папки
+    "CODE": null, //символьный код
+    "STORAGE_ID": "4", //идентификатор хранилища
     "TYPE": "folder",
-    "PARENT_ID": "8",
-    "DELETED_TYPE": "0",
-    "CREATE_TIME": "2015-04-24T12:39:35+03:00",
-    "UPDATE_TIME": "2015-04-24T12:39:35+03:00",
-    "DELETE_TIME": null,
-    "CREATED_BY": "1",
-    "UPDATED_BY": "1",
-    "DELETED_BY": "0",
-    "DETAIL_URL": "https://test.bitrix24.ru/workgroups/group/3/disk/path/near/"
-},
-{
-    "ID": "10",
-    "NAME": "2511.jpg",
-    "CODE": null,
-    "STORAGE_ID": "4",
-    "TYPE": "file",
-    "PARENT_ID": "8",
-    "DELETED_TYPE": "0",
-    "CREATE_TIME": "2015-04-24T10:41:51+03:00",
-    "UPDATE_TIME": "2015-04-24T15:52:43+03:00",
-    "DELETE_TIME": null,
-    "CREATED_BY": "1",
-    "UPDATED_BY": "1",
-    "DELETED_BY": "0",
-    "DOWNLOAD_URL": "https://test.bitrix24.ru/disk/downloadFile/10/?&ncc=1&filename=2511.jpg&auth=******",
-    "DETAIL_URL": "https://test.bitrix24.ru/workgroups/group/3/disk/file/2511.jpg"
-},
-{
-    "ID": "11",
-    "NAME": "549x700.png",
-    "CODE": null,
-    "STORAGE_ID": "4",
-    "TYPE": "file",
-    "PARENT_ID": "8",
-    "DELETED_TYPE": "0",
-    "CREATE_TIME": "2015-04-24T10:58:49+03:00",
-    "UPDATE_TIME": "2015-04-24T12:01:32+03:00",
-    "DELETE_TIME": null,
-    "CREATED_BY": "1",
-    "UPDATED_BY": "1",
-    "DELETED_BY": "0",
-    "DOWNLOAD_URL": "https://test.bitrix24.ru/disk/downloadFile/11/?&ncc=1&filename=549x700.png&auth=******",
-    "DETAIL_URL": "https://test.bitrix24.ru/workgroups/group/3/disk/file/549x700.png"
-}]
+    "PARENT_ID": "12", //идентификатор родительской папки
+    "DELETED_TYPE": "0", //маркер удаления
+    "CREATE_TIME": "2015-04-24T10:41:51+03:00", //время создания
+    "UPDATE_TIME": "2015-04-24T15:52:43+03:00", //время изменения
+    "DELETE_TIME": null, //время перемещения в корзину
+    "CREATED_BY": "1", //идентификатор пользователя, который создал файл
+    "UPDATED_BY": "1", //идентификатор пользователя, который изменил файл
+    "DELETED_BY": "0", //идентификатор пользователя, который переместил в корзину файл
+    "DETAIL_URL": "https://test.bitrix24.ru/workgroups/group/3/disk/path/newfolder" //ссылка на просмотр списка файлов папки
+}
 ```

@@ -9,11 +9,10 @@ params: {"type":"object"}
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Пользовательские поля в CRM
+# Получить список типов пользовательских полей crm.userfield.types
 
 
 
@@ -25,8 +24,8 @@ Auto-generated stub. Fill in params/returns/examples.
 
 
 
-- к каким типам объектов применимо и т.д. И тут какая-то путаница с разделами, надо уточнить
-- правки под стандарт написания
+- не указаны параметры и их типы
+- отсутствует ответ в случае ошибки и успеха
 
 
 
@@ -36,17 +35,103 @@ Auto-generated stub. Fill in params/returns/examples.
 >
 > Кто может выполнять метод: любой пользователь
 
-Методы работы с пользовательскими полями:
+Метод `crm.userfield.types` возвращает описание полей для пользовательских полей.
 
-#|
-|| **Метод** | **Описание** ||
-|| [crm.userfield.fields](./crm-userfield-fields.md) | Метод возвращает описание полей для пользовательских полей. ||
-|| [crm.userfield.types](./crm-userfield-types.md) | Метод возвращает список типов пользовательских полей. ||
-|| [crm.userfield.enumeration.fields](./crm-userfield-enumeration-fields.md) | Метод возвращает описание полей для пользовательского поля типа "enumeration" (список). ||
-|| [crm.userfield.settings.fields](./crm-userfield-settings-fields.md) | Метод возвращает описание полей настроек для типа пользовательского поля. ||
-|#
+Список типов пользовательских полей. Содержит описания типов:
 
-## Дополнительно
-- [Настройки пользовательских полей](../userfieldconfig/index.md)
-- [{#T}](../../../../tutorials/crm/how-to-add-crm-objects/how-to-add-user-field-to-spa.md)
+- string
+- integer
+- double
+- boolean
+- datetime
+- enumeration
+- iblock_section
+- iblock_element
+- employee
+- crm_status
+- crm
+- address
+- money
+- url
+
+Также будут возвращены [типы](../user-defined-fields/userfield-type.md) пользовательских полей, зарегистрированные текущим приложением.
+
+## Пример
+
+
+
+- JS
   
+    ```js
+    BX24.callMethod(
+        "crm.userfield.types",
+        {},
+        function(result)
+        {
+            if(result.error())
+                console.error(result.error());
+            else
+                console.dir(result.data());
+        }
+    );
+    ```
+
+- PHP
+  
+    ```php
+    require_once('crest.php');
+
+    $result = CRest::call(
+        'crm.userfield.types',
+        []
+    );
+
+    echo '<PRE>';
+    print_r($result);
+    echo '</PRE>';
+    ```
+
+- CURL (oauth)
+
+    ```
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{}' \
+    https://**put_your_bitrix24_address**/rest/crm.userfield.types?auth=**put_access_token_here**
+
+    ```
+
+- CURL (webhook)
+
+    ```
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{}' \
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webhook_here**/crm.userfield.types
+    ```
+
+- PHP (B24PhpSdk)
+
+    ```php
+    try {
+        $userfieldService = $serviceBuilder->getCRMScope()->userfield();
+        $userfieldTypesResult = $userfieldService->types();
+
+        foreach ($userfieldTypesResult->getTypes() as $item) {
+            print("ID: " . $item->ID . "\n");
+            print("Title: " . $item->title . "\n");
+        }
+    } catch (Throwable $e) {
+        print("Error: " . $e->getMessage() . "\n");
+    }
+    ```
+
+
+
+
+
+## Продолжите изучение
+
+- [{#T}](../../../../tutorials/crm/how-to-add-crm-objects/how-to-add-precision-to-user-field.md)

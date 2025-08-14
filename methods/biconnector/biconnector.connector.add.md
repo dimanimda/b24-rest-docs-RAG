@@ -9,17 +9,16 @@ params: {"type":"object","required":["fields"],"properties":{"fields":{"type":"o
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Создать источник biconnector.source.add
+# Создать коннектор biconnector.connector.add
 
 > Scope: [`biconnector`](../../scopes/permissions.md)
 >
 > Кто может выполнять метод: пользователь с доступом к разделу «Рабочее место аналитика»
 
-Метод `biconnector.source.add` создает новый источник данных, связанный с коннектором.
+Метод `biconnector.connector.add` создает новый коннектор, который позволяет интегрировать внешние источники данных в Битрикс24.
 
 ## Параметры метода
 
@@ -29,7 +28,7 @@ Auto-generated stub. Fill in params/returns/examples.
 || **Название**
 `тип` | **Описание** ||
 || **fields***
-[`object`](../../data-types.md) | Объект, содержащий данные для создания нового источника. Формат объекта: 
+[`object`](../../data-types.md) | Объект, содержащий данные для создания нового коннектора. Формат объекта: 
 
 ```
 {
@@ -52,17 +51,23 @@ Auto-generated stub. Fill in params/returns/examples.
 || **Название**
 `тип` | **Описание** ||
 || **title***
-[`string`](../../data-types.md) | Название источника ||
+[`string`](../../data-types.md) | Название коннектора ||
+|| **logo***
+[`string`](../../data-types.md) | Логотип коннектора. Может передаваться ссылкой на изображение или строкой формата base64, например `data:image/svg+xml;base64,PHN2ZyB3...` ||
 || **description**
-[`string`](../../data-types.md) | Описание источника ||
-|| **active**
-[`boolean`](../../data-types.md) | Активность источника. 
-По умолчанию `true` ||
-|| **connectorId***
-[`integer`](../../data-types.md) | Идентификатор коннектора, можно получить методами [biconnector.connector.list](../connector/biconnector-connector-list.md) или [biconnector.connector.add](../connector/biconnector-connector-add.md) ||
+[`string`](../../data-types.md) | Описание коннектора ||
+|| **urlCheck***
+[`string`](../../data-types.md) | Эндпоинт коннектора для проверки доступности, [(подробное описание)](./index.md#urlCheck) ||
+|| **urlTableList***
+[`string`](../../data-types.md) | Эндпоинт коннектора для получения списка таблиц, [(подробное описание)](./index.md#urlTableList) ||
+|| **urlTableDescription***
+[`string`](../../data-types.md) | Эндпоинт коннектора для получения описания конкретной таблицы, [(подробное описание)](./index.md#urlTableDescription) ||
+|| **urlData***
+[`string`](../../data-types.md) | Эндпоинт коннектора для получения данных по выбранной таблице, [(подробное описание)](./index.md#urlData) ||
 || **settings***
-[`object`](../../data-types.md) | Список параметров для авторизации, передается объектом, где ключ — `code` параметра. 
-Параметры можно получить методами [biconnector.connector.list](../connector/biconnector-connector-list.md) или [biconnector.connector.get](../connector/biconnector-connector-get.md) ||
+[`array`](../../data-types.md) | Список параметров подключения, [(подробное описание)](./index.md#settings) ||
+|| **sort**
+[`int`](../../data-types.md) | Параметр сортировки коннекторов. Значение по умолчанию `100` ||
 |#
 
 ## Примеры кода
@@ -75,21 +80,36 @@ Auto-generated stub. Fill in params/returns/examples.
 
     ```js
     BX24.callMethod(
-        'biconnector.source.add',
+        'biconnector.connector.add',
         {
             fields: {
-                "title": "CRM Source",
-                "description": "Источник данных CRM",
-                "connectorId": 123,
-                "settings": {
-                    "login": "admin",
-                    "password": "qwerty"
-                }
-            }
+                "title": "SUPER REST CONNECTOR",
+                "logo": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjIiIGhlaWdodD0iMjIiIHZpZXdCb3g9IjAgMCAyMiAyMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KCTxjaXJjbGUgY3g9IjExIiBjeT0iMTEiIHI9IjEwIiBmaWxsPSIjRkYzQjNCIiAvPgoJPHRleHQgeD0iMTEiIHk9IjEzIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iNiIgZmlsbD0iI0ZGRkZGRiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC13ZWlnaHQ9ImJvbGQiPlJFU1Q8L3RleHQ+Cjwvc3ZnPg==",
+                "description": "Connector with token",
+                "urlCheck": "https://example.com/api/check",
+                "urlTableList": "https://example.com/api/table_list",
+                "urlTableDescription": "https://example.com/api/table_description",
+                "urlData": "https://example.com/api/data",
+                "settings": [
+                    {
+                        "name": "Логин",
+                        "type": "STRING",
+                        "code": "login"
+                    },
+                    {
+                        "name": "Пароль",
+                        "type": "STRING",
+                        "code": "password"
+                    }
+                ],
+                "sort": 100
+            },
         },
         (result) => {
-            result.error() ? console.error(result.error()) : console.info(result.data());
-        }
+            result.error()
+                ? console.error(result.error())
+                : console.info(result.data());
+        },
     );
     ```
 
@@ -97,20 +117,67 @@ Auto-generated stub. Fill in params/returns/examples.
 
     ```bash
     curl -X POST \
-    -H "Content-Type: application/json" \
-    -H "Accept: application/json" \
-    -d '{"fields":{"title":"CRM Source","description":"Источник данных CRM","connectorId":123,"settings":{"login":"admin","password":"qwerty"}}}' \
-    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/biconnector.source.add
+         -H "Content-Type: application/json" \
+         -H "Accept: application/json" \
+         -d '{
+             "fields": {
+                 "title": "SUPER REST CONNECTOR",
+                 "logo": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjIiIGhlaWdodD0iMjIiIHZpZXdCb3g9IjAgMCAyMiAyMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KCTxjaXJjbGUgY3g9IjExIiBjeT0iMTEiIHI9IjEwIiBmaWxsPSIjRkYzQjNCIiAvPgoJPHRleHQgeD0iMTEiIHk9IjEzIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iNiIgZmlsbD0iI0ZGRkZGRiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC13ZWlnaHQ9ImJvbGQiPlJFU1Q8L3RleHQ+Cjwvc3ZnPg==",
+                 "description": "Connector with token",
+                 "urlCheck": "https://example.com/api/check",
+                 "urlTableList": "https://example.com/api/table_list",
+                 "urlTableDescription": "https://example.com/api/table_description",
+                 "urlData": "https://example.com/api/data",
+                 "settings": [
+                    {
+                        "name": "Логин",
+                        "type": "STRING",
+                        "code": "login"
+                    },
+                    {
+                        "name": "Пароль",
+                        "type": "STRING",
+                        "code": "password"
+                    }
+                 ],
+                 "sort": 100
+             }
+             }' \
+         https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/biconnector.connector.add
     ```
 
 - cURL (OAuth)
 
     ```bash
     curl -X POST \
-    -H "Content-Type: application/json" \
-    -H "Accept: application/json" \
-    -d '{"fields":{"title":"CRM Source","description":"Источник данных CRM","connectorId":123,"settings":{"login":"admin","password":"qwerty"}},"auth":"**put_access_token_here**"}' \
-    https://**put_your_bitrix24_address**/rest/biconnector.source.add
+         -H "Content-Type: application/json" \
+         -H "Accept: application/json" \
+         -d '{
+             "fields": {
+                 "title": "SUPER REST CONNECTOR",
+                 "logo": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjIiIGhlaWdodD0iMjIiIHZpZXdCb3g9IjAgMCAyMiAyMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KCTxjaXJjbGUgY3g9IjExIiBjeT0iMTEiIHI9IjEwIiBmaWxsPSIjRkYzQjNCIiAvPgoJPHRleHQgeD0iMTEiIHk9IjEzIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iNiIgZmlsbD0iI0ZGRkZGRiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC13ZWlnaHQ9ImJvbGQiPlJFU1Q8L3RleHQ+Cjwvc3ZnPg==",
+                 "description": "Connector with token",
+                 "urlCheck": "https://example.com/api/check",
+                 "urlTableList": "https://example.com/api/table_list",
+                 "urlTableDescription": "https://example.com/api/table_description",
+                 "urlData": "https://example.com/api/data",
+                 "settings": [
+                    {
+                        "name": "Логин",
+                        "type": "STRING",
+                        "code": "login"
+                    },
+                    {
+                        "name": "Пароль",
+                        "type": "STRING",
+                        "code": "password"
+                    }
+                 ],
+                 "sort": 100
+             },
+             "auth": "**put_access_token_here**"
+             }' \
+         https://**put_your_bitrix24_address**/rest/biconnector.connector.add
     ```
 
 - PHP
@@ -119,16 +186,29 @@ Auto-generated stub. Fill in params/returns/examples.
     require_once('crest.php');
 
     $result = CRest::call(
-        'biconnector.source.add',
+        'biconnector.connector.add',
         [
             'fields' => [
-                'title' => 'CRM Source',
-                'description' => 'Источник данных CRM',
-                'connectorId' => 123,
+                'title' => 'SUPER REST CONNECTOR',
+                'logo' => 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjIiIGhlaWdodD0iMjIiIHZpZXdCb3g9IjAgMCAyMiAyMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KCTxjaXJjbGUgY3g9IjExIiBjeT0iMTEiIHI9IjEwIiBmaWxsPSIjRkYzQjNCIiAvPgoJPHRleHQgeD0iMTEiIHk9IjEzIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iNiIgZmlsbD0iI0ZGRkZGRiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC13ZWlnaHQ9ImJvbGQiPlJFU1Q8L3RleHQ+Cjwvc3ZnPg==',
+                'description' => 'Connector with token',
+                'urlCheck' => 'https://example.com/api/check',
+                'urlTableList' => 'https://example.com/api/table_list',
+                'urlTableDescription' => 'https://example.com/api/table_description',
+                'urlData' => 'https://example.com/api/data',
                 'settings' => [
-                    'login' => 'admin',
-                    'password' => 'qwerty'
-                ]
+                    [
+                        'name' => 'Логин',
+                        'type' => 'STRING',
+                        'code' => 'login'
+                    ],
+                    [
+                        'name' => 'Пароль',
+                        'type' => 'STRING',
+                        'code' => 'password'
+                    ]
+                ],
+                'sort' => 100
             ]
         ]
     );
@@ -147,7 +227,7 @@ HTTP-статус: **200**
 ```json
 {
     "result": {
-      "id": 7
+      "id": 4
     },
     "time": {
         "start": 1725013197.635808,
@@ -167,7 +247,7 @@ HTTP-статус: **200**
 || **Название**
 `тип` | **Описание** ||
 || **result**
-[`integer`](../../data-types.md) | Корневой элемент ответа, содержит идентификатор созданного источника ||
+[`integer`](../../data-types.md) | Корневой элемент ответа, содержит идентификатор созданного коннектора ||
 || **time**
 [`time`](../../data-types.md#time) | Информация о времени выполнения запроса ||
 |#
@@ -189,24 +269,25 @@ HTTP-статус: **200**
 
 #|
 || **Код** | **Описание** | **Значение** ||
-|| `VALIDATION_FIELDS_NOT_PROVIDED` | Fields not provided. | Поля не переданы в запросе ||
+|| `VALIDATION_FIELDS_NOT_PROVIDED` | Fields not provided | Поля не переданы в запросе ||
 || `VALIDATION_UNKNOWN_PARAMETERS` | Unknown parameters: #LIST_OF_PARAMS# | Обнаружены неизвестные параметры: перечень ||
 || `VALIDATION_REQUIRED_FIELD_MISSING` | Field "#TITLE#" is required. | Обязательное поле #TITLE# не передано ||
 || `VALIDATION_READ_ONLY_FIELD` | Field "#TITLE#" is read only. | Поле #TITLE# доступно только для чтения и не может быть изменено ||
 || `VALIDATION_IMMUTABLE_FIELD` | Field "#TITLE#" is immutable. | Поле #TITLE# неизменяемое ||
 || `VALIDATION_INVALID_FIELD_TYPE` | Field "#TITLE#" must be of type #TYPE#. | Поле #TITLE# должно быть типа #TYPE# ||
-|| `CONNECTOR_NOT_FOUND` | Connector was not found. | Коннектор не найден ||
-|| `SOURCE_CREATE_CONNECTION_ERROR` | Cannot create connection. | Ошибка при создании подключения ||
-|| `SOURCE_UPDATE_CONNECTION_ERROR` | Cannot update connection. | Ошибка при обновлении подключения ||
-|| `BX_ERROR` | Cannot delete source. Delete all related datasets first. | Нельзя удалить источник, пока существуют связанные датасеты ||
+|| `VALIDATION_SETTINGS_MISSING_REQUIRED_FIELDS` | Settings must include "type", "name" and "code" fields. | В настройках должны быть указаны поля `type`, `name` и `code` ||
+|| `VALIDATION_SETTINGS_NAME_TOO_LONG` | Parameter "name" must be less than 512 characters. | Значение параметра `name` не должно превышать 512 символов ||
+|| `VALIDATION_SETTINGS_CODE_TOO_LONG` | Parameter "code" must be less than 512 characters. | Значение параметра `code` не должно превышать 512 символов ||
+|| `VALIDATION_SETTINGS_INVALID_TYPE` | Parameter "type" is not correct. | Недопустимое значение параметра `type` ||
 |#
 
 
 
 ## Продолжите изучение
 
-- [{#T}](./biconnector-source-update.md)
-- [{#T}](./biconnector-source-get.md)
-- [{#T}](./biconnector-source-list.md)
-- [{#T}](./biconnector-source-delete.md)
-- [{#T}](./biconnector-source-fields.md)
+- [{#T}](./biconnector-connector-update.md)
+- [{#T}](./biconnector-connector-get.md)
+- [{#T}](./biconnector-connector-list.md)
+- [{#T}](./biconnector-connector-delete.md)
+- [{#T}](./biconnector-connector-fields.md)
+

@@ -9,1078 +9,379 @@ params: {"type":"object","required":["id","fields"],"properties":{"id":{"type":"
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
-
-Example (curl):
-
-```bash
-- cURL (Webhook)
-
-    ```bash
-    curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"ID":525,"FIELDS":{"TEMPLATE_DATA":["bp-379.bpt","base64_encoded_content_here"]}}' https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/bizproc.workflow.template.update
-    ```
-
-- cURL (OAuth)
-
-    ```bash
-    curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"ID":525,"FIELDS":{"TEMPLATE_DATA":["bp-379.bpt","base64_encoded_content_here"]},"auth":"**put_access_token_here**"}' https://**put_your_bitrix24_address**/rest/bizproc.workflow.template.update
-    ```
-
-- PHP
-
-    ```php
-    require_once('crest.php');
-
-    $result = CRest::call(
-        'bizproc.workflow.template.update',
-        [
-            'ID' => 525,
-            'FIELDS' => [
-                'TEMPLATE_DATA' => [
-                    'bp-379.bpt',
-                    'base64_encoded_content_here'
-                ]
-            ]
-        ]
-    );
-
-    echo '<PRE>';
-    print_r($result);
-    echo '</PRE>';
-    ```
-
-{% endlist %}
-
-
-Чтобы очистить поле, передайте пустое значение.
-
-{% list tabs %}
-
-- JS
-
-    ```js
-    BX24.callMethod(
-        "crm.item.update",
-        {
-            id: 9,
-            entityTypeId: 177,
-            fields: {
-                ufCrm_7_1739432938: [ // пустое значение для удаления файла из поля
-                ]
-            }
-        }
-    );
-    ```
-
-- cURL (Webhook)
-
-    ```bash
-    curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"id":9,"entityTypeId":177,"fields":{"ufCrm_7_1739432938":[]}}' https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/crm.item.update
-    ```
-
-- cURL (OAuth)
-
-    ```bash
-    curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"id":9,"entityTypeId":177,"fields":{"ufCrm_7_1739432938":[]},"auth":"**put_access_token_here**"}' https://**put_your_bitrix24_address**/rest/crm.item.update
-    ```
-
-- PHP
-
-    ```php
-    require_once('crest.php');
-
-    $result = CRest::call(
-        'crm.item.update',
-        [
-            'id' => 9,
-            'entityTypeId' => 177,
-            'fields' => [
-                'ufCrm_7_1739432938' => []
-            ]
-        ]
-    );
-
-    echo '<PRE>';
-    print_r($result);
-    echo '</PRE>';
-    ```
-
-{% endlist %}
-
-## Обновить файл во множественном поле
-
-Если поле множественное, в поле хранится массив из `ID` файлов. При обновлении множественных полей типа «файл» учитывайте особенности методов.
-
-### crm.item.update — обновить поле в объекте CRM
-
-Для обновления полей в объектах CRM используйте универсальный метод [crm.item.update](../crm/universal/crm-item-update.md).
-
-{% note info "" %}
-
-Не рекомендуется использовать методы [crm.deal.update](../crm/deals/crm-deal-update.md), [crm.lead.update](../crm/leads/crm-lead-update.md), [crm.contact.update](../crm/contacts/crm-contact-update.md), [crm.company.update](../crm/companies/crm-company-update.md) для обновления файловых полей.
-
-{% endnote %}
-
-#### 1. Получить ID файлов в поле
-
-Перед обновлением поля получите `ID` текущих файлов, чтобы сохранить их. Можно использовать метод [crm.item.get](../crm/universal/crm-item-get.md), он вернет все поля элемента, или метод [crm.item.list](../crm/universal/crm-item-list.md) с выбором только нужного поля типа «файл» в `select`.
-
-{% list tabs %}
-
-- JS
-
-    ```js
-    BX24.callMethod(
-        'crm.item.list',
-        {
-            entityTypeId: 177,
-            select: [
-                "ufCrm_7_1739432938", // поле типа «файл»
-            ],
-            filter: {
-                "id": "29",
-            },
-        }
-    );
-    ```
-
-- cURL (Webhook)
-
-    ```bash
-    curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"entityTypeId":177,"select":["ufCrm_7_1739432938"],"filter":{"id":"29"}}' https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/crm.item.list
-    ```
-
-- cURL (OAuth)
-
-    ```bash
-    curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"entityTypeId":177,"select":["ufCrm_7_1739432938"],"filter":{"id":"29"},"auth":"**put_access_token_here**"}' https://**put_your_bitrix24_address**/rest/crm.item.list
-    ```
-
-- PHP
-
-    ```php
-    require_once('crest.php');
-
-    $result = CRest::call(
-        'crm.item.list',
-        [
-            'entityTypeId' => 177,
-            'select' => [
-                'ufCrm_7_1739432938' // поле типа «файл»
-            ],
-            'filter' => [
-                'id' => '29'
-            ]
-        ]
-    );
-
-    echo '<PRE>';
-    print_r($result);
-    echo '</PRE>';
-    ```
-
-{% endlist %}
-
-В ответе получим информацию по файлам: `ID` и ссылки на скачивание.
-
-```json
-{
-    "result": {
-        "items": [
-            {
-                "ufCrm_7_1739432938": [
-                    {
-                        "id": 30577, // id файла, используем для сохранения файла в поле
-                        "url": "https://your-domain.bitrix24.com/bitrix/services/main/ajax.php?action=crm.controller.item.getFile&SITE_ID=s1&entityTypeId=177&id=29&fieldName=UF_CRM_7_1739432938&fileId=30577",
-                        "urlMachine": "https://your-domain.bitrix24.com/rest/crm.controller.item.getFile.json?auth=c2a8ad670000071b006e2cf200000001f0f107061147e530dda74d4e556cae7642992c&token=crm%7CYWN0aW9uPWNybS5jb25ZTU1NmNhZTc2NDI5OTJjIg%3D%3D.cR012fYj2JpQSObAORU0G8ZDvVc1Osnv0foUpBpaJVY%3D"
-                    },
-                    {
-                        "id": 30581, // id файла, используем для сохранения файла в поле
-                        "url": "https:///your-domain.bitrix24.com/bitrix/services/main/ajax.php?action=crm.controller.item.getFile&SITE_ID=s1&entityTypeId=177&id=29&fieldName=UF_CRM_7_1739432938&fileId=30581",
-                        "urlMachine": "https:///your-domain.bitrix24.com/rest/crm.controller.item.getFile.json?auth=c2a8ad670000071b006e2cf200000001f0f107061147e530dda74d4e556cae7642992c&token=crm%7CYWNNmNhZTc2NDI5OTJjIg%3D%3D.l6GB1qKENuwQYtQHse4GK1r%2F3zps%2FQdh%2BlFsopOuJdU%3D"
-                    }
-                ]
-            }
-        ]
-    },
-}
-```
-
-#### 2. Обновить файлы в поле
-
-В зависимости от переданных параметров метод [crm.item.update](../crm/universal/crm-item-update.md) выполняет операции:
-
-- загрузки новых файлов — передавайте контент в формате [Bаse64](./how-to-upload-files.md),
-
-- удаления старых файлов — не передавайте `ID` этих файлов в массиве,
-
-- сохранения файлов — передавайте `ID` в массиве файлов.
-
-Файлы будут сохранены, если их `ID` перечислены в запросе. Файлы будут удалены, если их `ID` отсутствует в запросе.
-
-{% list tabs %}
-
-- JS
-
-    ```js
-    BX24.callMethod(
-        "crm.item.update",
-        {
-            id: 9,
-            entityTypeId: 177,
-            fields: {
-                ufCrm_7_1739432938: [
-                    {
-                        id: 30577 // id старого файла, который будет сохранен в поле
-                    },
-                    [
-                        "myNewFile.pdf", // Имя нового файла
-                        "base64_encoded_content_here" // Контент нового файла в формате base64
-                    ]
-                ]
-            }
-        }
-    );
-    ```
-
-- cURL (Webhook)
-
-    ```bash
-    curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"id":9,"entityTypeId":177,"fields":{"ufCrm_7_1739432938":[{"id":30577},["myNewFile.pdf","base64_encoded_content_here"]]}}' https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/crm.item.update
-    ```
-
-- cURL (OAuth)
-
-    ```bash
-    curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"id":9,"entityTypeId":177,"fields":{"ufCrm_7_1739432938":[{"id":30577},["myNewFile.pdf","base64_encoded_content_here"]]},"auth":"**put_access_token_here**"}' https://**put_your_bitrix24_address**/rest/crm.item.update
-    ```
-
-- PHP
-
-    ```php
-    require_once('crest.php');
-
-    $result = CRest::call(
-        'crm.item.update',
-        [
-            'id' => 9,
-            'entityTypeId' => 177,
-            'fields' => [
-                'ufCrm_7_1739432938' => [
-                    [
-                        'id' => 30577 // id старого файла, который будет сохранен в поле
-                    ],
-                    [
-                        'myNewFile.pdf', // Имя нового файла
-                        'base64_encoded_content_here' // Контент нового файла в формате base64
-                    ]
-                ]
-            ]
-        ]
-    );
-
-    echo '<PRE>';
-    print_r($result);
-    echo '</PRE>';
-    ```
-
-{% endlist %}
-
-Чтобы удалить все файлы, передавайте пустой массив в поле.
-
-### crm.timeline.comment.update — обновить файлы в комментарии
-
-Для обновления файлов в комментариях элементов CRM используйте метод [crm.timeline.comment.update](../crm/timeline/comments/crm-timeline-comment-update.md). Старые файлы всегда удаляются при обновлении значения поля. Новые файлы загружайте в поле в формате [Base64](./how-to-upload-files.md).
-
-Чтобы удалить все файлы, передавайте пустой массив в поле `FILES`.
-
-{% list tabs %}
-
-- JS
-
-    ```js
-    BX24.callMethod(
-        "crm.timeline.comment.update",
-        {
-            id: 62589,
-            fields: {
-                "COMMENT": "Comment was changed",
-                "FILES": [ // пустое значение для удаления файлов
-                ]
-            }
-        }
-    );
-    ```
-
-- cURL (Webhook)
-
-    ```bash
-    curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"id":62589,"fields":{"COMMENT":"Comment was changed","FILES":[]}}' https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/crm.timeline.comment.update
-    ```
-
-- cURL (OAuth)
-
-    ```bash
-    curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"id":62589,"fields":{"COMMENT":"Comment was changed","FILES":[]},"auth":"**put_access_token_here**"}' https://**put_your_bitrix24_address**/rest/crm.timeline.comment.update
-    ```
-
-- PHP
-
-    ```php
-    require_once('crest.php');
-
-    $result = CRest::call(
-        'crm.timeline.comment.update',
-        [
-            'id' => 62589,
-            'fields' => [
-                'COMMENT' => 'Comment was changed',
-                'FILES' => [] // пустое значение для удаления файлов
-            ]
-        ]
-    );
-
-    echo '<PRE>';
-    print_r($result);
-    echo '</PRE>';
-    ```
-
-{% endlist %}
-
-### lists.element.update — обновить поле в списке
-
-Чтобы загрузить новые файлы в поле элемента списка, передавайте файлы методом [lists.element.update](../lists/elements/lists-element-update.md) в формате [Base64](./how-to-upload-files.md). Старые файлы останутся в поле без изменений.
-
-Для удаления файлов понадобится `ID` значения свойства.
-
-#### 1. Получить ID значения свойства
-
-Чтобы получить `ID` для удаления файла, выполните метод [lists.element.get](../lists/elements/lists-element-get.md), он вернет все поля элемента.
-
-{% list tabs %}
-
-- JS
-
-    ```js
-    BX24.callMethod(
-        'lists.element.get',
-        {
-            IBLOCK_TYPE_ID: 'lists',
-            IBLOCK_ID: '37',
-            ELEMENT_ID: '6783'
-        }
-    );
-    ```
-
-- cURL (Webhook)
-
-    ```bash
-    curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"IBLOCK_TYPE_ID":"lists","IBLOCK_ID":"37","ELEMENT_ID":"6783"}' https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/lists.element.get
-    ```
-
-- cURL (OAuth)
-
-    ```bash
-    curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"IBLOCK_TYPE_ID":"lists","IBLOCK_ID":"37","ELEMENT_ID":"6783","auth":"**put_access_token_here**"}' https://**put_your_bitrix24_address**/rest/lists.element.get
-    ```
-
-- PHP
-
-    ```php
-    require_once('crest.php');
-
-    $result = CRest::call(
-        'lists.element.get',
-        [
-            'IBLOCK_TYPE_ID' => 'lists',
-            'IBLOCK_ID' => '37',
-            'ELEMENT_ID' => '6783'
-        ]
-    );
-
-    echo '<PRE>';
-    print_r($result);
-    echo '</PRE>';
-    ```
-
-{% endlist %}
-
-Поле «файл» в примере — `PROPERTY_1075`. В поле получим информацию:
-
-- первое значение `"3693"` — это `ID` значения свойства,
-
-- второе значение `"31219"`— это `ID` файла.
-
-```json
-{
-    "result": [
-        {
-            "ID": "6783",
-            "PROPERTY_1075": {
-                "3693": "31219", // 3693 — id значения, используем для удаления
-                "3697": "31221", // 3697 — id значения, используем для удаления
-                "3699": "31223"  // 3699 — id значения, используем для удаления
-            }
-        }
-    ],
-    "total": 1,
-}
-```
-
-#### 2. Удалить файл из поля
-
-Передайте в метод [lists.element.update](../lists/elements/lists-element-update.md) поле с постфиксом `_DEL`, например `PROPERTY_1075_DEL`. В поле укажите список из `ID` значений свойств, которые будут удалены:
-
-- ключ — `ID` значения свойства,
-
-- значение — `Y`.
-
-{% list tabs %}
-
-- JS
-
-    ```js
-    BX24.callMethod(
-        "lists.element.update",
-        {
-            IBLOCK_TYPE_ID: "lists",
-            IBLOCK_ID: 37,
-            ELEMENT_ID: 6783,
-            FIELDS: {
-                NAME: "файлы реста",
-                PROPERTY_1075_DEL: { // постфикс _DEL для операции удаления
-                    3693: "Y" // список значений для удаления
-                }
-            }
-        }
-    );
-    ```
-
-- cURL (Webhook)
-
-    ```bash
-    curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"IBLOCK_TYPE_ID":"lists","IBLOCK_ID":37,"ELEMENT_ID":6783,"FIELDS":{"NAME":"файлы реста","PROPERTY_1075_DEL":{"3693":"Y"}}}' https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/lists.element.update
-    ```
-
-- cURL (OAuth)
-
-    ```bash
-    curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"IBLOCK_TYPE_ID":"lists","IBLOCK_ID":37,"ELEMENT_ID":6783,"FIELDS":{"NAME":"файлы реста","PROPERTY_1075_DEL":{"3693":"Y"}},"auth":"**put_access_token_here**"}' https://**put_your_bitrix24_address**/rest/lists.element.update
-    ```
-
-- PHP
-
-    ```php
-    require_once('crest.php');
-
-    $result = CRest::call(
-        'lists.element.update',
-        [
-            'IBLOCK_TYPE_ID' => 'lists',
-            'IBLOCK_ID' => 37,
-            'ELEMENT_ID' => 6783,
-            'FIELDS' => [
-                'NAME' => 'файлы реста',
-                'PROPERTY_1075_DEL' => [
-                    3693 => 'Y' // постфикс _DEL для операции удаления
-                ]
-            ]
-        ]
-    );
-
-    echo '<PRE>';
-    print_r($result);
-    echo '</PRE>';
-    ```
-
-{% endlist %}
-
-
-### log.blogpost.update — обновить файлы в посте
-
-Чтобы загрузить новые файлы к посту в ленте, передавайте файлы методом [log.blogpost.update](../log/log-blogpost-update.md) в формате [Base64](./how-to-upload-files.md). Старые файлы останутся в посте без изменений.
-
-Для удаления файлов понадобится их `ID`.
-
-#### 1. Получить ID файла в посте
-
-Чтобы получить `ID` для удаления файла, выполните метод [log.blogpost.get](../log/log-blogpost-get.md), он вернет все поля поста, включая `FILES`.
-
-{% list tabs %}
-
-- JS
-
-    ```js
-    BX24.callMethod(
-        "log.blogpost.get",
-        {
-            POST_ID: 211
-        }
-    );
-    ```
-
-- cURL (Webhook)
-
-    ```bash
-    curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"POST_ID":211}' https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/log.blogpost.get
-    ```
-
-- cURL (OAuth)
-
-    ```bash
-    curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"POST_ID":211,"auth":"**put_access_token_here**"}' https://**put_your_bitrix24_address**/rest/log.blogpost.get
-    ```
-
-- PHP
-
-    ```php
-    require_once('crest.php');
-
-    $result = CRest::call(
-        'log.blogpost.get',
-        [
-            'POST_ID' => 211
-        ]
-    );
-
-    echo '<PRE>';
-    print_r($result);
-    echo '</PRE>';
-    ```
-
-{% endlist %}
-
-В ответе получим массив объектов:
-
-- первое значение `0` — это порядковый `ID` файла в посте,
-
-- второе значение `437`— это `ID` файла.
-
-```json
-[FILES] => Array
-    (
-        [0] => 437 
-        [1] => 439
-        [2] => 441
-```
-
-#### 2. Удалить файл из поста
-
-Передайте в метод [log.blogpost.update](../log/log-blogpost-update.md) поле `FILES`. В поле укажите массив `ID` файлов, которые будут удалены:
-
-- ключ — `ID` файла,
-
-- значение — `del`.
-
-{% list tabs %}
-
-- JS
-
-    ```js
-    BX24.callMethod(
-        "log.blogpost.update",
-        {
-            POST_ID: 211,
-            POST_TITLE: "Новый заголовок поста",
-            FILES: {
-                "445": "del" // id файлов для удаления
-            }
-        }
-    );
-    ```
-
-- cURL (Webhook)
-
-    ```bash
-    curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"POST_ID":211,"POST_TITLE":"Новый заголовок поста","FILES":{"445":"del"}}' https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/log.blogpost.update
-    ```
-
-- cURL (OAuth)
-
-    ```bash
-    curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"POST_ID":211,"POST_TITLE":"Новый заголовок поста","FILES":{"445":"del"},"auth":"**put_access_token_here**"}' https://**put_your_bitrix24_address**/rest/log.blogpost.update
-    ```
-
-- PHP
-
-    ```php
-    require_once('crest.php');
-
-    $result = CRest::call(
-        'log.blogpost.update',
-        [
-            'POST_ID' => 211,
-            'POST_TITLE' => 'Новый заголовок поста',
-            'FILES' => [
-                '445' => 'del' // id файлов для удаления
-            ]
-        ]
-    );
-
-    echo '<PRE>';
-    print_r($result);
-    echo '</PRE>';
-    ```
-
-{% endlist %}
-
-
-Чтобы удалить все файлы из поста, передайте в метод [log.blogpost.update](../log/log-blogpost-update.md) поле `UF_BLOG_POST_FILE`. В значении поля укажите `["empty"]`.
-
-{% list tabs %}
-
-- JS
-
-    ```js
-    BX24.callMethod(
-        "log.blogpost.update",
-        {
-            POST_ID: 211,
-            POST_TITLE: "Новый заголовок поста",
-            UF_BLOG_POST_FILE: ["empty"] // удаление всех файлов поста
-        }
-    );
-    ```
-
-- cURL (Webhook)
-
-    ```bash
-    curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"POST_ID":211,"POST_TITLE":"Новый заголовок поста","UF_BLOG_POST_FILE":["empty"]}' https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/log.blogpost.update
-    ```
-
-- cURL (OAuth)
-
-    ```bash
-    curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"POST_ID":211,"POST_TITLE":"Новый заголовок поста","UF_BLOG_POST_FILE":["empty"],"auth":"**put_access_token_here**"}' https://**put_your_bitrix24_address**/rest/log.blogpost.update
-    ```
-
-- PHP
-
-    ```php
-    require_once('crest.php');
-
-    $result = CRest::call(
-        'log.blogpost.update',
-        [
-            'POST_ID' => 211,
-            'POST_TITLE' => 'Новый заголовок поста',
-            'UF_BLOG_POST_FILE' => ['empty'] // удаление всех файлов поста
-        ]
-    );
-
-    echo '<PRE>';
-    print_r($result);
-    echo '</PRE>';
-    ```
-
-{% endlist %}
-
-### catalog.product.update — обновить поле в товаре
-
-Чтобы загрузить новые файлы в карточку товара, передавайте файлы методом [catalog.product.update](../catalog/product/catalog-product-update.md) в формате [Base64](./how-to-upload-files.md). Старые файлы останутся в поле без изменений.
-
-Для удаления файлов понадобится `ID` значения поля.
-
-#### 1. Получить ID значения поля
-
-Чтобы получить `ID` для удаления файла, выполните метод [catalog.product.get](../catalog/product/catalog-product-get.md). Метод вернет все поля товара.
-
-{% list tabs %}
-
-- JS
-
-    ```js
-    BX24.callMethod(
-        'catalog.product.get',
-        {
-            'id': 541
-        }
-    );
-    ```
-
-- cURL (Webhook)
-
-    ```bash
-    curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"id":541}' https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/catalog.product.get
-    ```
-
-- cURL (OAuth)
-
-    ```bash
-    curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"id":541,"auth":"**put_access_token_here**"}' https://**put_your_bitrix24_address**/rest/catalog.product.get
-    ```
-
-- PHP
-
-    ```php
-    require_once('crest.php');
-
-    $result = CRest::call(
-        'catalog.product.get',
-        [
-            'id' => 541
-        ]
-    );
-
-    echo '<PRE>';
-    print_r($result);
-    echo '</PRE>';
-    ```
-
-{% endlist %}
-
-Поле «файл» в примере — `property1077`. Поле содержит массив объектов:
-
-- `value` — это информация по файлу: `ID` и ссылки на скачивание,
-
-- `valueId` — это `ID` значения поля.
-
-```json
-{
-    "result": {
-        "product": {
-            "iblockId": 25,
-            "id": 541,
-            "property1077": [
-                {
-                    "value": {
-                        "id": "31251",
-                        "url": "/rest/catalog.product.download?fields%5BfieldName%5D=property1077&fields%5BfileId%5D=31251&fields%5BproductId%5D=541",
-                        "urlMachine": "/rest/catalog.product.download?fields%5BfieldName%5D=property1077&fields%5BfileId%5D=31251&fields%5BproductId%5D=541"
-                    },
-                    "valueId": "3705" // id значения, используем для удаления
-                },
-                {
-                    "value": {
-                        "id": "31253",
-                        "url": "/rest/catalog.product.download?fields%5BfieldName%5D=property1077&fields%5BfileId%5D=31253&fields%5BproductId%5D=541",
-                        "urlMachine": "/rest/catalog.product.download?fields%5BfieldName%5D=property1077&fields%5BfileId%5D=31253&fields%5BproductId%5D=541"
-                    },
-                    "valueId": "3707" // id значения, используем для удаления
-                }
-            ],
-
-        }
-    },
-}
-```
-
-#### 2. Удалить файл из поля
-
-Чтобы удалить файл, передайте в метод [catalog.product.update](../catalog/product/catalog-product-update.md) поле со значениями:
-
-- `value` — укажите `remove` как ключ, `Y` как значение,
-
-- `valueId` — укажите`ID` значения поля, файл которого  будет удален.
-
-{% list tabs %}
-
-- JS
-
-    ```js
-    BX24.callMethod(
-        'catalog.product.update',
-        {
-            id: 541,
-            fields: {
-                property1077: [
-                    {
-                        "value": {
-                            'remove': 'Y', // операция удаления файла
-                        },
-                        'valueId': '3705', // id значения для удаления
-                    }
-                ]
-            }
-        }
-    );
-    ```
-
-- cURL (Webhook)
-
-    ```bash
-    curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"id":541,"fields":{"property1077":[{"value":{"remove":"Y"},"valueId":"3705"}]}}' https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/catalog.product.update
-    ```
-
-- cURL (OAuth)
-
-    ```bash
-    curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"id":541,"fields":{"property1077":[{"value":{"remove":"Y"},"valueId":"3705"}]},"auth":"**put_access_token_here**"}' https://**put_your_bitrix24_address**/rest/catalog.product.update
-```
 
 ---
 
-# Как обновить и удалить файлы
+# Обновить товар catalog.product.update
 
-В Битрикс24 есть два типа файловых полей.
+> Scope: [`catalog`](../../scopes/permissions.md)
+>
+> Кто может выполнять метод: администратор
 
-- **Файл.** Поле не связано с Диском, в него файлы загружаются напрямую через строку формата [Base64](./how-to-upload-files.md). После загрузки в поле хранится ID файла.
-  
-- **Файл (диск).** Поле связано с Диском, в поле хранится ID объекта диска. Поле не обрабатывает формат Base64. Для обновления файлов диска используйте методы [disk.file.*](../disk/file/index.md).
+Метод обновляет товар торгового каталога.
 
-## Как обновить файл
-
-Если поле не множественное, загрузите новый файл в поле методом `*.update`. Используйте формат передачи данных [Base64](./how-to-upload-files.md). При загрузке нового файла старый файл удалится автоматически.
+## Параметры метода
 
 
 
-- JS
+#|
+|| **Название**
+`тип` | **Описание** ||
+|| **id***
+[`catalog_product.id`](../data-types.md#catalog_product)| Идентификатор товара.
 
-    ```js
-    BX24.callMethod(
-        'bizproc.workflow.template.update',
-        {
-            ID: 525,
-            FIELDS: {
-                // Контент файла с новым шаблоном бизнес-процесса
-                TEMPLATE_DATA: [
-                    "bp-379.bpt", // Первый элемент массива - имя файла
-                    "base64_encoded_content_here" // Второй элемент массива - контент файла, закодированный в base64
-                ]
-            }
-        }
-    );
-    ```
+Для получения идентификаторов товаров используйте метод [catalog.product.list](./catalog-product-list.md)
+ ||
+|| **fields***
+[`object`](../../data-types.md)| Значения полей (подробное описание приведено [ниже](#parametr-fields)) для обновления товара в виде структуры:
 
-- cURL (Webhook)
-
-    ```bash
-    curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"ID":525,"FIELDS":{"TEMPLATE_DATA":["bp-379.bpt","base64_encoded_content_here"]}}' https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/bizproc.workflow.template.update
-    ```
-
-- cURL (OAuth)
-
-    ```bash
-    curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"ID":525,"FIELDS":{"TEMPLATE_DATA":["bp-379.bpt","base64_encoded_content_here"]},"auth":"**put_access_token_here**"}' https://**put_your_bitrix24_address**/rest/bizproc.workflow.template.update
-    ```
-
-- PHP
-
-    ```php
-    require_once('crest.php');
-
-    $result = CRest::call(
-        'bizproc.workflow.template.update',
-        [
-            'ID' => 525,
-            'FIELDS' => [
-                'TEMPLATE_DATA' => [
-                    'bp-379.bpt',
-                    'base64_encoded_content_here'
-                ]
-            ]
-        ]
-    );
-
-    echo '<PRE>';
-    print_r($result);
-    echo '</PRE>';
-    ```
-
-
-
-
-Чтобы очистить поле, передайте пустое значение.
-
-
-
-- JS
-
-    ```js
-    BX24.callMethod(
-        "crm.item.update",
-        {
-            id: 9,
-            entityTypeId: 177,
-            fields: {
-                ufCrm_7_1739432938: [ // пустое значение для удаления файла из поля
-                ]
-            }
-        }
-    );
-    ```
-
-- cURL (Webhook)
-
-    ```bash
-    curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"id":9,"entityTypeId":177,"fields":{"ufCrm_7_1739432938":[]}}' https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/crm.item.update
-    ```
-
-- cURL (OAuth)
-
-    ```bash
-    curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"id":9,"entityTypeId":177,"fields":{"ufCrm_7_1739432938":[]},"auth":"**put_access_token_here**"}' https://**put_your_bitrix24_address**/rest/crm.item.update
-    ```
-
-- PHP
-
-    ```php
-    require_once('crest.php');
-
-    $result = CRest::call(
-        'crm.item.update',
-        [
-            'id' => 9,
-            'entityTypeId' => 177,
-            'fields' => [
-                'ufCrm_7_1739432938' => []
-            ]
-        ]
-    );
-
-    echo '<PRE>';
-    print_r($result);
-    echo '</PRE>';
-    ```
-
-
-
-## Обновить файл во множественном поле
-
-Если поле множественное, в поле хранится массив из `ID` файлов. При обновлении множественных полей типа «файл» учитывайте особенности методов.
-
-### crm.item.update — обновить поле в объекте CRM
-
-Для обновления полей в объектах CRM используйте универсальный метод [crm.item.update](../crm/universal/crm-item-update.md).
-
-
-
-Не рекомендуется использовать методы [crm.deal.update](../crm/deals/crm-deal-update.md), [crm.lead.update](../crm/leads/crm-lead-update.md), [crm.contact.update](../crm/contacts/crm-contact-update.md), [crm.company.update](../crm/companies/crm-company-update.md) для обновления файловых полей.
-
-
-
-#### 1. Получить ID файлов в поле
-
-Перед обновлением поля получите `ID` текущих файлов, чтобы сохранить их. Можно использовать метод [crm.item.get](../crm/universal/crm-item-get.md), он вернет все поля элемента, или метод [crm.item.list](../crm/universal/crm-item-list.md) с выбором только нужного поля типа «файл» в `select`.
-
-
-
-- JS
-
-    ```js
-    BX24.callMethod(
-        'crm.item.list',
-        {
-            entityTypeId: 177,
-            select: [
-                "ufCrm_7_1739432938", // поле типа «файл»
-            ],
-            filter: {
-                "id": "29",
-            },
-        }
-    );
-    ```
-
-- cURL (Webhook)
-
-    ```bash
-    curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"entityTypeId":177,"select":["ufCrm_7_1739432938"],"filter":{"id":"29"}}' https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/crm.item.list
-    ```
-
-- cURL (OAuth)
-
-    ```bash
-    curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"entityTypeId":177,"select":["ufCrm_7_1739432938"],"filter":{"id":"29"},"auth":"**put_access_token_here**"}' https://**put_your_bitrix24_address**/rest/crm.item.list
-    ```
-
-- PHP
-
-    ```php
-    require_once('crest.php');
-
-    $result = CRest::call(
-        'crm.item.list',
-        [
-            'entityTypeId' => 177,
-            'select' => [
-                'ufCrm_7_1739432938' // поле типа «файл»
-            ],
-            'filter' => [
-                'id' => '29'
-            ]
-        ]
-    );
-
-    echo '<PRE>';
-    print_r($result);
-    echo '</PRE>';
-    ```
-
-
-
-В ответе получим информацию по файлам: `ID` и ссылки на скачивание.
-
-```json
-{
-    "result": {
-        "items": [
-            {
-                "ufCrm_7_1739432938": [
-                    {
-                        "id": 30577, // id файла, используем для сохранения файла в поле
-                        "url": "https://your-domain.bitrix24.com/bitrix/services/main/ajax.php?action=crm.controller.item.getFile&SITE_ID=s1&entityTypeId=177&id=29&fieldName=UF_CRM_7_1739432938&fileId=30577",
-                        "urlMachine": "https://your-domain.bitrix24.com/rest/crm.controller.item.getFile.json?auth=c2a8ad670000071b006e2cf200000001f0f107061147e530dda74d4e556cae7642992c&token=crm%7CYWN0aW9uPWNybS5jb25ZTU1NmNhZTc2NDI5OTJjIg%3D%3D.cR012fYj2JpQSObAORU0G8ZDvVc1Osnv0foUpBpaJVY%3D"
-                    },
-                    {
-                        "id": 30581, // id файла, используем для сохранения файла в поле
-                        "url": "https:///your-domain.bitrix24.com/bitrix/services/main/ajax.php?action=crm.controller.item.getFile&SITE_ID=s1&entityTypeId=177&id=29&fieldName=UF_CRM_7_1739432938&fileId=30581",
-                        "urlMachine": "https:///your-domain.bitrix24.com/rest/crm.controller.item.getFile.json?auth=c2a8ad670000071b006e2cf200000001f0f107061147e530dda74d4e556cae7642992c&token=crm%7CYWNNmNhZTc2NDI5OTJjIg%3D%3D.l6GB1qKENuwQYtQHse4GK1r%2F3zps%2FQdh%2BlFsopOuJdU%3D"
-                    }
-                ]
-            }
-        ]
-    },
-}
 ```
+'fields': {
+    name: 'значение',
+    active: 'значение',
+    barcodeMulti: 'значение',
+    canBuyZero: 'значение',
+    code: 'значение',
+    createdBy: 'значение',
+    dateActiveFrom: 'значение',
+    dateActiveTo: 'значение',
+    dateCreate: 'значение',
+    detailPicture: {
+        'fileData': ['название_картинки', 'картинка']
+    },
+    detailText: 'значение',
+    detailTextType: 'значение',
+    height: 'значение',
+    iblockSectionId: 'значение',
+    IblockSection: ['значение_1', ... , 'значение_N'],
+    length: 'значение',
+    measure: 'значение',
+    modifiedBy: 'значение',
+    previewPicture: {
+        'fileData': ['название_картинки', 'картинка']
+    },
+    previewText: 'значение',
+    previewTextType: 'значение',
+    purchasingCurrency: 'значение',
+    purchasingPrice: 'значение',
+    quantity: 'значение',
+    quantityReserved: 'значение',
+    quantityTrace: 'значение',
+    recurSchemeLength: 'значение',
+    recurSchemeType: 'значение',
+    sort: 'значение',
+    subscribe: 'значение',
+    trialPriceId: 'значение',
+    vatId: 'значение',
+    vatIncluded: 'значение',
+    weight: 'значение',
+    width: 'значение',
+    withoutOrder: 'значение',
+    xmlId: 'значение',
+    property1: {
+        value: 'значение',
+        valueId: 'значение'
+    },
+    ...
+    propertyN: {
+        value: 'значение',
+        valueId: 'значение'
+    }
+},
+``` 
+||
+|#
 
-#### 2. Обновить файлы в поле
+### Параметр fields
 
-В зависимости от переданных параметров метод [crm.item.update](../crm/universal/crm-item-update.md) выполняет операции:
+#|
+|| **Название**
+`тип` | **Описание** ||
+|| **name**
+[`string`](../../data-types.md)| Наименование товара ||
+|| **active**
+[`string`](../../data-types.md)| Активность товара. Возможные значения:
+- `Y` — да
+- `N` — нет
 
-- загрузки новых файлов — передавайте контент в формате [Bаse64](./how-to-upload-files.md),
+По умолчанию устанавливается значение `Y`
+ ||
+|| **code**
+[`string`](../../data-types.md)| Символьный код ||
+|| **xmlId**
+[`string`](../../data-types.md)| Внешний код ||
+|| **barcodeMulti**
+[`string`](../../data-types.md)| Использовать уникальные штрихкоды для каждого экземпляра. Значения:
+- `Y` — да
+- `N` — нет
 
-- удаления старых файлов — не передавайте `ID` этих файлов в массиве,
+По умолчанию устанавливается `N`
+ ||
+|| **canBuyZero**
+[`string`](../../data-types.md)| Возможно ли покупать товар при отсутствии:
+- `Y` — да
+- `N` — нет
 
-- сохранения файлов — передавайте `ID` в массиве файлов.
+По умолчанию устанавливается `N`
+ ||
+|| **createdBy**
+[`user.id`](../../data-types.md)| Кем создан ||
+|| **modifiedBy**
+[`user.id`](../../data-types.md)| Кем изменен ||
+|| **dateActiveFrom**
+[`datetime`](../../data-types.md)| Дата начала активности ||
+|| **dateActiveTo**
+[`datetime`](../../data-types.md)| Дата окончания активности ||
+|| **dateCreate**
+[`datetime`](../../data-types.md)| Дата создания ||
+|| **iblockSectionId**
+[`catalog_section.id`](../data-types.md#catalog_section)| Идентификатор основного раздела информационного блока ||
+|| **IblockSection**
+[`array`](../../data-types.md)| Массив со всеми разделами, к которым привязан товар ||
+|| **measure**
+[`catalog_measure.id`](../data-types.md#catalog_measure)| Единица измерения ||
+|| **previewText**
+[`string`](../../data-types.md)| Описание для анонса ||
+|| **detailText**
+[`string`](../../data-types.md)| Детальное описание ||
+|| **previewPicture**
+[`object`](../../data-types.md)| Картинка для анонса.
 
-Файлы будут сохранены, если их `ID` перечислены в запросе. Файлы будут удалены, если их `ID` отсутствует в запросе.
+Объект в формате `{fileData: [value1, value2]}`, где `value1` — название файла картинки с расширением, `value2` — картинка в формате [base64](../../files/how-to-upload-files.md).
+
+Для удаления картинки используется объект в формате `{remove: 'Y'}` ||
+|| **detailPicture**
+[`object`](../../data-types.md)| Детальная картинка.
+
+Объект в формате `{fileData: [value1, value2]}`, где `value1` — название файла картинки с расширением, `value2` — картинка в формате [base64](../../files/how-to-upload-files.md).
+
+Для удаления картинки используется объект в формате `{remove: 'Y'}` ||
+|| **previewTextType**
+[`string`](../../data-types.md)| Тип описания для анонса. Возможные значения:
+- `text` — текст
+- `html` — HTML
+
+По умолчанию устанавливается `text`
+ ||
+|| **detailTextType**
+[`string`](../../data-types.md)| Тип детального описания. Возможные значения:
+- `text` — текст
+- `html` — HTML
+
+По умолчанию устанавливается `text` ||
+|| **sort**
+[`integer`](../../data-types.md)| Сортировка ||
+|| **subscribe**
+[`string`](../../data-types.md)| Разрешение подписки на товар. Варинты:
+- `Y` — да
+- `N` — нет
+- `D` — по умолчанию
+
+По умолчанию устанавливается значение `D`
+ ||
+|| **vatId**
+[`catalog_vat.id`](../data-types.md#catalog_vat)| Идентификатор НДС ||
+|| **vatIncluded**
+[`string`](../../data-types.md)| НДС включен в цену:
+- `Y` — да
+- `N` — нет
+
+По умолчанию устанавливается значение `N`
+ ||
+|| **height**
+[`double`](../../data-types.md)| Высота товара ||
+|| **length**
+[`double`](../../data-types.md)| Длина товара ||
+|| **weight**
+[`double`](../../data-types.md)| Вес товара ||
+|| **width**
+[`double`](../../data-types.md)| Ширина товара ||
+|| **quantityTrace**
+[`string`](../../data-types.md)| Режим количественного учёта:
+- `Y` – включён
+- `N` – выключен
+- `D` – по умолчанию
+
+По умолчанию устанавливается значение `D`
+ ||
+|| **purchasingCurrency**
+[`string`](../../data-types.md)| Валюта закупочной цены.
+
+Список валют можно получить методом [crm.currency.list](../../crm/currency/crm-currency-list.md).
+
+Не редактируется при включенном складском учёте
+ ||
+|| **purchasingPrice**
+[`double`](../../data-types.md)| Закупочная цена.
+
+Не редактируется при включенном складском учёте
+ ||
+|| **quantity**
+[`double`](../../data-types.md)| Количество.
+
+Не редактируется при включенном складском учёте
+ ||
+|| **quantityReserved**
+[`double`](../../data-types.md)| Зарезервированное количество.
+
+Не редактируется при включенном складском учёте
+ ||
+|| **recurSchemeLength**
+[`integer`](../../data-types.md)| Длина периода оплаты.
+
+По умолчанию устанавливается `0`.
+
+Используется только в [коробочной версии](../../cloud-and-on-premise/index.md) для продажи контента
+ ||
+|| **recurSchemeType**
+[`string`](../../data-types.md)| Единица времени периода оплаты:
+- `H` — час
+- `D` — день
+- `W` — неделя
+- `M` — месяц
+- `Q` — квартал
+- `S` — полугодие
+- `Y` — год
+
+По умолчанию устанавливается `D`.
+
+Используется только в [коробочной версии](../../cloud-and-on-premise/index.md) для продажи контента
+ ||
+|| **trialPriceId**
+[`integer`](../../data-types.md)| Товар для пробной оплаты.
+
+Используется только в [коробочной версии](../../cloud-and-on-premise/index.md) для продажи контента
+ ||
+|| **withoutOrder**
+[`string`](../../data-types.md)| Продление без оформления заказа. Значения:
+- `Y` — да
+- `N` — нет
+
+По умолчанию устанавливается `N`.
+
+Используется только в [коробочной версии](../../cloud-and-on-premise/index.md) для продажи контента
+ ||
+|| **propertyN**
+[`object / array`](../../data-types.md) | Значение свойства товара, где `N` — идентификатор свойства. Свойств может быть несколько.
+
+Значение указывается в формате:
+- `{valueId: valueId, value: value}` — для обычного свойства
+- `[{valueId: valueId1, value: value1}, ..., {valueId: valueIdN, value: valueN}]` — для множественного свойства
+Здесь `valueId` — идентификатор значения свойства, а `value` — значение свойства.
+
+Если не указать `valueId`, то существующее значение будет удалено из базы данных, и заменено на новое, указанное в `value`.
+
+Если свойство множественное, то все существующие значения свойства, для которых не был указан `valueId`, будут удалены.
+
+Идентификаторы `valueId` всех свойств товара можно получить, используя методы [catalog.product.get](./catalog-product-get.md) и [catalog.product.list](./catalog-product-list.md).
+
+Изменение файловых полей описано в статье [Как обновить и удалить файлы](../../files/how-to-update-files.md)
+||
+|#
+
+## Примеры кода
 
 
 
-- JS
 
-    ```js
-    BX24.callMethod(
-        "crm.item.update",
-        {
-            id: 9,
-            entityTypeId: 177,
-            fields: {
-                ufCrm_7_1739432938: [
-                    {
-                        id: 30577 // id старого файла, который будет сохранен в поле
-                    },
-                    [
-                        "myNewFile.pdf", // Имя нового файла
-                        "base64_encoded_content_here" // Контент нового файла в формате base64
-                    ]
-                ]
-            }
-        }
-    );
-    ```
 
 - cURL (Webhook)
 
     ```bash
-    curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"id":9,"entityTypeId":177,"fields":{"ufCrm_7_1739432938":[{"id":30577},["myNewFile.pdf","base64_encoded_content_here"]]}}' https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/crm.item.update
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"id":1267,"fields":{"name":"Товар","active":"Y","barcodeMulti":"Y","canBuyZero":"Y","code":"Tovar","createdBy":1,"dateActiveFrom":"2024-05-28T10:00:00","dateActiveTo":"2024-05-29T10:00:00","dateCreate":"2024-05-27T10:00:00","detailPicture":{"fileData":["detailPicture.png","iVBORw0KGgoAAAANSUhEUgAAAMgAAADIBAMAAABfdrOtAAAAG1BMVEX37ff/­///58fn9+v3+/P779vv8+Pz47/j68/oDfe+3AAAACXBIWXMAAA7EAAAOxAGV­Kw4bAAABrUlEQVR4nO3UT0/CMBjH8ccx2I56IFynkHg1SgxHHCocSfQFGKP3­+e++xL1wn7bPUCAeKF5Mvp+EluX3ZN3ariIAAAAAAAAAAAAAAAAA/q2TwrXZ­ib94LTbj5GdgVbtKxhdXS+2uL270ajQbL9fz4WzcXwVWtbNeIdmt3qSQtwdJ­Ssku1/NHkfdVEKriHFey0G4haS3+ty4ZtEGoipMW+VS7T2m0zc+28tICq4rT­qXtuJV7kWdvsUJtuoc1Hm08ssKo4B1Wn1i6tJu5qrj9dA8lWEzOQEFhV3CCN­Tph2naJ0V+eu0SV+ry3WWQqBVcUNsgiP16ndS4SnzuffL5LWEgKrihqje7Y9­iDTN6mZ38geDNNX2dEm338b5XPafrmRuj/dj4fULfGoXeFTJ/guvayybW1i3­Vl7aM7h+3y2c+y07FfeZjaT9GHVrNYXPG/fkIbCqCPf+9d1WKiWtJSyP21r+­FaTrZ8+CULW7XliCUe0PyIUdkD29qQzdv7A0FoSq3R0fqaU78d0hPtw86hMX­99vAqqJlp757/W3vhMCqAAAAAAAAAAAAAAAAAPxbX82/SILlk9xfAAAAAElF­TkSuQmCCiVBORw0KGgoAAAANSUhEUgAAAMgAAADIBAMAAABfdrOtAAAAG1BM­VEX37ff////58fn9+v3+/P779vv8+Pz47/j68/oDfe+3AAAACXBIWXMAAA7E­AAAOxAGVKw4bAAABrUlEQVR4nO3UT0/CMBjH8ccx2I56IFynkHg1SgxHHCoc­SfQFGKP3+e++xL1wn7bPUCAeKF5Mvp+EluX3ZN3ariIAAAAAAAAAAAAAAAAA­/q2TwrXZib94LTbj5GdgVbtKxhdXS+2uL270ajQbL9fz4WzcXwVWtbNeIdmt­3qSQtwdJSsku1/NHkfdVEKriHFey0G4haS3+ty4ZtEGoipMW+VS7T2m0zc+2­8tICq4rTqXtuJV7kWdvsUJtuoc1Hm08ssKo4B1Wn1i6tJu5qrj9dA8lWEzOQ­EFhV3CCNTph2naJ0V+eu0SV+ry3WWQqBVcUNsgiP16ndS4SnzuffL5LWEgKr­ihqje7Y9iDTN6mZ38geDNNX2dEm338b5XPafrmRuj/dj4fULfGoXeFTJ/guv­ayybW1i3Vl7aM7h+3y2c+y07FfeZjaT9GHVrNYXPG/fkIbCqCPf+9d1WKiWt­JSyP21r+FaTrZ8+CULW7XliCUe0PyIUdkD29qQzdv7A0FoSq3R0fqaU78d0h­Ptw86hMX99vAqqJlp757/W3vhMCqAAAAAAAAAAAAAAAAAPxbX82/SILlk9xf­AAAAAElFTkSuQmCC"]},"detailText":"","detailTextType":"text","height":100,"iblockSectionId":47,"length":100,"measure":5,"modifiedBy":1,"previewPicture":{"fileData":["previewPicture.png","iVBORw0KGgoAAAANSUhEUgAAAMgAAADIBAMAAABfdrOtAAAAG1BMVEX37ff/­///58fn9+v3+/P779vv8+Pz47/j68/oDfe+3AAAACXBIWXMAAA7EAAAOxAGV­Kw4bAAABrUlEQVR4nO3UT0/CMBjH8ccx2I56IFynkHg1SgxHHCocSfQFGKP3­+e++xL1wn7bPUCAeKF5Mvp+EluX3ZN3ariIAAAAAAAAAAAAAAAAA/q2TwrXZ­ib94LTbj5GdgVbtKxhdXS+2uL270ajQbL9fz4WzcXwVWtbNeIdmt3qSQtwdJ­Ssku1/NHkfdVEKriHFey0G4haS3+ty4ZtEGoipMW+VS7T2m0zc+28tICq4rT­qXtuJV7kWdvsUJtuoc1Hm08ssKo4B1Wn1i6tJu5qrj9dA8lWEzOQEFhV3CCN­Tph2naJ0V+eu0SV+ry3WWQqBVcUNsgiP16ndS4SnzuffL5LWEgKrihqje7Y9­iDTN6mZ38geDNNX2dEm338b5XPafrmRuj/dj4fULfGoXeFTJ/guvayybW1i3­Vl7aM7h+3y2c+y07FfeZjaT9GHVrNYXPG/fkIbCqCPf+9d1WKiWtJSyP21r+­FaTrZ8+CULW7XliCUe0PyIUdkD29qQzdv7A0FoSq3R0fqaU78d0hPtw86hMX­99vAqqJlp757/W3vhMCqAAAAAAAAAAAAAAAAAPxbX82/SILlk9xfAAAAAElF­TkSuQmCCiVBORw0KGgoAAAANSUhEUgAAAMgAAADIBAMAAABfdrOtAAAAG1BM­VEX37ff////58fn9+v3+/P779vv8+Pz47/j68/oDfe+3AAAACXBIWXMAAA7E­AAAOxAGVKw4bAAABrUlEQVR4nO3UT0/CMBjH8ccx2I56IFynkHg1SgxHHCoc­SfQFGKP3+e++xL1wn7bPUCAeKF5Mvp+EluX3ZN3ariIAAAAAAAAAAAAAAAAA­/q2TwrXZib94LTbj5GdgVbtKxhdXS+2uL270ajQbL9fz4WzcXwVWtbNeIdmt­3qSQtwdJSsku1/NHkfdVEKriHFey0G4haS3+ty4ZtEGoipMW+VS7T2m0zc+2­8tICq4rTqXtuJV7kWdvsUJtuoc1Hm08ssKo4B1Wn1i6tJu5qrj9dA8lWEzOQ­EFhV3CCNTph2naJ0V+eu0SV+ry3WWQqBVcUNsgiP16ndS4SnzuffL5LWEgKr­ihqje7Y9iDTN6mZ38geDNNX2dEm338b5XPafrmRuj/dj4fULfGoXeFTJ/guv­ayybW1i3Vl7aM7h+3y2c+y07FfeZjaT9GHVrNYXPG/fkIbCqCPf+9d1WKiWt­JSyP21r+FaTrZ8+CULW7XliCUe0PyIUdkD29qQzdv7A0FoSq3R0fqaU78d0h­Ptw86hMX99vAqqJlp757/W3vhMCqAAAAAAAAAAAAAAAAAPxbX82/SILlk9xf­AAAAAElFTkSuQmCC"]},"previewText":"","previewTextType":"text","purchasingCurrency":"RUB","purchasingPrice":1000,"quantity":10,"quantityReserved":1,"quantityTrace":"Y","recurSchemeLength":1,"recurSchemeType":"D","sort":100,"subscribe":"Y","trialPriceId":175,"vatId":1,"vatIncluded":"Y","weight":100,"width":100,"withoutOrder":"Y","xmlId":"1243","property258":{"value":"test","valueId":9816},"property259":[{"value":"test1","valueId":9817},{"value":"test2","valueId":9818}]}}' \
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/catalog.product.update
     ```
 
 - cURL (OAuth)
 
     ```bash
-    curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"id":9,"entityTypeId":177,"fields":{"ufCrm_7_1739432938":[{"id":30577},["myNewFile.pdf","base64_encoded_content_here"]]},"auth":"**put_access_token_here**"}' https://**put_your_bitrix24_address**/rest/crm.item.update
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"id":1267,"fields":{"name":"Товар","active":"Y","barcodeMulti":"Y","canBuyZero":"Y","code":"Tovar","createdBy":1,"dateActiveFrom":"2024-05-28T10:00:00","dateActiveTo":"2024-05-29T10:00:00","dateCreate":"2024-05-27T10:00:00","detailPicture":{"fileData":["detailPicture.png","iVBORw0KGgoAAAANSUhEUgAAAMgAAADIBAMAAABfdrOtAAAAG1BMVEX37ff/­///58fn9+v3+/P779vv8+Pz47/j68/oDfe+3AAAACXBIWXMAAA7EAAAOxAGV­Kw4bAAABrUlEQVR4nO3UT0/CMBjH8ccx2I56IFynkHg1SgxHHCocSfQFGKP3­+e++xL1wn7bPUCAeKF5Mvp+EluX3ZN3ariIAAAAAAAAAAAAAAAAA/q2TwrXZ­ib94LTbj5GdgVbtKxhdXS+2uL270ajQbL9fz4WzcXwVWtbNeIdmt3qSQtwdJ­Ssku1/NHkfdVEKriHFey0G4haS3+ty4ZtEGoipMW+VS7T2m0zc+28tICq4rT­qXtuJV7kWdvsUJtuoc1Hm08ssKo4B1Wn1i6tJu5qrj9dA8lWEzOQEFhV3CCN­Tph2naJ0V+eu0SV+ry3WWQqBVcUNsgiP16ndS4SnzuffL5LWEgKrihqje7Y9­iDTN6mZ38geDNNX2dEm338b5XPafrmRuj/dj4fULfGoXeFTJ/guvayybW1i3­Vl7aM7h+3y2c+y07FfeZjaT9GHVrNYXPG/fkIbCqCPf+9d1WKiWtJSyP21r+­FaTrZ8+CULW7XliCUe0PyIUdkD29qQzdv7A0FoSq3R0fqaU78d0hPtw86hMX­99vAqqJlp757/W3vhMCqAAAAAAAAAAAAAAAAAPxbX82/SILlk9xfAAAAAElF­TkSuQmCCiVBORw0KGgoAAAANSUhEUgAAAMgAAADIBAMAAABfdrOtAAAAG1BM­VEX37ff////58fn9+v3+/P779vv8+Pz47/j68/oDfe+3AAAACXBIWXMAAA7E­AAAOxAGVKw4bAAABrUlEQVR4nO3UT0/CMBjH8ccx2I56IFynkHg1SgxHHCoc­SfQFGKP3+e++xL1wn7bPUCAeKF5Mvp+EluX3ZN3ariIAAAAAAAAAAAAAAAAA­/q2TwrXZib94LTbj5GdgVbtKxhdXS+2uL270ajQbL9fz4WzcXwVWtbNeIdmt­3qSQtwdJSsku1/NHkfdVEKriHFey0G4haS3+ty4ZtEGoipMW+VS7T2m0zc+2­8tICq4rTqXtuJV7kWdvsUJtuoc1Hm08ssKo4B1Wn1i6tJu5qrj9dA8lWEzOQ­EFhV3CCNTph2naJ0V+eu0SV+ry3WWQqBVcUNsgiP16ndS4SnzuffL5LWEgKr­ihqje7Y9iDTN6mZ38geDNNX2dEm338b5XPafrmRuj/dj4fULfGoXeFTJ/guv­ayybW1i3Vl7aM7h+3y2c+y07FfeZjaT9GHVrNYXPG/fkIbCqCPf+9d1WKiWt­JSyP21r+FaTrZ8+CULW7XliCUe0PyIUdkD29qQzdv7A0FoSq3R0fqaU78d0h­Ptw86hMX99vAqqJlp757/W3vhMCqAAAAAAAAAAAAAAAAAPxbX82/SILlk9xf­AAAAAElFTkSuQmCC"]},"detailText":"","detailTextType":"text","height":100,"iblockSectionId":47,"length":100,"measure":5,"modifiedBy":1,"previewPicture":{"fileData":["previewPicture.png","iVBORw0KGgoAAAANSUhEUgAAAMgAAADIBAMAAABfdrOtAAAAG1BMVEX37ff/­///58fn9+v3+/P779vv8+Pz47/j68/oDfe+3AAAACXBIWXMAAA7EAAAOxAGV­Kw4bAAABrUlEQVR4nO3UT0/CMBjH8ccx2I56IFynkHg1SgxHHCocSfQFGKP3­+e++xL1wn7bPUCAeKF5Mvp+EluX3ZN3ariIAAAAAAAAAAAAAAAAA/q2TwrXZ­ib94LTbj5GdgVbtKxhdXS+2uL270ajQbL9fz4WzcXwVWtbNeIdmt3qSQtwdJ­Ssku1/NHkfdVEKriHFey0G4haS3+ty4ZtEGoipMW+VS7T2m0zc+28tICq4rT­qXtuJV7kWdvsUJtuoc1Hm08ssKo4B1Wn1i6tJu5qrj9dA8lWEzOQEFhV3CCN­Tph2naJ0V+eu0SV+ry3WWQqBVcUNsgiP16ndS4SnzuffL5LWEgKrihqje7Y9­iDTN6mZ38geDNNX2dEm338b5XPafrmRuj/dj4fULfGoXeFTJ/guvayybW1i3­Vl7aM7h+3y2c+y07FfeZjaT9GHVrNYXPG/fkIbCqCPf+9d1WKiWtJSyP21r+­FaTrZ8+CULW7XliCUe0PyIUdkD29qQzdv7A0FoSq3R0fqaU78d0hPtw86hMX­99vAqqJlp757/W3vhMCqAAAAAAAAAAAAAAAAAPxbX82/SILlk9xfAAAAAElF­TkSuQmCCiVBORw0KGgoAAAANSUhEUgAAAMgAAADIBAMAAABfdrOtAAAAG1BM­VEX37ff////58fn9+v3+/P779vv8+Pz47/j68/oDfe+3AAAACXBIWXMAAA7E­AAAOxAGVKw4bAAABrUlEQVR4nO3UT0/CMBjH8ccx2I56IFynkHg1SgxHHCoc­SfQFGKP3+e++xL1wn7bPUCAeKF5Mvp+EluX3ZN3ariIAAAAAAAAAAAAAAAAA­/q2TwrXZib94LTbj5GdgVbtKxhdXS+2uL270ajQbL9fz4WzcXwVWtbNeIdmt­3qSQtwdJSsku1/NHkfdVEKriHFey0G4haS3+ty4ZtEGoipMW+VS7T2m0zc+2­8tICq4rTqXtuJV7kWdvsUJtuoc1Hm08ssKo4B1Wn1i6tJu5qrj9dA8lWEzOQ­EFhV3CCNTph2naJ0V+eu0SV+ry3WWQqBVcUNsgiP16ndS4SnzuffL5LWEgKr­ihqje7Y9iDTN6mZ38geDNNX2dEm338b5XPafrmRuj/dj4fULfGoXeFTJ/guv­ayybW1i3Vl7aM7h+3y2c+y07FfeZjaT9GHVrNYXPG/fkIbCqCPf+9d1WKiWt­JSyP21r+FaTrZ8+CULW7XliCUe0PyIUdkD29qQzdv7A0FoSq3R0fqaU78d0h­Ptw86hMX99vAqqJlp757/W3vhMCqAAAAAAAAAAAAAAAAAPxbX82/SILlk9xf­AAAAAElFTkSuQmCC"]},"previewText":"","previewTextType":"text","purchasingCurrency":"RUB","purchasingPrice":1000,"quantity":10,"quantityReserved":1,"quantityTrace":"Y","recurSchemeLength":1,"recurSchemeType":"D","sort":100,"subscribe":"Y","trialPriceId":175,"vatId":1,"vatIncluded":"Y","weight":100,"width":100,"withoutOrder":"Y","xmlId":"1243","property258":{"value":"test","valueId":9816},"property259":[{"value":"test1","valueId":9817},{"value":"test2","valueId":9818}]},"auth":"**put_access_token_here**"}' \
+    https://**put_your_bitrix24_address**/rest/catalog.product.update
+    ```
+
+- JS
+
+    ```js
+    BX24.callMethod(
+        'catalog.product.update', 
+        {
+            'id': 1267,
+            'fields': {
+                name: 'Товар',
+                active: 'Y',
+                barcodeMulti: 'Y',
+                canBuyZero: 'Y',
+                code: 'Tovar',
+                createdBy: 1,
+                dateActiveFrom: '2024-05-28T10:00:00',
+                dateActiveTo: '2024-05-29T10:00:00',
+                dateCreate: '2024-05-27T10:00:00',
+                detailPicture: {
+                    'fileData': [
+                        'detailPicture.png',
+                        'iVBORw0KGgoAAAANSUhEUgAAAMgAAADIBAMAAABfdrOtAAAAG1BMVEX37ff/­///58fn9+v3+/P779vv8+Pz47/j68/oDfe+3AAAACXBIWXMAAA7EAAAOxAGV­Kw4bAAABrUlEQVR4nO3UT0/CMBjH8ccx2I56IFynkHg1SgxHHCocSfQFGKP3­+e++xL1wn7bPUCAeKF5Mvp+EluX3ZN3ariIAAAAAAAAAAAAAAAAA/q2TwrXZ­ib94LTbj5GdgVbtKxhdXS+2uL270ajQbL9fz4WzcXwVWtbNeIdmt3qSQtwdJ­Ssku1/NHkfdVEKriHFey0G4haS3+ty4ZtEGoipMW+VS7T2m0zc+28tICq4rT­qXtuJV7kWdvsUJtuoc1Hm08ssKo4B1Wn1i6tJu5qrj9dA8lWEzOQEFhV3CCN­Tph2naJ0V+eu0SV+ry3WWQqBVcUNsgiP16ndS4SnzuffL5LWEgKrihqje7Y9­iDTN6mZ38geDNNX2dEm338b5XPafrmRuj/dj4fULfGoXeFTJ/guvayybW1i3­Vl7aM7h+3y2c+y07FfeZjaT9GHVrNYXPG/fkIbCqCPf+9d1WKiWtJSyP21r+­FaTrZ8+CULW7XliCUe0PyIUdkD29qQzdv7A0FoSq3R0fqaU78d0hPtw86hMX­99vAqqJlp757/W3vhMCqAAAAAAAAAAAAAAAAAPxbX82/SILlk9xfAAAAAElF­TkSuQmCCiVBORw0KGgoAAAANSUhEUgAAAMgAAADIBAMAAABfdrOtAAAAG1BM­VEX37ff////58fn9+v3+/P779vv8+Pz47/j68/oDfe+3AAAACXBIWXMAAA7E­AAAOxAGVKw4bAAABrUlEQVR4nO3UT0/CMBjH8ccx2I56IFynkHg1SgxHHCoc­SfQFGKP3+e++xL1wn7bPUCAeKF5Mvp+EluX3ZN3ariIAAAAAAAAAAAAAAAAA­/q2TwrXZib94LTbj5GdgVbtKxhdXS+2uL270ajQbL9fz4WzcXwVWtbNeIdmt­3qSQtwdJSsku1/NHkfdVEKriHFey0G4haS3+ty4ZtEGoipMW+VS7T2m0zc+2­8tICq4rTqXtuJV7kWdvsUJtuoc1Hm08ssKo4B1Wn1i6tJu5qrj9dA8lWEzOQ­EFhV3CCNTph2naJ0V+eu0SV+ry3WWQqBVcUNsgiP16ndS4SnzuffL5LWEgKr­ihqje7Y9iDTN6mZ38geDNNX2dEm338b5XPafrmRuj/dj4fULfGoXeFTJ/guv­ayybW1i3Vl7aM7h+3y2c+y07FfeZjaT9GHVrNYXPG/fkIbCqCPf+9d1WKiWt­JSyP21r+FaTrZ8+CULW7XliCUe0PyIUdkD29qQzdv7A0FoSq3R0fqaU78d0h­Ptw86hMX99vAqqJlp757/W3vhMCqAAAAAAAAAAAAAAAAAPxbX82/SILlk9xf­AAAAAElFTkSuQmCC'
+                    ]
+                },
+                detailText: '',
+                detailTextType: 'text',
+                height: 100,
+                iblockSectionId: 47,
+                length: 100,
+                measure: 5,
+                modifiedBy: 1,
+                previewPicture: {
+                    'fileData': [
+                        'previewPicture.png',
+                        'iVBORw0KGgoAAAANSUhEUgAAAMgAAADIBAMAAABfdrOtAAAAG1BMVEX37ff/­///58fn9+v3+/P779vv8+Pz47/j68/oDfe+3AAAACXBIWXMAAA7EAAAOxAGV­Kw4bAAABrUlEQVR4nO3UT0/CMBjH8ccx2I56IFynkHg1SgxHHCocSfQFGKP3­+e++xL1wn7bPUCAeKF5Mvp+EluX3ZN3ariIAAAAAAAAAAAAAAAAA/q2TwrXZ­ib94LTbj5GdgVbtKxhdXS+2uL270ajQbL9fz4WzcXwVWtbNeIdmt3qSQtwdJ­Ssku1/NHkfdVEKriHFey0G4haS3+ty4ZtEGoipMW+VS7T2m0zc+28tICq4rT­qXtuJV7kWdvsUJtuoc1Hm08ssKo4B1Wn1i6tJu5qrj9dA8lWEzOQEFhV3CCN­Tph2naJ0V+eu0SV+ry3WWQqBVcUNsgiP16ndS4SnzuffL5LWEgKrihqje7Y9­iDTN6mZ38geDNNX2dEm338b5XPafrmRuj/dj4fULfGoXeFTJ/guvayybW1i3­Vl7aM7h+3y2c+y07FfeZjaT9GHVrNYXPG/fkIbCqCPf+9d1WKiWtJSyP21r+­FaTrZ8+CULW7XliCUe0PyIUdkD29qQzdv7A0FoSq3R0fqaU78d0hPtw86hMX­99vAqqJlp757/W3vhMCqAAAAAAAAAAAAAAAAAPxbX82/SILlk9xfAAAAAElF­TkSuQmCCiVBORw0KGgoAAAANSUhEUgAAAMgAAADIBAMAAABfdrOtAAAAG1BM­VEX37ff////58fn9+v3+/P779vv8+Pz47/j68/oDfe+3AAAACXBIWXMAAA7E­AAAOxAGVKw4bAAABrUlEQVR4nO3UT0/CMBjH8ccx2I56IFynkHg1SgxHHCoc­SfQFGKP3+e++xL1wn7bPUCAeKF5Mvp+EluX3ZN3ariIAAAAAAAAAAAAAAAAA­/q2TwrXZib94LTbj5GdgVbtKxhdXS+2uL270ajQbL9fz4WzcXwVWtbNeIdmt­3qSQtwdJSsku1/NHkfdVEKriHFey0G4haS3+ty4ZtEGoipMW+VS7T2m0zc+2­8tICq4rTqXtuJV7kWdvsUJtuoc1Hm08ssKo4B1Wn1i6tJu5qrj9dA8lWEzOQ­EFhV3CCNTph2naJ0V+eu0SV+ry3WWQqBVcUNsgiP16ndS4SnzuffL5LWEgKr­ihqje7Y9iDTN6mZ38geDNNX2dEm338b5XPafrmRuj/dj4fULfGoXeFTJ/guv­ayybW1i3Vl7aM7h+3y2c+y07FfeZjaT9GHVrNYXPG/fkIbCqCPf+9d1WKiWt­JSyP21r+FaTrZ8+CULW7XliCUe0PyIUdkD29qQzdv7A0FoSq3R0fqaU78d0h­Ptw86hMX99vAqqJlp757/W3vhMCqAAAAAAAAAAAAAAAAAPxbX82/SILlk9xf­AAAAAElFTkSuQmCC'
+                    ]
+                },
+                previewText: '',
+                previewTextType: 'text',
+                purchasingCurrency: 'RUB',
+                purchasingPrice: 1000,
+                quantity: 10,
+                quantityReserved: 1,
+                quantityTrace: 'Y',
+                recurSchemeLength: 1,
+                recurSchemeType: 'D',
+                sort: 100,
+                subscribe: 'Y',
+                trialPriceId: 175,
+                vatId: 1,
+                vatIncluded: 'Y',
+                weight: 100,
+                width: 100,
+                withoutOrder: 'Y',
+                xmlId: '1243',
+                property258: {
+                    value: 'test',
+                    valueId: 9816
+                },
+                property259: [
+                    {
+                        value: 'test1',
+                        valueId: 9817
+                    },
+                    {
+                        value: 'test2',
+                        valueId: 9818
+                    }
+                ],
+            },
+        },
+        function(result) {
+            if(result.error())
+                console.error(result.error());
+            else
+                console.log(result.data());
+        }
+    );
     ```
 
 - PHP
@@ -1089,20 +390,70 @@ Example (curl):
     require_once('crest.php');
 
     $result = CRest::call(
-        'crm.item.update',
+        'catalog.product.update',
         [
-            'id' => 9,
-            'entityTypeId' => 177,
+            'id' => 1267,
             'fields' => [
-                'ufCrm_7_1739432938' => [
+                'name' => 'Товар',
+                'active' => 'Y',
+                'barcodeMulti' => 'Y',
+                'canBuyZero' => 'Y',
+                'code' => 'Tovar',
+                'createdBy' => 1,
+                'dateActiveFrom' => '2024-05-28T10:00:00',
+                'dateActiveTo' => '2024-05-29T10:00:00',
+                'dateCreate' => '2024-05-27T10:00:00',
+                'detailPicture' => [
+                    'fileData' => [
+                        'detailPicture.png',
+                        'iVBORw0KGgoAAAANSUhEUgAAAMgAAADIBAMAAABfdrOtAAAAG1BMVEX37ff/­///58fn9+v3+/P779vv8+Pz47/j68/oDfe+3AAAACXBIWXMAAA7EAAAOxAGV­Kw4bAAABrUlEQVR4nO3UT0/CMBjH8ccx2I56IFynkHg1SgxHHCocSfQFGKP3­+e++xL1wn7bPUCAeKF5Mvp+EluX3ZN3ariIAAAAAAAAAAAAAAAAA/q2TwrXZ­ib94LTbj5GdgVbtKxhdXS+2uL270ajQbL9fz4WzcXwVWtbNeIdmt3qSQtwdJ­Ssku1/NHkfdVEKriHFey0G4haS3+ty4ZtEGoipMW+VS7T2m0zc+28tICq4rT­qXtuJV7kWdvsUJtuoc1Hm08ssKo4B1Wn1i6tJu5qrj9dA8lWEzOQEFhV3CCN­Tph2naJ0V+eu0SV+ry3WWQqBVcUNsgiP16ndS4SnzuffL5LWEgKrihqje7Y9­iDTN6mZ38geDNNX2dEm338b5XPafrmRuj/dj4fULfGoXeFTJ/guvayybW1i3­Vl7aM7h+3y2c+y07FfeZjaT9GHVrNYXPG/fkIbCqCPf+9d1WKiWtJSyP21r+­FaTrZ8+CULW7XliCUe0PyIUdkD29qQzdv7A0FoSq3R0fqaU78d0hPtw86hMX­99vAqqJlp757/W3vhMCqAAAAAAAAAAAAAAAAAPxbX82/SILlk9xfAAAAAElF­TkSuQmCCiVBORw0KGgoAAAANSUhEUgAAAMgAAADIBAMAAABfdrOtAAAAG1BM­VEX37ff////58fn9+v3+/P779vv8+Pz47/j68/oDfe+3AAAACXBIWXMAAA7E­AAAOxAGVKw4bAAABrUlEQVR4nO3UT0/CMBjH8ccx2I56IFynkHg1SgxHHCoc­SfQFGKP3+e++xL1wn7bPUCAeKF5Mvp+EluX3ZN3ariIAAAAAAAAAAAAAAAAA­/q2TwrXZib94LTbj5GdgVbtKxhdXS+2uL270ajQbL9fz4WzcXwVWtbNeIdmt­3qSQtwdJSsku1/NHkfdVEKriHFey0G4haS3+ty4ZtEGoipMW+VS7T2m0zc+2­8tICq4rTqXtuJV7kWdvsUJtuoc1Hm08ssKo4B1Wn1i6tJu5qrj9dA8lWEzOQ­EFhV3CCNTph2naJ0V+eu0SV+ry3WWQqBVcUNsgiP16ndS4SnzuffL5LWEgKr­ihqje7Y9iDTN6mZ38geDNNX2dEm338b5XPafrmRuj/dj4fULfGoXeFTJ/guv­ayybW1i3Vl7aM7h+3y2c+y07FfeZjaT9GHVrNYXPG/fkIbCqCPf+9d1WKiWt­JSyP21r+FaTrZ8+CULW7XliCUe0PyIUdkD29qQzdv7A0FoSq3R0fqaU78d0h­Ptw86hMX99vAqqJlp757/W3vhMCqAAAAAAAAAAAAAAAAAPxbX82/SILlk9xf­AAAAAElFTkSuQmCC'
+                    ]
+                ],
+                'detailText' => '',
+                'detailTextType' => 'text',
+                'height' => 100,
+                'iblockSectionId' => 47,
+                'length' => 100,
+                'measure' => 5,
+                'modifiedBy' => 1,
+                'previewPicture' => [
+                    'fileData' => [
+                        'previewPicture.png',
+                        'iVBORw0KGgoAAAANSUhEUgAAAMgAAADIBAMAAABfdrOtAAAAG1BMVEX37ff/­///58fn9+v3+/P779vv8+Pz47/j68/oDfe+3AAAACXBIWXMAAA7EAAAOxAGV­Kw4bAAABrUlEQVR4nO3UT0/CMBjH8ccx2I56IFynkHg1SgxHHCocSfQFGKP3­+e++xL1wn7bPUCAeKF5Mvp+EluX3ZN3ariIAAAAAAAAAAAAAAAAA/q2TwrXZ­ib94LTbj5GdgVbtKxhdXS+2uL270ajQbL9fz4WzcXwVWtbNeIdmt3qSQtwdJ­Ssku1/NHkfdVEKriHFey0G4haS3+ty4ZtEGoipMW+VS7T2m0zc+28tICq4rT­qXtuJV7kWdvsUJtuoc1Hm08ssKo4B1Wn1i6tJu5qrj9dA8lWEzOQEFhV3CCN­Tph2naJ0V+eu0SV+ry3WWQqBVcUNsgiP16ndS4SnzuffL5LWEgKrihqje7Y9­iDTN6mZ38geDNNX2dEm338b5XPafrmRuj/dj4fULfGoXeFTJ/guvayybW1i3­Vl7aM7h+3y2c+y07FfeZjaT9GHVrNYXPG/fkIbCqCPf+9d1WKiWtJSyP21r+­FaTrZ8+CULW7XliCUe0PyIUdkD29qQzdv7A0FoSq3R0fqaU78d0hPtw86hMX­99vAqqJlp757/W3vhMCqAAAAAAAAAAAAAAAAAPxbX82/SILlk9xfAAAAAElF­TkSuQmCCiVBORw0KGgoAAAANSUhEUgAAAMgAAADIBAMAAABfdrOtAAAAG1BM­VEX37ff////58fn9+v3+/P779vv8+Pz47/j68/oDfe+3AAAACXBIWXMAAA7E­AAAOxAGVKw4bAAABrUlEQVR4nO3UT0/CMBjH8ccx2I56IFynkHg1SgxHHCoc­SfQFGKP3+e++xL1wn7bPUCAeKF5Mvp+EluX3ZN3ariIAAAAAAAAAAAAAAAAA­/q2TwrXZib94LTbj5GdgVbtKxhdXS+2uL270ajQbL9fz4WzcXwVWtbNeIdmt­3qSQtwdJSsku1/NHkfdVEKriHFey0G4haS3+ty4ZtEGoipMW+VS7T2m0zc+2­8tICq4rTqXtuJV7kWdvsUJtuoc1Hm08ssKo4B1Wn1i6tJu5qrj9dA8lWEzOQ­EFhV3CCNTph2naJ0V+eu0SV+ry3WWQqBVcUNsgiP16ndS4SnzuffL5LWEgKr­ihqje7Y9iDTN6mZ38geDNNX2dEm338b5XPafrmRuj/dj4fULfGoXeFTJ/guv­ayybW1i3Vl7aM7h+3y2c+y07FfeZjaT9GHVrNYXPG/fkIbCqCPf+9d1WKiWt­JSyP21r+FaTrZ8+CULW7XliCUe0PyIUdkD29qQzdv7A0FoSq3R0fqaU78d0h­Ptw86hMX99vAqqJlp757/W3vhMCqAAAAAAAAAAAAAAAAAPxbX82/SILlk9xf­AAAAAElFTkSuQmCC'
+                    ]
+                ],
+                'previewText' => '',
+                'previewTextType' => 'text',
+                'purchasingCurrency' => 'RUB',
+                'purchasingPrice' => 1000,
+                'quantity' => 10,
+                'quantityReserved' => 1,
+                'quantityTrace' => 'Y',
+                'recurSchemeLength' => 1,
+                'recurSchemeType' => 'D',
+                'sort' => 100,
+                'subscribe' => 'Y',
+                'trialPriceId' => 175,
+                'vatId' => 1,
+                'vatIncluded' => 'Y',
+                'weight' => 100,
+                'width' => 100,
+                'withoutOrder' => 'Y',
+                'xmlId' => '1243',
+                'property258' => [
+                    'value' => 'test',
+                    'valueId' => 9816
+                ],
+                'property259' => [
                     [
-                        'id' => 30577 // id старого файла, который будет сохранен в поле
+                        'value' => 'test1',
+                        'valueId' => 9817
                     ],
                     [
-                        'myNewFile.pdf', // Имя нового файла
-                        'base64_encoded_content_here' // Контент нового файла в формате base64
+                        'value' => 'test2',
+                        'valueId' => 9818
                     ]
-                ]
+                ],
             ]
         ]
     );
@@ -1114,553 +465,140 @@ Example (curl):
 
 
 
-Чтобы удалить все файлы, передавайте пустой массив в поле.
+## Обработка ответа
 
-### crm.timeline.comment.update — обновить файлы в комментарии
-
-Для обновления файлов в комментариях элементов CRM используйте метод [crm.timeline.comment.update](../crm/timeline/comments/crm-timeline-comment-update.md). Старые файлы всегда удаляются при обновлении значения поля. Новые файлы загружайте в поле в формате [Base64](./how-to-upload-files.md).
-
-Чтобы удалить все файлы, передавайте пустой массив в поле `FILES`.
-
-
-
-- JS
-
-    ```js
-    BX24.callMethod(
-        "crm.timeline.comment.update",
-        {
-            id: 62589,
-            fields: {
-                "COMMENT": "Comment was changed",
-                "FILES": [ // пустое значение для удаления файлов
-                ]
-            }
-        }
-    );
-    ```
-
-- cURL (Webhook)
-
-    ```bash
-    curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"id":62589,"fields":{"COMMENT":"Comment was changed","FILES":[]}}' https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/crm.timeline.comment.update
-    ```
-
-- cURL (OAuth)
-
-    ```bash
-    curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"id":62589,"fields":{"COMMENT":"Comment was changed","FILES":[]},"auth":"**put_access_token_here**"}' https://**put_your_bitrix24_address**/rest/crm.timeline.comment.update
-    ```
-
-- PHP
-
-    ```php
-    require_once('crest.php');
-
-    $result = CRest::call(
-        'crm.timeline.comment.update',
-        [
-            'id' => 62589,
-            'fields' => [
-                'COMMENT' => 'Comment was changed',
-                'FILES' => [] // пустое значение для удаления файлов
-            ]
-        ]
-    );
-
-    echo '<PRE>';
-    print_r($result);
-    echo '</PRE>';
-    ```
-
-
-
-### lists.element.update — обновить поле в списке
-
-Чтобы загрузить новые файлы в поле элемента списка, передавайте файлы методом [lists.element.update](../lists/elements/lists-element-update.md) в формате [Base64](./how-to-upload-files.md). Старые файлы останутся в поле без изменений.
-
-Для удаления файлов понадобится `ID` значения свойства.
-
-#### 1. Получить ID значения свойства
-
-Чтобы получить `ID` для удаления файла, выполните метод [lists.element.get](../lists/elements/lists-element-get.md), он вернет все поля элемента.
-
-
-
-- JS
-
-    ```js
-    BX24.callMethod(
-        'lists.element.get',
-        {
-            IBLOCK_TYPE_ID: 'lists',
-            IBLOCK_ID: '37',
-            ELEMENT_ID: '6783'
-        }
-    );
-    ```
-
-- cURL (Webhook)
-
-    ```bash
-    curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"IBLOCK_TYPE_ID":"lists","IBLOCK_ID":"37","ELEMENT_ID":"6783"}' https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/lists.element.get
-    ```
-
-- cURL (OAuth)
-
-    ```bash
-    curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"IBLOCK_TYPE_ID":"lists","IBLOCK_ID":"37","ELEMENT_ID":"6783","auth":"**put_access_token_here**"}' https://**put_your_bitrix24_address**/rest/lists.element.get
-    ```
-
-- PHP
-
-    ```php
-    require_once('crest.php');
-
-    $result = CRest::call(
-        'lists.element.get',
-        [
-            'IBLOCK_TYPE_ID' => 'lists',
-            'IBLOCK_ID' => '37',
-            'ELEMENT_ID' => '6783'
-        ]
-    );
-
-    echo '<PRE>';
-    print_r($result);
-    echo '</PRE>';
-    ```
-
-
-
-Поле «файл» в примере — `PROPERTY_1075`. В поле получим информацию:
-
-- первое значение `"3693"` — это `ID` значения свойства,
-
-- второе значение `"31219"`— это `ID` файла.
-
-```json
-{
-    "result": [
-        {
-            "ID": "6783",
-            "PROPERTY_1075": {
-                "3693": "31219", // 3693 — id значения, используем для удаления
-                "3697": "31221", // 3697 — id значения, используем для удаления
-                "3699": "31223"  // 3699 — id значения, используем для удаления
-            }
-        }
-    ],
-    "total": 1,
-}
-```
-
-#### 2. Удалить файл из поля
-
-Передайте в метод [lists.element.update](../lists/elements/lists-element-update.md) поле с постфиксом `_DEL`, например `PROPERTY_1075_DEL`. В поле укажите список из `ID` значений свойств, которые будут удалены:
-
-- ключ — `ID` значения свойства,
-
-- значение — `Y`.
-
-
-
-- JS
-
-    ```js
-    BX24.callMethod(
-        "lists.element.update",
-        {
-            IBLOCK_TYPE_ID: "lists",
-            IBLOCK_ID: 37,
-            ELEMENT_ID: 6783,
-            FIELDS: {
-                NAME: "файлы реста",
-                PROPERTY_1075_DEL: { // постфикс _DEL для операции удаления
-                    3693: "Y" // список значений для удаления
-                }
-            }
-        }
-    );
-    ```
-
-- cURL (Webhook)
-
-    ```bash
-    curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"IBLOCK_TYPE_ID":"lists","IBLOCK_ID":37,"ELEMENT_ID":6783,"FIELDS":{"NAME":"файлы реста","PROPERTY_1075_DEL":{"3693":"Y"}}}' https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/lists.element.update
-    ```
-
-- cURL (OAuth)
-
-    ```bash
-    curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"IBLOCK_TYPE_ID":"lists","IBLOCK_ID":37,"ELEMENT_ID":6783,"FIELDS":{"NAME":"файлы реста","PROPERTY_1075_DEL":{"3693":"Y"}},"auth":"**put_access_token_here**"}' https://**put_your_bitrix24_address**/rest/lists.element.update
-    ```
-
-- PHP
-
-    ```php
-    require_once('crest.php');
-
-    $result = CRest::call(
-        'lists.element.update',
-        [
-            'IBLOCK_TYPE_ID' => 'lists',
-            'IBLOCK_ID' => 37,
-            'ELEMENT_ID' => 6783,
-            'FIELDS' => [
-                'NAME' => 'файлы реста',
-                'PROPERTY_1075_DEL' => [
-                    3693 => 'Y' // постфикс _DEL для операции удаления
-                ]
-            ]
-        ]
-    );
-
-    echo '<PRE>';
-    print_r($result);
-    echo '</PRE>';
-    ```
-
-
-
-
-### log.blogpost.update — обновить файлы в посте
-
-Чтобы загрузить новые файлы к посту в ленте, передавайте файлы методом [log.blogpost.update](../log/log-blogpost-update.md) в формате [Base64](./how-to-upload-files.md). Старые файлы останутся в посте без изменений.
-
-Для удаления файлов понадобится их `ID`.
-
-#### 1. Получить ID файла в посте
-
-Чтобы получить `ID` для удаления файла, выполните метод [log.blogpost.get](../log/log-blogpost-get.md), он вернет все поля поста, включая `FILES`.
-
-
-
-- JS
-
-    ```js
-    BX24.callMethod(
-        "log.blogpost.get",
-        {
-            POST_ID: 211
-        }
-    );
-    ```
-
-- cURL (Webhook)
-
-    ```bash
-    curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"POST_ID":211}' https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/log.blogpost.get
-    ```
-
-- cURL (OAuth)
-
-    ```bash
-    curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"POST_ID":211,"auth":"**put_access_token_here**"}' https://**put_your_bitrix24_address**/rest/log.blogpost.get
-    ```
-
-- PHP
-
-    ```php
-    require_once('crest.php');
-
-    $result = CRest::call(
-        'log.blogpost.get',
-        [
-            'POST_ID' => 211
-        ]
-    );
-
-    echo '<PRE>';
-    print_r($result);
-    echo '</PRE>';
-    ```
-
-
-
-В ответе получим массив объектов:
-
-- первое значение `0` — это порядковый `ID` файла в посте,
-
-- второе значение `437`— это `ID` файла.
-
-```json
-[FILES] => Array
-    (
-        [0] => 437 
-        [1] => 439
-        [2] => 441
-```
-
-#### 2. Удалить файл из поста
-
-Передайте в метод [log.blogpost.update](../log/log-blogpost-update.md) поле `FILES`. В поле укажите массив `ID` файлов, которые будут удалены:
-
-- ключ — `ID` файла,
-
-- значение — `del`.
-
-
-
-- JS
-
-    ```js
-    BX24.callMethod(
-        "log.blogpost.update",
-        {
-            POST_ID: 211,
-            POST_TITLE: "Новый заголовок поста",
-            FILES: {
-                "445": "del" // id файлов для удаления
-            }
-        }
-    );
-    ```
-
-- cURL (Webhook)
-
-    ```bash
-    curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"POST_ID":211,"POST_TITLE":"Новый заголовок поста","FILES":{"445":"del"}}' https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/log.blogpost.update
-    ```
-
-- cURL (OAuth)
-
-    ```bash
-    curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"POST_ID":211,"POST_TITLE":"Новый заголовок поста","FILES":{"445":"del"},"auth":"**put_access_token_here**"}' https://**put_your_bitrix24_address**/rest/log.blogpost.update
-    ```
-
-- PHP
-
-    ```php
-    require_once('crest.php');
-
-    $result = CRest::call(
-        'log.blogpost.update',
-        [
-            'POST_ID' => 211,
-            'POST_TITLE' => 'Новый заголовок поста',
-            'FILES' => [
-                '445' => 'del' // id файлов для удаления
-            ]
-        ]
-    );
-
-    echo '<PRE>';
-    print_r($result);
-    echo '</PRE>';
-    ```
-
-
-
-
-Чтобы удалить все файлы из поста, передайте в метод [log.blogpost.update](../log/log-blogpost-update.md) поле `UF_BLOG_POST_FILE`. В значении поля укажите `["empty"]`.
-
-
-
-- JS
-
-    ```js
-    BX24.callMethod(
-        "log.blogpost.update",
-        {
-            POST_ID: 211,
-            POST_TITLE: "Новый заголовок поста",
-            UF_BLOG_POST_FILE: ["empty"] // удаление всех файлов поста
-        }
-    );
-    ```
-
-- cURL (Webhook)
-
-    ```bash
-    curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"POST_ID":211,"POST_TITLE":"Новый заголовок поста","UF_BLOG_POST_FILE":["empty"]}' https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/log.blogpost.update
-    ```
-
-- cURL (OAuth)
-
-    ```bash
-    curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"POST_ID":211,"POST_TITLE":"Новый заголовок поста","UF_BLOG_POST_FILE":["empty"],"auth":"**put_access_token_here**"}' https://**put_your_bitrix24_address**/rest/log.blogpost.update
-    ```
-
-- PHP
-
-    ```php
-    require_once('crest.php');
-
-    $result = CRest::call(
-        'log.blogpost.update',
-        [
-            'POST_ID' => 211,
-            'POST_TITLE' => 'Новый заголовок поста',
-            'UF_BLOG_POST_FILE' => ['empty'] // удаление всех файлов поста
-        ]
-    );
-
-    echo '<PRE>';
-    print_r($result);
-    echo '</PRE>';
-    ```
-
-
-
-### catalog.product.update — обновить поле в товаре
-
-Чтобы загрузить новые файлы в карточку товара, передавайте файлы методом [catalog.product.update](../catalog/product/catalog-product-update.md) в формате [Base64](./how-to-upload-files.md). Старые файлы останутся в поле без изменений.
-
-Для удаления файлов понадобится `ID` значения поля.
-
-#### 1. Получить ID значения поля
-
-Чтобы получить `ID` для удаления файла, выполните метод [catalog.product.get](../catalog/product/catalog-product-get.md). Метод вернет все поля товара.
-
-
-
-- JS
-
-    ```js
-    BX24.callMethod(
-        'catalog.product.get',
-        {
-            'id': 541
-        }
-    );
-    ```
-
-- cURL (Webhook)
-
-    ```bash
-    curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"id":541}' https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/catalog.product.get
-    ```
-
-- cURL (OAuth)
-
-    ```bash
-    curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"id":541,"auth":"**put_access_token_here**"}' https://**put_your_bitrix24_address**/rest/catalog.product.get
-    ```
-
-- PHP
-
-    ```php
-    require_once('crest.php');
-
-    $result = CRest::call(
-        'catalog.product.get',
-        [
-            'id' => 541
-        ]
-    );
-
-    echo '<PRE>';
-    print_r($result);
-    echo '</PRE>';
-    ```
-
-
-
-Поле «файл» в примере — `property1077`. Поле содержит массив объектов:
-
-- `value` — это информация по файлу: `ID` и ссылки на скачивание,
-
-- `valueId` — это `ID` значения поля.
+HTTP-статус: **200**
 
 ```json
 {
     "result": {
-        "product": {
-            "iblockId": 25,
-            "id": 541,
-            "property1077": [
+        "element": {
+            "active": "Y",
+            "available": "Y",
+            "bundle": "N",
+            "canBuyZero": "Y",
+            "code": "Tovar",
+            "createdBy": 1,
+            "dateActiveFrom": "2024-05-28T10:00:00+03:00",
+            "dateActiveTo": "2024-05-29T10:00:00+03:00",
+            "dateCreate": "2024-05-27T10:00:00+03:00",
+            "detailPicture": {
+                "id": "6509",
+                "url": "\/rest\/catalog.product.download?fields%5BfieldName%5D=detailPicture\u0026fields%5BfileId%5D=6509\u0026fields%5BproductId%5D=1267",
+                "urlMachine": "\/rest\/catalog.product.download?fields%5BfieldName%5D=detailPicture\u0026fields%5BfileId%5D=6509\u0026fields%5BproductId%5D=1267"
+            },
+            "detailText": null,
+            "detailTextType": "text",
+            "height": 100,
+            "iblockId": 23,
+            "iblockSectionId": 47,
+            "id": 1267,
+            "length": 100,
+            "measure": 5,
+            "modifiedBy": 1,
+            "name": "Товар",
+            "previewPicture": {
+                "id": "6508",
+                "url": "\/rest\/catalog.product.download?fields%5BfieldName%5D=previewPicture\u0026fields%5BfileId%5D=6508\u0026fields%5BproductId%5D=1267",
+                "urlMachine": "\/rest\/catalog.product.download?fields%5BfieldName%5D=previewPicture\u0026fields%5BfileId%5D=6508\u0026fields%5BproductId%5D=1267"
+            },
+            "previewText": null,
+            "previewTextType": "text",
+            "property258": {
+                "value": "test",
+                "valueId": "9816"
+            },
+            "property259": [
                 {
-                    "value": {
-                        "id": "31251",
-                        "url": "/rest/catalog.product.download?fields%5BfieldName%5D=property1077&fields%5BfileId%5D=31251&fields%5BproductId%5D=541",
-                        "urlMachine": "/rest/catalog.product.download?fields%5BfieldName%5D=property1077&fields%5BfileId%5D=31251&fields%5BproductId%5D=541"
-                    },
-                    "valueId": "3705" // id значения, используем для удаления
+                    "value": "test1",
+                    "valueId": "9817"
                 },
                 {
-                    "value": {
-                        "id": "31253",
-                        "url": "/rest/catalog.product.download?fields%5BfieldName%5D=property1077&fields%5BfileId%5D=31253&fields%5BproductId%5D=541",
-                        "urlMachine": "/rest/catalog.product.download?fields%5BfieldName%5D=property1077&fields%5BfileId%5D=31253&fields%5BproductId%5D=541"
-                    },
-                    "valueId": "3707" // id значения, используем для удаления
+                    "value": "test2",
+                    "valueId": "9818"
                 }
             ],
-
+            "purchasingCurrency": "RUB",
+            "purchasingPrice": "1000.000000",
+            "quantity": 10,
+            "quantityReserved": 1,
+            "quantityTrace": "Y",
+            "sort": 100,
+            "subscribe": "Y",
+            "timestampX": "2024-06-14T14:26:59+03:00",
+            "type": 1,
+            "vatId": 1,
+            "vatIncluded": "Y",
+            "weight": 100,
+            "width": 100,
+            "xmlId": "1243"
         }
     },
+    "time": {
+        "start": 1718371618.509701,
+        "finish": 1718371619.669789,
+        "duration": 1.160088062286377,
+        "processing": 0.757836103439331,
+        "date_start": "2024-06-14T16:26:58+03:00",
+        "date_finish": "2024-06-14T16:26:59+03:00"
+    }
 }
 ```
 
-#### 2. Удалить файл из поля
+### Возвращаемые данные
 
-Чтобы удалить файл, передайте в метод [catalog.product.update](../catalog/product/catalog-product-update.md) поле со значениями:
+#|
+|| **Название**
+`тип` | **Описание** ||
+|| **result**
+[`object`](../../data-types.md) | Корневой элемент ответа ||
+|| **element**
+[`catalog_product`](../data-types.md#catalog_product) | Объект с информацией о обновленном товаре ||
+|| **time**
+[`time`](../../data-types.md) | Информация о времени выполнения запроса ||
+|#
 
-- `value` — укажите `remove` как ключ, `Y` как значение,
+## Обработка ошибок
 
-- `valueId` — укажите`ID` значения поля, файл которого  будет удален.
+HTTP-статус: **400**
 
-
-
-- JS
-
-    ```js
-    BX24.callMethod(
-        'catalog.product.update',
-        {
-            id: 541,
-            fields: {
-                property1077: [
-                    {
-                        "value": {
-                            'remove': 'Y', // операция удаления файла
-                        },
-                        'valueId': '3705', // id значения для удаления
-                    }
-                ]
-            }
-        }
-    );
-    ```
-
-- cURL (Webhook)
-
-    ```bash
-    curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"id":541,"fields":{"property1077":[{"value":{"remove":"Y"},"valueId":"3705"}]}}' https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/catalog.product.update
-    ```
-
-- cURL (OAuth)
-
-    ```bash
-    curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"id":541,"fields":{"property1077":[{"value":{"remove":"Y"},"valueId":"3705"}]},"auth":"**put_access_token_here**"}' https://**put_your_bitrix24_address**/rest/catalog.product.update
-    ```
-
-- PHP
-
-    ```php
-    require_once('crest.php');
-
-    $result = CRest::call(
-        'catalog.product.update',
-        [
-            'id' => 541,
-            'fields' => [
-                'property1077' => [
-                    [
-                        'value' => [
-                            'remove' => 'Y' // операция удаления файла
-                        ],
-                        'valueId' => '3705' // id значения для удаления
-                    ]
-                ]
-            ]
-        ]
-    );
-
-    echo '<PRE>';
-    print_r($result);
-    echo '</PRE>';
-    ```
+```json
+{
+    "error":200040300010,
+    "error_description":"Access denied"
+}
+```
 
 
+
+### Возможные коды ошибок
+
+#|
+|| **Код** | **Описание** ||
+|| `200040300043` | Недостаточно прав для обновления информационного блока ||
+|| `200040300050` | Недостаточно прав для привязки элемента информационного блока к разделу ||
+|| `200040300040` | Недостаточно прав для обновления товаров ||
+|| `200040300000` | Информационный блок с указанным идентификатором не найден ||
+|| `200040300010` | Недостаточно прав для чтения торгового каталога ||
+|| `100` | Не указан параметр `id` ||
+|| `100` | Не указан или пустой параметр `fields` ||
+|| `0` | Раздел с указанным идентификатором не существует ||
+|| `0` | Ставка НДС с указанным идентификатором не существует ||
+|| `0` | Указанная валюта закупочной цены не существует ||
+|| `0` | Пользователь с указанным идентификатором, создавший товар, не существует ||
+|| `0` | Пользователь с указанным идентификатором, изменивший товар, не существует ||
+|| `0` | Товар с указанным идентификатором не существует в информационном блоке с указанным идентификатором ||
+|| `0` | Товар с указанным идентификатором не существует ||
+|| `0` | Другие ошибки (например, фатальные ошибки) ||
+|#
+
+
+
+## Продолжите изучение 
+
+- [{#T}](./catalog-product-add.md)
+- [{#T}](./catalog-product-get.md)
+- [{#T}](./catalog-product-list.md)
+- [{#T}](./catalog-product-download.md)
+- [{#T}](./catalog-product-delete.md)
+- [{#T}](./catalog-product-get-fields-by-filter.md)

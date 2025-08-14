@@ -9,20 +9,88 @@ params: {"type":"object","required":["id"],"properties":{"id":{"type":"integer"}
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Обзор методов
+# Получить товарный каталог по идентификатору crm.catalog.get
 
 > Scope: [`crm`](../../../scopes/permissions.md)
 >
 > Кто может выполнять метод: любой пользователь
 
+Метод возвращает товарный каталог по идентификатору. 
+
+## Параметры метода
+
+
+
 #|
-|| **Метод** | **Описание** ||
-|| [crm.catalog.fields](./crm-catalog-fields.md) | Возвращает описание полей каталога товаров ||
-|| [crm.catalog.get](./crm-catalog-get.md) | Возвращает товарный каталог по идентификатору ||
-|| [crm.catalog.list](./crm-catalog-list.md) | Возвращает список товарных каталогов ||
+|| **Название**
+`тип` | **Описание** ||
+|| **id*** 
+[`integer`](../../../data-types.md)| Идентификатор товарного каталога ||
 |#
+
+## Примеры кода
+
+
+
+
+
+- cURL (Webhook)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"id":"your_id_here"}' \ # Replace 'your_id_here' with the actual ID
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webhook_here**/crm.catalog.get
+    ```
+
+- cURL (OAuth)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"id":"your_id_here"}' \ # Replace 'your_id_here' with the actual ID
+    https://**put_your_bitrix24_address**/rest/crm.catalog.get?auth=**put_access_token_here**
+    ```
+
+- JS
+
+    ```js
+    var id = prompt("Введите ID");
+    BX24.callMethod(
+        "crm.catalog.get",
+        { id: id },
+        function(result)
+        {
+            if(result.error())
+                console.error(result.error());
+            else
+                console.dir(result.data());
+        }
+    );
+    ```
+
+- PHP
+
+    ```php
+    require_once('crest.php');
+
+    $id = 'your_id_here'; // Replace 'your_id_here' with the actual ID
+
+    $result = CRest::call(
+        'crm.catalog.get',
+        ['id' => $id]
+    );
+
+    echo '<PRE>';
+    print_r($result);
+    echo '</PRE>';
+    ```
+
+
+
 

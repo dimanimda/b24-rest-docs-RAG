@@ -9,110 +9,131 @@ params: {"type":"object","required":["fields"],"properties":{"fields":{"type":"o
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Пользовательские типы полей в CRM
+# Создать новое пользовательское поле для компаний crm.company.userfield.add
 
-В CRM можно создавать поля двух типов:
-- стандартные: число, строка, дата, адрес, ссылка, файл и так далее,
-- пользовательские: встройки приложений внутри карточки CRM.
-  
-С помощью полей пользовательского типа можно:
 
-- выводить в карточке CRM данные, которым не подходят стандартные типы полей. Фактически данные будут храниться в базе приложения в нужном формате, а встройка будет показывать их внутри поля.
-- создавать элементы интерфейса в карточках CRM. Например, выводить внутри поля кнопки для управления приложением.
-- интегрировать внешние сервисы в карточку CRM. Например, выводить в поле динамическую информацию. При каждом открытии карточки поле будет совершать запрос к обработчику приложения и автоматически подгружать свежие данные.
 
-> Быстрый переход: [все методы](#all-methods)
+Тут может не хватать некоторых данных — дополним в ближайшее время
+
+
+
+
+
+
+
+- нужны правки под стандарт написания
+- не указаны типы параметров
+- не указана обязательность параметров
+- отсутствуют примеры
+- отсутствует ответ в случае успеха
+- отсутствует ответ в случае ошибки
+- не прописаны ссылки на несозданные ещё страницы (crm.userfield.fields)
+
+
+
+
+
+> Scope: [`crm`](../../../scopes/permissions.md)
 >
-> Пользовательская документация: [Работа с пользовательскими полями](https://helpdesk.bitrix24.ru/open/22048980/)
+> Кто может выполнять метод: любой пользователь
 
-## Связь с объектами CRM
+Метод `crm.company.userfield.add` создаёт новое пользовательское поле для компаний.
 
-Пользовательские типы полей можно добавлять в карточки:
-- [сделок](../../deals/index.md) — используйте методы [crm.deal.userfield.add](../../deals/user-defined-fields/crm-deal-userfield-add.md) или [userfieldconfig.add](../userfieldconfig/userfieldconfig/userfieldconfig-add.md),
-- [лидов](../../leads/index.md) — [crm.lead.userfield.add](../../leads/userfield/crm-lead-userfield-add.md) или [userfieldconfig.add](../userfieldconfig/userfieldconfig/userfieldconfig-add.md),
-- [контактов](../../contacts/index.md) — [crm.contact.userfield.add](../../contacts/userfield/crm-contact-userfield-add.md) или [userfieldconfig.add](../userfieldconfig/userfieldconfig/userfieldconfig-add.md),
-- [компаний](../../companies/index.md) — [crm.company.userfield.add](../../companies/userfields/crm-company-userfield-add.md) или [userfieldconfig.add](../userfieldconfig/userfieldconfig/userfieldconfig-add.md),
-- [новых счетов](../invoice.md) — [userfieldconfig.add](../userfieldconfig/userfieldconfig/userfieldconfig-add.md),
-- [коммерческих предложений](../../quote/index.md) — [crm.quote.userfield.add](../../quote/user-field/crm-quote-user-field-add.md) или [userfieldconfig.add](../userfieldconfig/userfieldconfig/userfieldconfig-add.md),
-- [смарт-процессов](../index.md) — [userfieldconfig.add](../userfieldconfig/userfieldconfig/userfieldconfig-add.md).
+Системное ограничение на название поля - 20 знаков. К названию пользовательского поля всегда добавляется префикс UF_CRM_, то есть реальная длина названия - 13 знаков.
 
-В поле `USER_TYPE_ID` передавайте значение по форме `rest_#ID_приложения#_#USER_TYPE_ID#`. Например, для приложения с `ID: 123` и `USER_TYPE_ID: userfield1` значение будет `rest_123_test_userfield1`.
-
-Чтобы получить `ID` приложения, используйте метод [app.info](../../../common/system/app-info.md).
-
-## Ошибки при работе с пользовательскими типами полей
-
-### Ошибка 400 при создании поля
-
-При создании поля с пользовательским типом можно получить ошибку `Error! 400: ERROR_CORE: Указан неверный пользовательский тип. (400)`.
-
-1. Выполните метод [userfieldtype.list](../../../widgets/user-field/userfieldtype-list.md).
-
-   - Если метод вернул тип поля `USER_TYPE_ID`,  переходите к пункту 2.
-
-   - Если нужный тип поля не найден, зарегистрируйте новый тип методом [userfieldtype.add](../../../widgets/user-field/userfieldtype-add.md).
-
-2. Выполните метод [app.info](../../../common/system/app-info.md). Метод проверит корректность установки приложения.
-
-   - Если метод вернул `INSTALLED = true`, приложение установлено корректно.
-
-   - Если метод вернул `INSTALLED = false`, выполните на странице приложения метод [BX24.installFinish](../../../bx24-js-sdk/system-functions/bx24-install-finish.md). Метод завершит установку приложения с интерфейсом.
-
-    ```javascript
-    BX24.init(function(){
-        BX24.installFinish();
-    });
-    ```
-
-### Ошибка 50x при загрузке поля
-
-Если поле создалось без ошибок, но контент в нем не загружается:
-
-1. Проверьте URL обработчика `HANDLER`, указанный при регистрации поля, методом [userfieldtype.list](../../../widgets/user-field/userfieldtype-list.md). Чтобы изменить `HANDLER`, используйте метод [userfieldtype.update](../../../widgets/user-field/userfieldtype-update.md).
-
-2. Убедитесь, что обработчик доступен из интернета:
-
-   - не используйте локальные адреса: localhost, 192.168.* и другие адреса, доступные только из локальной сети,
-
-   - проверьте доступность обработчика с помощью публичных сервисов «доступности сайта».
-
-3. Проверьте:
-
-   - корректность SSL-сертификата, если используется HTTPS,
-
-   - отсутствие блокировок в .htaccess или firewall на сервере обработчика,
-
-   - возвращаемые HTTP-коды, должен быть 200 OK.
-
-## Общие рекомендации
-
-- Используйте HTTPS-протокол для обработчиков, иначе браузеры могут блокировать загрузку контента приложения.
-
-- Давайте понятные названия для типов полей: учитывайте назначение поля и связь с приложением. Тип поля нельзя переименовать после создания — только удалить и зарегистрировать заново.
-
-
-
--  [Встроить виджет в лид в виде пользовательского свойства](../../../../tutorials/crm/crm-widgets/widget-as-field-in-lead-page)
-
--  [Механизм встройки виджетов](../../../widgets/index)
-
-
-
-## Обзор методов {#all-methods}
-
-> Scope: [`placement, crm`](../../../scopes/permissions.md)
-> 
-> Кто может выполнять метод: администратор
+## Параметры
 
 #|
-|| **Метод** | **Описание** ||
-|| [userfieldtype.add](../../../widgets/user-field/userfieldtype-add.md) | Регистрирует новый тип пользовательского поля ||
-|| [userfieldtype.update](../../../widgets/user-field/userfieldtype-update.md) | Изменяет параметры существующего типа поля ||
-|| [userfieldtype.list](../../../widgets/user-field/userfieldtype-list.md) | Возвращает список зарегистрированных типов полей ||
-|| [userfieldtype.delete](../../../widgets/user-field/userfieldtype-delete.md) | Удаляет зарегистрированный тип поля ||
+|| **Параметр** | **Описание** ||
+|| **fields**
+[`array`](../../../data-types.md) | Набор полей - массив вида array("поле"=>"значение"[, ...]), содержащий описание пользовательского поля. ||
+|| **LIST**
+[`unknown`](../../../data-types.md) | Содержит набор значений списка для пользовательских полей типа Список. Указывается при создании/обновлении поля. Каждое значение представляет собой массив с полями: 
+- **VALUE** - значение элемента списка. Поле является обязательным в случае, когда создается новый элемент. 
+- **SORT** - сортировка.
+- **DEF** - если равно Y, то элемент списка является значением по-умолчанию. Для множественного поля допустимо несколько DEF=Y. Для не множественного, дефолтным будет считаться первое.
+- **XML_ID** - внешний код значения. Параметр учитывается только при обновлении уже существующих значений элемента списка.
+- **ID** - идентификатор значения. Если он указан, то считается что это обновление существующего значения элемента списка, а не создание нового. Имеет смысл только при вызове методов `*.userfield.update`.
+- **DEL** - если равно Y, то существующий элемент списка будет удален. Применяется, если заполнен параметр ID. ||
 |#
+
+Полное описание полей можно получить вызовом метода `crm.userfield.fields`.
+
+## Примеры
+
+**Пример #1: Создание текстового поля**
+
+
+
+- JS
+
+    ```js
+    BX24.callMethod(
+        "crm.company.userfield.add",
+        {
+            fields:
+            {
+                "FIELD_NAME": "MY_STRING",
+                "EDIT_FORM_LABEL": "Моя строка",
+                "LIST_COLUMN_LABEL": "Моя строка",
+                "USER_TYPE_ID": "string",
+                "XML_ID": "MY_STRING",
+                "SETTINGS": { "DEFAULT_VALUE": "Привет, мир!" }
+            }
+        },
+        function(result)
+        {
+            if(result.error())
+                console.error(result.error());
+            else
+                console.dir(result.data());
+        }
+    );
+    ```
+
+
+
+
+**Пример #2: Создание списка**
+
+
+
+- JS
+
+    ```js
+    BX24.callMethod(
+        "crm.company.userfield.add",
+        {
+            fields:
+            {
+                "FIELD_NAME": "MY_LIST",
+                "EDIT_FORM_LABEL": "Мой список",
+                "LIST_COLUMN_LABEL": "Мой список",
+                "USER_TYPE_ID": "enumeration",
+                "LIST": [
+                    { "VALUE": "Элемент #1" },
+                    { "VALUE": "Элемент #2" },
+                    { "VALUE": "Элемент #3" },
+                    { "VALUE": "Элемент #4" },
+                    { "VALUE": "Элемент #5" }
+                    ],
+                "XML_ID": "MY_LIST",
+                "SETTINGS": { "LIST_HEIGHT": 3 }
+            }
+        },
+        function(result)
+        {
+            if(result.error())
+                console.error(result.error());
+            else
+                console.dir(result.data());
+        }
+    );    
+    ```
+
+
+
 

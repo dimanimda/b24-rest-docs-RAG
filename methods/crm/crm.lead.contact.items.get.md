@@ -9,62 +9,175 @@ params: {"type":"object","required":["id"],"properties":{"id":{"type":"integer"}
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Связь лида с контактами: обзор методов
-
-При помощи группы методов `crm.lead.contact.*` можно устанавливать или удалять связь контактов с лидом. Лид, связанный с контактом, становится повторным.
-
-> Быстрый переход: [все методы](#all-methods)
-> 
-> Пользовательская документация: [Поле «Клиент» в карточке CRM](https://helpdesk.bitrix24.ru/open/17728730/)
-
-## Особенности  повторных лидов
-
-Повторный лид — это обращение клиента, который уже есть в базе клиентов компании. У повторных лидов скрыты поля контактных данных: «Телефон», «Почта», «Адрес», «Реквизиты».  Конвертировать повторный лид можно только в сделку. При новом обращении от известного клиента будет автоматически создан повторный лид, связанный с карточкой клиента, если в CRM включен режим работы с повторными лидами.
-
-Методы [crm.lead.contact.add](./crm-lead-contact-add.md) и [crm.lead.contact.items.set](./crm-lead-contact-items-set.md) добавляют связь лида с одним или несколькими контактами. При создании такой связи лид автоматически становится повторным.
-
-Чтобы вернуть возможность конвертации лида в контакт, удалите связь с контактами методами [crm.lead.contact.delete](./crm-lead-contact-delete.md), если контакт один, и [crm.lead.contact.items.delete](./crm-lead-contact-items-delete.md), если контактов несколько. При удалении связи лид перестанет быть повторным.
-
-
-
-[Повторные лиды и сделки](https://helpdesk.bitrix24.ru/open/17707848/)
-
-
-
-## Что дает связь между лидом и контактами
-
-1. В карточке лида отображается информация о связанных контактах: имя, номер телефона, e-mail, должность.
-
-2. Из карточки лида можно позвонить или написать письмо без перехода в карточку контакта.
-
-3. Коммуникация с клиентом: письма, звонки, чаты открытых линий будут храниться в карточке контакта и в карточке лида. К закрытым лидам коммуникации не прикрепляются.
-
-4. CoPilot в CRM обрабатывает звонки клиентов из карточки лида: расшифровывает записи, составляет резюме разговора, заполняет поля в карточке CRM.
-
-5. При [генерации документов по шаблону](../../document-generator/index) можно использовать символьные коды, которые автоматически подставят данные связанных контактов в документ.
-
-
-
-[CoPilot в CRM](https://helpdesk.bitrix24.ru/open/18799442/)
-
-
-
-## Обзор методов {#all-methods}
+# Получить список связанных контактов crm.lead.contact.items.get
 
 > Scope: [`crm`](../../../scopes/permissions.md)
 >
-> Кто может выполнять метод: в зависимости от метода
+> Кто может выполнять метод: `любой пользователь`
+
+Метод получает список связанных с лидом контактов.
+
+## Параметры метода
+
+
 
 #|
-|| **Метод** | **Описание** ||
-|| [crm.lead.contact.add](./crm-lead-contact-add.md) | Добавляет привязку контакта к указанному лиду ||
-|| [crm.lead.contact.delete](./crm-lead-contact-delete.md) | Удаляет привязку контакта к указанному лиду ||
-|| [crm.lead.contact.items.get](./crm-lead-contact-items-get.md) | Получает список связанных с лидом контактов ||
-|| [crm.lead.contact.items.set](./crm-lead-contact-items-set.md) | Прикрепляет список контактов к указанному лиду ||
-|| [crm.lead.contact.items.delete](./crm-lead-contact-items-delete.md) | Удаляет список контактов у лида ||
-|| [crm.lead.contact.fields](./crm-lead-contact-fields.md) | Получает описание полей для связи лид-контакт, используемых методами семейства `crm.lead.contact.*` ||
+|| **Название**
+`тип` | **Описание** ||
+|| **id***
+[`integer`](../../../data-types.md) | Идентификатор лида. Идентификатор лида можно получить методом [получения списка лидов](../crm-lead-list.md) ||
 |#
+
+## Примеры кода
+
+
+
+
+
+- cURL (Webhook)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"id":1}' \
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webhook_here**/crm.lead.contact.items.get
+    ```
+
+- cURL (OAuth)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"id":1,"auth":"**put_access_token_here**"}' \
+    https://**put_your_bitrix24_address**/rest/crm.lead.contact.items.get
+    ```
+
+- JS
+
+    ```js
+    BX24.callMethod(
+        "crm.lead.contact.items.get",
+        {
+		    id: 1,
+	    },
+        result => {
+            if (result.error())
+                console.error(result.error());
+            else
+                console.dir(result.data());
+        }
+    );
+    ```
+
+- PHP
+
+    ```php
+    require_once('crest.php');
+
+    $result = CRest::call(
+        'crm.lead.contact.items.get',
+        [
+            'id' => 1
+        ]
+    );
+
+    echo '<PRE>';
+    print_r($result);
+    echo '</PRE>';
+    ```
+
+
+
+## Обработка ответа
+
+HTTP-статус: **200**
+
+```json
+{
+    "result": [
+        {
+            "CONTACT_ID": 1010,
+            "SORT": 10,
+            "ROLE_ID": 0,
+            "IS_PRIMARY": "Y"
+        },
+        {
+            "CONTACT_ID": 1011,
+            "SORT": 20,
+            "ROLE_ID": 0,
+            "IS_PRIMARY": "N"
+        },
+    ],
+    "time": {
+        "start": 1715091541.642592,
+        "finish": 1715091541.730599,
+        "duration": 0.08800697326660156,
+        "date_start": "2024-05-03T17:19:01+03:00",
+        "date_finish": "2024-05-03T17:19:01+03:00",
+        "operating": 0
+    }
+}
+```
+
+### Возвращаемые данные
+
+#|
+|| **Название**
+`тип` | **Описание** ||
+|| **result**
+[`array`](../../../data-types.md) | Результат в виде массива объектов ||
+|| **time**
+[`time`](../../../data-types.md) | Информация о времени выполнения запроса ||
+|#
+
+Результат в виде массива объектов, каждый из которых содержит следующие поля:
+
+#|
+|| **Поле** | **Описание** ||
+|| **CONTACT_ID**
+[`integer`](../../../data-types.md) | Идентификатор контакта ||
+|| **SORT**
+[`integer`](../../../data-types.md) | Индекс сортировки ||
+|| **ROLE_ID**
+[`integer`](../../../data-types.md) | Идентификатор роли (зарезервировано) ||
+|| **IS_PRIMARY**
+[`string`](../../../data-types.md) | Флаг первичного контакта ||
+|#
+
+## Обработка ошибок
+
+HTTP-статус: **400**
+
+```json
+{
+    "error": "NOT_FOUND",
+    "error_description": "Not found."
+}
+```
+
+
+
+### Возможные коды ошибок
+
+#|
+|| **Код** | **Описание** ||
+|| `ACCESS_DENIED` | Недостаточно прав ||
+|| `NOT_FOUND` | Элемент не найден ||
+|| ` ` | Не переданы обязательные поля ||
+|| ` ` | Другие ошибки (например, фатальные ошибки) ||
+|#
+
+
+
+## Продолжите изучение
+
+- [{#T}](./crm-lead-contact-add.md)
+- [{#T}](./crm-lead-contact-delete.md)
+- [{#T}](./crm-lead-contact-items-set.md)
+- [{#T}](./crm-lead-contact-items-delete.md)
+- [{#T}](./crm-lead-contact-fields.md)

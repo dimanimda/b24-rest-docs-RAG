@@ -9,29 +9,168 @@ params: {"type":"object"}
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Связи реквизитов с объектами CRM
+# Получить описание полей связи реквизитов crm.requisite.link.fields
 
 > Scope: [`crm`](../../../scopes/permissions.md)
 >
-> Кто может выполнять методы: любой пользователь
+> Кто может выполнять метод: любой пользователь
 
-Связи сохраняют соответствие объекта CRM и реквизитов, которые используются в контексте этого объекта. 
+Метод возвращает формальное описание полей связи реквизитов.
 
-Например, есть счет на оплату. Для его печати требуются реквизиты компании-продавца (моей компании) и компании-покупателя (клиента). Так как у компании может быть несколько реквизитов, то не понятно, какие из них использовать для печати счета. Для указания нужных реквизитов и нужна связь. 
+Без параметров.
 
-Поля **REQUISITE_ID** и **BANK_DETAIL_ID** хранят идентификаторы реквизита и банковского реквизита соответственно, которые используются для компании-покупателя. Поля **MC_REQUISITE_ID** и **MC_BANK_DETAIL_ID** хранят аналогичные идентификаторы для компании-продавца. 
+## Примеры кода
 
-Если какой-то идентификатор имеет значение `0`, то он считается невыбранным. Могут быть не выбраны реквизиты компании-продавца или банковские реквизиты.
 
-## Поля связи реквизита с объектом CRM
+
+
+
+- cURL (Webhook)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{}' \
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webhook_here**/crm.requisite.link.fields
+    ```
+
+- cURL (OAuth) 
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"auth":"**put_access_token_here**"}' \
+    https://**put_your_bitrix24_address**/rest/crm.requisite.link.fields
+    ```
+
+- JS
+
+    ```js
+    BX24.callMethod(
+        "crm.requisite.link.fields",
+        {},
+        function(result)
+        {
+            if(result.error())
+                console.error(result.error());
+            else
+                console.dir(result.data());
+        }
+    );
+    ```
+
+- PHP
+
+    ```php
+    require_once('crest.php');
+
+    $result = CRest::call(
+        'crm.requisite.link.fields',
+        []
+    );
+
+    echo '<PRE>';
+    print_r($result);
+    echo '</PRE>';
+    ```
+
+
+
+## Обработка ответа
+
+HTTP-статус: **200**
+
+```json
+{
+    "result": {
+        "ENTITY_TYPE_ID": {
+            "type": "integer",
+            "isRequired": true,
+            "isReadOnly": false,
+            "isImmutable": true,
+            "isMultiple": false,
+            "isDynamic": false,
+            "title": "ID типа объекта"
+        },
+        "ENTITY_ID": {
+            "type": "integer",
+            "isRequired": true,
+            "isReadOnly": false,
+            "isImmutable": true,
+            "isMultiple": false,
+            "isDynamic": false,
+            "title": "ID объекта"
+        },
+        "REQUISITE_ID": {
+            "type": "integer",
+            "isRequired": true,
+            "isReadOnly": false,
+            "isImmutable": false,
+            "isMultiple": false,
+            "isDynamic": false,
+            "title": "Привязка к реквизитам"
+        },
+        "BANK_DETAIL_ID": {
+            "type": "integer",
+            "isRequired": true,
+            "isReadOnly": false,
+            "isImmutable": false,
+            "isMultiple": false,
+            "isDynamic": false,
+            "title": "Привязка к банковским реквизитам"
+        },
+        "MC_REQUISITE_ID": {
+            "type": "integer",
+            "isRequired": true,
+            "isReadOnly": false,
+            "isImmutable": false,
+            "isMultiple": false,
+            "isDynamic": false,
+            "title": "Привязка к реквизитам моей компании"
+        },
+        "MC_BANK_DETAIL_ID": {
+            "type": "integer",
+            "isRequired": true,
+            "isReadOnly": false,
+            "isImmutable": false,
+            "isMultiple": false,
+            "isDynamic": false,
+            "title": "Привязка к банковским реквизитам моей компании"
+        }
+    },
+    "time": {
+        "start": 1718295307.777351,
+        "finish": 1718295308.177586,
+        "duration": 0.4002351760864258,
+        "processing": 0.010699987411499023,
+        "date_start": "2024-06-13T18:15:07+02:00",
+        "date_finish": "2024-06-13T18:15:08+02:00",
+        "operating": 0
+    }
+}
+```
+
+### Возвращаемые данные
 
 #|
-|| **Название** 
-`тип` | **Описание** | **Чтение** | **Запись** | **Обязательное** | **Неизменяемое** ||
+|| **Название**
+`тип` | **Описание** ||
+|| **result**
+[`object`](../../../data-types.md) | Объект в формате `{"field_1": "value_1", ... "field_N": "value_N"}`, где `field` — идентификатор поля, а `value` — объект с [атрибутами поля](#attributes) ||
+|| **time**
+[`time`](../../../data-types.md) | Информация о времени выполнения запроса ||
+|#
+
+### Описание полей связи реквизита с объектом CRM
+
+#|
+|| **Название**
+`тип` | **Описание** ||
 || **ENTITY_TYPE_ID**
 [`integer`](../../../data-types.md) | Идентификатор типа объекта, к которому относится связь.
 
@@ -42,37 +181,74 @@ Auto-generated stub. Fill in params/returns/examples.
 - новый счет (значение `31`)
 - другие динамические объекты (для получения возможных значений смотрите метод [crm.type.list](../../universal/user-defined-object-types/crm-type-list.md)).
 
-Идентификаторы типов объектов CRM можно получить с помощью метода [crm.enum.ownertype](../../auxiliary/enum/crm-enum-owner-type.md) | Да | Да | Да | Да ||
+Идентификаторы типов объектов CRM можно получить с помощью метода [crm.enum.ownertype](../../auxiliary/enum/crm-enum-owner-type.md) 
+||
 || **ENTITY_ID**
 [`integer`](../../../data-types.md) | Идентификатор объекта, к которому относится связь. 
 
-Идентификаторы объектов можно получить с помощью следующих методов: [crm.deal.list](../../deals/crm-deal-list.md), [crm.quote.list](../../quote/crm-quote-list.md), [crm.item.list](../../universal/crm-item-list.md). | Да | Да | Да | Да ||
+Идентификаторы объектов можно получить с помощью следующих методов: [crm.deal.list](../../deals/crm-deal-list.md), [crm.quote.list](../../quote/crm-quote-list.md), [crm.item.list](../../universal/crm-item-list.md) ||
 || **REQUISITE_ID**
 [`integer`](../../../data-types.md) | Идентификатор реквизита клиента, выбранного для объекта. 
 
-Идентификаторы реквизитов можно получить с помощью метода [crm.requisite.list](../universal/crm-requisite-list.md) | Да | Да | Да | Нет ||
+Идентификаторы реквизитов можно получить с помощью метода [crm.requisite.list](../universal/crm-requisite-list.md) ||
 || **BANK_DETAIL_ID**
-[`integer`](../../../data-types.md) | Идентификатор банковского реквизита клиента, выбранного для объекта. 
+[`integer`](../../../data-types.md) | Идентификатор банковского реквизита клиента, выбранного для объекта.
 
-Идентификаторы банковских реквизитов можно получить с помощью метода [crm.requisite.bankdetail.list](../bank-detail/crm-requisite-bank-detail-list.md) | Да | Да | Да | Нет ||
+Идентификаторы банковских реквизитов можно получить с помощью метода [crm.requisite.bankdetail.list](../bank-detail/crm-requisite-bank-detail-list.md) ||
 || **MC_REQUISITE_ID**
 [`integer`](../../../data-types.md) | Идентификатор реквизита моей компании, выбранного для объекта. 
 
-Идентификаторы реквизитов можно получить с помощью метода [crm.requisite.list](../universal/crm-requisite-list.md) | Да | Да | Да | Нет ||
+Идентификаторы реквизитов можно получить с помощью метода [crm.requisite.list](../universal/crm-requisite-list.md) ||
 || **MC_BANK_DETAIL_ID**
 [`integer`](../../../data-types.md) | Идентификатор банковского реквизита моей компании, выбранного для объекта. 
 
-Идентификаторы банковских реквизитов можно получить с помощью метода [crm.requisite.bankdetail.list](../bank-detail/crm-requisite-bank-detail-list.md) | Да | Да | Да | Нет ||
+Идентификаторы банковских реквизитов можно получить с помощью метода [crm.requisite.bankdetail.list](../bank-detail/crm-requisite-bank-detail-list.md) ||
 |#
 
-## Обзор методов
+### Описание атрибутов {#attributes}
 
 #|
-|| **Метод** | **Описание** ||
-|| [crm.requisite.link.register](./crm-requisite-link-register.md) | Регистрирует связь реквизитов с объектом ||
-|| [crm.requisite.link.get](./crm-requisite-link-get.md) | Возвращает связь реквизитов с объектом ||
-|| [crm.requisite.link.list](./crm-requisite-link-list.md) | Возвращает список связей реквизитов по фильтру ||
-|| [crm.requisite.link.unregister](./crm-requisite-link-unregister.md) | Удаляет связь реквизитов с объектом ||
-|| [crm.requisite.link.fields](./crm-requisite-link-fields.md) | Возвращает формальное описание полей связи реквизитов ||
+|| **Название**
+`тип` | **Описание** ||
+|| **type**
+[`string`](../../../data-types.md) | Тип поля ||
+|| **isRequired**
+[`boolean`](../../../data-types.md) | Атрибут «обязательное». Возможные значения:
+- true — да
+- false — нет
+||
+|| **isReadOnly**
+[`boolean`](../../../data-types.md) | Атрибут «только для чтения». Возможные значения:
+- true — да
+- false — нет
+||
+|| **isImmutable**
+[`boolean`](../../../data-types.md) | Атрибут «неизменяемое». Возможные значения:
+- true — да
+- false — нет
+||
+|| **isMultiple**
+[`boolean`](../../../data-types.md) | Атрибут «неизменяемое». Возможные значения:
+- true — да
+- false — нет
+||
+|| **isDynamic**
+[`boolean`](../../../data-types.md) | Атрибут «пользовательское». Возможные значения:
+- true — да
+- false — нет
+||
+|| **title**
+[`string`](../../../data-types.md) | Идентификатор поля ||
 |#
+
+## Обработка ошибок
+
+
+
+## Продолжите изучение
+
+- [{#T}](./crm-requisite-link-register.md)
+- [{#T}](./crm-requisite-link-get.md)
+- [{#T}](./crm-requisite-link-list.md)
+- [{#T}](./crm-requisite-link-unregister.md)
 

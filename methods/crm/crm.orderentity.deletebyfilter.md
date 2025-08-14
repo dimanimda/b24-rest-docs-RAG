@@ -11,18 +11,22 @@ returns: {"type":"object"}
 
 Auto-generated stub. Fill in params/returns/examples.
 
----
+Example (curl):
 
-# Привязка заказа к другим объектам CRM
+```bash
+curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"fields":{"orderId":5125,"ownerId":6933,"ownerTypeId":2}}' \
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webhook_here**/crm.orderentity.deletebyfilter
+    ```
 
-> Scope: [`crm`](../../../scopes/permissions.md)
->
-> Кто может выполнять метод: в зависимости от метода
+- cURL (OAuth) 
 
-#|
-|| **Метод** | **Описание** ||
-|| [crm.orderentity.add](./crm-order-entity-add.md) | Добавляет привязку заказа к объекту CRM ||
-|| [crm.orderentity.list](./crm-order-entity-list.md) | Возвращает список привязок заказов к объектам CRM ||
-|| [crm.orderentity.deleteByFilter](./crm-order-entity-delete-by-filter.md) | Удаляет привязку заказа к объекту CRM ||
-|| [crm.orderentity.getFields](./crm-order-entity-get-fields.md) | Возвращает список доступных полей привязки заказа ||
-|#
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"fields":{"orderId":5125,"ownerId":6933,"ownerTypeId":2},"auth":"**put_access_token_here**"}' \
+    https://**put_your_bitrix24_address**/rest/crm.orderentity.deletebyfilter
+```

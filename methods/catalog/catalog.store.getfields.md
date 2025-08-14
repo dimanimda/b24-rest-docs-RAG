@@ -11,39 +11,22 @@ returns: {"type":"object"}
 
 Auto-generated stub. Fill in params/returns/examples.
 
----
+Example (curl):
 
-# Склады в Торговом каталоге: обзор методов
+```bash
+curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{}' \
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/catalog.store.getFields
+    ```
 
-Склады помогают контролировать остатки, перемещения и поступления товаров. Вы всегда будете знать, где находятся нужные товары, и сможете вовремя распределять их между складами.
+- cURL (OAuth)
 
-Вы можете настроить права доступа для каждого склада. Тогда сотрудники будут видеть только свои документы складского учета и не смогут случайно выбрать другой склад при создании новых документов.
-
-> Быстрый переход: [все методы](#all-methods)
-> 
-> Пользовательская документация: 
-> - [Как начать работу со складским учетом](https://helpdesk.bitrix24.ru/open/17792114/)
-> - [Право на просмотр и выбор склада](https://helpdesk.bitrix24.ru/open/16342618/)
-
-## Связь складов с другими объектами
-
-**Остатки по складам.** Узнайте, сколько товаров осталось на складе, с помощью методов [catalog.storeproduct.*](../store-product/index.md).
-
-**Складской учет.** Добавляйте и изменяйте документы складского учета, используя методы [catalog.document.*](../document/index.md). При создании документов укажите в параметрах `storeFrom` и `storeTo` идентификаторы склада-отправителя и склада-получателя. Получить идентификаторы складов можно с помощью метода [catalog.store.list](./catalog-store-list.md).
-
-## Обзор методов {#all-methods}
-
-> Scope: [`catalog`](../../scopes/permissions.md)
->
-> Кто может выполнять метод: администратор
-
-#|
-|| **Метод** | **Описание** ||
-|| [catalog.store.add](./catalog-store-add.md) | Добавляет склад ||
-|| [catalog.store.update](./catalog-store-update.md) | Изменяет склад ||
-|| [catalog.store.get](./catalog-store-get.md) | Возвращает значения полей склада по его идентификатору ||
-|| [catalog.store.list](./catalog-store-list.md) | Возвращает список складов по фильтру ||
-|| [catalog.store.delete](./catalog-store-delete.md) | Удаляет склад ||
-|| [catalog.store.getFields](./catalog-store-get-fields.md) | Возвращает доступные поля склада ||
-|#
-
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"auth":"**put_access_token_here**"}' \
+    https://**put_your_bitrix24_address**/rest/catalog.store.getFields
+```

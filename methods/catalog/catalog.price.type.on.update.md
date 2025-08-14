@@ -9,79 +9,96 @@ params: {"type":"object","required":["id","fields"],"properties":{"id":{"type":"
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Типы цен в Торговом каталоге: обзор методов
+# Событие при изменении типа цены CATALOG.PRICE.TYPE.ON.UPDATE
 
-Тип цены — объект Торгового каталога, который позволяет управлять различными ценовыми категориями для товаров и услуг. У одного товара может быть несколько типов цен: оптовая, розничная, партнерская.
-
-Один из типов цен обязательно должен быть обозначен как базовый. Базовый тип цены нельзя удалить.
-
-> Быстрый переход: [все методы и события](#all-methods) 
-
-## Связь типа цены с другими объектами
-
-**Цена.** При создании цены обязательно укажите ее тип. Задать и изменить цену можно с помощью методов [catalog.price.*](../price/index.md). 
-
-**Правила округления цен.** Задайте параметры округления для каждого типа цен с помощью методов [catalog.roundingRule.*](../rounding-rule/index.md).
-
-**Переводы названий типов цен.** Укажите названия типа цены для используемых языков в Битрикс24. Воспользуйтесь методами [catalog.priceTypeLang.*](./price-type-lang/index.md).
-
-## Обзор методов и событий {#all-methods}
-
-> Scope: [`catalog`](../../scopes/permissions.md)
+> Scope: [`catalog`](../../../scopes/permissions.md)
 >
-> Кто может выполнять методы: администратор
+> Кто может подписаться: любой пользователь
 
-### Основные
+Событие происходит при обновлении типа цены.
+
+## Что получает обработчик
+
+Данные передаются в виде POST-запроса {.b24-info}
+
+```
+[
+    'event' => 'CATALOG.PRICE.TYPE.ON.UPDATE',    
+    'event_handler_id' => 1,
+    'data' => [
+        'FIELDS' => [
+            'ID' => 1,
+        ],
+    ],
+    'ts' => 1714649632,
+    'auth' => [
+        'access_token' => 's6p6eclrvim6da22ft9ch94ekreb52lv',
+        'expires_in' => 3600,
+        'scope' => 'catalog',
+        'domain' => 'some-domain.bitrix24.com',
+        'server_endpoint' => 'https://oauth.bitrix24.tech/rest/',
+        'status' => 'F',
+        'client_endpoint' => 'https://some-domain.bitrix24.com/rest/',
+        'member_id' => 'a223c6b3710f85df22e9377d6c4f7553',
+        'refresh_token' => '4s386p3q0tr8dy89xvmt96234v3dljg8',
+        'application_token' => '51856fefc120afa4b628cc82d3935cce',
+    ],
+]
+```
+
+## Параметры
 
 
-
-- Методы
-
-    #|
-    || **Метод** | **Описание** ||
-    || [catalog.priceType.add](./catalog-price-type-add.md) | Добавляет новый тип цены ||
-    || [catalog.priceType.update](./catalog-price-type-update.md) | Изменяет значения полей типа цены ||
-    || [catalog.priceType.get](./catalog-price-type-get.md) | Возвращает информацию о типе цены по его идентификатору ||
-    || [catalog.priceType.list](./catalog-price-type-list.md) | Возвращает список типов цен по фильтру ||
-    || [catalog.priceType.delete](./catalog-price-type-delete.md) | Удаляет тип цены ||
-    || [catalog.priceType.getFields](./catalog-price-type-get-fields.md) | Возвращает поля типа цены ||
-    |#
-
-- События
-
-    #|
-    || **Событие** | **Вызывается** ||
-    || [CATALOG.PRICE.TYPE.ON.ADD](./events/catalog-price-type-on-add.md) | При добавлении типа цены ||
-    || [CATALOG.PRICE.TYPE.ON.UPDATE](./events/catalog-price-type-on-update.md) | При обновлении типа цены ||
-    || [CATALOG.PRICE.TYPE.ON.DELETE](./events/catalog-price-type-on-delete.md) | При удалении типа цены ||
-    |#
-
-
-
-### Переводы названий типов цен
-
-#|
-|| **Метод** | **Описание** ||
-|| [catalog.priceTypeLang.add](./price-type-lang/catalog-price-type-lang-add.md) | Добавляет перевод названия типа цены ||
-|| [catalog.priceTypeLang.update](./price-type-lang/catalog-price-type-lang-update.md) | Обновляет перевод названия типа цены ||
-|| [catalog.priceTypeLang.get](./price-type-lang/catalog-price-type-lang-get.md) | Возвращает значения полей перевода названия типа цены ||
-|| [catalog.priceTypeLang.list](./price-type-lang/catalog-price-type-lang-list.md) | Возвращает список переводов названий типов цен по фильтру ||
-|| [catalog.priceTypeLang.delete](./price-type-lang/catalog-price-type-lang-delete.md) | Удаляет перевод названия типа цены ||
-|| [catalog.priceTypeLang.getLanguages](./price-type-lang/catalog-price-type-lang-get-languages.md) | Возвращает доступные для перевода языки ||
-|| [catalog.priceTypeLang.getFields](./price-type-lang/catalog-price-type-lang-get-fields.md) | Возвращает поля перевода названия типа цены ||
-|#
-
-### Привязка типов цен к группам покупателей
 
 #|
-|| **Метод** | **Описание** ||
-|| [catalog.priceTypeGroup.add](./price-type-group/catalog-price-type-group-add.md) | Добавляет привязку типа цены к группе покупателей ||
-|| [catalog.priceTypeGroup.list](./price-type-group/catalog-price-type-group-list.md) | Возвращает список привязок типов цен к группам покупателей ||
-|| [catalog.priceTypeGroup.delete](./price-type-group/catalog-price-type-group-delete.md) | Удаляет привязку типа цены к группе покупателей ||
-|| [catalog.priceTypeGroup.getFields](./price-type-group/catalog-price-type-group-get-fields.md) | Возвращает поля привязки типов цен к группам покупателей ||
+|| **Название**
+`тип` | **Описание** ||
+|| **event***
+[`string`](../../data-types.md) | Символьный код события ||
+|| **event_handler_id***
+[`integer`](../../data-types.md) | Идентификатор обработчика события ||
+|| **data***
+[`object`](../../data-types.md) | Объект с данными события.
+
+Структура описана [ниже](#data) ||
+|| **ts***
+[`integer`](../../data-types.md) | Timestamp отправки события из очереди событий ||
+|| **auth***
+[`object`](../../data-types.md) | Объект с параметрами авторизации и данными о портале, на котором произошло событие ||
 |#
 
+### Параметр data {#data}
+
+
+
+#|
+|| **Название**
+`тип` | **Описание** ||
+|| **FIELDS***
+[`object`](../../data-types.md) | Объект со свойствами типа цены.
+
+Структура описана [ниже](#fields) ||
+|#
+
+### Параметр FIELDS {#fields}
+
+
+
+#|
+|| **Название**
+`тип` | **Описание** ||
+|| **ID***
+[`catalog_price_type.id`](../../data-types.md#catalog_price_type) | Идентификатор типа цены. Получить все поля типа цены по его идентификатору можно с помощью метода [catalog.priceType.get](../catalog-price-type-get.md) ||
+|#
+
+### Параметр auth {#auth}
+
+
+
+## Продолжите изучение
+
+- [{#T}](./catalog-price-type-on-add.md)
+- [{#T}](./catalog-price-type-on-delete.md)

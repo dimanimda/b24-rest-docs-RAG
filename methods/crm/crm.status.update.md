@@ -9,75 +9,174 @@ params: {"type":"object","required":["id","fields"],"properties":{"id":{"type":"
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Справочники в CRM: обзор методов
-
-В карточках элементов CRM есть два вида полей типа «список»: 
-
-* пользовательские поля  — их можно создавать, изменять значения списка, удалять через методы crm.xx.userfield.*. Например, для создания пользовательского поля типа список в сделках используйте [crm.deal.userfield.add](../deals/user-defined-fields/crm-deal-userfield-add.md)
-  
-* системные поля  — предустановленны, их нельзя создать или удалить. В системных списочных полях можно изменять только значения списка. Перечень значений системных полей типа «список» называется справочником в CRM
-
-> Быстрый переход: [все методы и события](#all-methods)
-> 
-> Пользовательская документация: [справочники в Битрикс24](https://helpdesk.bitrix24.ru/open/21600612/)
- 
-## Список справочников
-
-Чтобы изменить справочник, в методах группы crm.status.* укажите параметр `ENTITY_ID`. Если значение указано неверно, будет изменен другой справочник.
-
-**Стадии.** Справочник с этапами работы с клиентами, которые отображаются в канбане CRM. У каждого объекта CRM свой код справочника стадий: 
-* [Сделки](../deals/index.md) — `DEAL_STAGE` для основного направления сделок и `DEAL_STAGE_xx`  для дополнительного, xx — это ID направления
-* [Лиды](../leads/index.md) —  `STATUS`
-* [Счета](../universal/invoice.md) — `SMART_INVOICE_STAGE_xx`, xx —  значение ID направления счетов
-* [Предложения](../quote/index.md) — `QUOTE_STATUS`
-* [Документы](https://helpdesk.bitrix24.ru/open/17572968/) — `SMART_DOCUMENT_STAGE_xx`, xx — значение ID направления документов 
-* [Смарт-процессы](../universal/index.md) —  `DYNAMIC_xx_STAGE_xx`, первый xx — это ID смарт-процесса, второй xx — это ID направления
-
-Чтобы получить ID направления на конкретном Битрикс24, используйте метод [crm.status.entity.types](./crm-status-entity-types.md).
-
-**Источники.** Справочник со значениями системного поля Источник — `SOURCE`.
-
-**Тип контакта и компании.** Справочники со значениями системных полей Тип контакта —  `CONTACT_TYPE`, Тип компании — `COMPANY_TYPE`.
-
-**Количество сотрудников.** Справочник со значениями системного поля Количество сотрудников в карточке компании —  `EMPLOYEES`.
-
-**Сфера деятельности клиентов.** Справочник со значениями системного поля Сфера деятельности в карточке компании —  `INDUSTRY`.
-
-**Тип сделки.** Справочник со значениями системного поля Тип сделки в карточке сделки —  `DEAL_TYPE`.
-
-**Обращения.** Справочник со значениями системного поля Обращение в карточке лида и контакта —  `HONORIFIC`.
-
-**Статусы обзвона.** Справочник со значениями Статуса звонка в карточка обзвона —  `CALL_LIST`.
-
-## Как использовать значения справочника
-
-У любого значения списка в справочниках есть:
-
-* название `NAME` — отображается в карточке элемента CRM
-* статус `STATUS_ID` — используется в методах создания и изменения элементов
-
-Методом [crm.deal.update](../deals/crm-deal-update.md) можно изменить значения полей `Стадия сделки` — `STAGE_ID` и `Источник` — `SOURCE_ID`. Оба поля — это системные списочные поля. 
-
-Для того чтобы в карточке CRM отображалось название стадии или источника, в методе важно передавать не `NAME` значения, а его  `STATUS_ID`. Для стадии «Новая заявка» это может быть `C1:NEW`, а для источника  «звонок» — `CALL`. 
-
-## Обзор методов и событий {#all-methods}
+# Обновить элемент справочника crm.status.update
 
 > Scope: [`crm`](../../scopes/permissions.md)
 >
-> Кто может выполнять метод: любой пользователь
+> Кто может выполнять метод: пользователь с правами администратора CRM
+
+Метод `crm.status.update` обновляет параметры существующего элемента справочника.
+
+## Параметры метода
+
+
 
 #|
-|| **Метод** | **Описание** ||
-|| [crm.status.add](./crm-status-add.md) | Создает новый элемент в указанном справочнике ||
-|| [crm.status.delete](./crm-status-delete.md) | Удаляет элемент справочника ||
-|| [crm.status.entity.items](./crm-status-entity-items.md) | Возвращает элементы справочника по его символьному идентификатору ||
-|| [crm.status.entity.types](./crm-status-entity-types.md) | Возвращает описание типов справочников ||
-|| [crm.status.fields](./crm-status-fields.md) | Возвращает описание полей справочника ||
-|| [crm.status.get](./crm-status-get.md) | Возвращает элемент справочника по идентификатору ||
-|| [crm.status.list](./crm-status-list.md) | Возвращает список элементов справочника по фильтру ||
-|| [crm.status.update](./crm-status-update.md) | Обновляет существующий элемент справочника ||
+|| **Название**
+`тип` | **Описание** ||
+|| **id*** 
+[`integer`](../../data-types.md) | Идентификатор элемента справочника, который нужно обновить. Получить список можно методом [crm.status.list](./crm-status-list.md) ||
+|| **fields*** 
+[`object`](../../data-types.md) | Массив полей для обновления. Список доступных полей описан [ниже](#fields)  ||
 |#
+
+### Параметр fields {#fields}
+
+#|
+|| **Название**
+ `тип` | **Описание** ||
+|| **NAME**
+[`string`](../../data-types.md) | Название ||
+|| **SORT**
+[`integer`](../../data-types.md) | Сортировка ||
+|| **COLOR**
+[`string`](../../data-types.md) | Цвет hex-код, например `#39A8EF` ||
+|#
+
+## Примеры кода
+
+
+
+
+
+- JS
+
+    ```js
+    BX24.callMethod(
+        "crm.status.update",
+        {
+            id: 123,
+            fields: {
+                NAME: "Новое название",
+                COLOR: "#00A9F4"
+            }
+        },
+        function(result) {
+            if(result.error())
+                console.error(result.error());
+            else
+                console.dir(result.data());
+        }
+    );
+    ```
+
+- cURL (Webhook)
+
+    ```bash
+    curl -X POST \
+         -H "Content-Type: application/json" \
+         -H "Accept: application/json" \
+         -d '{"id":123,"fields":{"NAME":"Новое название","COLOR":"#00A9F4"}}' \
+         https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/crm.status.update
+    ```
+
+- cURL (OAuth)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"id":123,"fields":{"NAME":"Новое название","COLOR":"#00A9F4"},"auth":"**put_access_token_here**"}' \
+    https://**put_your_bitrix24_address**/rest/crm.status.update
+    ```
+
+- PHP
+
+    ```php
+    require_once('crest.php');
+
+    $result = CRest::call(
+        'crm.status.update',
+        [
+            'id' => 123,
+            'fields' => [
+                'NAME' => 'Новое название',
+                'COLOR' => '#00A9F4'
+            ]
+        ]
+    );
+
+    echo '<PRE>';
+    print_r($result);
+    echo '</PRE>';
+    ```
+
+
+
+## Обработка ответа
+
+HTTP-статус: **200**
+
+```json
+{
+    "result": true,
+    "time": {
+        "start": 1752149050.805837,
+        "finish": 1752149050.842422,
+        "duration": 0.036585092544555664,
+        "processing": 0.009345054626464844,
+        "date_start": "2025-07-10T15:04:10+03:00",
+        "date_finish": "2025-07-10T15:04:10+03:00",
+        "operating_reset_at": 1752149650,
+        "operating": 0
+    }
+}
+```
+
+### Возвращаемые данные
+
+#|
+|| **Название**
+`тип` | **Описание** ||
+|| **result**
+[`boolean`](../../data-types.md) | Корневой элемент ответа, содержит `true` в случае успеха ||
+|| **time**
+[`time`](../../data-types.md#time) | Информация о времени выполнения запроса ||
+|#
+
+## Обработка ошибок
+
+HTTP-статус: **400**
+
+```json
+{
+    "error": "Invalid identifier.",
+    "error_description": "Передан некорректный идентификатор."
+}
+```
+
+
+
+### Возможные коды ошибок
+
+#|
+|| **Код** | **Описание** | **Значение** ||
+|| `400`     | `Access denied.` | Нет прав на выполнение операции ||
+|| `400`     | `Invalid identifier.` | Передан некорректный идентификатор ||
+|| `400`     | `Status is not found.` | Элемент не найден ||
+|| `400`     | `Error on updating status.` | Ошибка при обновлении элемента ||
+|#
+
+
+
+## Продолжите изучение
+
+- [{#T}](./crm-status-fields.md)
+- [{#T}](./crm-status-list.md)
+- [{#T}](./crm-status-get.md)
+- [{#T}](./crm-status-add.md)
+- [{#T}](./crm-status-delete.md) 
+- [{#T}](../../../tutorials/crm/how-to-add-crm-objects/how-to-add-category-to-spa.md)

@@ -9,282 +9,20 @@ params: {"type":"object"}
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Обновить пользовательское поле user.userfield.update
+# Получить типы справочников crm.status.entity.types
 
-> Scope: [`user.userfield`](../../scopes/permissions.md)
+> Scope: [`crm`](../../scopes/permissions.md)
 >
-> Кто может выполнять метод: администратор
+> Кто может выполнять метод: любой пользователь
 
-Метод `user.userfield.update` обновляет пользовательское поле.
+Метод `crm.status.entity.types` возвращает список всех поддерживаемых типов справочников, объектов `ENTITY_ID`.
 
 ## Параметры метода
 
-
-
-#|
-|| **Название**
-`тип` | **Описание** ||
-|| **id*** 
-[`integer`](../../data-types.md)| Идентификатор пользовательского поля.
-
-Для получения идентификаторов пользовательских полей используйте метод [user.userfield.list](./user-userfield-list.md)
- ||
-|| **fields**
-[`object`](../../data-types.md)| Значения полей для обновления пользовательского поля ||
-|#
-
-### Параметр fields
-
-#|
-|| **Название**
-`тип` | **Описание** ||
-|| **XML_ID**
-[`string`](../../data-types.md)| Внешний код ||
-|| **SORT**
-[`integer`](../../data-types.md)| Порядок сортировки ||
-|| **MANDATORY**
-[`boolean`](../../data-types.md)| Является ли пользовательское поле обязательным. Возможные значения:
-- `Y` — да
-- `N` — нет ||
-|| **SHOW_FILTER**
-[`boolean`](../../data-types.md)| Показывать ли поле в фильтре списка. Возможные значения:
-- `Y` — да
-- `N` — нет ||
-|| **SHOW_IN_LIST**
-[`boolean`](../../data-types.md)| Показывать ли поле в списке. Возможные значения:
-- `Y` — да
-- `N` — нет ||
-- || **EDIT_IN_LIST**
-[`boolean`](../../data-types.md)| Редактировать ли поле в списке. Возможные значения:
-- `Y` — да
-- `N` — нет ||
-- || **IS_SEARCHABLE**
-[`boolean`](../../data-types.md)| Участвует ли поле в поиске. Возможные значения:
-- `Y` — да
-- `N` — нет ||
-|| **SETTINGS**
-[`object`](../../data-types.md)| Объект в формате `{"field_1": "value_1", ... "field_N": "value_N"}` для передачи дополнительных настроек пользовательских полей. Настройки описаны [ниже](#settings) ||
-|| **EDIT_FORM_LABEL**
-[`string`](../../data-types.md)| Подпись в форме редактирования ||
-|| **LIST_COLUMN_LABEL**
-[`string`](../../data-types.md)| Заголовок столбца в списке ||
-|| **LIST_FILTER_LABEL**
-[`string`](../../data-types.md)| Заголовок фильтра в списке ||
-|| **ERROR_MESSAGE**
-[`string`](../../data-types.md)| Сообщение об ошибке при невалидном вводе ||
-|| **HELP_MESSAGE**
-[`string`](../../data-types.md)| Текст подсказки к полю ||
-|#
-
-### Параметр SETTINGS {#settings}
-
-У каждого типа пользовательских полей существует свой набор дополнительных настроек.
-
-
-
-- string
-
-    #|
-    || **Название**
-    `тип` | **Описание** ||
-    || **DEFAULT_VALUE**
-    [`string`](../../data-types.md) | Значение по умолчанию.
-
-    По умолчанию `''` ||
-    || **ROWS**
-    [`integer`](../../data-types.md) | Количество строк в поле ввода. Обязательно больше 0.
-
-    По умолчанию `1` ||
-    |#
-
-- integer
-
-    #|
-    || **Название**
-    `тип` | **Описание** ||
-    || **DEFAULT_VALUE**
-    [`integer`](../../data-types.md) | Значение по умолчанию ||
-    |#
-
-- double
-
-    #|
-    || **Название**
-    `тип` | **Описание** ||
-    || **DEFAULT_VALUE**
-    [`double`](../../data-types.md) | Значение по умолчанию ||
-    || **PRECISION**
-    [`integer`](../../data-types.md) | Точность числа. Обязательно больше или равно 0.
-
-    По умолчанию `2` ||
-    |#
-
-- boolean
-
-    #|
-    || **Название**
-    `тип` | **Описание** ||
-    || **DEFAULT_VALUE**
-    [`integer`](../../data-types.md) | Значение по умолчанию, где `1` — да, `0` — нет.
-
-    Возможные значения:
-    - `>= 1` -> 1
-    - `<= 0` -> 0
-
-    По умолчанию `0` ||
-    || **DISPLAY**
-    [`string`](../../data-types.md) | Внешний вид. Возможные значения:
-    - `CHECKBOX` — флажок
-    - `RADIO` — радиокнопки
-    - `DROPDOWN` — выпадающий список
-
-    По умолчанию `CHECKBOX` ||
-    |#
-
-- datetime
-
-    #|
-    || **Название**
-    `тип` | **Описание** ||
-    || **DEFAULT_VALUE**
-    [`object`](../../data-types.md)  | Значение по умолчанию.
-
-    Объект формата:
-
-    ```
-    {
-        VALUE: datetime|date,
-        TYPE: 'NONE'|'NOW'|'FIXED',
-    }
-    ```
-
-    где:
-    - `VALUE` — значение по умолчанию типа `datetime` или `date`
-    - `TYPE` — тип значения по умолчанию:
-      - `NONE` — не выставлять значение по умолчанию
-      - `NOW` — использовать текущее время/дату
-      - `FIXED` — использовать время/дату из `VALUE`
-
-    Значение по умолчанию:
-
-    ```
-    {
-        VALUE: '',
-        TYPE: 'NONE',
-    }
-    ```
-    ||
-    |#
-
-- enumeration
-
-    #|
-    || **Название**
-    `тип` | **Описание** ||
-    || **DISPLAY**
-    [`string`](../../data-types.md) | Внешний вид. Возможные значения:
-    - `LIST` — список
-    - `UI` — набираемый список
-    - `CHECKBOX` — флажки
-    - `DIALOG` — диалог выбора сущностей
-
-    По умолчанию `LIST` ||
-    || **LIST_HEIGHT** | Высота списка. Обязательно больше 0.
-
-    Доступен только при `DISPLAY = LIST` или `DISPLAY = UI`.
-
-    По умолчанию `1` ||
-    |#
-
-- iblock_section|iblock_element
-
-    #|
-    || **Название**
-    `тип` | **Описание** ||
-    || **IBLOCK_TYPE_ID**
-    [`string`](../../data-types.md) | Идентификатор типа инфоблока.
-
-    По умолчанию `''` ||
-    || **IBLOCK_ID**
-    [`string`](../../data-types.md) | Идентификатор инфоблока.
-
-    По умолчанию `0` ||
-    || **DEFAULT_VALUE**
-    [`string`](../../data-types.md) | Значение по умолчанию.
-
-    По умолчанию `''` ||
-    || **DISPLAY**
-    [`string`](../../data-types.md) | Внешний вид. Возможные значения:
-    - `DIALOG` — диалог
-    - `UI` — набираемый список
-    - `LIST` — список
-    - `CHECKBOX` — флажки
-
-    По умолчанию `LIST` ||
-    || **LIST_HEIGHT**
-    [`integer`](../../data-types.md) | Высота списка. Обязательно больше 0.
-
-    По умолчанию `1` ||
-    || **ACTIVE_FILTER**
-    [`boolean`](../../data-types.md) | Показывать ли элементы с включенным флагом активности. Возможные значения:
-    - `Y` — да
-    - `N` — нет
-
-    По умолчанию `N` ||
-    |#
-
-- crm_status
-
-    #|
-    || **Название**
-    `тип` | **Описание** ||
-    || **ENTITY_TYPE**
-    [`string`](../../data-types.md) | Идентификатор типа справочника.
-
-    Используйте [`crm.status.entity.types`](../../crm/status/crm-status-entity-types.md), чтобы узнать возможные значения.
-
-    По умолчанию `''` ||
-    |#
-
-- crm
-
-    Если не передать ни одну из следующих опций, то по умолчанию будет включена привязка к лидам (`LEAD = Y`).
-
-    #|
-    || **Название**
-    `тип` | **Описание** ||
-    || **LEAD**
-    [`boolean`](../../data-types.md) | Включена ли привязка к [Лидам](../../crm/leads/index.md). Возможные значения:
-    - `Y` — да
-    - `N` — нет
-
-    По умолчанию `N` ||
-    || **CONTACT**
-    [`boolean`](../../data-types.md) | Включена ли привязка к [Контактам](../../crm/contacts/index.md). Возможные значения:
-    - `Y` — да
-    - `N` — нет
-
-    По умолчанию `N` ||
-    || **COMPANY**
-    [`boolean`](../../data-types.md) | Включена ли привязка к [Компаниям](../../crm/companies/index.md). Возможные значения:
-    - `Y` — да
-    - `N` — нет
-
-    По умолчанию `N` ||
-    || **DEAL**
-    [`boolean`](../../data-types.md) | Включена ли привязка к [Сделкам](../../crm/deals/index.md). Возможные значения:
-    - `Y` — да
-    - `N` — нет
-
-    По умолчанию `N` ||
-    |#
-
-
-
+Без параметров.
 
 ## Примеры кода
 
@@ -292,21 +30,29 @@ Auto-generated stub. Fill in params/returns/examples.
 
 
 
+- JS
+
+    ```js
+    BX24.callMethod(
+        "crm.status.entity.types",
+        {},
+        function(result) {
+            if(result.error())
+                console.error(result.error());
+            else
+                console.dir(result.data());
+        }
+    );
+    ```
+
 - cURL (Webhook)
 
     ```bash
     curl -X POST \
-    -H "Content-Type: application/json" \
-    -H "Accept: application/json" \
-    -d '{
-        "id": 42,
-        "fields": {
-            "SORT": 150,
-            "LIST_FILTER_LABEL": "New Title",
-            "LIST_COLUMN_LABEL": "New List Title"
-        }
-    }' \
-    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/user.userfield.update
+         -H "Content-Type: application/json" \
+         -H "Accept: application/json" \
+         -d '{}' \
+         https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/crm.status.entity.types
     ```
 
 - cURL (OAuth)
@@ -315,38 +61,8 @@ Auto-generated stub. Fill in params/returns/examples.
     curl -X POST \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{
-        "id": 42,
-        "fields": {
-            "SORT": 150,
-            "LIST_FILTER_LABEL": "New Title",
-            "LIST_COLUMN_LABEL": "New List Title"
-        },
-        "auth": "**put_access_token_here**"
-    }' \
-    https://**put_your_bitrix24_address**/rest/user.userfield.update
-    ```
-
-- JS
-
-    ```js
-    BX24.callMethod(
-        'user.userfield.update', 
-        {
-            id: 42,
-            fields: {
-                SORT: 150,
-                LIST_FILTER_LABEL: 'New Title',
-                LIST_COLUMN_LABEL: 'New List Title',
-            },
-        },
-        function(result) {
-            if(result.error())
-                console.error(result.error());
-            else
-                console.log(result.data());
-        }
-    );
+    -d '{"auth":"**put_access_token_here**"}' \
+    https://**put_your_bitrix24_address**/rest/crm.status.entity.types
     ```
 
 - PHP
@@ -355,15 +71,8 @@ Auto-generated stub. Fill in params/returns/examples.
     require_once('crest.php');
 
     $result = CRest::call(
-        'user.userfield.update',
-        [
-            'id' => 42,
-            'fields' => [
-                'SORT' => 150,
-                'LIST_FILTER_LABEL' => 'New Title',
-                'LIST_COLUMN_LABEL' => 'New List Title',
-            ]
-        ]
+        'crm.status.entity.types',
+        []
     );
 
     echo '<PRE>';
@@ -379,16 +88,146 @@ HTTP-статус: **200**
 
 ```json
 {
-    "result": true,
-    "time": {
-        "start":1747311864.008399,
-        "finish":1747311865.063292,
-        "duration":1.0548930168151855,
-        "processing":0.17107510566711426,
-        "date_start":"2025-05-15T14:24:24+02:00",
-        "date_finish":"2025-05-15T14:24:25+02:00",
-        "operating":0
-    }
+  "result": [
+    {
+      "ID": "STATUS",
+      "NAME": "Стадии лида",
+      "SEMANTIC_INFO": {
+        "START_FIELD": "NEW",
+        "FINAL_SUCCESS_FIELD": "CONVERTED",
+        "FINAL_UNSUCCESS_FIELD": "JUNK",
+        "FINAL_SORT": 0
+      },
+      "ENTITY_TYPE_ID": 1
+    },
+    {
+      "ID": "SOURCE",
+      "NAME": "Источники"
+    },
+    {
+      "ID": "CONTACT_TYPE",
+      "NAME": "Тип контакта"
+    },
+    {
+      "ID": "COMPANY_TYPE",
+      "NAME": "Тип компании"
+    },
+    {
+      "ID": "EMPLOYEES",
+      "NAME": "Кол-во сотрудников"
+    },
+    {
+      "ID": "INDUSTRY",
+      "NAME": "Сфера деятельности"
+    },
+    {
+      "ID": "DEAL_TYPE",
+      "NAME": "Тип сделки"
+    },
+    {
+      "ID": "SMART_INVOICE_STAGE_5",
+      "NAME": "Стадии счёта",
+      "SEMANTIC_INFO": [],
+      "PREFIX": "DT31_5",
+      "FIELD_ATTRIBUTE_SCOPE": "category_5",
+      "ENTITY_TYPE_ID": 31,
+      "IS_ENABLED": true,
+      "CATEGORY_ID": 5
+    },
+    {
+      "ID": "DEAL_STAGE_1",
+      "NAME": "Стадии сделки Newest",
+      "PARENT_ID": "DEAL_STAGE",
+      "SEMANTIC_INFO": {
+        "START_FIELD": "C1:NEW",
+        "FINAL_SUCCESS_FIELD": "C1:WON",
+        "FINAL_UNSUCCESS_FIELD": "C1:LOSE",
+        "FINAL_SORT": 0
+      },
+      "PREFIX": "C1",
+      "FIELD_ATTRIBUTE_SCOPE": "category_1",
+      "ENTITY_TYPE_ID": 2,
+      "CATEGORY_ID": "1"
+    },
+    {
+      "ID": "DEAL_STAGE",
+      "NAME": "Стадии сделки Общая",
+      "SEMANTIC_INFO": {
+        "START_FIELD": "NEW",
+        "FINAL_SUCCESS_FIELD": "WON",
+        "FINAL_UNSUCCESS_FIELD": "LOSE",
+        "FINAL_SORT": 0
+      },
+      "FIELD_ATTRIBUTE_SCOPE": "",
+      "ENTITY_TYPE_ID": 2,
+      "CATEGORY_ID": 0
+    },
+    {
+      "ID": "QUOTE_STATUS",
+      "NAME": "Стадии предложения",
+      "SEMANTIC_INFO": {
+        "START_FIELD": "DRAFT",
+        "FINAL_SUCCESS_FIELD": "APPROVED",
+        "FINAL_UNSUCCESS_FIELD": "DECLAINED",
+        "FINAL_SORT": 0
+      },
+      "ENTITY_TYPE_ID": 7
+    },
+    {
+      "ID": "HONORIFIC",
+      "NAME": "Обращения"
+    },
+    {
+      "ID": "CALL_LIST",
+      "NAME": "Статусы обзвона"
+    },
+    {
+      "ID": "SMART_DOCUMENT_STAGE_13",
+      "NAME": "Стадии документа",
+      "SEMANTIC_INFO": [],
+      "PREFIX": "DT36_13",
+      "FIELD_ATTRIBUTE_SCOPE": "category_13",
+      "ENTITY_TYPE_ID": 36,
+      "IS_ENABLED": true,
+      "CATEGORY_ID": 13
+    },
+    {
+      "ID": "DYNAMIC_177_STAGE_7",
+      "NAME": "Закупка оборудования (Общее)",
+      "SEMANTIC_INFO": [],
+      "PREFIX": "DT177_7",
+      "FIELD_ATTRIBUTE_SCOPE": "category_7",
+      "ENTITY_TYPE_ID": 177,
+      "IS_ENABLED": true,
+      "CATEGORY_ID": 7,
+      "CATEGORY_NAME": "Общее",
+      "CATEGORY_SORT": 500,
+      "IS_DEFAULT_CATEGORY": true
+    },
+    {
+      "ID": "DYNAMIC_177_STAGE_9",
+      "NAME": "Закупка оборудования (Вторая воронка)",
+      "SEMANTIC_INFO": [],
+      "PREFIX": "DT177_9",
+      "FIELD_ATTRIBUTE_SCOPE": "category_9",
+      "ENTITY_TYPE_ID": 177,
+      "IS_ENABLED": true,
+      "CATEGORY_ID": 9,
+      "CATEGORY_NAME": "Вторая воронка",
+      "CATEGORY_SORT": 500,
+      "IS_DEFAULT_CATEGORY": false
+    },
+  ],
+  "time": {
+    "start": 1752142616.128453,
+    "finish": 1752142616.215683,
+    "duration": 0.08722996711730957,
+    "processing": 0.018637895584106445,
+    "date_start": "2025-07-10T13:16:56+03:00",
+    "date_finish": "2025-07-10T13:16:56+03:00",
+    "operating_reset_at": 1752143216,
+    "operating": 0
+  }
 }
 ```
 
@@ -398,36 +237,52 @@ HTTP-статус: **200**
 || **Название**
 `тип` | **Описание** ||
 || **result**
-[`boolean`](../../data-types.md) | Cодержит `true` в случае успешного обновления пользовательского поля||
+[`array`](../../data-types.md) | Массив объектов с описанием типов справочников [(подробное описание полей)](#result)||
 || **time**
 [`time`](../../data-types.md#time) | Информация о времени выполнения запроса ||
 |#
 
-## Обработка ошибок
-
-HTTP-статус: **400**
-
-```json
-{
-    "error":"",
-    "error_description":"Access denied."
-}
-```
-
-
-
-### Возможные коды ошибок
+#### Поля объекта result {#result}
 
 #|
-|| **Код** | **Описание** | **Значение** ||
-|| Пустая строка | Access denied. | Поле с таким `id` не существует или доступ запрещен ||
-|| Пустая строка | ID is not defined or invalid | Не задан или введен неверный `id` ||
+|| **Название**
+`тип` | **Описание** ||
+|| **ID**
+[`string`](../../data-types.md) | Идентификатор объекта, используйте значение в поле `ENTITY_ID` методов [crm.status.*](./index.md) ||
+|| **NAME**
+[`string`](../../data-types.md) | Название ||
+|| **ENTITY_TYPE_ID**
+[`integer`](../../data-types.md) | [Тип объекта CRM](../data-types.md#object_type#), к которому относится статус ||
+|| **SEMANTIC_INFO**
+[`object`](../../data-types.md) | Информация о семантике статусов-стадий ||
+|| **PREFIX**
+[`string`](../../data-types.md) | Префикс для кода стадии воронки ||
+|| **FIELD_ATTRIBUTE_SCOPE**
+[`string`](../../data-types.md) | Область применения поля, воронка ||
+|| **IS_ENABLED**
+[`boolean`](../../data-types.md) | Активность ||
+|| **CATEGORY_ID**
+[`integer`](../../data-types.md) | Идентификатор воронки ||
+|| **PARENT_ID**
+[`string`](../../data-types.md) | ID родительского элемента ||
+|| **CATEGORY_NAME**
+[`string`](../../data-types.md) | Название воронки ||
+|| **CATEGORY_SORT**
+[`integer`](../../data-types.md) | Сортировка воронки ||
+|| **IS_DEFAULT_CATEGORY**
+[`boolean`](../../data-types.md) | Воронка по умолчанию ||
 |#
 
+## Обработка ошибок
+
+Метод не возвращает ошибок.
 
 
-## Продолжите изучение 
 
-- [{#T}](./user-userfield-add.md)
-- [{#T}](./user-userfield-list.md)
-- [{#T}](./user-userfield-delete.md)
+## Продолжите изучение
+
+- [{#T}](./crm-status-fields.md)
+- [{#T}](./crm-status-list.md)
+- [{#T}](./crm-status-add.md)
+- [{#T}](./crm-status-update.md)
+- [{#T}](./crm-status-delete.md) 

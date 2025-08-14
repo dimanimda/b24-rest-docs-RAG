@@ -9,19 +9,27 @@ params: {"type":"object","required":["id"],"properties":{"id":{"type":"integer"}
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Получить доступные поля статусов sale.status.delete
+# Удалить статус sale.status.delete
 
 > Scope: [`sale`](../../scopes/permissions.md)
 >
 > Кто может выполнять метод: администратор
 
-Метод возвращает доступные поля статусов.
+Метод удаляет статус заказа или доставки.
 
-Без параметров.
+## Параметры метода
+
+
+
+#|
+|| **Название**
+`тип` | **Описание** ||
+|| **id***
+[`sale_status.id`](../data-types.md) | Идентификатор статуса ||
+|#
 
 ## Примеры кода
 
@@ -35,8 +43,8 @@ Auto-generated stub. Fill in params/returns/examples.
     curl -X POST \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{}' \
-    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/sale.status.getfields
+    -d '{"id":"MS"}' \
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/sale.status.delete
     ```
 
 - cURL (OAuth)
@@ -45,15 +53,17 @@ Auto-generated stub. Fill in params/returns/examples.
     curl -X POST \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"auth":"**put_access_token_here**"}' \
-    https://**put_your_bitrix24_address**/rest/sale.status.getfields
+    -d '{"id":"MS","auth":"**put_access_token_here**"}' \
+    https://**put_your_bitrix24_address**/rest/sale.status.delete
     ```
 
 - JS
 
     ```js
     BX24.callMethod(
-        "sale.status.getfields", {},
+        "sale.status.delete", {
+            "id": "MS"
+        },
         function(result) {
             if (result.error()) {
                 console.error(result.error());
@@ -69,7 +79,9 @@ Auto-generated stub. Fill in params/returns/examples.
     ```php
     require_once('crest.php');
 
-    $result = CRest::call('sale.status.getfields', []);
+    $result = CRest::call('sale.status.delete', [
+        'id' => 'MS'
+    ]);
 
     echo '<PRE>';
     print_r($result);
@@ -84,53 +96,14 @@ HTTP-статус: **200**
 
 ```json
 {
-    "result":{
-        "status":{
-            "color":{
-                "isImmutable":false,
-                "isReadOnly":false,
-                "isRequired":false,
-                "type":"string"
-            },
-            "id":{
-                "isImmutable":true,
-                "isReadOnly":false,
-                "isRequired":true,
-                "type":"string"
-            },
-            "notify":{
-                "isImmutable":false,
-                "isReadOnly":false,
-                "isRequired":false,
-                "type":"string"
-            },
-            "sort":{
-                "isImmutable":false,
-                "isReadOnly":false,
-                "isRequired":false,
-                "type":"integer"
-            },
-            "type":{
-                "isImmutable":false,
-                "isReadOnly":false,
-                "isRequired":true,
-                "type":"char"
-            },
-            "xmlId":{
-                "isImmutable":false,
-                "isReadOnly":false,
-                "isRequired":false,
-                "type":"string"
-            }
-        }
-    },
+    "result":true,
     "time":{
-        "start":1712147353.206979,
-        "finish":1712147353.46492,
-        "duration":0.25794100761413574,
-        "processing":0.005347013473510742,
-        "date_start":"2024-04-03T15:29:13+03:00",
-        "date_finish":"2024-04-03T15:29:13+03:00"
+        "start":1712144469.892859,
+        "finish":1712144470.162582,
+        "duration":0.26972293853759766,
+        "processing":0.013709068298339844,
+        "date_start":"2024-04-03T14:41:09+03:00",
+        "date_finish":"2024-04-03T14:41:10+03:00"
     }
 }
 ```
@@ -141,10 +114,7 @@ HTTP-статус: **200**
 || **Название**
 `тип` | **Описание** ||
 || **result**
-[`object`](../../data-types.md) | Корневой элемент ответа ||
-|| **status**
-[`object`](../../data-types.md) | Объект в формате `{"field_1": "value_1", ... "field_N": "value_N"}`, где `field` — идентификатор поля объекта [sale_status](../data-types.md), а `value` — объект типа [rest_field_description](../data-types.md)
-||
+[`boolean`](../../data-types.md) | Результат удаления статуса ||
 || **time**
 [`time`](../../data-types.md) | Информация о времени выполнения запроса ||
 |#
@@ -154,9 +124,9 @@ HTTP-статус: **200**
 HTTP-статус: **400**
 
 ```json
-{
-    "error":0,
-    "error_description":"error"
+{ 
+    "error":201340400001,
+    "error_description":"status is not exists"
 }
 ```
 
@@ -166,7 +136,15 @@ HTTP-статус: **400**
 
 #|
 || **Код** | **Описание** ||
-|| `200040300010` | Недостаточно прав для чтения доступных полей статусов ||
+|| `201340400001` | Удаляемый статус не найден ||
+|| `200040300020` | Недостаточно прав для удаления статуса ||
+|| `201350000002` | Ошибка возникает при попытке удаления некоторых [системных статусов](./index.md):
+- `N`
+- `F`
+- `DN`
+- `DF`
+||
+|| `100` | Не указан параметр `id` ||
 || `0` | Другие ошибки (например, фатальные ошибки) ||
 |#
 
@@ -179,4 +157,4 @@ HTTP-статус: **400**
 - [{#T}](./sale-status-update.md)
 - [{#T}](./sale-status-get.md)
 - [{#T}](./sale-status-list.md)
-- [{#T}](./sale-status-delete.md)
+- [{#T}](./sale-status-get-fields.md)

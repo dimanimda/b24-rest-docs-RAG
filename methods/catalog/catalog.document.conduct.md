@@ -1,7 +1,7 @@
 ---
 method: catalog.document.conduct
 scope: catalog
-deprecated: true
+deprecated: false
 aliases: []
 rate_limit_per_sec: 2
 pagination: unknown
@@ -9,101 +9,75 @@ params: {"type":"object"}
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Провести документ складского учета catalog.document.confirm
+# Провести документ складского учета catalog.document.conduct
 
-> Scope: [`catalog`](../../../scopes/permissions.md)
+
+
+Тут может не хватать некоторых данных — дополним в ближайшее время
+
+
+
+
+
+
+
+- не указана обязательность параметров
+- отсутствует ответ в случае ошибки
+- нет примеров на др. языках
+  
+
+
+
+
+> Scope: [`catalog`](../../scopes/permissions.md)
 >
-> Кто может выполнять метод: администратор
+> Кто может подписаться: любой пользователь
+
+## Описание
+
+```http
+catalog.document.conduct(id)
+```
+
+Метод для проведения документа складского учёта.
+Если операция успешна, возвращается `true` в теле ответа.
 
 
-
-Метод `catalog.document.confirm` продолжает работать, но у него есть более актуальный аналог [catalog.document.conduct](../catalog-document-conduct.md).
-
-
-
-Метод `catalog.document.confirm` проводит документ складского учета. 
-
-## Параметры метода
-
-
+## Параметры
 
 #|
-|| **Название**
-`тип` | **Описание** ||
-|| **id***
-[`integer`](../../../data-types.md)| Идентификатор документа ||
+|| **Параметр** | **Описание** ||
+|| **id**
+[`integer`](../../data-types.md)| Идентификатор документа складского учёта. ||
 |#
 
-## Примеры кода
 
 
+## Примеры
 
 
-
-- cURL (Webhook)
-
-    ```bash
-    curl -X POST \
-    -H "Content-Type: application/json" \
-    -H "Accept: application/json" \
-    -d '{"id":42}' \
-    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/catalog.document.confirm
-    ```
-
-- cURL (OAuth)
-
-    ```bash
-    curl -X POST \
-    -H "Content-Type: application/json" \
-    -H "Accept: application/json" \
-    -d '{"id":42,"auth":"**put_access_token_here**"}' \
-    https://**put_your_bitrix24_address**/rest/catalog.document.confirm
-    ```
 
 - JS
 
     ```js
     BX24.callMethod(
-    'catalog.document.confirm',
-    {
-        'id': 42,
-    },
-    function(result)
-    {
-        if(result.error())
-            console.error(result.error());
-        else
-            console.log(result.data());
-    }
+        'catalog.document.conduct',
+        {
+            id: 112
+        },
+        function(result)
+        {
+            if(result.error())
+                console.error(result.error());
+            else
+                console.log(result.data());
+        }
     );
     ```
 
-- PHP
-
-    ```php
-    require_once('crest.php');
-
-    $result = CRest::call(
-        'catalog.document.confirm',
-        [
-            'id' => 42
-        ]
-    );
-
-    echo '<PRE>';
-    print_r($result);
-    echo '</PRE>';
-    ```
 
 
-
-## Продолжите изучение 
-
-- [{#T}](./catalog-document-unconfirm.md)
-- [{#T}](./catalog-document-fields.md)
-- [{#T}](./catalog-document-element-fields.md)
 

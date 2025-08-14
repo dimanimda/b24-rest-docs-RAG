@@ -11,17 +11,22 @@ returns: {"type":"object"}
 
 Auto-generated stub. Fill in params/returns/examples.
 
----
+Example (curl):
 
-# Обзор методов
+```bash
+curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{}' \
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/catalog.ratio.getFields
+    ```
 
-> Scope: [`catalog`](../../scopes/permissions.md)
->
-> Кто может выполнять методы: администратор
+- cURL (OAuth)
 
-#|
-|| **Метод** | **Описание** ||
-|| [catalog.ratio.get](./catalog-ratio-get.md) | Возвращает значения полей коэффициента единицы измерения по идентификатору ||
-|| [catalog.ratio.list](./catalog-ratio-list.md) | Возвращает список коэффициентов единиц измерения ||
-|| [catalog.ratio.getFields](./catalog-ratio-get-fields.md) | Возвращает доступные поля коэффициента единицы измерения ||
-|#
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"auth":"**put_access_token_here**"}' \
+    https://**put_your_bitrix24_address**/rest/catalog.ratio.getFields
+```

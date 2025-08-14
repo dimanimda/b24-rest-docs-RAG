@@ -57,7 +57,7 @@ function main(array $argv): void {
     $rii = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($core, FilesystemIterator::SKIP_DOTS));
     $found = [];
     foreach ($rii as $f) {
-        if(!$f->isFile()) continue; $name=strtolower($f->getFilename()); if (strpos($name,'rest')===false) continue; if ($f->getExtension()!=='php') continue;
+        if(!$f->isFile()) continue; $name=strtolower($f->getFilename()); if (!str_contains($name, 'rest')) continue; if ($f->getExtension()!=='php') continue;
         $c = (string)file_get_contents($f->getPathname());
         // find tokens like crm.deal.get or tasks.task.list etc
         if (preg_match_all('/\b([a-z][a-z0-9_]*\.[a-z0-9_]+(?:\.[a-z0-9_]+)+)\b/iu',$c,$m)){

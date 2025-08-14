@@ -9,11 +9,10 @@ params: {"type":"object","required":["id"],"properties":{"id":{"type":"integer"}
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Методы работы с разделами хранилища
+# Удалить раздел хранилища entity.section.delete
 
 
 
@@ -21,14 +20,64 @@ Auto-generated stub. Fill in params/returns/examples.
 
 
 
+
+
+
+
+- отсутствуют примеры
+- отсутствует ответ в случае ошибки
+
+
+
+
+
 > Scope: [`entity`](../../scopes/permissions.md)
 >
 > Кто может выполнять метод: любой пользователь
 
+Метод `entity.section.delete` удаляет раздел хранилища. Пользователь должен обладать хотя бы правами на запись (**W**) в хранилище.
+
+## Параметры
+
 #|
-|| **Метод** | **Описание** ||
-|| [entity.section.get](./entity-section-get.md) | Получение списка разделов хранилища (секций инфоблока). Списочный метод. ||
-|| [entity.section.add](./entity-section-add.md) | Добавление раздела хранилища. ||
-|| [entity.section.update](./entity-section-update.md) | Обновление раздела хранилища. ||
-|| [entity.section.delete](./entity-section-delete.md) | Удаление раздела хранилища. ||
+|| **Параметр** | **Описание** ||
+|| **ENTITY^*^**
+[`string`](../../data-types.md) | Обязательный. Строковой идентификатор хранилища. ||
+|| **ID**^*^
+[`integer`](../../data-types.md) | Обязательный. Идентификатор удаляемого раздела. ||
 |#
+
+
+
+## Примеры
+
+
+
+- JS
+
+    ```javascript
+    BX24.callMethod(
+        'entity.section.delete',
+        {
+            ENTITY: 'menu_new',
+            ID: 220
+        }
+    );
+    ```
+
+- HTTP
+
+    ```http
+    https://my.bitrix24.ru/rest/entity.section.delete.json?ENTITY=menu_new&ID=220&auth=9affe382af74d9c5caa588e28096e872
+    ```
+
+
+
+
+
+## Ответ в случае успеха
+
+> 200 OK
+```json
+{"result":true}
+```

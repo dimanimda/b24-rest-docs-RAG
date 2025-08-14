@@ -9,85 +9,173 @@ params: {"type":"object","required":["id"],"properties":{"id":{"type":"integer"}
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Пользовательские поля контактов: обзор методов
-
-Пользовательские поля хранят информацию о контакте в различных форматах данных: строка, число, ссылка, адрес и другие. 
-
-> Быстрый переход: [все методы](#all-methods) 
-> 
-> Пользовательская документация: [Пользовательские поля в CRM](https://helpdesk.bitrix24.ru/open/22048980/)
-
-## Типы пользовательских полей
-
-Используйте метод [crm.userfield.types](../../universal/user-defined-fields/crm-userfield-types.md) для получения доступных типов пользовательских полей. Метод вернет ID и название типов полей.
-
-````
-    (
-        [ID] => double    
-        [title] => Число
-    )
-````
-
-Используйте метод [crm.userfield.fields](../../universal/user-defined-fields/crm-userfield-fields.md) для получения списка характеристик пользовательских полей. Метод вернет коды характеристик с их типом и названием.
-
-````
-    [MANDATORY] => Array
-                (
-                    [type] => char
-                    [title] => Обязательное
-                )
-````
-
-## Настройки пользовательских полей
-
-Используйте метод [crm.userfield.settings.fields](../../universal/user-defined-fields/crm-userfield-settings-fields.md), чтобы получить список доступных настроек. Метод вернет поддерживаемые настройки для запрошенного типа поля. 
-
-````
-    [DEFAULT_VALUE] => Array
-            (
-                [type] => double
-                [title] => Значение по умолчанию
-            )
-    [PRECISION] => Array
-            (
-                [type] => int
-                [title] => Точность
-            )
-````
-
-## Ошибки при работе с пользовательскими полями
-
-При создании или удалении пользовательских полей запрос может прерваться с ошибкой [INTERNAL_SERVER_ERROR](../../../../error-codes.md). Это внутренняя ошибка сервера. Причину ошибки можно найти в логах сервера на момент выполнения запроса: 
-* В облачном Битрикс24 напишите обращение в [техническую поддержку](../../../../bitrix-support.md) чтобы получить детали ошибки. 
-* В коробочном Битрикс24 запросите лог ошибок сервера у администратора сервера или администратора хостинга. После напишите в [техническую поддержку](../../../../bitrix-support.md) и приложите лог для анализа. 
-
-### Частые причины серверных ошибок
-
-1. Для контактов можно создать 1016 пользовательских полей — это ограничение архитектуры базы данных. Если в Битрикс24 уже есть 1016 полей для контактов, при попытке создать новое поле метод [crm.contact.userfield.add](./crm-contact-userfield-add.md) вернет ошибку [INTERNAL_SERVER_ERROR](../../../../error-codes.md). 
-
-    Проверить количество пользовательских полей контактов можно методом [crm.contact.userfield.list](./crm-contact-userfield-list.md). 
-
-2. На серверах есть ограничение для времени выполнения одного запроса — `max_execution_time`. Стандартное время — 60 секунд. Если запрос выполняется дольше, он прерывается с ошибкой [INTERNAL_SERVER_ERROR](../../../../error-codes.md). 
-
-    Время [создания](./crm-contact-userfield-add.md) или [удаления](./crm-contact-userfield-delete.md) пользовательского поля контакта зависит от количества контактов. Когда поле создается, оно добавляется во все карточки контактов. Когда поле удаляется, оно удаляется из всех карточек. Чем меньше контактов в вашем Битрикс24, тем быстрее создаются и удаляются поля.
-   
-    Чтобы проверить количество контактов в Битрикс24 используйте метод [crm.contact.list](../crm-contact-list.md).
-
-## Обзор методов {#all-methods}
+# Удалить пользовательское поле контактов crm.contact.userfield.delete
 
 > Scope: [`crm`](../../../scopes/permissions.md)
 >
-> Кто может выполнять методы: в зависимости от метода
+> Кто может выполнять метод: администратор
+
+Метод `crm.contact.userfield.delete` удаляет пользовательское поле контактов.
+
+## Параметры метода
+
+
 
 #|
-|| **Метод** | **Описание** ||
-|| [crm.contact.userfield.add](./crm-contact-userfield-add.md) | Создает новое пользовательское поле для контактов ||
-|| [crm.contact.userfield.update](./crm-contact-userfield-update.md) | Обновляет существующее пользовательское поле контактов ||
-|| [crm.contact.userfield.get](./crm-contact-userfield-get.md) | Возвращает пользовательское поле контактов по идентификатору ||
-|| [crm.contact.userfield.list](./crm-contact-userfield-list.md) | Возвращает список пользовательских полей контактов по фильтру ||
-|| [crm.contact.userfield.delete](./crm-contact-userfield-delete.md) | Удаляет пользовательское поле контактов ||
+|| **Название**
+`тип` | **Описание** ||
+|| **id***
+[`integer`](../../../data-types.md) | Идентификатор пользовательского поля, привязанного к контакту.
+
+Идентификатор можно получить с помощью методов [`crm.contact.userfield.add`](./crm-contact-userfield-add.md) или [`crm.contact.userfield.list`](./crm-contact-userfield-list.md) ||
 |#
+
+## Примеры кода
+
+
+
+Удалить пользовательское поле с `id = 432`
+
+
+
+- cURL (Webhook)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"id":432}' \
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/crm.contact.userfield.delete
+    ```
+
+- cURL (OAuth)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"id":432,"auth":"**put_access_token_here**"}' \
+    https://**put_your_bitrix24_address**/rest/crm.contact.userfield.delete
+    ```
+
+- JS
+
+    ```js
+    BX24.callMethod(
+        'crm.contact.userfield.delete',
+        {
+            id: 432,
+        },
+        (result) => {
+            result.error()
+                ? console.error(result.error())
+                : console.info(result.data())
+            ;
+        },
+    );
+    ```
+
+- PHP
+
+    ```php
+    require_once('crest.php');
+
+    $result = CRest::call(
+        'crm.contact.userfield.delete',
+        [
+            'id' => 432
+        ]
+    );
+
+    echo '<PRE>';
+    print_r($result);
+    echo '</PRE>';
+    ```
+
+- PHP (B24PhpSdk)
+
+    ```php       
+    try {
+        $userfieldId = 123; // Replace with the actual userfield ID you want to delete
+        $result = $serviceBuilder
+            ->getCRMScope()
+            ->contactUserfield()
+            ->delete($userfieldId);
+        if ($result->isSuccess()) {
+            print("Deleted item successfully.");
+        } else {
+            print("Failed to delete item.");
+        }
+    } catch (Throwable $e) {
+        print("An error occurred: " . $e->getMessage());
+    }
+    ```
+
+
+
+## Обработка ответа
+
+HTTP-статус: **200**
+
+```json
+{
+    "result": true,
+    "time": {
+        "start": 1724316817.995457,
+        "finish": 1724316818.640754,
+        "duration": 0.6452970504760742,
+        "processing": 0.3215677738189697,
+        "date_start": "2024-08-22T10:53:37+02:00",
+        "date_finish": "2024-08-22T10:53:38+02:00",
+        "operating": 0
+    }
+}
+```
+
+### Возвращаемые данные
+
+#|
+|| **Название**
+`тип` | **Описание** ||
+|| **result**
+[`boolean`](../../../data-types.md) | Корневой элемент ответа, содержит `true` в случае успеха ||
+|| **time**
+[`time`](../../../data-types.md#time) | Информация о времени выполнения запроса ||
+|#
+
+## Обработка ошибок
+
+HTTP-статус: **400**
+
+```json
+{
+    "error": "",
+    "error_description": "Access denied."
+}
+```
+
+
+
+### Возможные коды ошибок
+
+#|
+|| **Код** | **Описание** | **Значение** ||
+|| `-` | `ID is not defined or invalid` | Переданный `id` либо меньше или равен нулю, либо же не передан вовсе ||
+|| `-` | `Access denied` | Возникает в случаях, когда:
+- у пользователя нет административных прав
+- пользователь пытается удалить пользовательское поле, не привязанное к контактам ||
+|| `ERROR_NOT_FOUND` | `The entity with ID 'id' is not found` | Пользовательское поле с переданным `id` не существует ||
+|| `-` | Ошибка удаления `FIELD_NAME` для объекта `ENTITY_ID` | Неизвестная ошибка при удалении ||
+|#
+
+
+
+## Продолжите изучение
+
+- [{#T}](./crm-contact-userfield-add.md)
+- [{#T}](./crm-contact-userfield-update.md)
+- [{#T}](./crm-contact-userfield-get.md)
+- [{#T}](./crm-contact-userfield-list.md)

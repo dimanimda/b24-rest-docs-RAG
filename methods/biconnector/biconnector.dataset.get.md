@@ -9,55 +9,168 @@ params: {"type":"object","required":["id"],"properties":{"id":{"type":"integer"}
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# BIconnector: обзор методов
+# Получить датасет по id biconnector.dataset.get
 
-
-
-Методы работают только в контексте [приложения](../app-installation/index.md)
-
-
-
-> Scope: [`biconnector`](../scopes/permissions.md)
+> Scope: [`biconnector`](../../scopes/permissions.md)
 >
-> Кто может выполнять методы: пользователь с доступом к разделу «Рабочее место аналитика»
+> Кто может выполнять метод: пользователь с доступом к разделу «Рабочее место аналитика»
 
-## Коннектор
+Метод `biconnector.dataset.get` возвращает информацию о датасете по идентификатору.
 
-#|
-|| **Метод** | **Описание** ||
-|| [biconnector.connector.add](./connector/biconnector-connector-add.md) | Добавляет новый коннектор ||
-|| [biconnector.connector.update](./connector/biconnector-connector-update.md) | Обновляет существующий коннектор ||
-|| [biconnector.connector.get](./connector/biconnector-connector-get.md) | Возвращает информацию о коннекторе ||
-|| [biconnector.connector.list](./connector/biconnector-connector-list.md) | Возвращает список доступных коннекторов ||
-|| [biconnector.connector.delete](./connector/biconnector-connector-delete.md) | Удаляет коннектор ||
-|| [biconnector.connector.fields](./connector/biconnector-connector-fields.md) | Возвращает описание полей коннектора ||
-|#
-
-## Источники
+## Параметры метода
 
 #|
-|| **Метод** | **Описание** ||
-|| [biconnector.source.add](./source/biconnector-source-add.md) | Добавляет новый источник ||
-|| [biconnector.source.update](./source/biconnector-source-update.md) | Обновляет существующий источник ||
-|| [biconnector.source.get](./source/biconnector-source-get.md) | Возвращает информацию об источнике ||
-|| [biconnector.source.list](./source/biconnector-source-list.md) | Возвращает список доступных источников ||
-|| [biconnector.source.delete](./source/biconnector-source-delete.md) | Удаляет источник ||
-|| [biconnector.source.fields](./source/biconnector-source-fields.md) | Возвращает описание полей источника ||
+|| **Название**
+`тип` | **Описание** ||
+|| **id***
+[`integer`](../../data-types.md) | Идентификатор датасета, можно получить методами [biconnector.dataset.list](./biconnector-dataset-list.md) и [biconnector.dataset.add](./biconnector-dataset-add.md) ||
 |#
 
-## Датасеты
+## Примеры кода
+
+
+
+
+
+- JS
+
+    ```js
+    BX24.callMethod(
+        'biconnector.dataset.get',
+        {
+            id: 2,
+        },
+        (result) => {
+            result.error()
+                ? console.error(result.error())
+                : console.info(result.data());
+        }
+    );
+    ```
+
+- cURL (Webhook)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"id":2}' \
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/biconnector.dataset.get
+    ```
+
+- cURL (OAuth)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"id":2,"auth":"**put_access_token_here**"}' \
+    https://**put_your_bitrix24_address**/rest/biconnector.dataset.get
+    ```
+
+- PHP
+
+    ```php
+    require_once('crest.php');
+
+    $result = CRest::call(
+        'biconnector.dataset.get',
+        [
+            'id' => 2
+        ]
+    );
+
+    echo '<PRE>';
+    print_r($result);
+    echo '</PRE>';
+    ```
+
+
+
+## Обработка ответа
+
+HTTP-статус: **200**
+
+```json
+{
+    "result": {
+        "item": {
+            "id": 2,
+            "type": "rest",
+            "name": "rest_dataset11111",
+            "description": "new__2_",
+            "externalCode": "extrnalCode",
+            "externalName": "extranalName",
+            "dateCreate": "2025-03-26 15:28:06",
+            "dateUpdate": "2025-03-27 07:47:43",
+            "createdById": 1,
+            "updatedById": 1,
+            "externalId": 275,
+            "fields": [
+                {"id": 224, "datasetId": 2, "type": "int", "name": "ID", "externalCode": "ID", "visible": true},
+                {"id": 225, "datasetId": 2, "type": "string", "name": "NAME", "externalCode": "NAME", "visible": true},
+                {"id": 226, "datasetId": 2, "type": "string", "name": "SURNAME", "externalCode": "SURNAME", "visible": true},
+                {"id": 227, "datasetId": 2, "type": "double", "name": "SCORE", "externalCode": "SCORE", "visible": true},
+                {"id": 228, "datasetId": 2, "type": "date", "name": "DATA", "externalCode": "DATA", "visible": true},
+                {"id": 229, "datasetId": 2, "type": "datetime", "name": "TIME", "externalCode": "TIME", "visible": true}
+            ]
+        }
+    },
+    "time": {
+        "start": 1743061675.963969,
+        "finish": 1743061676.064591,
+        "duration": 0.10062193870544434,
+        "processing": 0.011152029037475586,
+        "date_start": "2025-03-27T07:47:55+00:00",
+        "date_finish": "2025-03-27T07:47:56+00:00"
+    }
+}
+```
+
+### Возвращаемые данные
 
 #|
-|| **Метод** | **Описание** ||
-|| [biconnector.dataset.add](./dataset/biconnector-dataset-add.md) | Добавляет новый датасет ||
-|| [biconnector.dataset.update](./dataset/biconnector-dataset-update.md) | Обновляет существующий датасет ||
-|| [biconnector.dataset.fields.update](./dataset/biconnector-dataset-fields-update.md) | Обновляет поля датасета ||
-|| [biconnector.dataset.get](./dataset/biconnector-dataset-get.md) | Возвращает информацию о датасете ||
-|| [biconnector.dataset.list](./dataset/biconnector-dataset-list.md) | Возвращает список доступных датасетов ||
-|| [biconnector.dataset.delete](./dataset/biconnector-dataset-delete.md) | Удаляет датасет ||
-|| [biconnector.dataset.fields](./dataset/biconnector-dataset-fields.md) | Возвращает описание полей датасета ||
+|| **Название**
+`тип` | **Описание** ||
+|| **result**
+[`item`](../../data-types.md) | Корневой элемент ответа. Содержит информацию о полях датасета. Описание полей в статье [Датасеты: обзор методов](./index.md#dataset) ||
+|| **time**
+[`time`](../../data-types.md#time) | Информация о времени выполнения запроса ||
+|#    
+
+## Обработка ошибок
+
+HTTP-статус: **200**
+
+```json
+{
+    "error": "VALIDATION_ID_NOT_PROVIDED",
+    "error_description": "ID is missing."
+}
+```
+
+
+
+### Возможные коды ошибок
+
+#|
+|| **Код** | **Описание** | **Значение** ||
+|| `VALIDATION_ID_NOT_PROVIDED` | ID is missing. | Идентификатор не указан ||
+|| `VALIDATION_INVALID_ID_FORMAT` | ID has to be a positive integer. | Неверный формат ID ||
+|| `DATASET_NOT_FOUND` | Dataset was not found. | Датасет не найден ||
 |#
+
+
+
+## Продолжите изучение
+
+- [{#T}](./biconnector-dataset-add.md)
+- [{#T}](./biconnector-dataset-update.md)
+- [{#T}](./biconnector-dataset-fields-update.md)
+- [{#T}](./biconnector-dataset-fields.md)
+- [{#T}](./biconnector-dataset-list.md)
+- [{#T}](./biconnector-dataset-delete.md)
+

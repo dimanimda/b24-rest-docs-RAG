@@ -9,19 +9,16 @@ params: {"type":"object","required":["fields"],"properties":{"fields":{"type":"o
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Сделать то-то (краткая суть операции метода)
+# Добавить обработчик кассы sale.cashbox.handler.add
 
-> Название метода: **crm.xxx**
+> Scope: [`sale, cashbox`](../../scopes/permissions.md)
 >
-> Scope: [`crm`](../scopes/permissions.md)
->
-> Кто может выполнять метод: администратор / любой пользователь
+> Кто может выполнять метод: администратор CRM (право «Разрешить изменять настройки»)
 
-Метод делает вот это
+Метод добавляет REST-обработчик кассы.
 
 ## Параметры метода
 
@@ -31,48 +28,22 @@ Auto-generated stub. Fill in params/returns/examples.
 || **Название**
 `тип` | **Описание** ||
 || **CODE***
-[`string`](../../_includes/data-types.md) | Описание параметра. Тип ссылается на страницу со стандартными типами данных ||
+[`string`](../../data-types.md) | Код REST-обработчика. Должен быть уникальным среди всех обработчиков ||
 || **NAME***
-[`crm_item`](data-types.md) | Описание параметра. Тип ссылается на страницу со типами данных текущего скоупа ||
+[`string`](../../data-types.md) | Название REST-обработчика ||
+|| **SORT**
+[`integer`](../../data-types.md) | Сортировка. Значение по умолчанию: `100` ||
+|| **SUPPORTS_FFD105**
+[`string`](../../data-types.md) | Поддерживает ли касса формат фискальных данных версии 1.05. Возможные значения:
+- `Y` — да
+- `N` — нет
+  
+Значение по умолчанию: `N` ||
 || **SETTINGS***
-[`array`](../../data-types.md) | Пример параметра, имеющего сложную вложенную структуру. На текущем уровне мы описываем её в целом, но без всех подробностей - просто даём представление в целом. Потому что потом, отдельные ключи вроде CONFIG или ITEMS мы будем описывать в последующих таблицах с отдельными подзаголовками
-
-```json
-{
-    "PRINT_URL": "значение",
-    "CHECK_URL": "значение",
-    "HTTP_VERSION": "значение",
-    "CONFIG":
-    {
-        "ключ раздела 1": {
-            "LABEL": "название раздела 1",
-            "ITEMS": {
-                "настройка 1-1": {
-                    "TYPE": "значение",
-                    "LABEL": "значение"
-                    ...
-                },
-                ...
-                "настройка 1-N": {
-                    ...
-                }
-            }
-        },
-        ...
-        "ключ раздела N": {
-            "LABEL": "название раздела N",
-            "ITEMS": {
-                ...
-            }
-        }
-    }
-}
-```
-
- ||
+[`object`](../../data-types.md) | Настройки обработчика (подробное описание приведено [ниже](#settings)) ||
 |#
 
-### Параметр SETTINGS
+### Параметр SETTINGS {#settings}
 
 
 
@@ -80,39 +51,91 @@ Auto-generated stub. Fill in params/returns/examples.
 || **Название**
 `тип` | **Описание** ||
 || **PRINT_URL***
-[`string`](../../data-types.md) | Описание параметра. Тип ссылается на страницу со стандартными типами данных  ||
-|| **HTTP_VERSION***
-[`http_status`](data-types.md) | Описание параметра. Тип ссылается на страницу со типами данных текущего скоупа ||
+[`string`](../../data-types.md) | Адрес, на который отправляются данные для печати чека ||
+|| **CHECK_URL***
+[`string`](../../data-types.md) | Адрес, по которому происходит проверка статуса чека ||
+|| **HTTP_VERSION**
+[`string`](../../data-types.md) | Версия протокола HTTP, используемая для запросов. Возможные значения: `1.0`, `1.1`. 
+
+Если параметр не заполнен, то для запросов используется HTTP `1.0` ||
 || **CONFIG***
-[`array`](../../data-types.md) | Описание параметра со сложной структурой. В продолжение предыдущей таблицы. Опять же, даём общее представление, зная, что подброности об ITEMS будут ниже (в болванке уже не будем приводить ITEMS, принцип понятен)
+[`object`](../../data-types.md) | Структура настроек (подробное описание приведено [ниже](#settingsconfig)), которые пользователь сможет устанавливать и изменять на странице редактирования кассы, а также при добавлении или обновлении кассы через REST. 
 
-```json
-"ключ раздела 1": {
-    "LABEL": "название раздела 1",
-    "ITEMS": {
-        "настройка 1-1": {
-            ...
-        },
-        ... 
-    }
-},
-...
-"ключ раздела N": {
-    ...
-}
-```
-
+Каждый ключ в этом параметре задает один раздел на странице настроек, ключ является кодом раздела. Значения объекта описывают раздел и содержащиеся в нем настройки
 ||
+|#
+
+### Параметр SETTINGS\[CONFIG] {#settingsconfig}
+
+
+
+#|
+|| **Название**
+`тип` | **Описание** ||
+|| **LABEL***
+[`string`](../../data-types.md) | Заголовок раздела ||
+|| **ITEMS***
+[`object`](../../data-types.md) | Список настроек раздела (подробное описание приведено [ниже](#settingsconfigitems)). 
+
+Ключ является кодом настройки, значение — описанием настройки 
+||
+|#
+
+### Параметр SETTINGS\[CONFIG]\[код раздела]\[ITEMS] {#settingsconfigitems}
+
+
+
+#|
+|| **Название**
+`тип` | **Описание** ||
 || **TYPE***
-[`string`](../../data-types.md) | Описание параметра в виде списка значений (та же история про поля с `Y`/`N`). Возможные значения:
+[`string`](../../data-types.md) | Тип настройки. Возможные значения:
 
 - `STRING` — строка
 - `NUMBER` — число с плавающей точкой
 - `Y/N` — строка, принимающая значения `Y` или `N`
 - `ENUM` — список строковых значений
-- `DATE` — дата
+- `DATE` — дата ||
+|| **LABEL***
+[`string`](../../data-types.md) | Название настройки ||
+|| **REQUIRED***
+[`string`](../../data-types.md) | Является ли настройка обязательной. Возможные значения:
 
-Значение по умолчанию: `STRING`
+- `Y` — да
+- `N` — нет
+||
+||  **DISABLED**
+[`string`](../../data-types.md) | Отключена ли возможность редактирования настройки. Возможные значения:
+
+- `Y` — да
+- `N` — нет
+
+Значение по умолчанию: `N` ||
+||  **MULTIPLE**
+[`string`](../../data-types.md) | Является ли настройка множественной. Возможные значения:
+
+- `Y` — да
+- `N` — нет
+
+Значение по умолчанию: `N` ||
+||  **MULTILINE**
+[`string`](../../data-types.md) | Является ли поле многострочным. Используется для типа `STRING`. Возможные значения:
+
+- `Y` — да
+- `N` — нет
+
+Значение по умолчанию: `N` ||
+||  **OPTIONS***
+[`object`](../../data-types.md) | Список возможных значений свойства. Используется для типа `ENUM`. 
+
+Ключ объекта — значение свойства, значение ключа — название значения, отображаемое в интерфейсе ||
+||  **TIME**
+[`string`](../../data-types.md) | Есть ли возможность выбрать время. Используется для типа `DATE`. Возможные значения:
+
+- `Y` — да
+- `N` — нет
+
+Значение по умолчанию: `N`
 ||
 |#
 
@@ -124,11 +147,23 @@ Auto-generated stub. Fill in params/returns/examples.
 
 - cURL (Webhook)
 
-    сюда мы сами вставим нужный код, перегенерированный из вашего примера на JS
+    ```bash
+    -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"CODE":"restcashbox01","NAME":"REST-касса 01","SORT":100,"SUPPORTS_FFD105":"Y","SETTINGS":{"PRINT_URL":"https://example.com/rest_print.php","CHECK_URL":"https://example.com/rest_check.php","HTTP_VERSION":"1.1","CONFIG":{"AUTH":{"LABEL":"Авторизация","ITEMS":{"KEYWORD":{"TYPE":"STRING","LABEL":"Кодовое слово"},"PREFERENCE":{"TYPE":"ENUM","LABEL":"Множественный выбор","REQUIRED":"Y","OPTIONS":{"FIRST":"Первый","SECOND":"Второй","THIRD":"Третий"}}}},"INTERACTION":{"LABEL":"Настройки взаимодействия с кассой","ITEMS":{"MODE":{"TYPE":"ENUM","LABEL":"Режим работы с кассой","OPTIONS":{"ACTIVE":"боевой","TEST":"тестовый"}}}}}}}' \
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/sale.cashbox.handler.add
+    ```
 
 - cURL (OAuth)
 
-    сюда мы сами вставим нужный код, перегенерированный из вашего примера на JS
+    ```bash
+    -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"CODE":"restcashbox01","NAME":"REST-касса 01","SORT":100,"SUPPORTS_FFD105":"Y","SETTINGS":{"PRINT_URL":"https://example.com/rest_print.php","CHECK_URL":"https://example.com/rest_check.php","HTTP_VERSION":"1.1","CONFIG":{"AUTH":{"LABEL":"Авторизация","ITEMS":{"KEYWORD":{"TYPE":"STRING","LABEL":"Кодовое слово"},"PREFERENCE":{"TYPE":"ENUM","LABEL":"Множественный выбор","REQUIRED":"Y","OPTIONS":{"FIRST":"Первый","SECOND":"Второй","THIRD":"Третий"}}}},"INTERACTION":{"LABEL":"Настройки взаимодействия с кассой","ITEMS":{"MODE":{"TYPE":"ENUM","LABEL":"Режим работы с кассой","OPTIONS":{"ACTIVE":"боевой","TEST":"тестовый"}}}}}},"auth":"**put_access_token_here**"}' \
+    https://**put_your_bitrix24_address**/rest/sale.cashbox.handler.add
+    ```
 
 - JS
 
@@ -142,8 +177,8 @@ Auto-generated stub. Fill in params/returns/examples.
             "SUPPORTS_FFD105": "Y",
             "SETTINGS":
             {
-                "PRINT_URL": "http://example.com/rest_print.php",
-                "CHECK_URL": "http://example.com/rest_check.php",
+                "PRINT_URL": "https://example.com/rest_print.php",
+                "CHECK_URL": "https://example.com/rest_check.php",
                 "HTTP_VERSION": "1.1",
                 "CONFIG":
                 {
@@ -194,13 +229,79 @@ Auto-generated stub. Fill in params/returns/examples.
 
 - PHP
 
-    сюда мы сами вставим нужный код, перегенерированный из вашего примера на JS
+    ```php
+    require_once('crest.php');
+
+    $result = CRest::call(
+        'sale.cashbox.handler.add',
+        [
+            'CODE' => 'restcashbox01',
+            'NAME' => 'REST-касса 01',
+            'SORT' => 100,
+            'SUPPORTS_FFD105' => 'Y',
+            'SETTINGS' =>
+            [
+                'PRINT_URL' => 'https://example.com/rest_print.php',
+                'CHECK_URL' => 'https://example.com/rest_check.php',
+                'HTTP_VERSION' => '1.1',
+                'CONFIG' =>
+                [
+                    'AUTH' =>
+                    [
+                        'LABEL' => 'Авторизация',
+                        'ITEMS' =>
+                        [
+                            'KEYWORD' =>
+                            [
+                                'TYPE' => 'STRING',
+                                'LABEL' => 'Кодовое слово'
+                            ],
+                            'PREFERENCE' =>
+                            [
+                                'TYPE' => 'ENUM',
+                                'LABEL' => 'Множественный выбор',
+                                'REQUIRED' => 'Y',
+                                'OPTIONS' =>
+                                [
+                                    'FIRST' => 'Первый',
+                                    'SECOND' => 'Второй',
+                                    'THIRD' => 'Третий',
+                                ]
+                            ]
+                        ]
+                    ],
+                    'INTERACTION' =>
+                    [
+                        'LABEL' => 'Настройки взаимодействия с кассой',
+                        'ITEMS' =>
+                        [
+                            'MODE' =>
+                            [
+                                'TYPE' => 'ENUM',
+                                'LABEL' => 'Режим работы с кассой',
+                                'OPTIONS' =>
+                                [
+                                    'ACTIVE' => 'боевой',
+                                    'TEST' => 'тестовый'
+                                ]
+                            ]
+                        ]
+                    ]
+                ]
+            ]
+        ]
+    );
+
+    echo '<PRE>';
+    print_r($result);
+    echo '</PRE>';
+    ```
 
 
 
 
 
-Контент этого блока мы сами заполним потом. Или уберем блок за ненадобностью
+- [{#T}](../../../tutorials/sale/cashbox-add-example.md)
 
 
 
@@ -230,28 +331,14 @@ HTTP-статус: **200**
 || **Название**
 `тип` | **Описание** ||
 || **result**
-[`integer`](../../data-types.md) | Описание возвращаемого значения. Ссылка либо на корневой справочник типов, либо на типы данных внутри скоупа ||
+[`sale_cashbox_handler.ID`](../data-types.md#sale_cashbox_handler) | Идентификатор созданного обработчика ||
 || **time**
-[`array`](../../data-types.md) | Информация о времени выполнения запроса ||
-|| **start**
-[`double`](../../data-types.md) | Timestamp момента инициализации запроса ||
-|| **finish**
-[`double`](../../data-types.md) | Timestamp момента завершения выполнения запроса ||
-|| **duration**
-[`double`](../../data-types.md) | Как долго в миллисекундах выполнялся запрос (finish — start) ||
-|| **date_start**
-[`string`](../../data-types.md) | Строковое представление даты и времени момента инициализации запроса ||
-|| **date_finish**
-[`double`](../../data-types.md) | Строковое представление даты и времени момента завершения запроса ||
-|| **operating_reset_at**
-[`timestamp`](../../data-types.md) | Timestamp момента, когда будет сброшен лимит на ресурсы REST API. Читайте подробности в статье [лимит на операции](../../../limits.md) ||
-|| **operating**
-[`double`](../../data-types.md) | Через сколько миллисекунд будет сброшен лимит на ресурсы REST API. Читайте подробности в статье [лимит на операции](../../../limits.md) ||
+[`time`](../../data-types.md) | Информация о времени выполнения запроса ||
 |#
 
 ## Обработка ошибок
 
-HTTP-статус: **400**
+HTTP-статус: **400**, **403**
 
 ```json
 {
@@ -265,14 +352,237 @@ HTTP-статус: **400**
 ### Возможные коды ошибок
 
 #|
-|| **Код** | **Описание** ||
-|| `ERROR_CHECK_FAILURE` | Либо не указано значение обязательного поля, либо значение одного из полей указано неверно ||
-|| `ERROR_HANDLER_ALREADY_EXIST` | Обработчик с кодом, указанным в параметре `CODE`, уже существует в системе ||
+|| **Код** | **Описание** | **Статус** ||
+|| `ACCESS_DENIED` | Недостаточно прав для добавления обработчика | 403 ||
+|| `ERROR_CHECK_FAILURE` | Не указано значение обязательного поля либо значение одного из полей указано неверно | 400 ||
+|| `ERROR_HANDLER_ALREADY_EXIST` | Обработчик с кодом, указанным в параметре `CODE`, уже существует в системе | 400 ||
+|| `ERROR_HANDLER_ADD` | Прочие ошибки. Более подробную информацию об ошибке можно найти в `error_description` | 400 ||
 |#
 
 
 
+## Страница PRINT_URL {#print_url}
+
+Страница `PRINT_URL` — адрес, на который отправляются данные для печати чека.
+
+### Пример данных, отправляемых на PRINT_URL
+
+```
+{
+    "type": "sell",
+    "calculated_sign": "income",
+    "unique_id": 85,
+    "items": [
+        {
+            "name": "Товар",
+            "base_price": 12000.0,
+            "price": 9600.0,
+            "sum": 9600.0,
+            "currency": "RUB",
+            "quantity": 1,
+            "measure_code": "796",
+            "vat": 3,
+            "vat_sum": 1600.0,
+            "payment_object": "commodity_marking",
+            "nomenclature_code": "DM �Yߠ�Q:4H7/3f^7fZ1",
+            "marking_code": "011390002199781321Q:4H7/3f^7fZ1",
+            "barcode": "1234567890",
+            "discount": {
+                "discount": 2400.0
+            },
+            "payment_method": "full_payment"
+        }
+    ],
+    "date_create": 1712235417,
+    "payments": [
+        {
+            "type": "cash",
+            "is_cash": "Y",
+            "sum": 1000,
+            "currency": "RUB"
+        }
+    ],
+    "client_email": "client@example.com",
+    "client_phone": "+123456789",
+    "total_sum": 9600.0,
+    "uuid": "check|example.com|85",
+    "operation": "income",
+    "number_kkm": "",
+    "service_email": "admin@example.com",
+    "cashbox_params": {
+        "AUTH": {
+            "LOGIN": "user123",
+            "PASSWORD": "top_secret!"
+        },
+        "COMPANY": {
+            "INN": "123"
+        },
+        "INTERACTION": {
+            "MODE": "ACTIVE"
+        }
+    }
+}
+```
+
+### Структура POST-параметров, отправляемых на PRINT_URL
+
+#|
+|| **Название**
+`тип` | **Описание** ||
+|| **type**
+[`string`](../../data-types.md) | Тип чека. Значения:
+- `sell` — полная оплата
+- `sellreturncash` — полный возврат наличными
+- `sellreturn` — полный возврат безналичными
+- `advancepayment` — аванс
+- `advancereturn` — возврат аванса безналичными
+- `advancereturncash` — возврат аванса наличными
+- `creditpayment` — оплата кредита
+- `creditpaymentreturn` — возврат оплаты кредита безналичными
+- `creditpaymentreturncash` — возврат оплаты кредита наличными
+- `credit` — покупка в кредит
+- `creditreturn` — возврат покупки в кредит
+- `prepayment` — частичная предоплата
+- `prepaymentreturn` — возврат частичной предоплаты безналичными
+- `prepaymentreturncash` — возврат частичной предоплаты наличными
+- `fullprepayment` — 100% предоплата
+- `fullprepaymentreturn` — возврат 100% предоплаты безналичными
+- `fullprepaymentreturncash` — возврат 100% предоплаты наличными ||
+|| **operation**
+[`string`](../../data-types.md) | Признак прихода/расхода. Значения:
+- `income` — приход
+- `consumption` — расход ||
+|| **calculated**
+[`string`](../../data-types.md) | Аналогично `operation` (для совместимости) ||
+|| **unique_id**
+[`integer`](../../data-types.md) | ID чека в базе данных портала ||
+|| **items**
+[`object`](../../data-types.md) | Массив товаров в чеке (подробное описание приведено [ниже](#items)) ||
+|| **date_create**
+[`integer`](../../data-types.md) | Дата создания чека (`timestamp`) ||
+|| **payments**
+[`object`](../../data-types.md) | Массив оплат (подробное описание приведено [ниже](#payments)) ||
+|| **client_email**
+[`string`](../../data-types.md) | E-mail клиента (при наличии) ||
+|| **client_phone**
+[`string`](../../data-types.md) | Номер телефона клиента (при наличии) ||
+|| **total_sum**
+[`float`](../../data-types.md) | Общая сумма по чеку ||
+|| **uuid**
+[`string`](../../data-types.md) | Идентификатор документа во внешней системе (портал *Битрикс24*) ||
+|| **service_email**
+[`string`](../../data-types.md) | Email (из настроек кассы) ||
+|#
+
+#### Параметр items {#items}
+
+#|
+|| **Название**
+`тип` | **Описание** ||
+|| **name**
+[`string`](../../data-types.md) | Название товара ||
+|| **base_price**
+[`float`](../../data-types.md) | Цена товара без учета скидок и наценок ||
+|| **price**
+[`float`](../../data-types.md) | Цена продажи ||
+|| **sum**
+[`float`](../../data-types.md) | Сумма позиции ||
+|| **quantity**
+[`float`](../../data-types.md) | Количество товара ||
+|| **vat**
+[`int`](../../data-types.md) | Идентификатор налога. Он может быть использован в методе [catalog.vat.get](../../catalog/vat/catalog-vat-get.md) для получения информации по налогу ||
+|| **vat_sum**
+[`float`](../../data-types.md) | Cумма налога ||
+|| **barcode**
+[`string`](../../data-types.md) | Штрихкод. Используется при включенном складском учете и передаче товара с уникальным штрихкодом ||
+|| **nomenclature_code**
+[`string`](../../data-types.md) | Код товарной номенклатуры в двоичном представлении (при наличии) ||
+|| **marking_code**
+[`string`](../../data-types.md) | Код товарной номенклатуры (при наличии) ||
+|| **payment_object**
+[`string`](../../data-types.md) | Признак предмета расчета. Стандартные значения: 
+- `commodity` — товар
+- `commodity_marking` — товар, подлежащий маркировке и имеющий код маркировки
+- `service` — услуга
+- `payment` — платеж
+||
+|| **payment_method**
+[`string`](../../data-types.md) | Признак способа расчета. Значения:
+- `full_payment` — полный расчет
+- `advance` — аванс
+- `prepayment` — предоплата
+- `full_prepayment` — 100% предоплата
+- `credit` — покупка в кредит
+- `credit_payment` — оплата кредита
+||
+|| **supplier_info**
+[`array`](../../data-types.md) | Агентские реквизиты при использовании агентских схем (подробное описание приведено [ниже](#supplier_info)) ||
+|| **discount**
+[`array`](../../data-types.md) | Скидка на товар. Ключ является устаревшим и больше не используется. 
+В массиве передается параметр `discount` ([`float`](../../data-types.md)) — размер скидки в денежном выражении ||
+|#
+
+##### Параметр supplier_info {#supplier_info}
+
+#|
+|| **Название**
+`тип` | **Описание** ||
+|| **phones**
+[`string[]`](../../data-types.md) | Номера телефонов ||
+|| **name**
+[`string`](../../data-types.md) | Название поставщика ||
+|| **inn**
+[`string`](../../data-types.md) | ИНН поставщика ||
+|#
+
+#### Параметр payments {#payments}
+
+#|
+|| **Название**
+`тип` | **Описание** ||
+|| **type**
+[`string`](../../data-types.md) | Тип оплаты. Значения:
+- `cash` — оплата наличными
+- `cashless` — безналичный расчет ||
+|| **is_cash**
+[`string`](../../data-types.md) | Производится ли оплата наличными (`Y/N`). Ключ является устаревшим, вместо него рекомендуется использовать `type` ||
+|| **sum**
+[`float`](../../data-types.md) | Сумма оплаты ||
+|| **currency**
+[`string`](../../data-types.md) | Валюта оплаты ||
+|#
+
+## Страница CHECK_URL {#check_url}
+
+Страница `CHECK_URL` — адрес, по которому проверяется успешность печати чека.
+
+Запрос по адресу `CHECK_URL` производится либо по обращению менеджера, либо автоматически спустя некоторое время после успешной печати чека.
+
+### Пример данных, отправляемых на CHECK_URL
+
+```
+{
+    "uuid": "00112233-4455-6677-8899-aabbccddeeff"
+}
+```
+
+### Структура POST-параметров, отправляемых на CHECK_URL
+
+#|
+|| **Название**
+`тип` | **Описание** ||
+|| **uuid**
+[`string`](../../data-types.md) | Идентификатор чека ||
+|#
+
 ## Продолжите изучение
 
-Этот блок мы сами потом заполним, но если есть рекомендации, какие методы или страницы документации тут стоит упомянять - будем благодарны
+- [{#T}](./sale-cashbox-handler-update.md)
+- [{#T}](./sale-cashbox-handler-list.md)
+- [{#T}](./sale-cashbox-handler-delete.md)
+- [{#T}](./sale-cashbox-add.md)
+- [{#T}](./sale-cashbox-update.md)
+- [{#T}](./sale-cashbox-list.md)
+- [{#T}](./sale-cashbox-delete.md)
+- [{#T}](./sale-cashbox-check-apply.md)
 

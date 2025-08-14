@@ -9,66 +9,96 @@ params: {"type":"object","required":["id","fields"],"properties":{"id":{"type":"
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Единицы измерения в Торговом каталоге: обзор методов
+# Событие при изменении единицы измерения CATALOG.MEASURE.ON.UPDATE
 
-У каждого товара есть единица измерения: вес, количество, объем и так далее. В Битрикс24 доступны популярные варианты, но вы можете добавить свои.
-
-Чтобы установить основную единицу измерения, укажите в параметре `isDefault` значение `Y`. Тогда при создании нового товара она будет автоматически выбрана в карточке.
-
-> Быстрый переход: [все методы и события](#all-methods)
-> 
-> Пользовательская документация: 
-> - [Единицы измерения](https://helpdesk.bitrix24.ru/open/5488453/)
-> - [Единицы измерения в услугах](https://helpdesk.bitrix24.ru/open/17277938/)
-
-## Коэффициент единицы измерения
-
-Если вы продаете товар дробно или упаковками, укажите в карточке товара коэффициент единицы измерения. Примеры:
-- для ткани установите коэффициент 0.1, чтобы покупатели могли заказывать с шагом 0,1 метра, например, 3,6 метра,
-- для напитков в упаковках по 6 бутылок используйте коэффициент 6: 1 единица — это 6 бутылок, 3 единицы — 18 бутылок.
-
-Просмотреть коэффициенты единицы измерения можно с помощью методов [catalog.ratio.*](../ratio/index.md).
-
-## Связь единиц измерения с другими объектами
-
-**Товары.** Создавайте и редактируйте товары, используя следующие группы методов:
-- [catalog.product.*](../product/index.md) — для простых товаров
-- [catalog.product.service.*](../product/service/index.md) — для услуг
-- [catalog.product.sku.*](../product/sku/index.md) — для головных товаров у товаров с вариациями
-- [catalog.product.offer.*](../product/offer/index.md) — для вариаций товаров
-
-## Обзор методов и событий {#all-methods}
-
-> Scope: [`catalog`](../../scopes/permissions.md)
+> Scope: [`catalog`](../../../scopes/permissions.md)
 >
-> Кто может выполнять методы: администратор
+> Кто может подписаться: любой пользователь
+
+Событие происходит при обновлении единицы измерения.
+
+## Что получает обработчик
+
+Данные передаются в виде POST-запроса {.b24-info}
+
+```
+[
+    'event' => 'CATALOG.MEASURE.ON.UPDATE',    
+    'event_handler_id' => 1,
+    'data' => [
+        'FIELDS' => [
+            'ID' => 1,
+        ],
+    ],
+    'ts' => 1714649632,
+    'auth' => [
+        'access_token' => 's6p6eclrvim6da22ft9ch94ekreb52lv',
+        'expires_in' => 3600,
+        'scope' => 'catalog',
+        'domain' => 'some-domain.bitrix24.com',
+        'server_endpoint' => 'https://oauth.bitrix24.tech/rest/',
+        'status' => 'F',
+        'client_endpoint' => 'https://some-domain.bitrix24.com/rest/',
+        'member_id' => 'a223c6b3710f85df22e9377d6c4f7553',
+        'refresh_token' => '4s386p3q0tr8dy89xvmt96234v3dljg8',
+        'application_token' => '51856fefc120afa4b628cc82d3935cce',
+    ],
+]
+```
+
+## Параметры
 
 
 
-- Методы
-  
-    #|
-    || **Метод** | **Описание** ||
-    || [catalog.measure.add](./catalog-measure-add.md) | Добавляет единицу измерения ||
-    || [catalog.measure.update](./catalog-measure-update.md) | Обновляет единицу измерения ||
-    || [catalog.measure.get](./catalog-measure-get.md) | Возвращает информацию о единице измерения по ее идентификатору ||
-    || [catalog.measure.list](./catalog-measure-list.md) | Возвращает список единиц измерения ||
-    || [catalog.measure.delete](./catalog-measure-delete.md) | Удаляет единицу измерения ||
-    || [catalog.measure.getFields](./catalog-measure-get-fields.md) | Возвращает доступные поля единиц измерения ||
-    |#
+#|
+|| **Название**
+`тип` | **Описание** ||
+|| **event***
+[`string`](../../data-types.md) | Символьный код события ||
+|| **event_handler_id***
+[`integer`](../../data-types.md) | Идентификатор обработчика события ||
+|| **data***
+[`object`](../../data-types.md) | Объект с данными события.
 
-- События 
+Структура описана [ниже](#data) ||
+|| **ts***
+[`integer`](../../data-types.md) | Timestamp отправки события из очереди событий ||
+|| **auth***
+[`object`](../../data-types.md) | Объект с параметрами авторизации и данными о портале, на котором произошло событие ||
+|#
 
-    #|
-    || **Событие** | **Вызывается** ||
-    || [CATALOG.MEASURE.ON.ADD](./events/catalog-measure-on-add.md) | При добавлении единицы измерения ||
-    || [CATALOG.MEASURE.ON.UPDATE](./events/catalog-measure-on-update.md)| При обновлении единицы измерения ||
-    || [CATALOG.MEASURE.ON.DELETE](./events/catalog-measure-on-delete.md)| При удалении единицы измерения ||
-    |#
+### Параметр data {#data}
 
 
 
+#|
+|| **Название**
+`тип` | **Описание** ||
+|| **FIELDS***
+[`object`](../../data-types.md) | Объект со свойствами единицы измерения.
+
+Структура описана [ниже](#fields) ||
+|#
+
+### Параметр FIELDS {#fields}
+
+
+
+#|
+|| **Название**
+`тип` | **Описание** ||
+|| **ID***
+[`catalog_measure.id`](../../data-types.md#catalog_measure) | Идентификатор единицы измерения. Получить все поля единицы измерения по ее идентификатору можно с помощью метода [catalog.measure.get](../catalog-measure-get.md) ||
+|#
+
+### Параметр auth {#auth}
+
+
+
+## Продолжите изучение
+
+- [{#T}](./catalog-measure-on-add.md)
+- [{#T}](./catalog-measure-on-delete.md)

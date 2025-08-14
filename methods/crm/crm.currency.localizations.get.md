@@ -9,43 +9,178 @@ params: {"type":"object","required":["id"],"properties":{"id":{"type":"integer"}
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Локализации валют в CRM: обзор методов
-
-Локализация валют — это правила написания чисел и расположения знака валюты на разных языках.
-
-> Быстрый переход: [все методы и события](#all-methods) 
-> 
-> Пользовательская документация: [валюты в Битрикс24](https://helpdesk.bitrix24.ru/open/6987305/), [структура локализации](../../data-types.md#crm_currency_localization) 
-
-## Использование локализации
-
-**Битрикс24.** Вывод валюты зависит от языка интерфейса Битрикс в аккаунте сотрудника. В интерфейсе на русском языке сумма выводится в формате `12 345,67 ₽`,  на английском — `₽ 12,345.67`.
-
-**Битрикс24.Сайты.** В настройках сайта можно выбрать язык стандартных фраз для блоков конструктора. Язык сайта влияет на формат вывода цен в блоках магазина.
-
-
-
-- [Как переключить язык интерфейса в Битрикс24](https://helpdesk.bitrix24.ru/open/17302258/)
-- [Настройки сайтов и страниц](https://helpdesk.bitrix24.ru/open/6527585/)
-
-
-
-## Обзор методов и событий {#all-methods}
+# Получить локализации валюты crm.currency.localizations.get
 
 > Scope: [`crm`](../../../scopes/permissions.md)
 >
-> Кто может выполнять метод: зависит от метода
+> Кто может выполнять метод: любой пользователь с доступом к настройкам CRM
 
+Метод получает существующие локализации валюты.
+
+## Параметры метода
 
 #|
-|| **Метод** | **Описание** ||
-|| [crm.currency.localizations.get](./crm-currency-localizations-get.md) | Получает существующие локализации валюты ||
-|| [crm.currency.localizations.set](./crm-currency-localizations-set.md) | Обновляет локализации для валюты или добавляет, если локализация для указанного языка не существует ||
-|| [crm.currency.localizations.delete](./crm-currency-localizations-delete.md) | Удаляет локализации валюты для указанных языков ||
-|| [crm.currency.localizations.fields](./crm-currency-localizations-fields.md) | Получает доступные поля локализации валюты, то есть настроек зависящих от языка ||
+||  **Название**
+`тип`| **Описание** ||
+|| **id**
+[`string`](../../../data-types.md) | Идентификатор валюты. 
+
+Соответствует стандарту ISO 4217.
+
+Идентификатор можно получить методом [crm.currency.list](../crm-currency-list.md)
+ ||
 |#
 
+## Примеры кода
+
+
+
+
+
+- cURL (Webhook)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"id":"RUB"}' \
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webhook_here**/crm.currency.localizations.get
+    ```
+
+- cURL (OAuth)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"id":"RUB","auth":"**put_access_token_here**"}' \
+    https://**put_your_bitrix24_address**/rest/crm.currency.localizations.get
+    ```
+
+- JS
+
+    ```js
+    BX24.callMethod(
+        "crm.currency.localizations.get",
+        {
+            id: "RUB"
+        },
+    )
+    .then(
+        function(result)
+        {
+            if (result.error())
+            {
+                console.error(result.error());
+            }
+            else
+            {
+                console.log(result);
+            }
+        },
+        function(error)
+        {
+            console.info(error);
+        }
+    );
+    ```
+
+- PHP
+
+    ```php
+    require_once('crest.php');
+
+    $result = CRest::call(
+        'crm.currency.localizations.get',
+        [
+            'id' => 'RUB'
+        ]
+    );
+
+    echo '<PRE>';
+    print_r($result);
+    echo '</PRE>';
+    ```
+
+
+
+## Обработка ответа
+
+HTTP-статус: **200**
+
+```json
+{
+    "result": {
+        "en": {
+            "FORMAT_STRING": "&#8381;#",
+            "FULL_NAME": "Russian Ruble",
+            "DEC_POINT": ".",
+            "THOUSANDS_SEP": null,
+            "DECIMALS": "2",
+            "THOUSANDS_VARIANT": "C",
+            "HIDE_ZERO": "Y"
+        },
+        "ru": {
+            "FORMAT_STRING": "# &#8381;",
+            "FULL_NAME": "Российский рубль",
+            "DEC_POINT": ".",
+            "THOUSANDS_SEP": "&nbsp;",
+            "DECIMALS": "2",
+            "THOUSANDS_VARIANT": "B",
+            "HIDE_ZERO": "Y"
+        }
+    },
+    "time": {
+        "start": 1718114356.076467,
+        "finish": 1718114356.682042,
+        "duration": 0.6055748462677002,
+        "processing": 0.03888106346130371,
+        "date_start": "2024-06-11T15:59:16+02:00",
+        "date_finish": "2024-06-11T15:59:16+02:00",
+        "operating": 0
+    }
+}
+```
+
+### Возвращаемые данные
+
+#|
+|| **Название**
+`тип` | **Описание** ||
+|| **result**
+[`object`](../../../data-types.md) | Объект в формате `{"lang_1": "value_1", ... "lang_N": "value_N"}`, где `lang_N` — идентификатор языка, а `value` — объект типа [crm_currency_localization](../../data-types.md#crm_currency_localization). ||
+|| **time**
+[`time`](../../../data-types.md) | Информация о времени выполнения запроса ||
+|#
+
+## Обработка ошибок
+
+HTTP-статус: **400**
+
+```json
+{
+	"error": "",
+	"error_description": "The parameter id is invalid or not defined."
+}
+```
+
+
+
+### Возможные коды ошибок
+
+#|
+|| **Код** | **Описание** | **Значение** ||
+|| Пустая строка | Access denied. | Недостаточно прав доступа ||
+|| Пустая строка | The parameter id is invalid or not defined. | Пустой идентификатор валюты ||
+|#
+
+
+
+## Продолжите изучение 
+
+- [{#T}](./crm-currency-localizations-set.md)
+- [{#T}](./crm-currency-localizations-delete.md)
+- [{#T}](./crm-currency-localizations-fields.md)

@@ -9,104 +9,207 @@ params: {"type":"object","required":["id"],"properties":{"id":{"type":"integer"}
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Скрам: обзор методов
-
-Скрам — это гибкий способ организации работы с задачами. Команда может разбить на части крупный проект и выполнять его постепенно, по одному фрагменту.
-
-> Быстрый переход: [все методы и события](#all-methods) 
-> 
-> Пользовательская документация: [Битрикс24.Скрам](https://helpdesk.bitrix24.ru/open/13660630/)
-
-## Скрам в Битрикс24
-
-Технически Скрам является группой. Идентификатор Скрама `groupId` в параметрах методов и полях элементов Скрама — это идентификатор `id` группы.
-
-Чтобы создать Скрам, используйте метод [создания новой группы](../sonet-group-create.md). Группа является Скрамом, если заполнено поле `SCRUM_MASTER_ID`.
+# Получить поля эпика по его идентификатору tasks.api.scrum.epic.get
 
 
 
-- [Как создать группу и проект](https://helpdesk.bitrix24.ru/open/22699004/)
+
+
+- структура параметра files относится к модулю Диск, поэтому здесь не описана. Нужно сделать ссылку, когда появится описание структуры в документации
 
 
 
-## Элементы Скрама
 
-Задачи в Скраме — это стандартные задачи Битрикс24 с расширенными возможностями для работы по методологии Скрам. Для создания или изменения задач используется группа методов [tasks.api.scrum.task.*](./task/index.md).
 
-Команда Скрама собирает все задачи проекта в одном месте — в бэклоге. Задачи, пожелания, идеи, обратная связь записываются и приоритизируются.  Работать с бэклогом можно с помощью группы методов [tasks.api.scrum.backlog.*](./backlog/index.md).
-
-Чтобы сделать бэклог нагляднее, задачи прикрепляются к эпикам. Эпик — это тема, контекст или большая цель, к которой относится задача. Для создания, изменения, получения или удаления эпиков используется группа методов [tasks.api.scrum.epic.*](./epic/index.md).
-
-Участники команды просматривают бэклог и решают, какие задачи брать в спринт. Спринт — это короткий итерационный цикл, за который команда выполняет определенную работу. Управлять спринтами можно с помощью группы методов [tasks.api.scrum.sprint.*](./sprint/index.md).
-
-Команда передвигает задачи по стадиям канбана, работая  над задачами спринта. Канбан — это инструмент, который помогает визуально представить работу с задачами в виде колонок и карточек. Колонки — это стадии работы, карточки — задачи. Работа со стадиями и управление задачами в канбане выполняется методами [tasks.api.scrum.kanban.*](./kanban/index.md).
-
-## Обзор методов {#all-methods} 
-
-> Scope: [`task`](../../scopes/permissions.md)
+> Scope: [`task`](../../../scopes/permissions.md)
 >
-> Кто может выполнять метод: любой пользователь
+> Кто может выполнять метод: любой пользователь, имеющий доступ к Скраму
 
-### Бэклог
+Метод получает значения полей эпика по его идентификатору `id`.
 
-#|
-|| **Метод** | **Описание** ||
-|| [tasks.api.scrum.backlog.add](./backlog/tasks-api-scrum-backlog-add.md) | Добавляет бэклог в Скрам ||
-|| [tasks.api.scrum.backlog.update](./backlog/tasks-api-scrum-backlog-update.md) | Обновляет бэклог ||
-|| [tasks.api.scrum.backlog.get](./backlog/tasks-api-scrum-backlog-get.md) | Получает значения полей бэклога по идентификатору Скрама ||
-|| [tasks.api.scrum.backlog.delete](./backlog/tasks-api-scrum-backlog-delete.md) | Удаляет бэклог ||
-|| [tasks.api.scrum.backlog.getFields](./backlog/tasks-api-scrum-backlog-get-fields.md) | Получает доступные поля бэклога ||
-|#
+## Параметры метода
 
-### Канбан
+
 
 #|
-|| **Метод** | **Описание** ||
-|| [tasks.api.scrum.kanban.addStage](./kanban/tasks-api-scrum-kanban-add-stage.md) | Создает стадию канбана Скрама ||
-|| [tasks.api.scrum.kanban.updateStage](./kanban/tasks-api-scrum-kanban-update-stage.md) | Обновляет стадию канбана Скрама ||
-|| [tasks.api.scrum.kanban.getStages](./kanban/tasks-api-scrum-kanban-get-stages.md) | Получает стадии канбана по `id` спринта ||
-|| [tasks.api.scrum.kanban.deleteStage](./kanban/tasks-api-scrum-kanban-delete-stage.md) | Удаляет стадию ||
-|| [tasks.api.scrum.kanban.addTask](./kanban/tasks-api-scrum-kanban-add-task.md) | Добавляет задачу в канбан Скрама ||
-|| [tasks.api.scrum.kanban.deleteTask](./kanban/tasks-api-scrum-kanban-delete-task.md) | Удаляет задачу из канбана Скрама ||
-|| [tasks.api.scrum.kanban.getFields](./kanban/tasks-api-scrum-kanban-get-fields.md) | Получает доступные поля стадии канбана ||
+|| **Название**
+`тип` | **Описание** ||
+|| **id***
+[`integer`](../../../data-types.md) | Идентификатор эпика.
+
+Получить идентификаторы эпиков можно методом [`tasks.api.scrum.epic.list`](./tasks-api-scrum-epic-list.md) ||
 |#
 
-### Эпики
+## Примеры кода
+
+
+
+
+
+- cURL (Webhook)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"id":1}' \
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/tasks.api.scrum.epic.get
+    ```
+
+- cURL (OAuth)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"id":1,"auth":"**put_access_token_here**"}' \
+    https://**put_your_bitrix24_address**/rest/tasks.api.scrum.epic.get
+    ```
+
+- JS
+
+    ```js
+    const epicId = 1;
+    BX24.callMethod(
+        'tasks.api.scrum.epic.get',
+        {
+            id: epicId,
+        },
+        function(res)
+        {
+            console.log(res);
+        }
+    );
+    ```
+
+- PHP
+
+    ```php
+    require_once('crest.php');
+
+    $result = CRest::call(
+        'tasks.api.scrum.epic.get',
+        [
+            'id' => 1
+        ]
+    );
+
+    echo '<PRE>';
+    print_r($result);
+    echo '</PRE>';
+    ```
+
+
+
+## Обработка ответа
+
+HTTP-статус: **200**
+
+```json
+{
+    "id": 1,
+    "groupId": 143,
+    "name": "эпик",
+    "description": "",
+    "createdBy": 1,
+    "modifiedBy": 0,
+    "color": "#69dafc",
+    "files": {
+        "ID": "136",
+        "ENTITY_ID": "TASKS_SCRUM_EPIC",
+        "FIELD_NAME": "UF_SCRUM_EPIC_FILES",
+        "USER_TYPE_ID": "disk_file",
+        "XML_ID": null,
+        "SORT": "100",
+        "MULTIPLE": "Y",
+        "MANDATORY": "N",
+        "SHOW_FILTER": "N",
+        "SHOW_IN_LIST": "N",
+        "EDIT_IN_LIST": "N",
+        "IS_SEARCHABLE": "N",
+        "SETTINGS": {
+            "IBLOCK_ID": null,
+            "SECTION_ID": null,
+            "UF_TO_SAVE_ALLOW_EDIT": false
+        },
+        "USER_TYPE": {
+            "USER_TYPE_ID": "disk_file",
+            "CLASS_NAME": "Bitrix\\Disk\\Uf\\FileUserType",
+            "DESCRIPTION": "Файл (Диск)",
+            "BASE_TYPE": "int",
+            "TAG": [
+                "DISK FILE ID",
+                "DOCUMENT ID"
+            ]
+        },
+        "VALUE": [],
+        "ENTITY_VALUE_ID": 1,
+        "CUSTOM_DATA": {
+            "PHOTO_TEMPLATE": ""
+        },
+        "EDIT_FORM_LABEL": "UF_SCRUM_EPIC_FILES",
+        "TAG": "DOCUMENT ID"
+    }
+}
+```
+
+### Возвращаемые данные
 
 #|
-|| **Метод** | **Описание** ||
-|| [tasks.api.scrum.epic.add](./epic/tasks-api-scrum-epic-add.md) | Добавляет эпик в Скрам ||
-|| [tasks.api.scrum.epic.update](./epic/tasks-api-scrum-epic-update.md) | Обновляет эпик в Скраме ||
-|| [tasks.api.scrum.epic.get](./epic/tasks-api-scrum-epic-get.md) | Получает значения полей эпика по его `id` ||
-|| [tasks.api.scrum.epic.list](./epic/tasks-api-scrum-epic-list.md) | Получает список эпиков ||
-|| [tasks.api.scrum.epic.delete](./epic/tasks-api-scrum-epic-delete.md) | Удаляет эпик ||
-|| [tasks.api.scrum.epic.getFields](./epic/tasks-api-scrum-epic-get-fields.md) | Получает доступные поля эпика ||
+|| **Название**
+`тип` | **Описание** ||
+|| **id**
+[`integer`](../../../data-types.md) | Идентификатор эпика ||
+|| **groupId**
+[`integer`](../../../data-types.md) | Идентификатор группы (скрама), к которой привязан эпик ||
+|| **name**
+[`string`](../../../data-types.md) | Название эпика ||
+|| **description**
+[`string`](../../../data-types.md) | Описание эпика ||
+|| **createdBy**
+[`integer`](../../../data-types.md) | Идентификатор пользователя, создавшего эпик ||
+|| **modifiedBy**
+[`integer`](../../../data-types.md) | Идентификатор пользователя, который последним изменял эпик ||
+|| **color**
+[`string`](../../../data-types.md) | Цвет эпика в формате HEX ||
+|| **files**
+[`object`](../../../data-types.md) | Объект с данными обо всех файлах, прикрепленных к эпику ||
 |#
 
-### Спринты
+## Обработка ошибок
+
+HTTP-статус: **400**
+
+```json
+{
+    "error": 0,
+    "error_description": "Access denied"
+}
+```
+
+
+
+### Возможные коды ошибок
 
 #|
-|| **Метод** | **Описание** ||
-|| [tasks.api.scrum.sprint.add](./sprint/tasks-api-scrum-sprint-add.md) | Добавляет спринт в Скрам ||
-|| [tasks.api.scrum.sprint.update](./sprint/tasks-api-scrum-sprint-update.md) | Обновляет спринт ||
-|| [tasks.api.scrum.sprint.start](./sprint/tasks-api-scrum-sprint-start.md) | Запускает спринт ||
-|| [tasks.api.scrum.sprint.complete](./sprint/tasks-api-scrum-sprint-complete.md) | Завершает активный спринт выбранного Скрама ||
-|| [tasks.api.scrum.sprint.get](./sprint/tasks-api-scrum-sprint-get.md) | Получает значения полей спринта по его `id` ||
-|| [tasks.api.scrum.sprint.list](./sprint/tasks-api-scrum-sprint-list.md) | Получает список спринтов ||
-|| [tasks.api.scrum.sprint.delete](./sprint/tasks-api-scrum-sprint-delete.md) | Удаляет спринт ||
-|| [tasks.api.scrum.sprint.getFields](./sprint/tasks-api-scrum-sprint-get-fields.md) | Получает доступные поля спринта ||
+|| **Код** | **Описание**  | **Значение** ||
+|| `0` | Access denied | Нет доступа для просмотра данных эпика ||
+|| `0` | Epic not found | Такого эпика не существует ||
+|| `100` | Could not find value for parameter {id} | Неверно указано имя параметра или не задан параметр ||
+|| `100` | Invalid value {stringValue} to match with parameter {id}. Should be value of type int. | Неверный тип параметра ||
 |#
 
-### Задачи Скрама
 
-#|
-|| **Метод** | **Описание** ||
-|| [tasks.api.scrum.task.update](./task/tasks-api-scrum-task-update.md) | Создает или обновляет задачу Скрама ||
-|| [tasks.api.scrum.task.get](./task/tasks-api-scrum-task-get.md) | Получает значения полей задачи Скрама по `id` ||
-|| [tasks.api.scrum.task.getFields](./task/tasks-api-scrum-task-get-fields.md) | Получает доступные поля задачи Скрама ||
-|#
+
+## Продолжите изучение 
+
+- [{#T}](./index.md)
+- [{#T}](./tasks-api-scrum-epic-add.md)
+- [{#T}](./tasks-api-scrum-epic-update.md)
+- [{#T}](./tasks-api-scrum-epic-list.md)
+- [{#T}](./tasks-api-scrum-epic-delete.md)
+- [{#T}](./tasks-api-scrum-epic-get-fields.md)
 

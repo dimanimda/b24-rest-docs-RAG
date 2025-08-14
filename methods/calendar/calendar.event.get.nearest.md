@@ -9,79 +9,315 @@ params: {"type":"object"}
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# События календаря: обзор методов
-
-События календаря — это запланированные дела или встречи. Они содержат информацию о дате, времени, месте проведения и участниках события. События помогают пользователям управлять расписанием, напоминают о предстоящих делах и встречах.
-
-> Быстрый переход: [все методы и события](#all-methods) 
-> 
-> Пользовательская документация: [как создать событие в календаре](https://helpdesk.bitrix24.ru/open/5257065/)
-
-## Связь события календаря с другими объектами
-
-**Пользователь.** Событие имеет привязку к пользователю по идентификатору владельца календаря `ownerId` для типа календаря `user`. Если событие — встреча с участниками `is_meeting = 'Y'`, то оно дополнительно привязано к организатору события `host` и участникам `attendees`. Получить идентификатор пользователя можно с помощью метода [user.get](../../user/user-get.md).
-
-**Группа.** Событие имеет привязку к группе по идентификатору владельца календаря `ownerId` для типа календаря `group`. Идентификатор можно получить методом [создания новой группы](../../sonet-group/sonet-group-create.md) или методом [получения списка групп](../../sonet-group/socialnetwork-api-workgroup-list.md).
-
-**Объекты CRM.** К событию можно привязать объекты CRM: компании, контакты, лиды и сделки. Чтобы привязать объекты, перечислите их идентификаторы с [префиксами](../../crm/data-types.md#object_type) в параметре `crm_fields`. Например, `C_3` для контакта с `id = 3`. Получить идентификатор можно методом [создания нового элемента CRM](../../crm/universal/crm-item-add.md) или методом [получения списка элементов](../../crm/universal/crm-item-list.md).
-
-
-
-- [Календарь Битрикс24](https://helpdesk.bitrix24.ru/open/17525000/)
-- [Как создать группу и проект](https://helpdesk.bitrix24.ru/open/22699004/)
-
-
-
-## Список событий
-
-Получить список событий календаря можно двумя методами:
-- [calendar.event.get](./calendar-event-get.md) — возвращает список любых событий, прошедших и будущих, за указанный период
-- [calendar.event.get.nearest](./calendar-event-get-nearest.md) — возвращает список только будущих событий за указанное количество дней
-
-## Участие пользователя в событии
-Пользователь решает, участвовать в событии или нет. Решение фиксируется в статусе участия и может иметь значение:
-- `Y` — согласен
-- `N` — отказался
-- `Q` — приглашен, но еще не ответил
-
-Узнать статус участия текущего пользователя в событии можно методом [calendar.meeting.status.get](./calendar-meeting-status-get.md). Установить статус — методом [calendar.meeting.status.set](./calendar-meeting-status-set.md).
-
-Метод [calendar.accessibility.get](./calendar-accessibility-get.md) получает занятость пользователей из списка.
-
-## Обзор методов и событий {#all-methods}
+# Получить список будущих событий calendar.event.get.nearest
 
 > Scope: [`calendar`](../../scopes/permissions.md)
 >
 > Кто может выполнять метод: любой пользователь
 
+Метод получает список будущих событий.
+
+## Параметры метода
+
+#|
+|| **Название**
+`тип` | **Описание** ||
+|| **type**
+[`string`](../../data-types.md) | Тип календаря: 
+- `user` — календарь пользователя
+- `group` — календарь группы
+- `company_calendar` — календарь компании ||
+|| **ownerId**
+[`integer`](../../data-types.md) | Идентификатор владельца календаря.
+
+Для календаря компании параметр `ownerId` имеет значение `0` ||
+|| **days**
+[`integer`](../../data-types.md) | Число дней для выборки. По умолчанию — `60` ||
+|| **forCurrentUser**
+[`boolean`](../../data-types.md) | Вывод списка событий для текущего пользователя. По умолчанию — `true` ||
+|| **maxEventsCount**
+[`integer`](../../data-types.md) | Максимальное число выводимых событий ||
+|| **detailUrl**
+[`string`](../../data-types.md) | Ссылка URL календаря ||
+|#
+
+## Примеры кода
 
 
-- Методы
 
-    #|
-    || **Метод** | **Описание** ||
-    || [calendar.event.add](./calendar-event-add.md) | Добавить событие ||
-    || [calendar.event.update](./calendar-event-update.md) | Обновить событие ||
-    || [calendar.event.getById](./calendar-event-get-by-id.md) | Получить событие по `id` ||
-    || [calendar.event.get](./calendar-event-get.md) | Получить список событий календаря ||
-    || [calendar.event.getNearest](./calendar-event-get-nearest.md) | Получить список будущих событий ||
-    || [calendar.event.delete](./calendar-event-delete.md) | Удалить событие ||
-    || [calendar.meeting.status.get](./calendar-meeting-status-get.md) | Получить статус участия текущего пользователя в событии ||
-    || [calendar.meeting.status.set](./calendar-meeting-status-set.md) | Установить статус участия в событии для текущего пользователя ||
-    || [calendar.accessibility.get](./calendar-accessibility-get.md) | Получить занятость пользователей из списка ||
-    |#
+1. Получить события текущего пользователя за следующие 10 дней.
 
-- События
+    
 
-    #|
-    || **Событие** | **Вызывается** ||
-    || [OnCalendarEntryAdd](./events/on-calendar-entry-add.md) | При добавлении события ||
-    || [OnCalendarEntryUpdate](./events/on-calendar-entry-update.md) | При изменении события ||
-    || [OnCalendarEntryDelete](./events/on-calendar-entry-delete.md) | При удалении события ||
-    |#
+    - cURL (Webhook)
+
+        ```bash
+        curl -X POST \
+        -H "Content-Type: application/json" \
+        -H "Accept: application/json" \
+        -d '{"type":"user","ownerId":2,"days":10,"forCurrentUser":true,"maxEventsCount":100,"detailUrl":"/company/personal/user/#user_id#/calendar/"}' \
+        https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/calendar.event.get.nearest
+        ```
+
+    - cURL (OAuth)
+
+        ```bash
+        curl -X POST \
+        -H "Content-Type: application/json" \
+        -H "Accept: application/json" \
+        -d '{"type":"user","ownerId":2,"days":10,"forCurrentUser":true,"maxEventsCount":100,"detailUrl":"/company/personal/user/#user_id#/calendar/","auth":"**put_access_token_here**"}' \
+        https://**put_your_bitrix24_address**/rest/calendar.event.get.nearest
+        ```
+
+    - JS
+
+        ```js
+        BX24.callMethod(
+            'calendar.event.get.nearest',
+            {
+                type: 'user',
+                ownerId: 2,
+                days: 10,
+                forCurrentUser: true,
+                maxEventsCount: 100,
+                detailUrl: '/company/personal/user/#user_id#/calendar/'
+            }
+        );
+        ```
+
+    - PHP
+
+        ```php
+        require_once('crest.php');
+
+        $result = CRest::call(
+            'calendar.event.get.nearest',
+            [
+                'type' => 'user',
+                'ownerId' => 2,
+                'days' => 10,
+                'forCurrentUser' => true,
+                'maxEventsCount' => 100,
+                'detailUrl' => '/company/personal/user/#user_id#/calendar/'
+            ]
+        );
+
+        echo '<PRE>';
+        print_r($result);
+        echo '</PRE>';
+        ```
+
+    
+
+
+2. Получить события календаря компании.
+
+    
+
+    - cURL (Webhook)
+
+        ```bash
+        curl -X POST \
+        -H "Content-Type: application/json" \
+        -H "Accept: application/json" \
+        -d '{"type":"company_calendar","ownerId":"","forCurrentUser":false}' \
+        https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/calendar.event.get
+        ```
+
+    - cURL (OAuth)
+
+        ```bash
+        curl -X POST \
+        -H "Content-Type: application/json" \
+        -H "Accept: application/json" \
+        -d '{"type":"company_calendar","ownerId":"","forCurrentUser":false,"auth":"**put_access_token_here**"}' \
+        https://**put_your_bitrix24_address**/rest/calendar.event.get
+        ```
+
+    - JS
+
+        ```js
+        BX24.callMethod(
+            'calendar.event.get',
+            {
+                type: 'company_calendar',
+                ownerId: 0, // ownerId не указывается при выборке событий календаря компании. Он пустой для всех событий такого типа.
+                forCurrentUser: false
+            }
+        );
+        ```
+
+    - PHP
+
+        ```php
+        require_once('crest.php');
+
+        $result = CRest::call(
+            'calendar.event.get',
+            [
+                'type' => 'company_calendar',
+                'ownerId' => '',
+                'forCurrentUser' => false
+            ]
+        );
+
+        echo '<PRE>';
+        print_r($result);
+        echo '</PRE>';
+        ```
+
+    
+
+## Обработка ответа
+
+HTTP-статус: **200**
+
+```json
+{
+    "result": [
+        {
+            "ID": "1265",
+            "PARENT_ID": "1265",
+            "DELETED": "N",
+            "CAL_TYPE": "user",
+            "OWNER_ID": "1",
+            "NAME": "Event Name",
+            "DATE_FROM": "12/11/2024 05:59:00 pm",
+            "DATE_TO": "12/11/2024 06:59:00 pm",
+            "ORIGINAL_DATE_FROM": null,
+            "TZ_FROM": "Europe/Riga",
+            "TZ_TO": "Europe/Riga",
+            "TZ_OFFSET_FROM": "7200",
+            "TZ_OFFSET_TO": "7200",
+            "DATE_FROM_TS_UTC": "1733932740",
+            "DATE_TO_TS_UTC": "1733936340",
+            "DT_SKIP_TIME": "N",
+            "DT_LENGTH": 3600,
+            "EVENT_TYPE": null,
+            "CREATED_BY": "1",
+            "DATE_CREATE": "12/05/2024 01:48:41 pm",
+            "TIMESTAMP_X": "12/05/2024 01:48:41 pm",
+            "DESCRIPTION": "Description for event",
+            "PRIVATE_EVENT": "",
+            "ACCESSIBILITY": "free",
+            "IMPORTANCE": "normal",
+            "IS_MEETING": true,
+            "MEETING_STATUS": "H",
+            "MEETING_HOST": "1",
+            "MEETING": {
+                "HOST_NAME": "User Name",
+                "NOTIFY": false,
+                "REINVITE": false,
+                "ALLOW_INVITE": false,
+                "HIDE_GUESTS": false,
+                "MEETING_CREATOR": 1,
+                "LANGUAGE_ID": "ru",
+                "MAIL_FROM": ""
+            },
+            "LOCATION": "test location",
+            "REMIND": [
+                {
+                    "type": "min",
+                    "count": 50
+                }
+            ],
+            "COLOR": "#9dcf00",
+            "RRULE": {
+                "FREQ": "WEEKLY",
+                "BYDAY": {
+                    "MO": "MO",
+                    "WE": "WE"
+                },
+                "INTERVAL": 1,
+                "UNTIL": "12/24/2024",
+                "~UNTIL": "12/24/2024",
+                "UNTIL_TS": 1734998400
+            },
+            "EXDATE": "11/28/2024;12/05/2024;12/12/2024;12/19/2024;12/26/2024",
+            "DAV_XML_ID": "20241211T155900Z-534185204b362e9be7e261e92ccd9078@b24evo.lan",
+            "G_EVENT_ID": "",
+            "DAV_EXCH_LABEL": "",
+            "CAL_DAV_LABEL": "",
+            "VERSION": "1",
+            "ATTENDEES_CODES": [
+                "U1"
+            ],
+            "RECURRENCE_ID": 1272,
+            "RELATIONS": {
+                "ORIGINAL_RECURSION_ID": 1271,
+                "COMMENT_XML_ID": "EVENT_1271_12/23/2024"
+            },
+            "SECTION_ID": "4",
+            "SYNC_STATUS": null,
+            "UF_CRM_CAL_EVENT": [
+                "CO_1",
+                "L_5"
+            ],
+            "UF_WEBDAV_CAL_EVENT": false,
+            "SECTION_DAV_XML_ID": null,
+            "DATE_FROM_FORMATTED": "Wed Dec 11 2024 17:59:00",
+            "DATE_TO_FORMATTED": "Wed Dec 11 2024 18:59:00",
+            "SECT_ID": "4",
+            "ATTENDEE_LIST": [
+                {
+                    "id": 1,
+                    "entryId": "1265",
+                    "status": "H"
+                }
+            ],
+            "COLLAB_ID": null,
+            "~RRULE_DESCRIPTION": "каждую неделю по: Пн, Ср, от 12/11/2024 до 12/24/2024",
+            "attendeesEntityList": [
+                {
+                    "entityId": "user",
+                    "id": 1
+                }
+            ],
+            "~DESCRIPTION": "Description for event",
+            "~USER_OFFSET_FROM": 7200,
+            "~USER_OFFSET_TO": 7200
+        },
+        {
+            "ID": "1221",
+            ...
+        }
+    ],
+    "time": {
+        "start": 1733411636.753706,
+        "finish": 1733411637.040975,
+        "duration": 0.28726911544799805,
+        "processing": 0.05995798110961914,
+        "date_start": "2024-12-05T15:13:56+00:00",
+        "date_finish": "2024-12-05T15:13:57+00:00"
+    }
+}
+```
+
+### Возвращаемые данные
+
+
+
+## Обработка ошибок
+
+HTTP-статус: **400**
+
+```json
+{
+  "error": "",
+  "error_description": "Доступ запрещен"
+}
+```
+
+
+### Возможные коды ошибок
+
+#|
+|| **Код** | **Cообщение об ошибке** | **Описание** ||
+|| Пустая строка | Доступ запрещен | Запрещен доступ к типу календаря или у пользователя не активирована функциональность календаря ||
+|#
+
 
 

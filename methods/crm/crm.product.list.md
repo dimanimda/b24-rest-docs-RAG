@@ -9,33 +9,143 @@ params: {"type":"object","properties":{"filter":{"type":"object"},"order":{"type
 returns: {"type":"array","items":{"type":"object"}}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Товары
+# Получить список товаров по фильтру crm.product.list
 
 > Scope: [`crm`](../../../scopes/permissions.md)
 >
-> Кто может выполнять метод: зависит от метода
+> Кто может выполнять метод: любой пользователь
 
-#|
-|| **Метод** | **Описание** ||
-|| [crm.product.add](./crm-product-add.md) | Создает новый товар ||
-|| [crm.product.delete](./crm-product-delete.md) | Удаляет товар ||
-|| [crm.product.fields](./crm-product-fields.md) | Возвращает описание полей товара ||
-|| [crm.product.get](./crm-product-get.md) | Возвращает товар по идентификатору ||
-|| [crm.product.list](./crm-product-list.md) | Возвращает список товаров по фильтру ||
-|| [crm.product.update](./crm-product-update.md) | Обновляет существующий товар ||
-|| [crm.product.property.types](./crm-product-property-types.md) | Возвращает список типов свойств товаров ||
-|| [crm.product.property.fields](./crm-product-property-fields.md) | Возвращает описание полей для свойств товаров ||
-|| [crm.product.property.settings.fields](./crm-product-property-settings-fields.md) | Возвращает описание полей дополнительных настроек свойства товаров пользовательского типа ||
-|| [crm.product.property.enumeration.fields](./crm-product-property-enumeration-fields.md) | Возвращает описание полей элемента свойства товаров списочного типа ||
-|| [crm.product.property.add](./crm-product-property-add.md) | Создает новое свойство товаров ||
-|| [crm.product.property.get](./crm-product-property-get.md) | Возвращает свойство товаров по идентификатору ||
-|| [crm.product.property.list](./crm-product-property-list.md) | Возвращает список свойств товаров ||
-|| [crm.product.property.update](./crm-product-property-update.md) | Обновляет существующее свойство товаров ||
-|| [crm.product.property.delete](./crm-product-property-delete.md) | Удаляет свойство товаров ||
-|#
 
-Общий список **событий товаров** приведен в статье [События](./events-custom/index.md).
+
+Метод `crm.product.list` продолжает работать, но у него есть более актуальные аналоги [catalog.product.*](../../../catalog/product/index.md).
+
+
+
+Метод `crm.product.list` возвращает список товаров по фильтру.
+
+## Параметры метода
+
+См. описание [списочных методов](../../../common/index.md).
+
+## Примеры кода
+
+
+
+
+
+- cURL (Webhook)
+
+    ```http
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"order":{"NAME":"ASC"},"filter":{"CATALOG_ID":"your_catalog_id"},"select":["ID","NAME","CURRENCY_ID","PRICE"]}' \
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/crm.product.list
+    ```
+
+- cURL (OAuth)
+
+    ```http
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"order":{"NAME":"ASC"},"filter":{"CATALOG_ID":"your_catalog_id"},"select":["ID","NAME","CURRENCY_ID","PRICE"],"auth":"**put_access_token_here**"}' \
+    https://**put_your_bitrix24_address**/rest/crm.product.list
+    ```
+
+- JS
+
+    ```js
+    var catalogId = prompt("Введите ID каталога");
+    BX24.callMethod(
+        "crm.product.list",
+        {
+            order: { "NAME": "ASC" },
+            filter: { "CATALOG_ID": catalogId },
+            select: [ "ID", "NAME", "CURRENCY_ID", "PRICE" ]
+        },
+        function(result)
+        {
+            if(result.error())
+                console.error(result.error());
+            else
+            {
+                console.dir(result.data());
+                if(result.more())
+                    result.next();
+            }
+        }
+    );
+    ```
+
+    Чтобы получить свойства товара, нужно в `select` указать `PROPERTY_*`.
+
+    ```js
+    $arFields['select'] = array('*', 'PROPERTY_*');
+    ```
+
+- PHP
+
+    ```php
+    require_once('crest.php');
+
+    $catalogId = 'your_catalog_id'; // Replace 'your_catalog_id' with the actual catalog ID
+
+    $result = CRest::call(
+        'crm.product.list',
+        [
+            'order' => ['NAME' => 'ASC'],
+            'filter' => ['CATALOG_ID' => $catalogId],
+            'select' => ['ID', 'NAME', 'CURRENCY_ID', 'PRICE']
+        ]
+    );
+
+    echo '<PRE>';
+    print_r($result);
+    echo '</PRE>';
+    ```
+
+- PHP (B24PhpSdk)
+
+    ```php        
+    try {
+        $order = []; // Define your order array
+        $filter = []; // Define your filter array
+        $select = ['ID', 'CATALOG_ID', 'PRICE', 'CURRENCY_ID', 'NAME', 'CODE', 'DESCRIPTION', 'DESCRIPTION_TYPE', 'ACTIVE', 'SECTION_ID', 'SORT', 'VAT_ID', 'VAT_INCLUDED', 'MEASURE', 'XML_ID', 'PREVIEW_PICTURE', 'DETAIL_PICTURE', 'DATE_CREATE', 'TIMESTAMP_X', 'MODIFIED_BY', 'CREATED_BY'];
+        $startItem = 0; // Define your start item
+        $result = $serviceBuilder
+            ->getCRMScope()
+            ->product()
+            ->list($order, $filter, $select, $startItem);
+        foreach ($result->getProducts() as $product) {
+            print("ID: {$product->ID}\n");
+            print("Catalog ID: {$product->CATALOG_ID}\n");
+            print("Price: {$product->PRICE}\n");
+            print("Currency ID: {$product->CURRENCY_ID}\n");
+            print("Name: {$product->NAME}\n");
+            print("Code: {$product->CODE}\n");
+            print("Description: {$product->DESCRIPTION}\n");
+            print("Description Type: {$product->DESCRIPTION_TYPE}\n");
+            print("Active: {$product->ACTIVE}\n");
+            print("Section ID: {$product->SECTION_ID}\n");
+            print("Sort: {$product->SORT}\n");
+            print("VAT ID: {$product->VAT_ID}\n");
+            print("VAT Included: {$product->VAT_INCLUDED}\n");
+            print("Measure: {$product->MEASURE}\n");
+            print("XML ID: {$product->XML_ID}\n");
+            print("Preview Picture: {$product->PREVIEW_PICTURE}\n");
+            print("Detail Picture: {$product->DETAIL_PICTURE}\n");
+            print("Date Create: " . (new DateTime($product->DATE_CREATE))->format(DateTime::ATOM) . "\n");
+            print("Timestamp X: " . (new DateTime($product->TIMESTAMP_X))->format(DateTime::ATOM) . "\n");
+            print("Modified By: {$product->MODIFIED_BY}\n");
+            print("Created By: {$product->CREATED_BY}\n");
+        }
+    } catch (Throwable $e) {
+        print("Error: " . $e->getMessage());
+    }
+    ```
+
+

@@ -9,59 +9,220 @@ params: {"type":"object"}
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Работа с настраиваемыми полями шаблона реквизитов
+# Получить описание настраиваемых полей шаблона реквизитов crm.requisite.preset.field.fields
 
 > Scope: [`crm`](../../../../scopes/permissions.md)
 >
-> Кто может выполнять методы: любой пользователь
+> Кто может выполнять метод: любой пользователь
 
-Настраиваемые поля — поля, которые можно добавлять или удалять из шаблона. 
+Метод возвращает формально описание полей, описывающих настаиваемое поле шаблона реквизитов.
 
-В форме редактирования реквизитов, кроме служебных полей, которые есть в любом реквизите (например, `Название` или `Комментарий`), есть другие (такие как `ИНН` и `КПП`), которые являются настраиваемыми. Методы этого раздела предназначены для управления списком таких полей для конкретного шаблона.
+Без параметров.
 
-Настраиваемые поля можно разделить на две категории: предустановленные и пользовательские.
+## Примеры кода
 
-Набор предустановленных полей является фиксированным для каждой поддерживаемой страны. Любое такое поле можно добавить в шаблон, относящийся к соответствующей стране, если его еще нет в шаблоне. Предустановленные поля имеют префикс `RQ_`.
 
-Пользовательские поля добавляются либо пользователем, либо через соответствующие [REST-методы](../../user-fields/index.md). Созданное пользовательское поле можно добавить в шаблон. Пользовательские поля могут добавляться в шаблоны любых поддерживаемых стран. Пользовательские поля имеют префикс `UF_`. Если пользовательское поле используется в шаблонах разных стран, необходимо убедиться, что оно имеет для них одинаковый смысл и название в интерфейсе.
 
-Поле **FIELD_NAME** фактически является ссылкой на существующее поле, предустановленное либо пользовательское.
 
-## Поля, описывающие настраиваемое поле шаблона реквизитов
+
+- cURL (Webhook)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{}' \
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webhook_here**/crm.requisite.preset.field.fields
+    ```
+
+- cURL (OAuth) 
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"auth":"**put_access_token_here**"}' \
+    https://**put_your_bitrix24_address**/rest/crm.requisite.preset.field.fields
+    ```
+
+- JS
+
+    ```js
+    BX24.callMethod(
+        "crm.requisite.preset.field.fields",
+        {},
+        function(result)
+        {
+            if(result.error())
+                console.error(result.error());
+            else
+                console.dir(result.data());
+        }
+    );
+    ```
+
+- PHP
+
+    ```php
+    require_once('crest.php');
+
+    $result = CRest::call(
+        'crm.requisite.preset.field.fields',
+        []
+    );
+
+    echo '<PRE>';
+    print_r($result);
+    echo '</PRE>';
+    ```
+
+
+
+## Обработка ответа
+
+HTTP-статус: **200**
+
+```json
+{
+    "result": {
+        "ID": {
+            "type": "integer",
+            "isRequired": false,
+            "isReadOnly": true,
+            "isImmutable": false,
+            "isMultiple": false,
+            "isDynamic": false,
+            "title": "ID"
+        },
+        "FIELD_NAME": {
+            "type": "string",
+            "isRequired": true,
+            "isReadOnly": false,
+            "isImmutable": false,
+            "isMultiple": false,
+            "isDynamic": false,
+            "title": "Имя"
+        },
+        "FIELD_TITLE": {
+            "type": "string",
+            "isRequired": false,
+            "isReadOnly": false,
+            "isImmutable": false,
+            "isMultiple": false,
+            "isDynamic": false,
+            "title": "Название в шаблоне"
+        },
+        "SORT": {
+            "type": "integer",
+            "isRequired": false,
+            "isReadOnly": false,
+            "isImmutable": false,
+            "isMultiple": false,
+            "isDynamic": false,
+            "title": "Сортировка"
+        },
+        "IN_SHORT_LIST": {
+            "type": "char",
+            "isRequired": false,
+            "isReadOnly": false,
+            "isImmutable": false,
+            "isMultiple": false,
+            "isDynamic": false,
+            "title": "Показывать в кратком списке"
+        }
+    },
+    "time": {
+        "start": 1716823643.597269,
+        "finish": 1716823643.949143,
+        "duration": 0.35187387466430664,
+        "processing": 0.012942075729370117,
+        "date_start": "2024-05-27T17:27:23+02:00",
+        "date_finish": "2024-05-27T17:27:23+02:00",
+        "operating": 0
+    }
+}
+```
+
+### Возвращаемые данные
+
+#|
+|| **Название**
+`тип` | **Описание** ||
+|| **result**
+[`object`](../../../../data-types.md) | Объект в формате `{"field_1": "value_1", ... "field_N": "value_N"}`, где `field` — идентификатор поля, а `value` — объект с [атрибутами поля](#attribute) ||
+|| **time**
+[`time`](../../../../data-types.md) | Информация о времени выполнения запроса ||
+|#
+
+### Описание полей, описывающих настраиваемое поле шаблона реквизитов
 
 #|
 ||  **Название**
-`тип` | **Описание** | **Чтение** | **Запись** | **Обязательное** ||
+`тип` | **Описание** ||
 || **ID**
-[`integer`](../../../../data-types.md) | Идентификатор поля. Создается автоматически и уникален в рамках шаблона | Да | Нет | Нет ||
+[`integer`](../../../../data-types.md) | Идентификатор поля. Создается автоматически и уникален в рамках шаблона ||
 || **FIELD_NAME**
-[`string`](../../../../data-types.md) | Название поля | Да | Да | Да ||
+[`string`](../../../../data-types.md) | Название поля ||
 || **FIELD_TITLE**
 [`string`](../../../../data-types.md) | Альтернативное название поля для реквизита.
 
-Альтернативное название отображается в различных формах для заполнения реквизитов. В зависимости от конкретной формы альтернативное название может использоваться или нет | Да | Да | Нет ||
+Альтернативное название отображается в различных формах для заполнения реквизитов. В зависимости от конкретной формы альтернативное название может использоваться или нет 
+||
 || **SORT**
-[`integer`](../../../../data-types.md) | Сортировка. Порядок в списке полей шаблона | Да | Да | Нет ||
+[`integer`](../../../../data-types.md) | Сортировка. Порядок в списке полей шаблона ||
 || **IN_SHORT_LIST**
-[`char`](../../../../data-types.md) | Показывать в кратком списке. Устаревшее поле, сейчас не используется. Оставлено для обратной совместимости. Может принимать значения `Y` или `N` | Да | Да | Нет ||
+[`char`](../../../../data-types.md) | Показывать в кратком списке. Устаревшее поле, сейчас не используется. Оставлено для обратной совместимости. Может принимать значения `Y` или `N` ||
 |#
 
-Используйте метод [crm.requisite.preset.field.fields](./crm-requisite-preset-field-fields.md), чтобы получить формальное описание полей.
-
-## Обзор методов
+### Описание атрибутов {#attribute}
 
 #|
-|| **Метод** | **Описание** ||
-|| [crm.requisite.preset.field.add](./crm-requisite-preset-field-add.md) | Добавляет настраиваемое поле в шаблон реквизитов ||
-|| [crm.requisite.preset.field.update](./crm-requisite-preset-field-update.md) | Изменяет настраиваемое поле в шаблоне реквизитов ||
-|| [crm.requisite.preset.field.availabletoadd](./crm-requisite-preset-field-available-to-add.md) | Возвращает поля, доступные для добавления в указанный шаблон реквизитов ||
-|| [crm.requisite.preset.field.get](./crm-requisite-preset-field-get.md) | Возвращает описание настраиваемого поля шаблона реквизитов по идентификатору ||
-|| [crm.requisite.preset.field.list](./crm-requisite-preset-field-list.md) | Возвращает список всех настраиваемых полей для определенного шаблона реквизитов ||
-|| [crm.requisite.preset.field.delete](./crm-requisite-preset-field-delete.md) | Удаляет настраиваемое поле из шаблона реквизитов ||
-|| [crm.requisite.preset.field.fields](./crm-requisite-preset-field-fields.md) | Возвращает формально описание полей, описывающих настаиваемое поле шаблона реквизитов ||
+|| **Название**
+`тип` | **Описание** ||
+|| **type**
+[`string`](../../../../data-types.md) | Тип поля ||
+|| **isRequired**
+[`boolean`](../../../../data-types.md) | Атрибут «обязательное». Возможные значения:
+- true — да
+- false — нет
+||
+|| **isReadOnly**
+[`boolean`](../../../../data-types.md) | Атрибут «только для чтения». Возможные значения:
+- true — да
+- false — нет 
+||
+|| **isImmutable**
+[`boolean`](../../../../data-types.md) | Атрибут «неизменяемое». Возможные значения:
+- true — да
+- false — нет 
+||
+|| **isMultiple**
+[`boolean`](../../../../data-types.md) | Атрибут «мультиполе». Возможные значения:
+- true — да
+- false — нет
+||
+|| **isDynamic**
+[`boolean`](../../../../data-types.md) | Атрибут «пользовательское». Возможные значения:
+- true — да
+- false — нет 
+||
+|| **title**
+[`string`](../../../../data-types.md) | Идентификатор поля ||
 |#
+
+## Обработка ошибок
+
+
+
+## Продолжите изучение
+
+- [{#T}](./crm-requisite-preset-field-add.md)
+- [{#T}](./crm-requisite-preset-field-update.md)
+- [{#T}](./crm-requisite-preset-field-available-to-add.md)
+- [{#T}](./crm-requisite-preset-field-get.md)
+- [{#T}](./crm-requisite-preset-field-list.md)
+- [{#T}](./crm-requisite-preset-field-delete.md)
 

@@ -9,43 +9,166 @@ params: {"type":"object","required":["id"],"properties":{"id":{"type":"integer"}
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Ставки НДС в Торговом каталоге: обзор методов
-
-Ставку НДС можно задать для всего каталога или для конкретного товара. Приоритет отдается ставке НДС товара. Ставка каталога применяется, если ставка товара не задана.
-
-Если у товара или каталога есть ставка НДС, общие налоги CRM к ним не применяются.
-
-> Быстрый переход: [все методы](#all-methods)
-> 
-> Пользовательская документация: [Налоги и НДС в CRM](https://helpdesk.bitrix24.ru/open/15955806)
-
-## Связь ставок НДС с другими объектами
-
-**Торговый каталог.** Узнайте, какая ставка НДС установлена для торгового каталога, с помощью метода [catalog.catalog.get](../catalog/catalog-catalog-get.md).
-
-**Товары.** Укажите НДС товара, используя следующие группы методов:
-- [catalog.product.*](../product/index.md) — для простых товаров
-- [catalog.product.service.*](../product/service/index.md) — для услуг
-- [catalog.product.sku.*](../product/sku/index.md) — для головных товаров у товаров с вариациями
-- [catalog.product.offer.*](../product/offer/index.md) — для вариаций товаров
-
-## Обзор методов {#all-methods}
+# Получить значения всех полей торгового каталога catalog.catalog.get
 
 > Scope: [`catalog`](../../scopes/permissions.md)
 >
 > Кто может выполнять метод: администратор
 
+Метод возвращает значения всех полей торгового каталога.
+
+## Параметры метода
+
+
+
 #|
-|| **Метод** | **Описание** ||
-|| [catalog.vat.add](./catalog-vat-add.md) | Добавляет ставку НДС ||
-|| [catalog.vat.update](./catalog-vat-update.md) | Изменяет ставку НДС ||
-|| [catalog.vat.get](./catalog-vat-get.md) | Возвращает значения полей ставки НДС по идентификатору ||
-|| [catalog.vat.list](./catalog-vat-list.md) | Возвращает список ставок НДС по фильтру ||
-|| [catalog.vat.delete](./catalog-vat-delete.md) | Удаляет ставку НДС ||
-|| [catalog.vat.getFields](./catalog-vat-get-fields.md) | Возвращает поля ставки НДС ||
+|| **Название**
+`тип` | **Описание** ||
+|| **id***
+[`catalog_catalog.id`](../data-types.md#catalog_catalog) | Идентификатор торгового каталога ||
 |#
 
+## Примеры кода
+
+
+
+
+
+- cURL (Webhook)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"id":23}' \
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webhook_here**/catalog.catalog.get
+    ```
+
+- cURL (OAuth)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"id":23,"auth":"**put_access_token_here**"}' \
+    https://**put_your_bitrix24_address**/rest/catalog.catalog.get
+    ```
+
+- JS
+
+    ```js
+    BX24.callMethod(
+        'catalog.catalog.get', {
+            'id': 23
+        },
+        function(result) {
+            if (result.error()) {
+                console.error(result.error());
+            } else {
+                console.info(result.data());
+            }
+        }
+    );
+    ```
+
+- PHP
+
+    ```php
+    require_once('crest.php');
+
+    $result = CRest::call(
+        'catalog.catalog.get',
+        [
+            'id' => 23
+        ]
+    );
+
+    echo '<PRE>';
+    print_r($result);
+    echo '</PRE>';
+    ```
+
+
+
+## Обработка ответа
+
+HTTP-статус: **200**
+
+```json
+{
+    "result": {
+        "catalog": {
+            "iblockId": 23,
+            "iblockTypeId": 0,
+            "id": 23,
+            "lid": "s1",
+            "name": "Товары 1С",
+            "productIblockId": null,
+            "skuPropertyId": null,
+            "subscription": "N",
+            "vatId": null
+        }
+    },
+    "time": {
+        "start": 1716390151.446282,
+        "finish": 1716390151.902625,
+        "duration": 0.4563431739807129,
+        "processing": 0.016014814376831055,
+        "date_start": "2024-05-22T18:02:31+03:00",
+        "date_finish": "2024-05-22T18:02:31+03:00"
+    }
+}
+```
+
+### Возвращаемые данные
+
+#|
+|| **Название**
+`тип` | **Описание** ||
+|| **result**
+[`object`](../../data-types.md) | Корневой элемент ответа ||
+|| **catalog**
+[`catalog_catalog`](../data-types.md#catalog_catalog) | Объект с информацией о торговом каталоге ||
+|| **time**
+[`time`](../../data-types.md) | Информация о времени выполнения запроса ||
+|#
+
+## Обработка ошибок
+
+HTTP-статус: **400**
+
+```json
+{
+    "error":200040300010,
+    "error_description":"Access Denied"
+}
+```
+
+
+
+### Возможные коды ошибок
+
+#|
+|| **Код** | **Описание** ||
+|| `200040300010` | Недостаточно прав для чтения торгового каталога
+|| 
+|| `200040300030` | Недостаточно прав для чтения торгового каталога
+|| 
+|| `100` | Не указан параметр `id`
+|| 
+|| `0` | Торговый каталог с указанным идентификатором не существует
+|| 
+|| `0` | Другие ошибки (например, фатальные ошибки)
+|| 
+|#
+
+
+
+## Продолжите изучение
+
+- [{#T}](./catalog-catalog-list.md)
+- [{#T}](./catalog-catalog-is-offers.md)
+- [{#T}](./catalog-catalog-get-fields.md)

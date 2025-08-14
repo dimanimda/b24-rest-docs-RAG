@@ -9,229 +9,182 @@ params: {"type":"object","required":["id"],"properties":{"id":{"type":"integer"}
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-### SHIPMENT
+# Получить информацию обо всех услугах конкретной службы доставки sale.delivery.extra.service.get
+
+> Scope: [`sale, delivery`](../../../scopes/permissions.md)
+>
+> Кто может выполнять метод: администратор
+
+Метод получает информацию обо всех услугах конкретной службы доставки.
+
+## Параметры метода
+
+
 
 #|
 || **Название**
 `тип` | **Описание** ||
-|| **ID**
-[`sale_order_shipment.id`](../../../data-types.md#sale_order_shipment) | Идентификатор отгрузки.
-
-В случае, если расчет идет по еще несохраненной отгрузке, то значение параметра будет `null`.
-
-Получить идентификаторы отгрузок можно с помощью метода [sale.shipment.list](../../../shipment/sale-shipment-list.md) ||
-|| **DELIVERY_SERVICE**
-[`object`](../../../../data-types.md) | Информация о выбранной службе доставке, ее профиле и настройках (подробное описание приведено [ниже](#delivery_service)) ||
-|| **PRICE**
-[`double`](../../../../data-types.md) | Полная стоимость товаров для клиента в отгрузке ||
-|| **CURRENCY**
-[`crm_currency.CURRENCY`](../../../../crm/data-types.md) | Код валюты стоимости ||
-|| **WEIGHT**
-[`double`](../../../../data-types.md) | Полный вес товаров в отгрузке (в граммах) ||
-|| **PROPERTY_VALUES**
-[`object[]`](../../../../data-types.md) | Массив, содержащий значения свойств отгрузки (подробное описание приведено [ниже](#property_values)) ||
-|| **ITEMS**
-[`object[]`](../../../../data-types.md) | Массив, содержащий все товары, входящие в отгрузку (подробное описание приведено [ниже](#items)) ||
-|| **EXTRA_SERVICE_VALUES**
-[`object[]`](../../../../data-types.md) | Массив, содержащий список необходимых дополнительных услуг, выбранных для доставки (подробное описание приведено [ниже](#extra_service_values)) ||
-|| **RESPONSIBLE_CONTACT**
-[`object`](../../../../data-types.md) | Информация по контакту менеджера, ответственного за доставку со стороны Битрикс24 (подробное описание приведено [ниже](#responsible_contact)) ||
-|| **RECIPIENT_CONTACT**
-[`object`](../../../../data-types.md) | Информация по контакту грузополучателя (подробное описание приведено [ниже](#recipient_contact)) ||
+|| **DELIVERY_ID***
+[`sale_delivery_service.ID`](../../data-types.md) | Идентификатор службы доставки ||
 |#
 
-### DELIVERY_SERVICE
+## Примеры кода
+
+
+
+
+
+- cURL (Webhook)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"DELIVERY_ID":198}' \
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webhook_here**/sale.delivery.extra.service.get
+    ```
+
+- cURL (OAuth)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"DELIVERY_ID":198,"auth":"**put_access_token_here**"}' \
+    https://**put_your_bitrix24_address**/rest/sale.delivery.extra.service.get
+    ```
+
+- JS
+
+    ```js
+    BX24.callMethod(
+        'sale.delivery.extra.service.get', {
+            DELIVERY_ID: 198,
+        },
+        function(result) {
+            if (result.error()) {
+                console.error(result.error());
+            } else {
+                console.info(result.data());
+            }
+        }
+    );
+    ```
+
+- PHP
+
+    ```php
+    require_once('crest.php');
+
+    $result = CRest::call(
+        'sale.delivery.extra.service.get',
+        [
+            'DELIVERY_ID' => 198,
+        ]
+    );
+
+    echo '<PRE>';
+    print_r($result);
+    echo '</PRE>';
+    ```
+
+
+
+## Обработка ответа
+
+HTTP-статус: **200**
+
+```json
+{
+   "result":[
+      {
+         "ID":"136",
+         "CODE":"door_delivery",
+         "NAME":"Door Delivery",
+         "DESCRIPTION":"Door Delivery Description",
+         "ACTIVE":"Y",
+         "SORT":"100",
+         "TYPE":"checkbox",
+         "PRICE":99.99
+      },
+      {
+         "ID":"129",
+         "CODE":"cargo_type",
+         "NAME":"Cargo Type",
+         "DESCRIPTION":"Cargo Type",
+         "ACTIVE":"Y",
+         "SORT":"200",
+         "TYPE":"enum",
+         "ITEMS":[
+            {
+               "TITLE":"Documents",
+               "CODE":null,
+               "PRICE":"69.99"
+            },
+            {
+               "TITLE":"Small Package(s)",
+               "CODE":null,
+               "PRICE":"129.99"
+            },
+            {
+               "TITLE":"Large Package(s)",
+               "CODE":null,
+               "PRICE":"199.99"
+            }
+         ]
+      }
+   ],
+   "time":{
+      "start":1714551728.295288,
+      "finish":1714551728.519896,
+      "duration":0.2246079444885254,
+      "processing":0.01918506622314453,
+      "date_start":"2024-05-01T11:22:08+03:00",
+      "date_finish":"2024-05-01T11:22:08+03:00"
+   }
+}
+```
+
+### Возвращаемые данные
 
 #|
 || **Название**
 `тип` | **Описание** ||
-|| **ID**
-[`sale_delivery_service.ID`](../../../data-types.md#sale_delivery_service) | Идентификатор службы доставки ||
-|| **CONFIG**
-[`object[]`](../../../../data-types.md) | Значения настроек службы доставки (подробное описание приведено [ниже](#config)) ||
-|| **PARENT**
-[`object`](../../../../data-types.md) | Информация о родительской службе доставки (подробное описание приведено [ниже](#parent)) ||
+|| **result**
+[`sale_delivery_extra_service[]`](../../data-types.md) | Список всех услуг службы доставки ||
+|| **time**
+[`time`](../../../data-types.md) | Информация о времени выполнения запроса ||
 |#
 
-### PARENT
+## Обработка ошибок
+
+HTTP-статус: **400**, **403**
+
+```json
+{
+    "error":"ERROR_DELIVERY_NOT_FOUND",
+    "error_description":"Delivery not found"
+}
+```
+
+
+
+### Возможные коды ошибок
 
 #|
-|| **Название**
-`тип` | **Описание** ||
-|| **ID**
-[`sale_delivery_service.ID`](../../../data-types.md#sale_delivery_service) | Идентификатор родительской службы доставки ||
-|| **CONFIG**
-[`object[]`](../../../../data-types.md) | Значения настроек родительской службы доставки (подробное описание приведено [ниже](#config)) ||
+|| **Код** | **Описание** | **Статус** ||
+|| `ERROR_DELIVERY_NOT_FOUND` | Служба доставки с указанным идентификатором не найдена | `400` || 
+|| `ERROR_CHECK_FAILURE` | Ошибка валидации входящих параметров (детали в описании ошибки) | `400` || 
+|| `ACCESS_DENIED` | Недостаточно прав для получения списка услуг | `403` ||
 |#
 
-### CONFIG
 
-#|
-|| **Название**
-`тип` | **Описание** ||
-|| **CODE**
-[`string`](../../../../data-types.md) | Символьный код настройки ||
-|| **VALUE**
-[`any`](../../../../data-types.md) | Значение настройки ||
-|#
 
-### PROPERTY_VALUES
+## Продолжите изучение
 
-#|
-|| **Название**
-`тип` | **Описание** ||
-|| **ID**
-[`sale_shipment_property.id`](../../../data-types.md#sale_shipment_property) | Идентификатор свойства отгрузки.
-
-Получить идентификатор свойств отгрузки можно с помощью метода [sale.shipmentproperty.list](../../../shipment-property/sale-shipment-property-list.md) 
-||
-|| **TYPE**
-[`string`](../../../../data-types.md) | Тип свойства. Возможные значения:
-
-- `STRING`
-- `Y`/`N`
-- `NUMBER`
-- `ENUM`
-- `FILE`
-- `DATE`
-- `LOCATION`
-- `ADDRESS`
- ||
-|| **VALUE**
-[`string`](../../../../data-types.md) \| [`object`](../../../../data-types.md) | Значение свойства. Для типа `object` подробное описание приведено [ниже](#value) ||
-|#
-
-### VALUE
-
-#|
-|| **Название**
-`тип` | **Описание** ||
-|| **LATITUDE**
-[`double`](../../../../data-types.md) | Географическая широта ||
-|| **LONGITUDE**
-[`double`](../../../../data-types.md) | Географическая долгота ||
-|| **FIELDS**
-[`object`](../../../../data-types.md) | Детальная информация по адресу доставки (подробное описание приведено [ниже](#fields)) ||
-|#
-
-### FIELDS
-
-#|
-|| **Название**
-`тип` | **Описание** ||
-|| **POSTAL_CODE**
-[`string`](../../../../data-types.md) | Почтовый индекс ||
-|| **COUNTRY**
-[`string`](../../../../data-types.md) | Страна ||
-|| **ADM_LEVEL_1**
-[`string`](../../../../data-types.md) | Единица административно-территориального деления первого уровня (например, штат или область) ||
-|| **ADM_LEVEL_2**
-[`string`](../../../../data-types.md) | Единица административно-территориального деления второго уровня (например, район) ||
-|| **LOCALITY**
-[`string`](../../../../data-types.md) | Населенный пункт ||
-|| **STREET**
-[`string`](../../../../data-types.md) | Улица ||
-|| **BUILDING**
-[`string`](../../../../data-types.md) | Здание, номер дома ||
-|| **ADDRESS_LINE_1**
-[`string`](../../../../data-types.md) | Адрес (улица, здание, номер дома) ||
-|#
-
-### ITEMS
-
-#|
-|| **Название**
-`тип` | **Описание** ||
-|| **NAME**
-[`string`](../../../../data-types.md) | Название товара ||
-|| **PRICE**
-[`double`](../../../../data-types.md) | Стоимость одной позиции товара ||
-|| **CURRENCY**
-[`crm_currency.CURRENCY`](../../../../crm/data-types.md) | Код валюты стоимости ||
-|| **WEIGHT**
-[`double`](../../../../data-types.md) | Вес одной позиции товара ||
-|| **QUANTITY**
-[`double`](../../../../data-types.md) | Количество единиц товара ||
-|| **DIMENSIONS**
-[`object`](../../../../data-types.md) | Размеры груза (подробное описание приведено [ниже](#dimensions)) ||
-|#
-
-### DIMENSIONS
-
-#|
-|| **Название**
-`тип` | **Описание** ||
-|| **LENGTH**
-[`double`](../../../../data-types.md) | Длина товара (мм.) ||
-|| **WIDTH**
-[`double`](../../../../data-types.md) | Ширина товара (мм.) ||
-|| **HEIGHT**
-[`double`](../../../../data-types.md) | Высота товара (мм.) ||
-|#
-
-### EXTRA_SERVICE_VALUES
-
-#|
-|| **Название**
-`тип` | **Описание** ||
-|| **ID**
-[`sale_delivery_extra_service.ID`](../../../data-types.md#sale_delivery_extra_service) | Идентификатор услуги.
-
-Получить идентификаторы услуг службы доставки можно с помощью метода [sale.delivery.extra.service.get](../../extra-service/sale-delivery-extra-service-get.md) ||
-|| **CODE**
-[`string`](../../../../data-types.md) | Символьный код дополнительной услуги ||
-|| **VALUE**
-[`string` \| `double`](../../../../data-types.md) | Значение.
-
-В зависимости от типа ([sale_delivery_extra_service.TYPE](../../../data-types.md#sale_delivery_extra_service)) дополнительной услуги значение формируется различно:
-
-- `checkbox` 
-  - `Y` — если услуга требуется
-  - `N` — если услуга не требуется
-- `enum` — строка, содержащая символьный код выбранного значения списка услуги
-- `quantity` — число, отражающее необходимое количество для дополнительной услуги ||
-|#
-
-### RESPONSIBLE_CONTACT
-
-#|
-|| **Название**
-`тип` | **Описание** ||
-|| **NAME**
-[`string`](../../../../data-types.md) | Полное имя контакта ||
-|| **PHONES**
-[`object[]`](../../../../data-types.md) | Массив, содержащий информацию о номерах телефонов контакта (подробное описание приведено [ниже](#phones)) ||
-|#
-
-### RECIPIENT_CONTACT
-
-#|
-|| **Название**
-`тип` | **Описание** ||
-|| **NAME**
-[`string`](../../../../data-types.md) | Полное имя контакта ||
-|| **PHONES**
-[`object[]`](../../../../data-types.md) | Массив, содержащий информацию о номерах телефонов контакта (подробное описание приведено [ниже](#phones)) ||
-|#
-
-### PHONES
-
-#|
-|| **Название**
-`тип` | **Описание** ||
-|| **TYPE**
-[`string`](../../../../data-types.md) | Тип телефона. Возможные значения:
-
-- `WORK`
-- `MOBILE`
-- `HOME`
-- `FAX`
-- `PAGER`
- ||
-|| **VALUE**
-[`string`](../../../../data-types.md) | Номер телефона ||
-|#
+- [{#T}](./sale-delivery-extra-service-add.md)
+- [{#T}](./sale-delivery-extra-service-update.md)
+- [{#T}](./sale-delivery-extra-service-delete.md)

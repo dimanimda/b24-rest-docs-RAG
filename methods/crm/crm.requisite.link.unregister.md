@@ -9,30 +9,25 @@ params: {"type":"object"}
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Связи реквизитов с объектами CRM
+# Удалить связь реквизита с объектом crm.requisite.link.unregister
 
 > Scope: [`crm`](../../../scopes/permissions.md)
 >
-> Кто может выполнять методы: любой пользователь
+> Кто может выполнять метод: любой пользователь
 
-Связи сохраняют соответствие объекта CRM и реквизитов, которые используются в контексте этого объекта. 
+Метод удаляет связь реквизитов с объектом.
 
-Например, есть счет на оплату. Для его печати требуются реквизиты компании-продавца (моей компании) и компании-покупателя (клиента). Так как у компании может быть несколько реквизитов, то не понятно, какие из них использовать для печати счета. Для указания нужных реквизитов и нужна связь. 
+## Параметры метода
 
-Поля **REQUISITE_ID** и **BANK_DETAIL_ID** хранят идентификаторы реквизита и банковского реквизита соответственно, которые используются для компании-покупателя. Поля **MC_REQUISITE_ID** и **MC_BANK_DETAIL_ID** хранят аналогичные идентификаторы для компании-продавца. 
 
-Если какой-то идентификатор имеет значение `0`, то он считается невыбранным. Могут быть не выбраны реквизиты компании-продавца или банковские реквизиты.
-
-## Поля связи реквизита с объектом CRM
 
 #|
-|| **Название** 
-`тип` | **Описание** | **Чтение** | **Запись** | **Обязательное** | **Неизменяемое** ||
-|| **ENTITY_TYPE_ID**
+|| **Название**
+`тип` | **Описание** ||
+|| **entityTypeId***
 [`integer`](../../../data-types.md) | Идентификатор типа объекта, к которому относится связь.
 
 Могут использоваться следующие типы:
@@ -42,37 +37,139 @@ Auto-generated stub. Fill in params/returns/examples.
 - новый счет (значение `31`)
 - другие динамические объекты (для получения возможных значений смотрите метод [crm.type.list](../../universal/user-defined-object-types/crm-type-list.md)).
 
-Идентификаторы типов объектов CRM можно получить с помощью метода [crm.enum.ownertype](../../auxiliary/enum/crm-enum-owner-type.md) | Да | Да | Да | Да ||
-|| **ENTITY_ID**
+Идентификаторы типов объектов CRM можно получить с помощью метода [crm.enum.ownertype](../../auxiliary/enum/crm-enum-owner-type.md) 
+||
+|| **entityId***
 [`integer`](../../../data-types.md) | Идентификатор объекта, к которому относится связь. 
 
-Идентификаторы объектов можно получить с помощью следующих методов: [crm.deal.list](../../deals/crm-deal-list.md), [crm.quote.list](../../quote/crm-quote-list.md), [crm.item.list](../../universal/crm-item-list.md). | Да | Да | Да | Да ||
-|| **REQUISITE_ID**
-[`integer`](../../../data-types.md) | Идентификатор реквизита клиента, выбранного для объекта. 
-
-Идентификаторы реквизитов можно получить с помощью метода [crm.requisite.list](../universal/crm-requisite-list.md) | Да | Да | Да | Нет ||
-|| **BANK_DETAIL_ID**
-[`integer`](../../../data-types.md) | Идентификатор банковского реквизита клиента, выбранного для объекта. 
-
-Идентификаторы банковских реквизитов можно получить с помощью метода [crm.requisite.bankdetail.list](../bank-detail/crm-requisite-bank-detail-list.md) | Да | Да | Да | Нет ||
-|| **MC_REQUISITE_ID**
-[`integer`](../../../data-types.md) | Идентификатор реквизита моей компании, выбранного для объекта. 
-
-Идентификаторы реквизитов можно получить с помощью метода [crm.requisite.list](../universal/crm-requisite-list.md) | Да | Да | Да | Нет ||
-|| **MC_BANK_DETAIL_ID**
-[`integer`](../../../data-types.md) | Идентификатор банковского реквизита моей компании, выбранного для объекта. 
-
-Идентификаторы банковских реквизитов можно получить с помощью метода [crm.requisite.bankdetail.list](../bank-detail/crm-requisite-bank-detail-list.md) | Да | Да | Да | Нет ||
+Идентификаторы объектов можно получить с помощью следующих методов: [crm.deal.list](../../deals/crm-deal-list.md), [crm.quote.list](../../quote/crm-quote-list.md), [crm.item.list](../../universal/crm-item-list.md) ||
 |#
 
-## Обзор методов
+## Примеры кода
+
+
+
+
+
+- cURL (Webhook)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"entityTypeId":31,"entityId":315}' \
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webhook_here**/crm.requisite.link.unregister
+    ```
+
+- cURL (OAuth) 
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"entityTypeId":31,"entityId":315,"auth":"**put_access_token_here**"}' \
+    https://**put_your_bitrix24_address**/rest/crm.requisite.link.unregister
+    ```
+
+- JS
+
+    ```js
+    BX24.callMethod(
+        "crm.requisite.link.unregister", {
+            entityTypeId: 31,
+            entityId: 315
+        },
+        function(result)
+        {
+            if(result.error())
+                console.error(result.error());
+            else
+                console.dir(result.data());
+        }
+    );
+    ```
+
+- PHP
+
+    ```php
+    require_once('crest.php');
+
+    $result = CRest::call(
+        'crm.requisite.link.unregister',
+        [
+            'entityTypeId' => 31,
+            'entityId' => 315
+        ]
+    );
+
+    echo '<PRE>';
+    print_r($result);
+    echo '</PRE>';
+    ```
+
+
+
+## Обработка ответа
+
+HTTP-статус: **200**
+
+```json
+{
+    "result": true,
+    "time": {
+        "start": 1718797597.015625,
+        "finish": 1718797598.098317,
+        "duration": 1.0826919078826904,
+        "processing": 0.13887691497802734,
+        "date_start": "2024-06-19T13:46:37+02:00",
+        "date_finish": "2024-06-19T13:46:38+02:00",
+        "operating": 0.1388249397277832
+    }
+}
+```
+
+### Возвращаемые данные
 
 #|
-|| **Метод** | **Описание** ||
-|| [crm.requisite.link.register](./crm-requisite-link-register.md) | Регистрирует связь реквизитов с объектом ||
-|| [crm.requisite.link.get](./crm-requisite-link-get.md) | Возвращает связь реквизитов с объектом ||
-|| [crm.requisite.link.list](./crm-requisite-link-list.md) | Возвращает список связей реквизитов по фильтру ||
-|| [crm.requisite.link.unregister](./crm-requisite-link-unregister.md) | Удаляет связь реквизитов с объектом ||
-|| [crm.requisite.link.fields](./crm-requisite-link-fields.md) | Возвращает формальное описание полей связи реквизитов ||
+|| **Название**
+`тип` | **Описание** ||
+|| **result**
+[`boolean`](../../../data-types.md) | Результат удаления связи:
+- `true` — связь удалена
+- `false` — связь не удалена
+||
+|| **time**
+[`time`](../../../data-types.md) | Информация о времени выполнения запроса ||
 |#
+
+## Обработка ошибок
+
+HTTP-статус: **40x**, **50x**
+
+```json
+{
+    "error": "",
+    "error_description": "entityId is not defined or invalid."
+}
+```
+
+
+
+### Возможные коды ошибок
+
+#|  
+|| **Код** | **Описание** ||
+|| `entityTypeId is not defined or invalid` | Идентификатор типа объекта не задан или имеет недопустимое значение ||
+|| `entityId is not defined or invalid` | Идентификатор объекта не задан или имеет недопустимое значение ||
+|| `Access denied` | Недостаточно прав доступа для удаления связи реквизита ||
+|#
+
+
+
+## Продолжите изучение
+
+- [{#T}](./crm-requisite-link-register.md)
+- [{#T}](./crm-requisite-link-get.md)
+- [{#T}](./crm-requisite-link-list.md)
+- [{#T}](./crm-requisite-link-fields.md)
 

@@ -9,23 +9,110 @@ params: {"type":"object","required":["id","fields"],"properties":{"id":{"type":"
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Обзор методов
+# Изменить единицу измерения crm.measure.update
 
 > Scope: [`crm`](../../../scopes/permissions.md)
 >
-> Кто может выполнять методы: любой пользователь
+> Кто может выполнять метод: любой пользователь
+
+Метод обновляет существующую единицу измерения.
+
+## Параметры метода
+
+
 
 #|
-|| **Метод** | **Описание** ||
-|| [crm.measure.add](./crm-measure-add.md) | Добавляет новую единицу измерения ||
-|| [crm.measure.update](./crm-measure-update.md) | Обновляет существующую единицу измерения ||
-|| [crm.measure.get](./crm-measure-get.md) | Возвращает значения всех полей единицы измерения по ее идентификатору ||
-|| [crm.measure.list](./crm-measure-list.md) | Возвращает список единиц измерения ||
-|| [crm.measure.delete](./crm-measure-delete.md) | Удаляет единицу измерения ||
-|| [crm.measure.fields](./crm-measure-fields.md) | Возвращает описание полей для единиц измерения ||
+|| **Название**
+`тип` | **Описание** ||
+|| **id*** | Идентификатор единицы измерения ||
+|| **fields**
+[`array`](../../data-types.md) | [Набор полей](./crm-measure-add.md) — массив вида `array("обновляемое поле"=>"значение"[, ...])`, где обновляемое поле может принимать значения из возвращаемых методом [crm.measure.fields](./crm-measure-fields.md). 
+
+Чтобы узнать требуемый формат полей, выполните метод [crm.measure.fields](./crm-measure-fields.md) и посмотрите формат пришедших значений этих полей 
+||
 |#
 
+## Примеры кода
+
+
+
+
+
+- cURL (Webhook)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"id":"**put_id_here**","fields":{"MEASURE_TITLE":"**put_new_title_here**"}}' \
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webhook_here**/crm.measure.update
+    ```
+
+- cURL (OAuth)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"id":"**put_id_here**","fields":{"MEASURE_TITLE":"**put_new_title_here**"},"auth":"**put_access_token_here**"}' \
+    https://**put_your_bitrix24_address**/rest/crm.measure.update
+    ```
+
+- JS
+
+    ```js
+    var id = prompt("Введите ID");
+    var title = prompt("Введите новое наименование для единицы измерения");
+    BX24.callMethod(
+        "crm.measure.update",
+        {
+            id: id,
+            fields: {
+                "MEASURE_TITLE": title
+            }
+        },
+        function (result)
+        {
+            if (result.error())
+                console.error(result.error());
+            else
+                console.info(result.data());
+        }
+    );
+    ```
+
+- PHP
+
+    ```php
+    require_once('crest.php');
+
+    $id = ''; // Set the ID here
+    $title = ''; // Set the new title here
+
+    $result = CRest::call(
+        'crm.measure.update',
+        [
+            'id' => $id,
+            'fields' => [
+                'MEASURE_TITLE' => $title
+            ]
+        ]
+    );
+
+    echo '<PRE>';
+    print_r($result);
+    echo '</PRE>';
+    ```
+
+
+
+## Продолжите изучение
+
+- [{#T}](./crm-measure-add.md)
+- [{#T}](./crm-measure-get.md)
+- [{#T}](./crm-measure-list.md)
+- [{#T}](./crm-measure-delete.md)
+- [{#T}](./crm-measure-fields.md)

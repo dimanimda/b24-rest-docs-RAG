@@ -9,112 +9,160 @@ params: {"type":"object","required":["id"],"properties":{"id":{"type":"integer"}
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Шаблоны бизнес-процессов: обзор методов
-
-Шаблон бизнес-процесса — это логическая схема. Она реализует бизнес-логику с помощью действий и операций в дизайнере бизнес-процессов.
-
-> Быстрый переход: [все методы и события](#all-methods) 
-> 
-> Пользовательская документация: 
-> - [Как создать шаблон последовательного бизнес-процесса](https://helpdesk.bitrix24.ru/open/21918154/)
-> - [Как настроить параметры шаблона](https://helpdesk.bitrix24.ru/open/22478438/)
-
-## Добавить шаблон бизнес-процесса
-
-Метод [bizproc.workflow.template.add](./bizproc-workflow-template-add.md) добавляет шаблон в Битрикс24 из файла с расширением `.bpt`. Чтобы получить файл, настройте шаблон бизнес-процесса и экспортируйте его.
-
-![Экспорт шаблона](./_images/export-bp-template.png)
-
-Полученный файл можно использовать как шаблон в нужном Битрикс24.
-
-
-
--  [Дизайнер бизнес-процессов](https://helpdesk.bitrix24.ru/open/22955798/)
--  [Экспорт и импорт шаблонов бизнес-процессов](https://helpdesk.bitrix24.ru/open/5435897/)
-
-
-
-## Контекст приложения
-
-Система привязывает новый шаблон к [приложению](../../app-installation/index.md). Обновить или удалить шаблоны, созданные методом [bizproc.workflow.template.add](./bizproc-workflow-template-add.md), можно только в контексте того приложения, которым они были созданы.
-
-## Связь шаблона с документом
-
-Каждый шаблон связан с базовым объектом, данными которого он управляет. Например, шаблон может быть связан с CRM-сделками. В этом случае базовым объектом будет конкретная сделка, для которой запускается бизнес-процесс.
-
-Связь с базовым объектом определяет контекст запуска: нельзя запустить процесс для лида, используя шаблон для сделки.
-
-Шаблон связан с документом через параметр `DOCUMENT_TYPE`, который представляет собой массив из трех элементов:
-
--  идентификатор модуля
--  тип объекта
--  тип документа
-
-Например, `['crm', 'CCrmDocumentLead', 'LEAD']`.
-
-Значения в массиве взаимосвязаны. Если первый элемент — `'crm'`, остальные должны соответствовать CRM. Важно следить за правильностью значений.
-
-### Возможные значения
-
-**Идентификатор модуля.** Указывает область применения шаблона бизнес-процесса.
-
--  `crm` — CRM
--  `lists` — Универсальные списки
--  `disk` — Битрикс24 Диск
-
-**Идентификатор объекта.** Объект в рамках указанного модуля. Например, для CRM объектом может быть лид или сделка.
-
-CRM
--  `CCrmDocumentLead` — лиды
--  `CCrmDocumentContact` — контакты
--  `CCrmDocumentCompany` — компании
--  `CCrmDocumentDeal` — сделки
--  `Bitrix\Crm\Integration\BizProc\Document\Quote` — коммерческие предложения
--  `Bitrix\Crm\Integration\BizProc\Document\SmartInvoice` — счета
--  `Bitrix\Crm\Integration\BizProc\Document\Dynamic` — смарт-процессы
-
-Списки
--  `BizprocDocument` — процессы в ленте новостей
--  `Bitrix\Lists\BizprocDocumentLists` — списки в группах
-
-Диск
--  `Bitrix\Disk\BizProcDocument`
-
-**Тип документа.** Привязка к конкретному документу указанного объекта.
-
-CRM
--  `LEAD` — лиды
--  `CONTACT` — контакты
--  `COMPANY` — компании
--  `DEAL` — сделки
--  `QUOTE` — коммерческие предложения
--  `SMART_INVOICE` — счета
--  `DYNAMIC_XXX` — смарт-процессы, где XXX — идентификатор смарт-процесса
-
-Универсальные списки
--  `iblock_XXX` — информационный блок, где XXX — идентификатор информационного блока
-
-Диск
--  `STORAGE_XXX` — хранилище диска, где XXX — идентификатор хранилища
-
-## Получить список шаблонов
-
-Для получения списка всех шаблонов портала используется метод [bizproc.workflow.template.list](./bizproc-workflow-template-list.html). Чтобы получить список шаблонов приложения, укажите в параметре `FILTER` поле `SYSTEM_CODE` и символьный код приложения, например, `"SYSTEM_CODE": "rest_app_5"`.
-
-## Обзор методов {#all-methods}
+# Удалить шаблон бизнес-процесса bizproc.workflow.template.delete
 
 > Scope: [`bizproc`](../../scopes/permissions.md)
 >
-> Кто может выполнять метод: в зависимости от метода
+> Кто может выполнять метод: администратор
+
+Метод удаляет шаблон бизнес-процесса. 
+
+С его помощью можно удалить шаблоны, которые были созданы методом [bizproc.workflow.template.add](./bizproc-workflow-template-add.md). Эти шаблоны привязаны к приложению и могут быть удалены только в контексте того же [приложения](../../app-installation/index.md), которым они были созданы.
+
+## Параметры метода
+
+
 
 #|
-|| **Метод** | **Описание** ||
-|| [bizproc.workflow.template.add](./bizproc-workflow-template-add.md) | Добавить шаблон бизнес-процесса из файла ||
-|| [bizproc.workflow.template.update](./bizproc-workflow-template-update.md) | Обновить шаблон ||
-|| [bizproc.workflow.template.list](./bizproc-workflow-template-list.md) | Получить список шаблонов ||
-|| [bizproc.workflow.template.delete](./bizproc-workflow-template-delete.md) | Удалить шаблон ||
+|| **Название**
+`тип` | **Описание**||
+|| **ID***
+[`integer`](../../data-types.md) | Идентификатор шаблона бизнес-процесса ||
+|#	
+
+## Примеры кода
+
+
+
+
+
+- cURL (OAuth)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"ID":525,"auth":"**put_access_token_here**"}' \
+    https://**put_your_bitrix24_address**/rest/bizproc.workflow.template.delete
+    ```
+
+- JS
+
+	```js
+    BX24.callMethod(
+        'bizproc.workflow.template.delete',
+        {
+            ID: 525
+        },
+        function(result)
+        {
+            if(result.error())
+                alert("Error: " + result.error());
+            else
+                console.log(result.data());
+        }
+    );
+	```
+
+- PHP
+
+    ```php
+    require_once('crest.php');
+
+    $result = CRest::call(
+        'bizproc.workflow.template.delete',
+        [
+            'ID' => 525
+        ]
+    );
+
+    echo '<PRE>';
+    print_r($result);
+    echo '</PRE>';
+    ```
+
+- PHP (B24PhpSdk)
+
+	```php
+	try {
+		$templateId = 123; // Replace with the actual template ID you want to delete
+		$result = $serviceBuilder
+			->getBizProcScope()
+			->template()
+			->delete($templateId);
+		if ($result->isSuccess()) {
+			print("Template with ID {$templateId} deleted successfully.\n");
+		} else {
+			print("Failed to delete template with ID {$templateId}.\n");
+		}
+	} catch (\Throwable $e) {
+		print("An error occurred: " . $e->getMessage() . "\n");
+	}
+	```
+
+
+
+## Обработка ответа
+
+HTTP-статус: **200**
+
+```json
+{
+    "result": null,
+    "time": {
+        "start": 1737536737.1245451,
+        "finish": 1737536737.3437879,
+        "duration": 0.21924281120300293,
+        "processing": 0.18391799926757812,
+        "date_start": "2025-01-22T12:05:37+03:00",
+        "date_finish": "2025-01-22T12:05:37+03:00",
+        "operating_reset_at": 1737537337,
+        "operating": 0.18389892578125
+    }
+}
+```
+
+### Возвращаемые данные
+
+#|
+|| **Название**
+`тип` | **Описание** ||
+|| **result**
+`null` | Вернет `null`, если шаблон успешно удален ||
+|| **time**
+[`time`](../../data-types.md#time) | Информация о времени выполнения запроса ||
 |#
+
+## Обработка ошибок
+
+HTTP-статус: **400**
+
+```json
+{
+    "error": "ERROR_TEMPLATE_NOT_FOUND",
+    "error_description": "Workflow template not found.",
+}
+```
+
+
+
+### Возможные коды ошибок
+
+#|
+|| **Код** | **Сообщение об ошибке** | **Описание** ||
+|| `ACCESS_DENIED` | Application context required | Токен доступа не из приложения ||
+|| `ACCESS_DENIED` | Access denied! | Метод запустил не администратор ||
+|| `ERROR_TEMPLATE_NOT_FOUND` | Workflow template not found. | Не найден шаблон с заданным `ID` ||
+|#
+
+
+
+## Продолжите изучение 
+
+- [{#T}](./index.md)
+- [{#T}](./bizproc-workflow-template-add.md)
+- [{#T}](./bizproc-workflow-template-update.md)
+- [{#T}](./bizproc-workflow-template-list.md)

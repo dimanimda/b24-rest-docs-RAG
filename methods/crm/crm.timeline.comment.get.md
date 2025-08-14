@@ -9,141 +9,187 @@ params: {"type":"object","required":["id"],"properties":{"id":{"type":"integer"}
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Таймлайн и дела в CRM: обзор методов
+# Получить информацию о комментарии crm.timeline.comment.get
 
-Таймлайн — это основное рабочее пространство в карточке элемента CRM. В нем фиксируется:
-
-* системная информация о работе с элементом: смена стадии,  оплата, создание элементов на основании текущего
-* пользовательская информация: дела CRM (задачи, письма, звонки) и записи таймлайна (комментарии, сгенерированные по шаблону документы, лог-записи приложений)
-
-> Быстрый переход: [все методы и события](#all-methods) 
-> 
-> Пользовательская документация: [таймлайн в Битрикс24](https://helpdesk.bitrix24.ru/open/23960160/), [универсальное дело в Битрикс24](https://helpdesk.bitrix24.ru/open/21064046/)
-
-## Дела
-
-Дела в CRM делятся на входящие и запланированные:
-
-* Входящие — дела, поступившие от клиента, например письмо или звонок. Для таких дел важно верно указать параметр `DIRECTION` = `1`, чтобы сработал счетчик входящих дел CRM
-* Запланированные — дела, которые создают сотрудники, например задачи или универсальные дела
-  
-Подробнее о делах и методах управления ими — в статье [Дела в CRM: обзор методов](./activities/index.md).
-
-## Таймлайн
-
-Записи таймлайна делятся на два типа: 
-
-* Комментарии. Добавлять, удалять, изменять, получать комментарии можно через группу методов [crm.timeline.comment.*](./comments/index.md)
-* Лог-записи. Добавлять, удалять, изменять, получать лог-записи можно через группу методов [crm.timeline.logmessage.*](./logmessage/index.md)
-  
-Управлять связями записей таймлайна с элементами CRM можно методами группы [crm.timeline.bindings.*.](./bindings/index.md) 
-
-## Виджеты
-
-В дела и записи таймлайна можно встроить приложение. Благодаря встройке можно будет использовать приложение и не покидать карточку CRM. Для встраивания используют специальные места, в таймлайне их два:
-
-* [Кнопка над таймлайном карточки элемента](../../widgets/crm/detail-activity.md) `CRM_XXX_DETAIL_ACTIVITY`, `CRM_DYNAMIC_XXX_DETAIL_ACTIVITY`
-* [Пункт контекстного меню дела в карточке элемента](../../widgets/crm/activity-timeline-menu.md) `CRM_XXX_ACTIVITY_TIMELINE_MENU`
-
-
-
-- [Механизм встройки виджетов](../../widgets/index.md)
-- [Создать дела из приложений](./activities/app-embedding/activity-app.md)
-
-
-
-## Дополнительные возможности 
-
-**Текстовые заметки** можно добавлять к делам и комментариям таймлайна и  удалять их. Используйте группу методов [crm.timeline.note.*](./note/index.md).
-
-**Контентные блоки** можно добавлять к комментариям таймлайна и удалять их. Используйте группу методов [crm.timeline.layout.blocks.*](./layout-blocks/index.md).
-
-* [Доступные контентные блоки](./activities/configurable/structure/body.md#contentblockdto)
-
-
-## Обзор методов и событий {#all-methods}
-
-> Scope: [`crm`](../../scopes/permissions.md)
+> Scope: [`crm`](../../../scopes/permissions.md)
 >
-> Кто может выполнять методы: в зависимости от метода
+> Кто может выполнять метод: `любой пользователь`
 
-### Комментарии таймлайна
+Метод получает информацию о деле типа типа «Комментарий».
 
-
-
-- Методы
-
-    #|
-    || **Метод** | **Описание** ||
-    || [crm.timeline.comment.add](./comments/crm-timeline-comment-add.md)   | Добавляет новый комментарий в таймлайн ||
-    || [crm.timeline.comment.update](./comments/crm-timeline-comment-update.md)  |  Обновляет комментарий ||
-    || [crm.timeline.comment.get](./comments/crm-timeline-comment-get.md)   |  Получает информацию о комментарии ||
-    || [crm.timeline.comment.list](./comments/crm-timeline-comment-list.md) |  Получает список всех комментариев для элемента CRM ||
-    || [crm.timeline.comment.delete](./comments/crm-timeline-comment-delete.md)  |  Удаляет комментарий ||
-    || [crm.timeline.comment.fields](./comments/crm-timeline-comment-fields.md)  | Получает список полей комментария таймлайна ||
-    |#
-
-- События
-
-    #|
-    || **Событие** | **Вызывается** ||
-    || [onCrmTimelineCommentAdd](./comments/events/on-Crm-Timeline-Comment-Add.md) | При созданиии нового комментария в таймлайн ||
-    || [onCrmTimelineCommentUpdate](./comments/events/on-Crm-Timeline-Comment-Update.md) | При обновление комментария в таймлайн  ||
-    || [onCrmTimelineCommentDelete](./comments/events/on-Crm-Timeline-Comment-Delete.md) | При удалении комментария в таймлайн  ||
-    |#
+## Параметры метода
 
 
-
-### Заметки к записи таймлайна
 
 #|
-|| **Метод** | **Описание** ||
-|| [crm.timeline.note.get](./note/crm-timeline-note-get.md) | Получает информацию о заметке ||
-|| [crm.timeline.note.save](./note/crm-timeline-note-save.md) | Сохраняет заметку ||
-|| [crm.timeline.note.delete](./note/crm-timeline-note-delete.md) | Удаляет заметку ||
+|| **Название**
+`тип` | **Описание** ||
+|| **id***
+[`integer`](../../../data-types.md) | Целочисленный идентификатор дела типа «Комментарий» (например, `1`). Получить идентификаторы можно методом [`crm.timeline.comment.list`](./crm-timeline-comment-list.md) ||
+|#
+
+## Примеры кода
+
+
+
+
+
+- cURL (Webhook)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"id":999}' \
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/crm.timeline.comment.get
+    ```
+
+- cURL (OAuth)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"id":999,"auth":"**put_access_token_here**"}' \
+    https://**put_your_bitrix24_address**/rest/crm.timeline.comment.get
+    ```
+
+- JS
+
+    ```js
+    BX24.callMethod(
+        "crm.timeline.comment.get",
+        {
+            id: 999,
+        }, result => {
+            if (result.error())
+                console.error(result.error());
+            else
+                console.dir(result.data());
+        }
+    );
+    ```
+
+- PHP
+
+    ```php
+    require_once('crest.php');
+
+    $result = CRest::call(
+        'crm.timeline.comment.get',
+        [
+            'id' => 999
+        ]
+    );
+
+    echo '<PRE>';
+    print_r($result);
+    echo '</PRE>';
+    ```
+
+
+
+## Обработка ответа
+
+HTTP-статус: **200**
+
+```json
+{
+    "result": {
+        "ID": "999",
+        "ENTITY_ID": "2",
+        "ENTITY_TYPE": "deal",
+        "CREATED": "2020-03-02T12:00:00+03:00",
+        "COMMENT": "New comment was added",
+        "AUTHOR_ID": "1",
+        "FILES": {
+            "1": {
+                "id": 1,
+                "date": "2020-03-02T12:00:00+03:00",
+                "type": "image",
+                "name": "1.gif",
+                "size": 43,
+                "image": {
+                    "width": 1,
+                    "height": 1
+                },
+                "authorId": 1,
+                "authorName": "John Dou",
+                "urlPreview": "https://my.bitrix24.com/disk/showFile/930/?&ncc=1&width=640&height=640&signature=292f450929833cd881070155e05a2c41b5bb265ea8c8c1bc2108dbcbb56f667f&ts=1718366521&filename=1.gif",
+                "urlShow": "https://my.bitrix24.com/disk/showFile/930/?&ncc=1&ts=1718366521&filename=1.gif",
+                "urlDownload": "https://my.bitrix24.com/disk/downloadFile/930/?&ncc=1&filename=1.gif"
+            },
+            "2": {
+                "id": 2,
+                "date": "2020-03-02T12:00:00+03:00",
+                "type": "image",
+                "name": "2.gif",
+                "size": 43,
+                "image": {
+                    "width": 1,
+                    "height": 1
+                },
+                "authorId": 1,
+                "authorName": "John Dou",
+                "urlPreview": "https://my.bitrix24.com/disk/showFile/931/?&ncc=1&width=640&height=640&signature=118de010a40eff06fb9d691ee9235e2ef809a17780e46927bf8b12f8dc3224db&ts=1718366521&filename=2.gif",
+                "urlShow": "https://my.bitrix24.com/disk/showFile/931/?&ncc=1&ts=1718366521&filename=2.gif",
+                "urlDownload": "https://my.bitrix24.com/disk/downloadFile/931/?&ncc=1&filename=2.gif"
+            }
+        }
+    },
+    "time": {
+        "start": 1715091541.642592,
+        "finish": 1715091541.730599,
+        "duration": 0.08800697326660156,
+        "date_start": "2024-05-03T17:19:01+03:00",
+        "date_finish": "2024-05-03T17:19:01+03:00",
+        "operating": 0
+    }
+}
+```
+
+### Возвращаемые данные
+
+#|
+|| **Название**
+`тип` | **Описание** ||
+|| **result**
+[`object`](../../../data-types.md) | Корневой элемент ответа. Значения для поля `result` соответствуют полям объекта [result](./crm-timeline-comment-fields.md#поле-result). ||
+|| **time**
+[`time`](../../../data-types.md) | Информация о времени выполнения запроса ||
+|#
+
+## Обработка ошибок
+
+HTTP-статус: **400**
+
+```json
+{
+    "error": "",
+    "error_description": "Not found."
+}
+```
+
+
+
+### Возможные коды ошибок
+
+#|
+|| **Код** | **Cообщение об ошибке** | **Описание** ||
+|| Пустая строка | Not found. | Элемент с указанными параметрами не найден ||
+|| Пустая строка | Access denied. | Отсутствуют права на редактирование сущности в CRM ||
+|| Пустая строка | ID is not defined or invalid. | Не переданы обязательные поля ||
 |#
 
 
-### Управление связями записи таймлайна
 
-#|
-|| **Метод** | **Описание** ||
-|| [crm.timeline.bindings.bind](./bindings/crm-timeline-bindings-bind.md) | Добавляет связь записи таймлайна с элементом CRM ||
-|| [crm.timeline.bindings.list](./bindings/crm-timeline-bindings-list.md) | Получает список связей для записи в таймлайне ||
-|| [crm.timeline.bindings.unbind](./bindings/crm-timeline-bindings-unbind.md) | Удаляет связь записи таймлайна с элементом CRM ||
-|| [crm.timeline.bindings.fields](./bindings/crm-timeline-bindings-fields.md) | Получает поля связи элементов CRM и записи в таймлайне таймлайна ||
-|#
+## Продолжите изучение
 
-### Дополнительные контентные блоки
-
-#|
-|| **Метод** | **Описание** ||
-|| [crm.timeline.layout.blocks.set](./layout-blocks/crm-timeline-layout-blocks-set.md) | Устанавливает набор дополнительных контентных блоков в запись таймлайна ||
-|| [crm.timeline.layout.blocks.get](./layout-blocks/crm-timeline-layout-blocks-get.md) | Получает установленный приложением набор дополнительных контентных блоков для записи таймлайна ||
-|| [crm.timeline.layout.blocks.delete](./layout-blocks/crm-timeline-layout-blocks-delete.md) | Удаляет установленный приложением набор дополнительных контентных блоков для записи таймлайна ||
-|#
-
-### Журнал лог-записей приложения
-
-#|
-|| **Метод** | **Описание** ||
-|| [crm.timeline.logmessage.add](./logmessage/crm-timeline-logmessage-add.md) | Добавляет новую лог-запись в таймлайн ||
-|| [crm.timeline.logmessage.get](./logmessage/crm-timeline-logmessage-get.md) | Получает информацию о лог-записи ||
-|| [crm.timeline.logmessage.list](./logmessage/crm-timeline-logmessage-list.md) | Получает список всех лог-записей для определенного элемента ||
-|| [crm.timeline.logmessage.delete](./logmessage/crm-timeline-logmessage-delete.md) | Удаляет лог-запись ||
-|| [crm.timeline.icon.*](./logmessage/icons/index.md) | Управляют иконками записей ||
-|| [crm.timeline.logo.*](./logmessage/logo/index.md) | Управляют логотипами записей ||
-|#
-
-### Действия с записями в таймлайне
-
-#|
-|| **Метод** | **Описание** ||
-|| [crm.timeline.item.pin](./actions/crm-timeline-item-pin.md) | Закрепляет запись в таймлайне ||
-|| [crm.timeline.item.unpin](./actions/crm-timeline-item-unpin.md) | Открепляет запись в таймлайне ||
-|#
-
+- [{#T}](./crm-timeline-comment-add.md)
+- [{#T}](./crm-timeline-comment-update.md)
+- [{#T}](./crm-timeline-comment-list.md)
+- [{#T}](./crm-timeline-comment-delete.md)
+- [{#T}](./crm-timeline-comment-fields.md)

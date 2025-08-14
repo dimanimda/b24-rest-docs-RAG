@@ -9,225 +9,409 @@ params: {"type":"object","properties":{"filter":{"type":"object"},"order":{"type
 returns: {"type":"array","items":{"type":"object"}}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Об универсальных реквизитах
+# Получить список контактов crm.contact.list
 
-
-
-
-
-- из файла Сергея: из каких полей состоят, для чего нужны
-
-
-
-
-
-> Scope: [`crm`](../../../scopes/permissions.md)
+> Scope: [`crm`](../../scopes/permissions.md)
 >
-> Кто может выполнять метод: любой пользователь
+> Кто может выполнять метод: любой пользователь с правом «чтения» контактов
 
-Реквизиты компании — это сведения, позволяющие точно идентифицировать организацию. У каждой официально зарегистрированной компании есть набор таких данных, как: название, юридический адрес, ИНН, ОГРН, КПП, код ОКПО, код ОКВЭД и другие.
-Подробнее рассказываем в статье [Что такое реквизиты вашей компании](https://helpdesk.bitrix24.ru/open/15989720/)
+Метод `crm.contact.list` возвращает список контактов по фильтру. Является реализацией списочного метода для контактов.
 
-## Поля реквизита {#fields}
+Чтобы получить список компаний, привязанных к контакту, используйте метод [`crm.contact.company.items.get`](company/crm-contact-company-items-get.md)
+
+## Параметры метода
 
 #|
 || **Название**
-`тип` | **Описание** | **Чтение** | **Запись** | **Обязательное** | **Неизменяемое** ||
-|| **ID**
-[`integer`](../../../data-types.md) | Идентификатор реквизита, можно получить с помощью метода [crm.requisite.list](./crm-requisite-list.md). Создается автоматически и уникален в рамках портала. | Да | Нет | Нет | Нет ||
-|| **ENTITY_TYPE_ID***
-[`integer`](../../../data-types.md) | Идентификатор типа родительской сущности.
+`тип` | **Описание** ||
+|| **select**
+[`string[]`][1] | Список полей, которые должны быть заполнены у контактов в выборке.
 
-Сейчас это может быть только:
-- `3` — контакт
-- `4` — компания
+При выборке можно использовать маски:
+- `'*'` — для выборки всех полей (без пользовательских и множественных)
+- `'UF_*'` — для выборки всех пользовательских полей (без множественных)
 
-Идентификаторы всех типов сущностей CRM отдает метод [crm.enum.ownertype](../../auxiliary/enum/crm-enum-owner-type.md)
+Маски для выборки множественных полей нет. Для выборки множественных полей укажите нужные в списке выбора (`PHONE`, `EMAIL` и так далее).
 
- | Да | Да | Да | Да ||
-|| **ENTITY_ID***
-[`integer`](../../../data-types.md) | Идентификатор родительской сущности (контакта либо компании).
+Список доступных полей для выборки можно узнать с помощью метода [`crm.contact.fields`](crm-contact-fields.md).
 
- Идентификатор можно получить методом [crm.company.list](../../companies/crm-company-list.md) для компании и методом [crm.contact.list](../../contacts/crm-contact-list.md) для контакта | Да | Да | Да | Да ||
-|| **PRESET_ID***
-[`integer`](../../../data-types.md) | Идентификатор шаблона реквизитов.
+По умолчанию берутся все поля — `'*'` + Пользовательские поля — `'UF_*'`
+||
+|| **filter**
+[`object`][1] | Объект формата:
 
-Идентификаторы шаблонов можно получить методом [crm.requisite.preset.list](../presets/crm-requisite-preset-list.md) | Да | Да | Да | Да ||
-|| **DATE_CREATE**
-[`datetime`](../../../data-types.md) | Дата создания | Да | Нет | Нет | Нет ||
-|| **DATE_MODIFY**
-[`datetime`](../../../data-types.md) | Дата изменения | Да | Нет | Нет | Нет ||
-|| **CREATED_BY_ID**
-[`user`](../../../data-types.md) | Идентификатор создавшего реквизит | Да | Нет | Нет | Нет ||
-|| **MODIFY_BY_ID**
-[`user`](../../../data-types.md) | Идентификатор изменившего реквизит | Да | Нет | Нет | Нет ||
-|| **NAME***
-[`string`](../../../data-types.md) | Название реквизита | Да | Да | Да | Нет ||
-|| **CODE**
-[`string`](../../../data-types.md) | Символьный код реквизита | Да | Да | Нет | Нет ||
-|| **XML_ID**
-[`string`](../../../data-types.md) | Внешний ключ, используется для операций обмена.
+```
+{
+    field_1: value_1,
+    field_2: value_2,
+    ...,
+    field_n: value_n,
+}
+```
 
-Идентификатор объекта внешней информационной базы.
+где:
+- `field_n` — название поля, по которому будет отфильтрована выборка элементов
+- `value_n` — значение фильтра
 
-Назначение поля может меняться конечным разработчиком | Да | Да | Нет | Нет ||
-|| **ORIGINATOR_ID**
-[`string`](../../../data-types.md) | Идентификатор внешней информационной базы.
+К ключам `field_n` можно добавить префикс, уточняющий работу фильтра.
+Возможные значения префикса:
+- `>=` — больше либо равно
+- `>` — больше
+- `<=` — меньше либо равно
+- `<` — меньше
+- `@` — IN, в качестве значения передается массив
+- `!@` — NOT IN, в качестве значения передается массив
+- `%` — LIKE, поиск по подстроке. Символ `%` в значении фильтра передавать не нужно. Поиск ищет подстроку в любой позиции строки
+- `=%` — LIKE, поиск по подстроке. Символ `%` нужно передавать в значении. Примеры:
+    - `"мол%"` — ищет значения, начинающиеся с «мол»
+    - `"%мол"` — ищет значения, заканчивающиеся на «мол»
+    - `"%мол%"` — ищет значения, где «мол» может быть в любой позиции
+- `%=` — LIKE (аналогично `=%`)
+- `=` — равно, точное совпадение (используется по умолчанию)
+- `!=` — не равно
+- `!` — не равно
 
-Назначение поля может меняться конечным разработчиком | Да | Да | Нет | Нет ||
-|| **ACTIVE**
-[`char`](../../../data-types.md) | Признак активности.
+Поля Телефон(`PHONE`), Почта(`EMAIL`), Сайт(`WEB`), Мессенджеры(`IM`), Ссылки(`LINK`) — множественные. По ним фильтры работают только на точное совпадение.
 
-Используются значения `Y` или `N`.
+Также фильтр `LIKE` не работает с полями типа `crm_status`, `crm_contact`, `crm_company` — например, Тип контакта (`TYPE_ID`), Обращение (`HONORIFIC`) и так далее.
 
-Сейчас поле фактически ни на что не влияет | Да | Да | Нет | Нет ||
-|| **ADDRESS_ONLY**
-[`char`](../../../data-types.md) | Признак состояния, когда реквизит используется только для хранения адреса.
+Список доступных полей для фильтрации можно узнать с помощью метода [`crm.contact.fields`](crm-contact-fields.md)
+||
+|| **order**
+[`object`][1] | Объект формата:
 
-Используются значения `Y` или `N`. При значении `Y` реквизиты не показываются в карточке сущности, но отображается адрес | Да | Да | Нет | Нет ||
-|| **SORT**
-[`integer`](../../../data-types.md) | Сортировка. Порядок в списке реквизитов сущности, когда их несколько | Да | Да | Нет | Нет ||
-|| **RQ_NAME**
-[`string`](../../../data-types.md) | ФИО | Да | Да | Нет | Нет ||
-|| **RQ_FIRST_NAME**
-[`string`](../../../data-types.md) | Имя | Да | Да | Нет | Нет ||
-|| **RQ_LAST_NAME**
-[`string`](../../../data-types.md) | Фамилия | Да | Да | Нет | Нет ||
-|| **RQ_SECOND_NAME**
-[`string`](../../../data-types.md) | Отчество | Да | Да | Нет | Нет ||
-|| **RQ_COMPANY_ID**
-[`string`](../../../data-types.md) | Идентификатор организации | Да | Да | Нет | Нет ||
-|| **RQ_COMPANY_NAME**
-[`string`](../../../data-types.md) | Сокращенное наименование организации | Да | Да | Нет | Нет ||
-|| **RQ_COMPANY_FULL_NAME**
-[`string`](../../../data-types.md) | Полное наименование организации | Да | Да | Нет | Нет ||
-|| **RQ_COMPANY_REG_DATE**
-[`string`](../../../data-types.md) | Дата государственной регистрации | Да | Да | Нет | Нет ||
-|| **RQ_DIRECTOR**
-[`string`](../../../data-types.md) | Генеральный директор | Да | Да | Нет | Нет ||
-|| **RQ_ACCOUNTANT**
-[`string`](../../../data-types.md) | Главный бухгалтер | Да | Да | Нет | Нет ||
-|| **RQ_CEO_NAME**
-[`string`](../../../data-types.md) | ФИО первого руководителя | Да | Да | Нет | Нет ||
-|| **RQ_CEO_WORK_POS**
-[`string`](../../../data-types.md) | Должность первого руководителя | Да | Да | Нет | Нет ||
-|| **RQ_CONTACT**
-[`string`](../../../data-types.md) | Контактное лицо | Да | Да | Нет | Нет ||
-|| **RQ_EMAIL**
-[`string`](../../../data-types.md) | E-Mail | Да | Да | Нет | Нет ||
-|| **RQ_PHONE**
-[`string`](../../../data-types.md) | Телефон | Да | Да | Нет | Нет ||
-|| **RQ_FAX**
-[`string`](../../../data-types.md) | Факс | Да | Да | Нет | Нет ||
-|| **RQ_IDENT_TYPE**
-[`crm_status`](../../../data-types.md) | Способ идентификации | Да | Да | Нет | Нет ||
-|| **RQ_IDENT_DOC**
-[`string`](../../../data-types.md) | Вид документа | Да | Да | Нет | Нет ||
-|| **RQ_IDENT_DOC_SER**
-[`string`](../../../data-types.md) | Серия | Да | Да | Нет | Нет ||
-|| **RQ_IDENT_DOC_NUM**
-[`string`](../../../data-types.md) | Номер | Да | Да | Нет | Нет ||
-|| **RQ_IDENT_DOC_PERS_NUM**
-[`string`](../../../data-types.md) | Личный номер | Да | Да | Нет | Нет ||
-|| **RQ_IDENT_DOC_DATE**
-[`string`](../../../data-types.md) | Дата выдачи | Да | Да | Нет | Нет ||
-|| **RQ_IDENT_DOC_ISSUED_BY**
-[`string`](../../../data-types.md) | Кем выдан | Да | Да | Нет | Нет ||
-|| **RQ_IDENT_DOC_DEP_CODE**
-[`string`](../../../data-types.md) | Код подразделения | Да | Да | Нет | Нет ||
-|| **RQ_INN**
-[`string`](../../../data-types.md) | ИНН | Да | Да | Нет | Нет ||
-|| **RQ_KPP**
-[`string`](../../../data-types.md) | КПП | Да | Да | Нет | Нет ||
-|| **RQ_USRLE**
-[`string`](../../../data-types.md) | Handelsregisternummer (для страны DE) | Да | Да | Нет | Нет ||
-|| **RQ_IFNS**
-[`string`](../../../data-types.md) | ИФНС | Да | Да | Нет | Нет ||
-|| **RQ_OGRN**
-[`string`](../../../data-types.md) | ОГРН | Да | Да | Нет | Нет ||
-|| **RQ_OGRNIP**
-[`string`](../../../data-types.md) | ОГРНИП | Да | Да | Нет | Нет ||
-|| **RQ_OKPO**
-[`string`](../../../data-types.md) | ОКПО | Да | Да | Нет | Нет ||
-|| **RQ_OKTMO**
-[`string`](../../../data-types.md) | ОКТМО | Да | Да | Нет | Нет ||
-|| **RQ_OKVED**
-[`string`](../../../data-types.md) | ОКВЭД | Да | Да | Нет | Нет ||
-|| **RQ_EDRPOU**
-[`string`](../../../data-types.md) | ЄДРПОУ | Да | Да | Нет | Нет ||
-|| **RQ_DRFO**
-[`string`](../../../data-types.md) | ДРФО | Да | Да | Нет | Нет ||
-|| **RQ_KBE**
-[`string`](../../../data-types.md) | КБЕ | Да | Да | Нет | Нет ||
-|| **RQ_IIN**
-[`string`](../../../data-types.md) | ИИН | Да | Да | Нет | Нет ||
-|| **RQ_BIN**
-[`string`](../../../data-types.md) | БИН | Да | Да | Нет | Нет ||
-|| **RQ_ST_CERT_SER**
-[`string`](../../../data-types.md) | Серия свидетельства о государственной регистрации | Да | Да | Нет | Нет ||
-|| **RQ_ST_CERT_NUM**
-[`string`](../../../data-types.md) | Номер свидетельства о государственной регистрации | Да | Да | Нет | Нет ||
-|| **RQ_ST_CERT_DATE**
-[`string`](../../../data-types.md) | Дата свидетельства о государственной регистрации | Да | Да | Нет | Нет ||
-|| **RQ_VAT_PAYER**
-[`char`](../../../data-types.md) | Платник ПДВ (для страны UA).
+```
+{
+    field_1: value_1,
+    field_2: value_2,
+    ...,
+    field_n: value_n,
+}
+```
+где:
+- `field_n` — название поля, по которому будет произведена сортировка выборки контактов
+- `value_n` — значение типа `string`, равное:
+    - `ASC` — сортировка по возрастанию
+    - `DESC` — сортировка по убыванию
 
-Используются значения `Y` или `N` | Да | Да | Нет | Нет ||
-|| **RQ_VAT_ID**
-[`string`](../../../data-types.md) | VAT ID (идентификационный номер (плательщика) НДС) | Да | Да | Нет | Нет ||
-|| **RQ_VAT_CERT_SER**
-[`string`](../../../data-types.md) | Серия свидетельства по НДС | Да | Да | Нет | Нет ||
-|| **RQ_VAT_CERT_NUM**
-[`string`](../../../data-types.md) | Номер свидетельства по НДС | Да | Да | Нет | Нет ||
-|| **RQ_VAT_CERT_DATE**
-[`string`](../../../data-types.md) | Дата свидетельства по НДС | Да | Да | Нет | Нет ||
-|| **RQ_RESIDENCE_COUNTRY**
-[`string`](../../../data-types.md) | Страна резидента | Да | Да | Нет | Нет ||
-|| **RQ_BASE_DOC**
-[`string`](../../../data-types.md) | Основание действия | Да | Да | Нет | Нет ||
-|| **RQ_REGON**
-[`string`](../../../data-types.md) | REGON (для страны PL) | Да | Да | Нет | Нет ||
-|| **RQ_KRS**
-[`string`](../../../data-types.md) | KRS (для страны PL) | Да | Да | Нет | Нет ||
-|| **RQ_PESEL**
-[`string`](../../../data-types.md) | PESEL (для страны PL) | Да | Да | Нет | Нет ||
-|| **RQ_LEGAL_FORM**
-[`string`](../../../data-types.md) | Forme juridique (для страны FR) | Да | Да | Нет | Нет ||
-|| **RQ_SIRET**
-[`string`](../../../data-types.md) | Numéro Siret (для страны FR) | Да | Да | Нет | Нет ||
-|| **RQ_SIREN**
-[`string`](../../../data-types.md) | Numéro Siren (для страны FR) | Да | Да | Нет | Нет ||
-|| **RQ_CAPITAL**
-[`string`](../../../data-types.md) | Capital social (для страны FR) | Да | Да | Нет | Нет ||
-|| **RQ_RCS**
-[`string`](../../../data-types.md) | RCS (для страны FR) | Да | Да | Нет | Нет ||
-|| **RQ_CNPJ**
-[`string`](../../../data-types.md) | CNPJ (для страны BR) | Да | Да | Нет | Нет ||
-|| **RQ_STATE_REG**
-[`string`](../../../data-types.md) | Inscrição Estadual (IE) (для страны BR) | Да | Да | Нет | Нет ||
-|| **RQ_MNPL_REG**
-[`string`](../../../data-types.md) | Inscrição Municipal (IM) (для страны BR) | Да | Да | Нет | Нет ||
-|| **RQ_CPF**
-[`string`](../../../data-types.md) | CPF (для страны BR) | Да | Да | Нет | Нет ||
-|| **UF_CRM_...** | Пользовательские поля. Например, `UF_CRM_1694526604`.
+Список доступных полей для сортировки можно узнать с помощью метода [`crm.contact.fields`](crm-contact-fields.md)
+||
+|| **start**
+[`integer`][1] | Параметр для управления постраничной навигацией.
 
-У реквизитов может быть набор пользовательских полей с типами: `string`, `boolean`, `double`, `datetime`.
+Размер страницы результатов всегда статичный — 50 записей.
 
-Добавить пользовательское поле реквизитов можно методом [crm.requisite.userfield.add](../user-fields/crm-requisite-userfield-add.md) | Да | Да | Нет | Нет ||
+Чтобы выбрать вторую страницу результатов, передайте значение `50`. Чтобы выбрать третью страницу результатов — значение `100` и так далее.
+
+Формула расчета значения параметра `start`:
+
+`start = (N-1) * 50`, где `N` — номер нужной страницы
+||
 |#
 
-## Обзор методов
+Также смотрите описание [списочных методов](../../how-to-call-rest-api/list-methods-pecularities.md).
+
+## Примеры кода
+
+
+
+Получить список контактов, у которых:
+1. источником является CRM-Форма
+2. имя и фамилия не пустые
+3. имя или фамилия начинается на "И"
+4. участвуют в экспорте
+5. e-mail равен 'special-for@example.com'
+6. идентификатор ответственного или 1, или 6
+7. создан менее 6 месяцев назад
+
+Задать следующий порядок сортировки у данной выборки: имя и фамилия в порядке возрастания.
+
+Для наглядности выбрать только необходимые поля:
+- Идентификатор контакта
+- Имя
+- Фамилия
+- E-mail
+- Участвует ли в экспорте
+- Ответственный
+- Дата создания
+
+
+
+- cURL (Webhook)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"FILTER":{"SOURCE_ID":"CRM_FORM","!=NAME":"","!=LAST_NAME":"","LOGIC":"OR","0":{"=%NAME":"И%"},"1":{"=%LAST_NAME":"И%"},"EMAIL":"special-for@example.com","@ASSIGNED_BY_ID":[1,6],"IMPORT":"Y",">=DATE_CREATE":"**put_six_month_ago_date_here**"},"ORDER":{"LAST_NAME":"ASC","NAME":"ASC"},"SELECT":["ID","NAME","LAST_NAME","EMAIL","EXPORT","ASSIGNED_BY_ID","DATE_CREATE"]}' \
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/crm.contact.list
+    ```
+
+- cURL (OAuth)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"FILTER":{"SOURCE_ID":"CRM_FORM","!=NAME":"","!=LAST_NAME":"","LOGIC":"OR","0":{"=%NAME":"И%"},"1":{"=%LAST_NAME":"И%"},"EMAIL":"special-for@example.com","@ASSIGNED_BY_ID":[1,6],"IMPORT":"Y",">=DATE_CREATE":"**put_six_month_ago_date_here**"},"ORDER":{"LAST_NAME":"ASC","NAME":"ASC"},"SELECT":["ID","NAME","LAST_NAME","EMAIL","EXPORT","ASSIGNED_BY_ID","DATE_CREATE"],"auth":"**put_access_token_here**"}' \
+    https://**put_your_bitrix24_address**/rest/crm.contact.list
+    ```
+
+- JS
+
+    ```js
+    const sixMonthAgo = new Date();
+    sixMonthAgo.setMonth((new Date()).getMonth() - 6);
+
+    BX24.callMethod(
+        'crm.contact.list',
+        {
+            filter: {
+                "SOURCE_ID": "CRM_FORM",
+                "!=NAME": "",
+                "!=LAST_NAME": "",
+                "0": {
+                    "LOGIC": "OR",
+                    "0": {
+                        "=%NAME": "И%",
+                    },
+                    "1": {
+                        "=%LAST_NAME": "И%",
+                    },
+                },
+                "EMAIL": "special-for@example.com",
+                "@ASSIGNED_BY_ID": [1, 6],
+                "IMPORT": "Y",
+                ">=DATE_CREATE": sixMonthAgo.toISOString(),
+            },
+            order: {
+                LAST_NAME: "ASC",
+                NAME: "ASC",
+            },
+            select: [
+                "ID",
+                "NAME",
+                "LAST_NAME",
+                "EMAIL",
+                "EXPORT",
+                "ASSIGNED_BY_ID",
+                "DATE_CREATE",
+            ],
+        },
+        (result) => {
+            result.error()
+                ? console.error(result.error())
+                : console.info(result.data())
+            ;
+        },
+    );
+    ```
+
+- PHP
+
+    ```php
+    require_once('crest.php');
+
+    $sixMonthAgo = new DateTime();
+    $sixMonthAgo->modify('-6 months');
+
+    $result = CRest::call(
+        'crm.contact.list',
+        [
+            'FILTER' => [
+                'SOURCE_ID' => 'CRM_FORM',
+                '!=NAME' => '',
+                '!=LAST_NAME' => '',
+                'LOGIC' => 'OR',
+                [
+                    '=%NAME' => 'И%',
+                ],
+                [
+                    '=%LAST_NAME' => 'И%',
+                ],
+                'EMAIL' => 'special-for@example.com',
+                '@ASSIGNED_BY_ID' => [1, 6],
+                'IMPORT' => 'Y',
+                '>=DATE_CREATE' => $sixMonthAgo->format(DateTime::ATOM),
+            ],
+            'ORDER' => [
+                'LAST_NAME' => 'ASC',
+                'NAME' => 'ASC',
+            ],
+            'SELECT' => [
+                'ID',
+                'NAME',
+                'LAST_NAME',
+                'EMAIL',
+                'EXPORT',
+                'ASSIGNED_BY_ID',
+                'DATE_CREATE',
+            ]
+        ]
+    );
+
+    echo '<PRE>';
+    print_r($result);
+    echo '</PRE>';
+    ```
+
+
+
+## Обработка ответа
+
+HTTP-статус: **200**
+
+```json
+{
+	"result": [
+		{
+			"ID": "75",
+			"NAME": "Анастасия",
+			"LAST_NAME": "Ильина",
+			"EXPORT": "Y",
+			"ASSIGNED_BY_ID": "6",
+			"DATE_CREATE": "2024-02-26T00:00:00+02:00",
+			"EMAIL": [
+				{
+					"ID": "215",
+					"VALUE_TYPE": "WORK",
+					"VALUE": "special-for@example.com",
+					"TYPE_ID": "EMAIL"
+				}
+			]
+		},
+		{
+			"ID": "74",
+			"NAME": "Артем",
+			"LAST_NAME": "Исаев",
+			"EXPORT": "Y",
+			"ASSIGNED_BY_ID": "1",
+			"DATE_CREATE": "2024-08-15T00:00:00+02:00",
+			"EMAIL": [
+				{
+					"ID": "214",
+					"VALUE_TYPE": "WORK",
+					"VALUE": "special-for@example.com",
+					"TYPE_ID": "EMAIL"
+				}
+			]
+		},
+		{
+			"ID": "78",
+			"NAME": "Артем",
+			"LAST_NAME": "Исаев",
+			"EXPORT": "Y",
+			"ASSIGNED_BY_ID": "1",
+			"DATE_CREATE": "2024-08-15T00:00:00+02:00",
+			"EMAIL": [
+				{
+					"ID": "218",
+					"VALUE_TYPE": "WORK",
+					"VALUE": "special-for@example.com",
+					"TYPE_ID": "EMAIL"
+				}
+			]
+		},
+		{
+			"ID": "77",
+			"NAME": "Инна",
+			"LAST_NAME": "Кузнецова",
+			"EXPORT": "Y",
+			"ASSIGNED_BY_ID": "6",
+			"DATE_CREATE": "2024-07-01T00:00:00+02:00",
+			"EMAIL": [
+				{
+					"ID": "217",
+					"VALUE_TYPE": "WORK",
+					"VALUE": "special-for@example.com",
+					"TYPE_ID": "EMAIL"
+				}
+			]
+		},
+		{
+			"ID": "73",
+			"NAME": "Иван",
+			"LAST_NAME": "Петров",
+			"EXPORT": "Y",
+			"ASSIGNED_BY_ID": "1",
+			"DATE_CREATE": "2024-02-20T00:00:00+02:00",
+			"EMAIL": [
+				{
+					"ID": "213",
+					"VALUE_TYPE": "WORK",
+					"VALUE": "special-for@example.com",
+					"TYPE_ID": "EMAIL"
+				}
+			]
+		}
+	],
+	"total": 5,
+	"time": {
+		"start": 1723807142.916445,
+		"finish": 1723807143.44846,
+		"duration": 0.5320150852203369,
+		"processing": 0.1967020034790039,
+		"date_start": "2024-08-16T13:19:02+02:00",
+		"date_finish": "2024-08-16T13:19:03+02:00"
+	}
+}
+```
+
+### Возвращаемые данные
 
 #|
-|| **Метод** | **Описание** ||
-|| [crm.requisite.add](./crm-requisite-add.md) | Создает новый реквизит ||
-|| [crm.requisite.update](./crm-requisite-update.md) | Обновляет существующий реквизит ||
-|| [crm.requisite.get](./crm-requisite-get.md) | Возвращает реквизит по идентификатору ||
-|| [crm.requisite.list](./crm-requisite-list.md) | Возвращает список реквизитов по фильтру ||
-|| [crm.requisite.delete](./crm-requisite-delete.md) | Удаляет реквизит и все связанные с ним объекты ||
-|| [crm.requisite.fields](./crm-requisite-fields.md) | Возвращает описание полей реквизита ||
+|| **Название**
+`тип` | **Описание** ||
+|| **result**
+[`contact[]`](./crm-contact-get.md#contact) | Корневой элемент ответа. Массив, содержащий информацию о найденных контактах.
+
+Поля отдельно взятого контакта конфигурируются параметром `select` ||
+|| **total**
+[`integer`][1] | Общее количество найденных контактов по заданным условиям ||
+|| **next**
+[`integer`][1] | Содержит значение, которое нужно передать в следующий запрос в параметр `start`, чтобы получить следующую порцию данных.
+
+Параметр `next` появляется в ответе, если количество элементов, соответствующих вашему запросу, превышает значение `50` ||
+|| **time**
+[`time`][1] | Информация о времени выполнения запроса ||
 |#
+
+## Обработка ошибок
+
+HTTP-статус: **400**
+
+```json
+{
+    "error": "",
+    "error_description": "Access denied."
+}
+```
+
+
+
+### Возможные коды ошибок
+
+#|
+|| **Код** | **Описание** | **Значение** ||
+|| `-`     | `Access denied` | У пользователя нет прав на «Чтение» контактов ||
+|| `-`     | `Parameter 'order' must be array` | В параметр `order` передан не массив ||
+|| `-`     | `Parameter 'filter' must be array` | В параметр `filter` передан не массив ||
+|| `-`     | `Failed to get list. General error` | Произошла неизвестная ошибка ||
+|#
+
+
+
+## Продолжите изучение
+
+- [{#T}](./crm-contact-add.md)
+- [{#T}](./crm-contact-update.md)
+- [{#T}](./crm-contact-get.md)
+- [{#T}](./crm-contact-delete.md)
+- [{#T}](./crm-contact-fields.md)
+- [{#T}](../../../tutorials/crm/how-to-get-lists/search-by-phone-and-email.md)
+
+[1]: ../../data-types.md
+

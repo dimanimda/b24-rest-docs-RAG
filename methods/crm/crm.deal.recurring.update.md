@@ -9,59 +9,100 @@ params: {"type":"object","required":["id","fields"],"properties":{"id":{"type":"
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Регулярные сделки: обзор методов
+# Изменить существующую настройку для шаблона регулярной сделки crm.deal.recurring.update
 
-Регулярные сделки —  это сделки, которые создаются по шаблону. Для регулярных сделок можно настроить период и количество повторений. Они будут автоматически создаваться в выбранной воронке продаж.
 
-> Быстрый переход: [все методы и события](#all-methods) 
->
-> Пользовательская документация: [Регулярные сделки: что это и как использовать](https://helpdesk.bitrix24.ru/open/18453980/)
 
-## Связь регулярных сделок с другими объектами CRM
+Тут может не хватать некоторых данных — дополним в ближайшее время
 
-**Сделки.** Чтобы создать новый шаблон используйте метод [crm.deal.recurring.add](./crm-deal-recurring-add.md). В параметр метода `DEAL_ID` передавайте ID существующей сделки. Значения полей этой сделки будут сохранены в шаблоне.
 
-Чтобы посмотреть сделку, на основе которой создан шаблон, выполните метод [crm.deal.recurring.list](./crm-deal-recurring-list.md). В результате вы получите значение `BASED_ID`. Полученное значение передайте в параметр `id` метода [crm.deal.get](../crm-deal-get.md). Если шаблон создан в разделе регулярных сделок Битрикс24, параметр `BASED_ID` будет пустым.
 
-**Воронки.** Для сделок можно создавать воронки продаж и управлять ими через группу методов [crm.category.*](../../universal/category/index.md) `entityTypeId` сделки = `2`. Чтобы создать регулярную сделку в нужной воронке, передайте ID воронки в параметре `CATEGORY_ID`.
 
-**Товары.** Если в шаблоне сделки есть товарные позиции, новая регулярная сделка будет создана с ними. Чтобы изменить товарные позиции в шаблоне, используйте методы группы [crm.item.productrow.*](../../universal/product-rows/index.md). В качестве `ownerId` сделки передавайте значение `DEAL_ID` из результата метода [crm.deal.recurring.list](./crm-deal-recurring-list.md).
 
-**Клиенты.** Если в шаблоне сделки выбраны компания и контакты, новая регулярная сделка будет создана с ними. Чтобы изменить компанию в шаблоне, используйте метод [crm.deal.update](../crm-deal-update.md), чтобы изменить контакты — методы группы [crm.deal.contact.*](../contacts/crm-deal-contact-add.md). В качестве `id` сделки передавайте значение `DEAL_ID` из результата метода [crm.deal.recurring.list](./crm-deal-recurring-list.md).
 
-## Обзор методов и событий {#all-methods}
+
+- не указаны типы параметров
+- не указана обязательность параметров
+- отсутствуют примеры (на других языках)
+- отсутствует ответ в случае успеха
+- отсутствует ответ в случае ошибки
+
+
+
+
 
 > Scope: [`crm`](../../../scopes/permissions.md)
-> 
-> Кто может выполнять метод: в зависимости от метода
+>
+> Кто может выполнять метод: любой пользователь
+
+Метод `crm.deal.recurring.update` обновляет существующую настройку для шаблона регулярной сделки.
+
+#|
+|| **Параметр** | **Описание** ||
+|| **id** | Идентификатор настройки шаблона регулярной сделки. ||
+|| **fields** | Набор полей – массив вида `array("обновляемое поле"=>"значение"[, ...])`, где "обновляемое поле" может принимать значения из возвращаемых методом [crm.deal.recurring.fields](./crm-deal-recurring-fields.md). 
 
 
 
-- Методы
+Чтобы узнать требуемый формат полей, выполните метод [crm.deal.recurring.fields](./crm-deal-recurring-fields.md) и посмотрите формат пришедших значений этих полей. 
+
+
+||
+|#
+
+## Пример
+
+
+
+- JS
   
-    #|
-    || **Метод** | **Описание** ||
-    || [crm.deal.recurring.add](./crm-deal-recurring-add.md) | Создает новый шаблон регулярной сделки ||
-    || [crm.deal.recurring.fields](./crm-deal-recurring-fields.md) | Возвращает список полей шаблона регулярной сделки ||
-    || [crm.deal.recurring.expose](./crm-deal-recurring-expose.md) | Создает новую сделку по шаблону ||
-    || [crm.deal.recurring.update](./crm-deal-recurring-update.md) | Изменяет настройки шаблона регулярной сделки ||
-    || [crm.deal.recurring.get](./crm-deal-recurring-get.md) | Возвращает настройки шаблона регулярной сделки по Id ||
-    || [crm.deal.recurring.list](./crm-deal-recurring-list.md) | Возвращает список шаблонов регулярных сделок ||
-    || [crm.deal.recurring.delete](./crm-deal-recurring-delete.md) | Удаляет шаблон регулярной сделки ||
-    |#
+    ```js
+    var current = new Date();
+    var nextYear = new Date();
+    nextYear.setYear(current.getFullYear() + 1);
+    var date2str = function(d)
+    {
+        return d.getFullYear() + '-' + paddatepart(1 + d.getMonth()) + '-' + paddatepart(d.getDate()) + 'T' + paddatepart(d.getHours()) + ':' + paddatepart(d.getMinutes()) + ':' + paddatepart(d.getSeconds()) + '+03:00';
+    };
+    var paddatepart = function(part)
+    {
+        return part >= 10 ? part.toString() : '0' + part.toString();
+    };
+    var id = prompt("Введите ID");
+    BX24.callMethod(
+        "crm.deal.recurring.update",
+        {
+            id: id,
+            fields:
+            {
+                "CATEGORY_ID": "2",
+                "START_DATE": date2str(nextYear),
+                "PARAMS": {
+                    "MODE": "single",
+                    "SINGLE_BEFORE_START_DATE_TYPE": "day",
+                    "SINGLE_BEFORE_START_DATE_VALUE": 5,
+                    "OFFSET_BEGINDATE_TYPE": "day",
+                    "OFFSET_BEGINDATE_VALUE": 1,
+                    "OFFSET_CLOSEDATE_TYPE": "month",
+                    "OFFSET_CLOSEDATE_VALUE": 2,
+                }
+            },
+        },
+        function(result)
+        {
+            if(result.error())
+                console.error(result.error());
+            else
+            {
+                console.info(result.data());
+            }
+        }
+    );
+    ```
 
-- События
-  
-    #|
-    || **Событие** | **Вызывается** ||
-    || [onCrmDealRecurringAdd](./events/on-crm-deal-recurring-add.md) | При создании новой регулярной сделки ||
-    || [onCrmDealRecurringUpdate](./events/on-crm-deal-recurring-update.md) | При изменении регулярной сделки ||
-    || [onCrmDealRecurringDelete](./events/on-crm-deal-recurring-delete.md) | При удалении регулярной сделки ||
-    || [onCrmDealRecurringExpose](./events/on-crm-deal-recurring-expose.md) | При создании новой сделки из регулярной сделки ||
-    |#
+
 
 

@@ -9,33 +9,80 @@ params: {"type":"object"}
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Товары
+# Получить поля свойства товаров crm.product.property.fields
 
 > Scope: [`crm`](../../../scopes/permissions.md)
 >
-> Кто может выполнять метод: зависит от метода
+> Кто может выполнять метод: любой пользователь
 
-#|
-|| **Метод** | **Описание** ||
-|| [crm.product.add](./crm-product-add.md) | Создает новый товар ||
-|| [crm.product.delete](./crm-product-delete.md) | Удаляет товар ||
-|| [crm.product.fields](./crm-product-fields.md) | Возвращает описание полей товара ||
-|| [crm.product.get](./crm-product-get.md) | Возвращает товар по идентификатору ||
-|| [crm.product.list](./crm-product-list.md) | Возвращает список товаров по фильтру ||
-|| [crm.product.update](./crm-product-update.md) | Обновляет существующий товар ||
-|| [crm.product.property.types](./crm-product-property-types.md) | Возвращает список типов свойств товаров ||
-|| [crm.product.property.fields](./crm-product-property-fields.md) | Возвращает описание полей для свойств товаров ||
-|| [crm.product.property.settings.fields](./crm-product-property-settings-fields.md) | Возвращает описание полей дополнительных настроек свойства товаров пользовательского типа ||
-|| [crm.product.property.enumeration.fields](./crm-product-property-enumeration-fields.md) | Возвращает описание полей элемента свойства товаров списочного типа ||
-|| [crm.product.property.add](./crm-product-property-add.md) | Создает новое свойство товаров ||
-|| [crm.product.property.get](./crm-product-property-get.md) | Возвращает свойство товаров по идентификатору ||
-|| [crm.product.property.list](./crm-product-property-list.md) | Возвращает список свойств товаров ||
-|| [crm.product.property.update](./crm-product-property-update.md) | Обновляет существующее свойство товаров ||
-|| [crm.product.property.delete](./crm-product-property-delete.md) | Удаляет свойство товаров ||
-|#
 
-Общий список **событий товаров** приведен в статье [События](./events-custom/index.md).
+
+Метод `crm.product.property.fields` продолжает работать, но у него есть более актуальный аналог [catalog.productProperty.getFields](../../../catalog/product-property/catalog-product-property-get-fields.md).
+
+
+
+Метод `crm.product.property.fields` возвращает описание полей для свойств товаров.
+
+Без параметров.
+
+## Примеры кода
+
+
+
+
+
+- cURL (Webhook)
+
+    ```http
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{}' \
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/crm.product.property.fields
+   ```
+
+- cURL (OAuth)
+
+    ```http
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"auth":"**put_access_token_here**"}' \
+    https://**put_your_bitrix24_address**/rest/crm.product.property.fields
+    ```
+
+- JS
+
+    ```js
+    BX24.callMethod(
+        "crm.product.property.fields",
+        {},
+        function(result)
+        {
+            if(result.error())
+                console.error(result.error());
+            else
+                console.dir(result.data());
+        }
+    );
+    ```
+
+- PHP
+
+    ```php
+    require_once('crest.php');
+
+    $result = CRest::call(
+        'crm.product.property.fields',
+        []
+    );
+
+    echo '<PRE>';
+    print_r($result);
+    echo '</PRE>';
+    ```
+
+

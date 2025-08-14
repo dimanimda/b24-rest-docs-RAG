@@ -1,7 +1,7 @@
 ---
 method: catalog.vat.list
 scope: catalog
-deprecated: true
+deprecated: false
 aliases: []
 rate_limit_per_sec: 2
 pagination: unknown
@@ -9,69 +9,76 @@ params: {"type":"object","properties":{"filter":{"type":"object"},"order":{"type
 returns: {"type":"array","items":{"type":"object"}}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Получить список ставок НДС по фильтру crm.vat.list
+# Получить список ставок НДС по фильтру catalog.vat.list
 
-> Scope: [`crm`](../../../scopes/permissions.md)
+> Scope: [`catalog`](../../scopes/permissions.md)
 >
-> Кто может выполнять метод: любой пользователь
+> Кто может выполнять метод: администратор
 
-
-
-Метод `crm.vat.list` продолжает работать, но у него есть более актуальный аналог [catalog.vat.list](../../../catalog/vat/catalog-vat-list.md).
-
-
-
-Метод `crm.vat.list` возвращает список ставок НДС по фильтру. 
-Является реализацией [списочного метода](../../../../api-reference/how-to-call-rest-api/list-methods-pecularities.md) для ставок НДС.
+Метод возвращает список ставок НДС по фильтру.
 
 ## Параметры метода
-
-
 
 #|
 || **Название**
 `тип` | **Описание** ||
-|| **order** 
-[`object`](../../../data-types.md) | Объект формата:
-
-```
-{
-    field_1: value_1,
-    field_2: value_2,
-    ...,
-    field_n: value_n,
-}
-```
-
-- `field_n` — название поля, по которому будет произведена сортировка выборки ставок
-- `value_n` — значение типа `string`, равное:
-    - `ASC` — сортировка по возрастанию
-    - `DESC` — сортировка по убыванию
-
-Список доступных полей для сортировки можно узнать с помощью метода [crm.vat.fields](./crm-vat-fields.md) ||
-|| **filter** 
-[`object`](../../../data-types.md) | Объект формата:
-
-```
-{
-    field_1: value_1,
-    field_2: value_2,
-    ...,
-    field_n: value_n,
-}
-```
-
-- `field_n` — название поля, по которому будет отфильтрована выборка элементов
-- `value_n` — значение фильтра
-
-Список доступных полей для фильтрации можно узнать с помощью метода [crm.vat.fields](./crm-vat-fields.md)
-||
 || **select** 
-[`array`](../../../data-types.md) | Массив возвращаемых полей. Если не указан, возвращаются все поля ||
+[`array`](../../data-types.md)| Массив со списком полей, которые необходимо выбрать (смотрите поля объекта [catalog_vat](../data-types.md#catalog_vat)).
+
+Если массив не передан или же передан пустой массив, то будут выбраны все доступные поля ставки НДС
+||
+|| **filter** 
+[`object`](../../data-types.md)| Объект для фильтрации выбранных ставок НДС в формате `{"field_1": "value_1", ..., "field_N": "value_N"}`.
+
+Возможные значения для `field` соответствуют полям объекта [catalog_vat](../data-types.md#catalog_vat).
+
+Ключу может быть задан дополнительный префикс, уточняющий поведение фильтра. Возможные значения префикса:
+- `>=` — больше либо равно
+- `>` — больше
+- `<=` — меньше либо равно
+- `<` — меньше
+- `@` — IN (в качестве значения передаётся массив)
+- `!@` — NOT IN (в качестве значения передаётся массив)
+- `%` — LIKE, поиск по подстроке. Символ `%` в значении фильтра передавать не нужно. Поиск ищет подстроку в любой позиции строки.
+- `=%` — LIKE, поиск по подстроке. Символ `%` нужно передавать в значении. Примеры:
+  - `"мол%"` — ищем значения начинающиеся с «мол»
+  - `"%мол"` — ищем значения заканчивающиеся на «мол»
+  - `"%мол%"` — ищем значения, где «мол» может быть в любой позиции
+- `%=` — LIKE (аналогично `=%`)
+- `!%` — NOT LIKE, поиск по подстроке. Символ `%` в значении фильтра передавать не нужно. Поиск идет с обоих сторон.
+- `!=%` — NOT LIKE, поиск по подстроке. Символ `%` нужно передавать в значении. Примеры:
+  - `"мол%"` — ищем значения не начинающиеся с «мол»
+  - `"%мол"` — ищем значения не заканчивающиеся на «мол»
+  - `"%мол%"` — ищем значения, где подстроки «мол» нет в любой позиции
+- `!%=` — NOT LIKE (аналогично `!=%`)
+- `=` — равно, точное совпадение (используется по умолчанию)
+- `!=` — не равно
+- `!` — не равно
+||
+|| **order**
+[`object`](../../data-types.md)| Объект для сортировки выбранных ставок НДС в формате `{"field_1": "order_1", ... "field_N": "order_N"}`.
+
+Возможные значения для `field` соответствуют полям объекта [catalog_vat](../data-types.md#catalog_vat).
+
+Возможные значения для `order`:
+
+- `asc` — в порядке возрастания
+- `desc` — в порядке убывания
+||
+|| **start** 
+[`integer`](../../data-types.md)| Параметр используется для управления постраничной навигацией.
+
+Размер страницы результатов всегда статичный — 50 записей.
+
+Чтобы выбрать вторую страницу результатов, передайте значение `50`. Чтобы выбрать третью страницу результатов — значение `100` и так далее.
+
+Формула расчета значения параметра `start`:
+
+`start = (N-1) * 50`, где `N` — номер нужной страницы
+||
 |#
 
 ## Примеры кода
@@ -80,33 +87,14 @@ Auto-generated stub. Fill in params/returns/examples.
 
 
 
-- JS
-
-    ```js
-    BX24.callMethod(
-        "crm.vat.list",
-        {
-            order: { ID: "ASC" },
-            filter: { ACTIVE: "Y" },
-            select: ["ID", "NAME", "RATE"]
-        },
-        function(result) {
-            if(result.error())
-                console.error(result.error());
-            else
-                console.dir(result.data());
-        }
-    );
-    ```
-
 - cURL (Webhook)
 
     ```bash
     curl -X POST \
-         -H "Content-Type: application/json" \
-         -H "Accept: application/json" \
-         -d '{"order":{"ID":"ASC"},"filter":{"ACTIVE":"Y"},"select":["ID","NAME","RATE"]}' \
-         https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/crm.vat.list
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"select":["id","name","rate"],"filter":{">=sort":200},"order":{"id":"ASC"}}' \
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/catalog.vat.list
     ```
 
 - cURL (OAuth)
@@ -115,8 +103,37 @@ Auto-generated stub. Fill in params/returns/examples.
     curl -X POST \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"order":{"ID":"ASC"},"filter":{"ACTIVE":"Y"},"select":["ID","NAME","RATE"],"auth":"**put_access_token_here**"}' \
-    https://**put_your_bitrix24_address**/rest/crm.vat.list
+    -d '{"select":["id","name","rate"],"filter":{">=sort":200},"order":{"id":"ASC"},"auth":"**put_access_token_here**"}' \
+    https://**put_your_bitrix24_address**/rest/catalog.vat.list
+    ```
+
+- JS
+
+    ```js
+    BX24.callMethod(
+        'catalog.vat.list',
+        {
+            select: [
+                'id',
+                'name',
+                'rate'
+            ],
+            filter: {
+                '>=sort': 200
+            },
+            order: {
+                'id': "ASC"
+            }
+        },
+        function(result)
+        {
+            if(result.error())
+                console.error(result.error());
+            else
+                console.log(result.data());
+            result.next();
+        }
+    );
     ```
 
 - PHP
@@ -125,11 +142,19 @@ Auto-generated stub. Fill in params/returns/examples.
     require_once('crest.php');
 
     $result = CRest::call(
-        'crm.vat.list',
+        'catalog.vat.list',
         [
-            'order' => [ 'ID' => 'ASC' ],
-            'filter' => [ 'ACTIVE' => 'Y' ],
-            'select' => [ 'ID', 'NAME', 'RATE' ]
+            'select' => [
+                'id',
+                'name',
+                'rate'
+            ],
+            'filter' => [
+                '>=sort' => 200
+            ],
+            'order' => [
+                'id' => 'ASC'
+            ]
         ]
     );
 
@@ -146,32 +171,26 @@ HTTP-статус: **200**
 
 ```json
 {
-    "result": [
+    "vats": [
         {
-            "ID": "1",
-            "NAME": "Без НДС",
-            "RATE": null
+            "id": 2,
+            "name": "НДС 0%",
+            "rate": 0
         },
         {
-            "ID": "3",
-            "NAME": "НДС 20%",
-            "RATE": "20.00"
-        },
-        {
-            "ID": "7",
-            "NAME": "12",
-            "RATE": "12.00"
+            "id": 3,
+            "name": "НДС 20%",
+            "rate": 20
         }
     ],
-    "total": 3,
+    "total": 2,
     "time": {
-        "start": 1752044697.589623,
-        "finish": 1752044697.66439,
-        "duration": 0.0747671127319336,
-        "processing": 0.00588679313659668,
-        "date_start": "2025-07-09T10:04:57+03:00",
-        "date_finish": "2025-07-09T10:04:57+03:00",
-        "operating_reset_at": 1752045297,
+        "start": 1712326352.63409,
+        "finish": 1712326352.8319,
+        "duration": 0.197818040847778,
+        "processing": 0.00833678245544434,
+        "date_start": "2024-04-05T16:12:32+02:00",
+        "date_finish": "2024-04-05T16:12:32+02:00",
         "operating": 0
     }
 }
@@ -183,13 +202,14 @@ HTTP-статус: **200**
 || **Название**
 `тип` | **Описание** ||
 || **result**
-[`object`](../../../data-types.md) | Корневой элемент ответа. Содержит массив из объектов, содержащих информацию о полях ставок НДС. 
-
-Структура полей может быть изменена из-за параметра `select` ||
+[`object`](../../data-types.md) | Корневой элемент ответа ||
+|| **vat**
+[`catalog_vat[]`](../data-types.md#catalog_vat) | Массив объектов с информацией о выбранных ставках НДС
+||
 || **total**
-[`integer`](../../../data-types.md) | Общее количество найденных элементов ||
+[`integer`](../../data-types.md#time) | Общее количество найденных записей ||
 || **time**
-[`time`](../../../data-types.md#time) | Информация о времени выполнения запроса ||
+[`time`](../../data-types.md#time) | Информация о времени выполнения запроса ||
 |#
 
 ## Обработка ошибок
@@ -198,8 +218,8 @@ HTTP-статус: **400**
 
 ```json
 {
-    "error": "Inadmissible fields for selection",
-    "error_description": "Переданы недопустимые поля для выборки."
+    "error": 200040300010,
+    "error_description": "Access Denied"
 }
 ```
 
@@ -208,20 +228,19 @@ HTTP-статус: **400**
 ### Возможные коды ошибок
 
 #|
-|| **Код** | **Описание** | **Значение** ||
-|| `400`     | `The Commercial Catalog module is not installed.` | Модуль catalog не установлен ||
-|| `400`     | `Access denied.` | Нет прав на выполнение операции ||
-|| `400`     | `"Inadmissible fields for selection.` | Переданы недопустимые поля для выборки ||
+|| **Код** | **Описание** ||
+|| `200040300010` | Недостаточно прав для чтения
+||
+|| `0` | Другие ошибки (например, фатальные ошибки)
+|| 
 |#
 
 
 
 ## Продолжите изучение
 
-- [{#T}](./crm-vat-fields.md)
-- [{#T}](./crm-vat-get.md)
-- [{#T}](./crm-vat-add.md)
-- [{#T}](./crm-vat-update.md)
-- [{#T}](./crm-vat-delete.md) 
-
-
+- [{#T}](./catalog-vat-add.md)
+- [{#T}](./catalog-vat-update.md)
+- [{#T}](./catalog-vat-get.md)
+- [{#T}](./catalog-vat-delete.md)
+- [{#T}](./catalog-vat-get-fields.md)

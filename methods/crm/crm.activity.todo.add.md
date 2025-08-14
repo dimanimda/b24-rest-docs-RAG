@@ -9,37 +9,188 @@ params: {"type":"object","required":["fields"],"properties":{"fields":{"type":"o
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Обзор методов
-
-> Быстрый переход: [все методы](#all-methods) 
-> 
-> Пользовательская документация: [Универсальное дело в CRM](https://helpdesk.bitrix24.ru/open/21064046/)
-
-Универсальные дела — это тип дел с расширенными настройками. В карточке универсального дела можно синхронизировать дело с календарем, выбрать место встречи с клиентом, добавить коллег, выбрать клиента из элемента CRM, разделить дела по цветам, выбрать переговорную. Часть расширенных настроек доступна сотруднику на стороне Битрикс24. 
+# Добавить универсальное дело crm.activity.todo.add
 
 > Scope: [`crm`](../../../../scopes/permissions.md)
 >
-> Кто может выполнять метод: любой пользователь с соответствующими правами
+> Кто может выполнять метод: пользователь с правом на редактирование элемента CRM, для которого дабавляется дело
 
-## Обзор методов {#all-methods}
+Метод `crm.activity.todo.add` добавляет универсальное дело в таймлайн. 
+
+## Параметры метода
+
+
 
 #|
-|| **Метод** | **Описание** ||
-|| [crm.activity.todo.add](./crm-activity-todo-add.md) | Добавляет новое универсальное дело в таймлайн ||
-|| [crm.activity.todo.update](./crm-activity-todo-update.md) | Обновляет универсальное дело ||
-|| [crm.activity.todo.updateColor](./crm-activity-todo-update-color.md) | Обновляет цвет универсального дела ||
-|| [crm.activity.todo.updateDeadline](./crm-activity-todo-update-deadline.md) | Обновляет крайний срок универсального дела ||
-|| [crm.activity.todo.updateDescription](./crm-activity-todo-update-description.md) | Обновляет описание универсального дела ||
-|| [crm.activity.todo.updateResponsibleUser](./crm-activity-todo-update-responsible-user.md) | Обновляет ответственного за универсальное дело ||
-|| [crm.activity.get](../activity-base/crm-activity-get.md) | Получает информацию об универсальном деле по идентификатору ||
-|| [crm.activity.list](../activity-base/crm-activity-list.md) | Получает список всех универсалиных дел для элемента CRM с фильтром `PROVIDER_ID` = `"CRM_TODO"` ||
-|| [crm.activity.delete](../activity-base/crm-activity-delete.md) | Удаляет универсальное дело по идентификатору ||
+|| **Название**
+`тип` | **Описание** ||
+|| **ownerTypeId***
+[`integer`](../../../../data-types.md) | [Идентификатор типа объекта CRM](../../../data-types.md#object_type), к которому привязано дело, например `2` для сделки ||
+|| **ownerId***
+[`integer`](../../../../data-types.md) | Идентификатор элемента CRM, к которому привязано дело, например, `1` ||
+|| **deadline***
+[`datetime`](../../../../data-types.md) | Крайний срок дела, например  `2025-02-03T15:00:00` ||
+|| **title**
+[`string`](../../../../data-types.md) | Название дела, по умолчанию пустая строка ||
+|| **description**
+[`string`](../../../../data-types.md) | Описание дела, по умолчанию пустая строка ||
+|| **responsibleId**
+[`integer`](../../../../data-types.md) | Идентификатор пользователя, ответственного за дело, например `1` ||
+|| **parentActivityId**
+[`integer`](../../../../data-types.md) | Идентификатор дела в таймлайне, с которым можно связать создаваемое дело, например `888` ||
+|| **pingOffsets**
+[`array`](../../../../data-types.md) | Массив, который содержит целочисленные значения в минутах, позволяющие настроить время напоминания о деле. Например `[0, 15]` означает, что будет создано 2 напоминания, которые придут за 15 минут до крайнего срока и в момент, когда крайний срок наступит. По умолчанию пустой массив, без напоминаний ||
+|| **colorId**
+[`integer`](../../../../data-types.md) | Идентификатор цвета дела в таймлайне, например `1`. Для выбора доступно 8 цветов, значения от 1 до 7 и цвет по умолчанию, если ничего не указано:
+
+![Доступные цвета](./_images/colors.png)
+
+||
 |#
 
-## Дополнительно
+## Примеры кода
 
-- [Тип объекта CRM](../../../data-types.md#object_type) 
+
+
+
+
+- cURL (Webhook)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"ownerTypeId":2,"ownerId":1,"deadline":"'"$(date -Iseconds)"'","title":"Заголовок дела","description":"Описание дела","responsibleId":5,"pingOffsets":[0,15],"colorId":2}' \
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/crm.activity.todo.add
+    ```
+
+- cURL (OAuth)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"ownerTypeId":2,"ownerId":1,"deadline":"'"$(date -Iseconds)"'","title":"Заголовок дела","description":"Описание дела","responsibleId":5,"pingOffsets":[0,15],"colorId":2,"auth":"**put_access_token_here**"}' \
+    https://**put_your_bitrix24_address**/rest/crm.activity.todo.add
+    ```
+
+- JS
+
+    ```js
+    BX24.callMethod(
+        "crm.activity.todo.add",
+        {
+            ownerTypeId: 2,
+            ownerId: 1,
+            deadline: (new Date()),
+            title: 'Заголовок дела',
+            description: 'Описание дела',
+            responsibleId: 5,
+            pingOffsets: [0, 15],
+            colorId: 2
+        }, 
+        result => {
+            if (result.error())
+                console.error(result.error());
+            else
+                console.dir(result.data());
+        }
+    );
+    ```
+
+- PHP
+
+    ```php
+    require_once('crest.php');
+
+    $result = CRest::call(
+        'crm.activity.todo.add',
+        [
+            'ownerTypeId' => 2,
+            'ownerId' => 1,
+            'deadline' => date('c'), // Текущие дата и время в формате ISO 8601
+            'title' => 'Заголовок дела',
+            'description' => 'Описание дела',
+            'responsibleId' => 5,
+            'pingOffsets' => [0, 15],
+            'colorId' => 2
+        ]
+    );
+
+    echo '<PRE>';
+    print_r($result);
+    echo '</PRE>';
+    ```
+
+
+
+## Обработка ответа
+
+HTTP-статус: **200**
+
+```json
+{
+    "result": {
+        "id": 999
+    },
+    "time": {
+       "start": 1724068028.331234,
+        "finish": 1724068028.726591,
+        "duration": 0.3953571319580078,
+        "processing": 0.13033390045166016,
+        "date_start": "2025-01-21T13:47:08+02:00",
+        "date_finish": "2025-01-21T13:47:08+02:00",
+        "operating": 0
+    }
+}
+```
+
+### Возвращаемые данные
+
+#|
+|| **Название**
+`тип` | **Описание** ||
+|| **result**
+[`object`](../../../../data-types.md) | В случае успеха возвращает объект, содержащий идентификатор добавленного дела `id`, в случае ошибки = `null` ||
+|| **time**
+[`time`](../../../../data-types.md#time) | Информация о времени выполнения запроса ||
+|#
+
+## Обработка ошибок
+
+HTTP-статус: **400**
+
+```json
+{
+    "error": "NOT_FOUND",
+    "error_description": "Not found."
+}
+```
+
+
+
+### Возможные коды ошибок
+
+#|
+|| **Код** | **Описание** ||
+|| `100` | Не переданы обязательные поля ||
+|| `NOT_FOUND` | Элемент CRM не найден ||
+|| `ACCESS_DENIED` | Недостаточно прав для выполнения операции ||
+|| `OWNER_NOT_FOUND` | Владелец элемента не найден ||
+|| `WRONG_DATETIME_FORMAT` | Некорректный формат даты ||
+|#
+
+
+
+## Продолжите изучение
+
+- [{#T}](./crm-activity-todo-update.md)
+- [{#T}](./crm-activity-todo-update-deadline.md)
+- [{#T}](./crm-activity-todo-update-description.md)
+- [{#T}](./crm-activity-todo-update-color.md)
+- [{#T}](./crm-activity-todo-update-responsible-user.md)
+- [{#T}](../../../../../tutorials/crm/how-to-add-crm-objects/how-to-add-objects-with-crm-mode.md)
+

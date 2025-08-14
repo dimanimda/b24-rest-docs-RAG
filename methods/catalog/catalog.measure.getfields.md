@@ -11,64 +11,22 @@ returns: {"type":"object"}
 
 Auto-generated stub. Fill in params/returns/examples.
 
----
+Example (curl):
 
-# Единицы измерения в Торговом каталоге: обзор методов
+```bash
+curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{}' \
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webhook_here**/catalog.measure.getFields
+    ```
 
-У каждого товара есть единица измерения: вес, количество, объем и так далее. В Битрикс24 доступны популярные варианты, но вы можете добавить свои.
+- cURL (OAuth)
 
-Чтобы установить основную единицу измерения, укажите в параметре `isDefault` значение `Y`. Тогда при создании нового товара она будет автоматически выбрана в карточке.
-
-> Быстрый переход: [все методы и события](#all-methods)
-> 
-> Пользовательская документация: 
-> - [Единицы измерения](https://helpdesk.bitrix24.ru/open/5488453/)
-> - [Единицы измерения в услугах](https://helpdesk.bitrix24.ru/open/17277938/)
-
-## Коэффициент единицы измерения
-
-Если вы продаете товар дробно или упаковками, укажите в карточке товара коэффициент единицы измерения. Примеры:
-- для ткани установите коэффициент 0.1, чтобы покупатели могли заказывать с шагом 0,1 метра, например, 3,6 метра,
-- для напитков в упаковках по 6 бутылок используйте коэффициент 6: 1 единица — это 6 бутылок, 3 единицы — 18 бутылок.
-
-Просмотреть коэффициенты единицы измерения можно с помощью методов [catalog.ratio.*](../ratio/index.md).
-
-## Связь единиц измерения с другими объектами
-
-**Товары.** Создавайте и редактируйте товары, используя следующие группы методов:
-- [catalog.product.*](../product/index.md) — для простых товаров
-- [catalog.product.service.*](../product/service/index.md) — для услуг
-- [catalog.product.sku.*](../product/sku/index.md) — для головных товаров у товаров с вариациями
-- [catalog.product.offer.*](../product/offer/index.md) — для вариаций товаров
-
-## Обзор методов и событий {#all-methods}
-
-> Scope: [`catalog`](../../scopes/permissions.md)
->
-> Кто может выполнять методы: администратор
-
-
-
-- Методы
-  
-    #|
-    || **Метод** | **Описание** ||
-    || [catalog.measure.add](./catalog-measure-add.md) | Добавляет единицу измерения ||
-    || [catalog.measure.update](./catalog-measure-update.md) | Обновляет единицу измерения ||
-    || [catalog.measure.get](./catalog-measure-get.md) | Возвращает информацию о единице измерения по ее идентификатору ||
-    || [catalog.measure.list](./catalog-measure-list.md) | Возвращает список единиц измерения ||
-    || [catalog.measure.delete](./catalog-measure-delete.md) | Удаляет единицу измерения ||
-    || [catalog.measure.getFields](./catalog-measure-get-fields.md) | Возвращает доступные поля единиц измерения ||
-    |#
-
-- События 
-
-    #|
-    || **Событие** | **Вызывается** ||
-    || [CATALOG.MEASURE.ON.ADD](./events/catalog-measure-on-add.md) | При добавлении единицы измерения ||
-    || [CATALOG.MEASURE.ON.UPDATE](./events/catalog-measure-on-update.md)| При обновлении единицы измерения ||
-    || [CATALOG.MEASURE.ON.DELETE](./events/catalog-measure-on-delete.md)| При удалении единицы измерения ||
-    |#
-
-
-
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{}' \
+    https://**put_your_bitrix24_address**/rest/catalog.measure.getFields?auth=**put_access_token_here**
+```

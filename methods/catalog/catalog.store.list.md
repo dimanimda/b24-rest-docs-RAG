@@ -9,41 +9,285 @@ params: {"type":"object","properties":{"filter":{"type":"object"},"order":{"type
 returns: {"type":"array","items":{"type":"object"}}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Склады в Торговом каталоге: обзор методов
-
-Склады помогают контролировать остатки, перемещения и поступления товаров. Вы всегда будете знать, где находятся нужные товары, и сможете вовремя распределять их между складами.
-
-Вы можете настроить права доступа для каждого склада. Тогда сотрудники будут видеть только свои документы складского учета и не смогут случайно выбрать другой склад при создании новых документов.
-
-> Быстрый переход: [все методы](#all-methods)
-> 
-> Пользовательская документация: 
-> - [Как начать работу со складским учетом](https://helpdesk.bitrix24.ru/open/17792114/)
-> - [Право на просмотр и выбор склада](https://helpdesk.bitrix24.ru/open/16342618/)
-
-## Связь складов с другими объектами
-
-**Остатки по складам.** Узнайте, сколько товаров осталось на складе, с помощью методов [catalog.storeproduct.*](../store-product/index.md).
-
-**Складской учет.** Добавляйте и изменяйте документы складского учета, используя методы [catalog.document.*](../document/index.md). При создании документов укажите в параметрах `storeFrom` и `storeTo` идентификаторы склада-отправителя и склада-получателя. Получить идентификаторы складов можно с помощью метода [catalog.store.list](./catalog-store-list.md).
-
-## Обзор методов {#all-methods}
+# Получить список складов по фильтру catalog.store.list
 
 > Scope: [`catalog`](../../scopes/permissions.md)
 >
 > Кто может выполнять метод: администратор
 
+Метод возвращает список складов по фильтру.
+
+## Параметры метода
+
 #|
-|| **Метод** | **Описание** ||
-|| [catalog.store.add](./catalog-store-add.md) | Добавляет склад ||
-|| [catalog.store.update](./catalog-store-update.md) | Изменяет склад ||
-|| [catalog.store.get](./catalog-store-get.md) | Возвращает значения полей склада по его идентификатору ||
-|| [catalog.store.list](./catalog-store-list.md) | Возвращает список складов по фильтру ||
-|| [catalog.store.delete](./catalog-store-delete.md) | Удаляет склад ||
-|| [catalog.store.getFields](./catalog-store-get-fields.md) | Возвращает доступные поля склада ||
+|| **Название**
+`тип` | **Описание** ||
+|| **select** 
+[`array`](../../data-types.md)| Массив со списком полей, которые необходимо выбрать (смотрите поля объекта [catalog_store](../data-types.md#catalog_store)) 
+||
+|| **filter** 
+[`object`](../../data-types.md)| Объект для фильтрации выбранных складов в формате `{"field_1": "value_1", ..., "field_N": "value_N"}`.
+
+Возможные значения для `field` соответствуют полям объекта [catalog_store](../data-types.md#catalog_store).
+
+Ключу можно задать дополнительный префикс, уточняющий поведение фильтра. Возможные значения префикса:
+- `>=` — больше либо равно
+- `>` — больше
+- `<=` — меньше либо равно
+- `<` — меньше
+- `@` — IN, в качестве значения передается массив
+- `!@` — NOT IN, в качестве значения передается массив
+- `%` — LIKE, поиск по подстроке. Символ `%` в значении фильтра передавать не нужно. Поиск ищет подстроку в любой позиции строки
+- `=%` — LIKE, поиск по подстроке. Символ `%` нужно передавать в значении. Примеры:
+    - `"мол%"` — ищет значения, начинающиеся с «мол»
+    - `"%мол"` — ищет значения, заканчивающиеся на «мол»
+    - `"%мол%"` — ищет значения, где «мол» может быть в любой позиции
+- `%=` — LIKE (аналогично `=%`)
+- `!%` — NOT LIKE, поиск по подстроке. Символ `%` в значении фильтра передавать не нужно. Поиск идет с обеих сторон
+- `!=%` — NOT LIKE, поиск по подстроке. Символ `%` нужно передавать в значении. Примеры:
+    - `"мол%"` — ищет значения, не начинающиеся с «мол»
+    - `"%мол"` — ищет значения, не заканчивающиеся на «мол»
+    - `"%мол%"` — ищет значения, где подстроки «мол» нет в любой позиции
+- `!%=` — NOT LIKE (аналогично `!=%`)
+- `=` — равно, точное совпадение (используется по умолчанию)
+- `!=` — не равно
+- `!` — не равно
+||
+|| **order**
+[`object`](../../data-types.md)| Объект для сортировки выбранных складов в формате `{"field_1": "order_1", ... "field_N": "order_N"}`.
+
+Возможные значения для `field` соответствуют полям объекта [catalog_store](../data-types.md#catalog_store).
+
+Возможные значения для `order`:
+
+- `asc` — в порядке возрастания
+- `desc` — в порядке убывания
+||
+|| **start** 
+[`integer`](../../data-types.md)| Параметр используется для управления постраничной навигацией.
+
+Размер страницы результатов всегда статичный — 50 записей.
+
+Чтобы выбрать вторую страницу результатов, передайте значение `50`. Чтобы выбрать третью страницу результатов — значение `100` и так далее.
+
+Формула расчета значения параметра `start`:
+
+`start = (N-1) * 50`, где `N` — номер нужной страницы
+||
 |#
+
+## Примеры кода
+
+
+
+
+
+- cURL (Webhook)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"select":["id","title","active","address","description","gpsN","gpsS","imageId","dateModify","dateCreate","userId","modifiedBy","phone","schedule","xmlId","sort","email","issuingCenter","code"],"filter":{"@userId":[1,2],"<sort":200,"modifiedBy":1},"order":{"id":"desc"}}' \
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/catalog.store.list
+    ```
+
+- cURL (OAuth)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"select":["id","title","active","address","description","gpsN","gpsS","imageId","dateModify","dateCreate","userId","modifiedBy","phone","schedule","xmlId","sort","email","issuingCenter","code"],"filter":{"@userId":[1,2],"<sort":200,"modifiedBy":1},"order":{"id":"desc"},"auth":"**put_access_token_here**"}' \
+    https://**put_your_bitrix24_address**/rest/catalog.store.list
+    ```
+
+- JS
+
+    ```js
+    BX24.callMethod(
+        'catalog.store.list',
+            {
+                select:[
+                    'id',
+                    'title',
+                    'active',
+                    'address',
+                    'description',
+                    'gpsN',
+                    'gpsS',
+                    'imageId',
+                    'dateModify',
+                    'dateCreate',
+                    'userId',
+                    'modifiedBy',
+                    'phone',
+                    'schedule',
+                    'xmlId',
+                    'sort',
+                    'email',
+                    'issuingCenter',
+                    'code',
+                ],
+                filter:{
+                    '@userId': [1, 2],
+                    '<sort': 200,
+                    'modifiedBy': 1,
+                },
+                order:{
+                    id: 'desc',
+                },
+            },
+            function(result)
+            {
+                if(result.error()) {
+                    console.error(result.error());
+                } else {
+                    console.log(result.data());
+                }
+            }
+    );
+    ```
+
+- PHP
+
+    ```php
+    require_once('crest.php');
+
+    $result = CRest::call(
+        'catalog.store.list',
+        [
+            'select' => [
+                'id',
+                'title',
+                'active',
+                'address',
+                'description',
+                'gpsN',
+                'gpsS',
+                'imageId',
+                'dateModify',
+                'dateCreate',
+                'userId',
+                'modifiedBy',
+                'phone',
+                'schedule',
+                'xmlId',
+                'sort',
+                'email',
+                'issuingCenter',
+                'code',
+            ],
+            'filter' => [
+                '@userId' => [1, 2],
+                '<sort' => 200,
+                'modifiedBy' => 1,
+            ],
+            'order' => [
+                'id' => 'desc',
+            ],
+        ]
+    );
+
+    echo '<PRE>';
+    print_r($result);
+    echo '</PRE>';
+    ```
+
+
+
+## Обработка ответа
+
+HTTP-статус: **200**
+
+```json
+{
+    "result": {
+        "stores": [
+            {
+                "active": "Y",
+                "address": "пр. Московский д. 52",
+                "code": "store_1",
+                "dateCreate": "2024-10-18T16:30:45+03:00",
+                "dateModify": "2024-10-21T14:29:06+03:00",
+                "description": "Описание",
+                "email": "test@test.ru",
+                "gpsN": 54.71411,
+                "gpsS": 21.56675,
+                "id": 1,
+                "imageId": {
+                    "id": 1,
+                    "url": "\/upload\/iblock\/6f1\/bkm7jmwso31wisk423gtp28iagy2e8v0\/test.jpeg"
+                },
+                "issuingCenter": "N",
+                "modifiedBy": 1,
+                "phone": "8 (495) 212 85 06",
+                "schedule": "Пн.-Пт. с 9:00 до 20:00, Сб.-Вс. с 11:00 до 18:00",
+                "sort": 100,
+                "title": "Склад 1",
+                "userId": 1,
+                "xmlId": null
+            }
+        ]
+    },
+    "total": 1,
+    "time": {
+        "start": 1729524388.951684,
+        "finish": 1729524389.466658,
+        "duration": 0.5149741172790527,
+        "processing": 0.04066300392150879,
+        "date_start": "2024-10-21T18:26:28+03:00",
+        "date_finish": "2024-10-21T18:26:29+03:00",
+    }
+}
+```
+
+### Возвращаемые данные
+
+#|
+|| **Название**
+`тип` | **Описание** ||
+|| **result**
+[`object`](../../data-types.md) | Корневой элемент ответа ||
+|| **stores**
+[`catalog_store[]`](../data-types.md#catalog_store) | Массив объектов с информацией о выбранных складах ||
+|| **total**
+[`integer`](../../data-types.md#time) | Общее количество найденных записей ||
+|| **time**
+[`time`](../../data-types.md#time) | Информация о времени выполнения запроса ||
+|#
+
+## Обработка ошибок
+
+HTTP-статус: **400**
+
+```json
+{
+    "error":200040300010,
+    "error_description":"Access denied"
+}
+```
+
+
+
+### Возможные коды ошибок
+
+#|
+|| **Код** | **Описание** ||
+|| `200040300010` | Недостаточно прав для чтения ||
+|| `0` | Другие ошибки (например, фатальные ошибки) || 
+|#
+
+
+
+## Продолжите изучение 
+
+- [{#T}](./catalog-store-add.md)
+- [{#T}](./catalog-store-update.md)
+- [{#T}](./catalog-store-get.md)
+- [{#T}](./catalog-store-delete.md)
+- [{#T}](./catalog-store-get-fields.md)
 

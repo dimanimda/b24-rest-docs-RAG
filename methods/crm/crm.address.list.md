@@ -9,208 +9,355 @@ params: {"type":"object","properties":{"filter":{"type":"object"},"order":{"type
 returns: {"type":"array","items":{"type":"object"}}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Реквизиты в CRM: обзор методов
+# Получить список адресов по фильтру crm.address.list
 
-Реквизиты —  отдельные объекты CRM, в которых хранятся данные, используемые при заключении сделок: ИНН, КПП, ОГРН, банковские реквизиты, адреса. Все, что необходимо в шаблонах документов.
-
-Поле `Реквизиты` доступно:
-* в контактах, компаниях — в них хранятся данные покупателей
-* в ваших компаниях — в них хранятся данные вашей компании, выступающей в роли продавца. Данный тип компании находится в отдельном разделе в настройках CRM
-
-> Быстрый переход: [все методы и события](#all-methods) 
-> 
-> Пользовательская документация: [реквизиты вашей компании в Битрикс24](https://helpdesk.bitrix24.ru/open/15989720), [автоматическое заполнение реквизитов по ИНН](https://helpdesk.bitrix24.ru/open/1930547/) 
-
-## Связь реквизитов с другими объектами CRM
-
-**Контакт.** Шаблон реквизитов по умолчанию — Физлицо.
-
-**Компания.** Шаблон реквизитов по умолчанию — Организация.
-
-**Моя компания.** Реквизиты компании, выбранной как основной продавец, автоматически подставляются во все документы.
-
-**Адрес.** Отдельный объект, доступный через стандартное поле `Адрес`.  Адреса могут быть привязаны только к Реквизитам или Лидам. Для работы с адресами используйте группу методов [crm.address.*](./addresses/index.md) ,  ID реквизита передается в параметре `ENTITY_ID`.  
-
-**Документы.** Любые печатные формы: счета, акты, договоры и другие, которые формируются через генератор документов. 
-
-
-
-- [Связи реквизитов с объектами CRM](../requisites/links/index.md)
-- [Изменения в работе с адресами и реквизитами в CRM](https://helpdesk.bitrix24.ru/open/11706682/)
-- [Документы в CRM: как создать и отправить за пару минут](https://helpdesk.bitrix24.ru/open/19098306/)
-
-
-
-## Шаблоны реквизитов
-
-Любой реквизит контакта или компании создается в рамках шаблонов. Шаблон состоит из набора полей, характерных для того или иного типа юридических и физических лиц:
-* шаблон Организация состоит из полей юридических лиц типа ООО: `ОГРН`, `ОКТМО`
-* шаблон ИП состоит из других полей: `ОГРНИП`, `ОКВЭД`
-
-Добавлять, изменять и удалять шаблоны реквизитов можно через группу методов [crm.requisite.preset.*](./presets/index.md).
-
-Управлять перечнем полей определенного шаблона — [crm.requisite.preset.field.*](./presets/fields/index.md). 
-
-Создавать и изменять пользовательские поля, которые можно будет использовать в шаблоне — [crm.requisite.userfield.*](./user-fields/index.md).
-
-
-
-- [Шаблоны реквизитов](https://helpdesk.bitrix24.ru/open/7385595/)
-
-
-
-## Обзор методов и событий {#all-methods}
-
-> Scope: [`crm`](../../scopes/permissions.md)
+> Scope: [`crm`](../../../scopes/permissions.md)
 >
-> Кто может выполнять методы: в зависимости от метода
+> Кто может выполнять метод: любой пользователь
 
-### Основные
+Метод возвращает список адресов по фильтру. 
 
+Адреса перемещены в реквизиты. В карточке CRM они имеют отображение в виде отдельного поля. 
 
+К объекту CRM могут быть привязаны несколько реквизитов. Внутри реквизита может быть несколько адресов (каждый своего типа).
 
-- Методы
-
-    #|
-    || **Метод** | **Описание** ||
-    || [crm.requisite.add](./universal/crm-requisite-add.md) | Создает новый реквизит ||
-    || [crm.requisite.update](./universal/crm-requisite-update.md) | Обновляет существующий реквизит ||
-    || [crm.requisite.get](./universal/crm-requisite-get.md) | Возвращает реквизит по идентификатору ||
-    || [crm.requisite.list](./universal/crm-requisite-list.md) | Возвращает список реквизитов по фильтру ||
-    || [crm.requisite.delete](./universal/crm-requisite-delete.md) | Удаляет реквизит и все связанные с ним объекты ||
-    || [crm.requisite.fields](./universal/crm-requisite-fields.md) | Возвращает описание полей реквизита ||
-    |#
-
-- События
-
-    #|
-    || **Событие** | **Вызывается** ||
-    || [onCrmRequisiteAdd](./events/on-crm-requisite-add.md) | При добавлении реквизита ||
-    || [onCrmRequisiteUpdate](./events/on-crm-requisite-update.md) | При изменении реквизита ||
-    || [onCrmRequisiteDelete](./events/on-crm-requisite-delete.md) | При удалении реквизита ||
-    |#
-
-
-
-### Адреса
-
-
-
-- Методы 
-
-    #|
-    || **Метод** | **Описание** ||
-    || [crm.address.add](./addresses/crm-address-add.md) | Добавляет новый адрес для реквизита или лида ||
-    || [crm.address.update](./addresses/crm-address-update.md) | Изменяет адрес для реквизита или лида ||
-    || [crm.address.list](./addresses/crm-address-list.md) | Возвращает список адресов по фильтру ||
-    || [crm.address.delete](./addresses/crm-address-delete.md) | Удаляет адрес ||
-    || [crm.address.fields](./addresses/crm-address-fields.md) | Возвращает формально описание полей адреса ||
-    |#
-
-- События
-  
-   #|
-    || **Событие** | **Вызывается** ||
-    || [onCrmAddressRegister](./events/on-crm-address-register.md) | При регистрации адреса ||
-    || [onCrmAddressUnregister](./events/on-crm-address-unregister.md) | При удалении адреса ||
-    |#
-
-
-
-### Банковские реквизиты
-
-
-
-- Методы 
- 
-    #|
-    || **Метод** | **Описание** ||
-    || [crm.requisite.bankdetail.add](./bank-detail/crm-requisite-bank-detail-add.md) | Создает новый банковский реквизит ||
-    || [crm.requisite.bankdetail.update](./bank-detail/crm-requisite-bank-detail-update.md) | Изменяет существующий банковский реквизит ||
-    || [crm.requisite.bankdetail.get](./bank-detail/crm-requisite-bank-detail-get.md) | Возвращает банковский реквизит по идентификатору ||
-    || [crm.requisite.bankdetail.list](./bank-detail/crm-requisite-bank-detail-list.md) | Возвращает список банковских реквизитов по фильтру ||
-    || [crm.requisite.bankdetail.delete](./bank-detail/crm-requisite-bank-detail-delete.md) | Удаляет банковский реквизит ||
-    || [crm.requisite.bankdetail.fields](./bank-detail/crm-requisite-bank-detail-fields.md) | Возвращает формальное описание полей банковских реквизитов ||
-    |#
-
-- События
-  
-   #|
-    || **Событие** | **Вызывается** ||
-    || [onCrmBankDetailAdd](./events/on-crm-bank-detail-add.md) | При добавлении банковского реквизита ||
-    || [onCrmBankDetailUpdate](./events/on-crm-bank-detail-update.md) | При изменении банковского реквизита ||
-    || [onCrmBankDetailDelete](./events/on-crm-bank-detail-delete.md) | При удалении банковского реквизита ||
-    |#
-
-
-
-### Пользовательские поля реквизитов
-
-
-
-- Методы 
-
-    #|
-    || **Метод** | **Описание** ||
-    || [crm.requisite.userfield.add.md](./user-fields/crm-requisite-userfield-add.md) | Создает новое пользовательское поле для реквизита ||
-    || [crm.requisite.userfield.update.md](./user-fields/crm-requisite-userfield-update.md) | Изменяет существующее пользовательское поле реквизита ||
-    || [crm.requisite.userfield.get.md](./user-fields/crm-requisite-userfield-get.md) | Возвращает пользовательское поле реквизита по идентификатору ||
-    || [crm.requisite.userfield.list.md](./user-fields/crm-requisite-userfield-list.md) | Возвращает список пользовательских полей реквизита по фильтру ||
-    || [crm.requisite.userfield.delete.md](./user-fields/crm-requisite-userfield-delete.md) | Удаляет пользовательское поле реквизита ||
-    |#
-
-- События
-  
-   #|
-    || **Событие** | **Вызывается** ||
-    || [onCrmRequisiteUserFieldAdd](./events/on-crm-requisite-user-field-add.md) | При добавлении пользовательского поля ||
-    || [onCrmRequisiteUserFieldUpdate](./events/on-crm-requisite-user-field-update.md) | При изменении пользовательского поля ||
-    || [onCrmRequisiteUserFieldDelete](./events/on-crm-requisite-user-field-delete.md) | При удалении пользовательского поля ||
-    || [onCrmRequisiteUserFieldSetEnumValues](./events/on-crm-requisite-user-field-set-enum-values.md) | При изменении набора значений пользовательского поля списочного типа ||
-    |#
-
-
-
-### Связи реквизитов с объектами CRM
+## Параметры метода
 
 #|
-|| **Метод** | **Описание** ||
-|| [crm.requisite.link.register](./links/crm-requisite-link-register.md) | Регистрирует связь реквизитов с объектом ||
-|| [crm.requisite.link.get](./links/crm-requisite-link-get.md) | Возвращает связь реквизитов с объектом ||
-|| [crm.requisite.link.list](./links/crm-requisite-link-list.md) | Возвращает список связей реквизитов по фильтру ||
-|| [crm.requisite.link.unregister](./links/crm-requisite-link-unregister.md) | Удаляет связь реквизитов с объектом ||
-|| [crm.requisite.link.fields](./links/crm-requisite-link-fields.md) | Возвращает формальное описание полей связи реквизитов ||
+|| **Название**
+`тип` | **Описание** ||
+|| **select**
+[`array`](../../../data-types.md) | Массив со списком полей, которые необходимо выбрать (смотрите [поля адресов](#fields)).
+
+Если массив не передан или же передан пустой массив, то будут выбраны все доступные поля адресов ||
+|| **filter**
+[`object`](../../../data-types.md) | Объект для фильтрации выбранных адресов в формате `{"field_1": "value_1", ... "field_N": "value_N"}`.
+
+Возможные значения для `field` соответствуют [полям адреса](#fields).
+
+Ключу можно задать дополнительный префикс, уточняющий поведение фильтра. Возможные значения префикса:
+- `>=` — больше либо равно
+- `>` — больше
+- `<=` — меньше либо равно
+- `<` — меньше
+- `@` — IN, в качестве значения передается массив
+- `!@` — NOT IN, в качестве значения передается массив
+- `%` — LIKE, поиск по подстроке. Символ `%` в значении фильтра передавать не нужно. Поиск ищет подстроку в любой позиции строки
+- `=%` — LIKE, поиск по подстроке. Символ `%` нужно передавать в значении. Примеры:
+    - `"мол%"` — ищет значения, начинающиеся с «мол»
+    - `"%мол"` — ищет значения, заканчивающиеся на «мол»
+    - `"%мол%"` — ищет значения, где «мол» может быть в любой позиции
+- `%=` — LIKE (аналогично `=%`)
+- `!%` — NOT LIKE, поиск по подстроке. Символ `%` в значении фильтра передавать не нужно. Поиск идет с обеих сторон
+- `!=%` — NOT LIKE, поиск по подстроке. Символ `%` нужно передавать в значении. Примеры:
+    - `"мол%"` — ищет значения, не начинающиеся с «мол»
+    - `"%мол"` — ищет значения, не заканчивающиеся на «мол»
+    - `"%мол%"` — ищет значения, где подстроки «мол» нет в любой позиции
+- `!%=` — NOT LIKE (аналогично `!=%`)
+- `=` — равно, точное совпадение (используется по умолчанию)
+- `!=` — не равно
+- `!` — не равно ||
+|| **order**
+[`object`](../../../data-types.md) | Объект для сортировки выбранных адресов в формате `{"field_1": "order_1", ... "field_N": "order_N"}`.
+
+Возможные значения для `field` соответствуют [полям адреса](#fields).
+
+Возможные значения для `order`:
+- `asc` — в порядке возрастания
+- `desc` — в порядке убывания
+||
+|| **start**
+[`integer`](../../../data-types.md) | Параметр используется для управления постраничной навигацией.
+
+Размер страницы результатов всегда статичный: 50 записей.
+
+Чтобы выбрать вторую страницу результатов, необходимо передавать значение `50`. Чтобы выбрать третью страницу результатов значение — `100` и так далее.
+
+Формула расчета значения параметра `start`:
+
+`start = (N-1) * 50`, где `N` — номер нужной страницы 
+||
 |#
 
-### Шаблоны реквизитов
+### Описание полей адреса {#fields}
 
 #|
-|| **Метод** | **Описание** ||
-|| [crm.requisite.preset.add](./presets/crm-requisite-preset-add.md) | Создает новый шаблон реквизитов ||
-|| [crm.requisite.preset.update](./presets/crm-requisite-preset-update.md) | Изменяет шаблон реквизита ||
-|| [crm.requisite.preset.countries](./presets/crm-requisite-preset-countries.md) | Возвращает возможный список стран для шаблонов реквизита ||
-|| [crm.requisite.preset.get](./presets/crm-requisite-preset-get.md) | Возвращает шаблон реквизитов по идентификатору ||
-|| [crm.requisite.preset.list](./presets/crm-requisite-preset-list.md) | Возвращает список шаблонов реквизитов по фильтру ||
-|| [crm.requisite.preset.delete](./presets/crm-requisite-preset-delete.md) | Удаляет шаблон реквизитов ||
-|| [crm.requisite.preset.fields](./presets/crm-requisite-preset-fields.md) | Возвращает формально описание полей шаблона реквизитов ||
+|| **Название**
+`тип` | **Описание** ||
+|| **TYPE_ID**
+[`integer`](../../../data-types.md) | Идентификатор типа адреса. Элемент перечисления «Тип адреса».
+
+Элементы перечисления «Тип адреса» можно получить с помощью метода [crm.enum.addresstype](../../auxiliary/enum/crm-enum-address-type.md)
+||
+|| **ENTITY_TYPE_ID**
+[`integer`](../../../data-types.md) | Идентификатор типа родительского объекта.
+
+Идентификаторы типов объектов можно получить с помощью метода [crm.enum.ownertype](../../auxiliary/enum/crm-enum-owner-type.md).
+
+Адреса могут быть привязаны только к Реквизитам (а реквизиты уже к компаниям либо контактам) или Лидам. 
+
+Для обратной совместимости оставлена возможность связывать Адреса с Контактами или Компаниями. Но эта связь возможна только на некоторых старых порталах, где специально техподдержкой был включен старый режим работы с адресами
+||
+|| **ENTITY_ID**
+[`string`](../../../data-types.md) | Идентификатор родительского объекта ||
+|| **ADDRESS_1**
+[`string`](../../../data-types.md) | Улица, дом, корпус, строение ||
+|| **ADDRESS_2**
+[`string`](../../../data-types.md) | Квартира / офис ||
+|| **CITY**
+[`string`](../../../data-types.md) | Город ||
+|| **POSTAL_CODE**
+[`string`](../../../data-types.md) | Почтовый индекс ||
+|| **REGION**
+[`string`](../../../data-types.md) | Район ||
+|| **PROVINCE**
+[`string`](../../../data-types.md) | Область ||
+|| **COUNTRY**
+[`string`](../../../data-types.md) | Страна ||
+|| **COUNTRY_CODE**
+[`string`](../../../data-types.md) | Код страны.
+
+Не используется, оставлено для обратной совместимости. В качестве значения можно указать пустую строку
+||
+|| **LOC_ADDR_ID**
+[`integer`](../../../data-types.md) | Идентификатор адреса местоположения.
+
+Это поле содержит идентификатор объекта адреса в модуле `Location`, связанного с объектов адреса CRM. Каждому адресу CRM соответствует объект адреса в модуле `location`. Это можно использовать для копирования существующего адреса в CRM с информацией о местоположении, которой нет в полях адреса CRM.
+
+Если при создании адреса указан идентификатор адреса модуля `location`, то создается копия адреса `location` и привязывается к созданному адресу CRM. Если в таком случае не указаны значения для строковых полей адреса, то они будут заполнены из location-адреса.
+
+Если же было указано хоть одно строковое поле, то в адресе CRM будут сохранены только указанные поля, и их значения перезапишут соответствующие значения в объекте location-адреса. Такое же поведение будет и при обновлении адреса
+||
+|| **ANCHOR_TYPE_ID**
+[`integer`](../../../data-types.md) | Идентификатор типа основного родительского объекта.
+
+Это поле для служебного использования. Значение заполняется автоматически при добавлении адреса.
+
+Идентификаторы типов объектов можно получить с помощью метода [crm.enum.ownertype](../../auxiliary/enum/crm-enum-owner-type.md).
+
+В этом поле содержится идентификатор типа родительского объекта реквизита (компания или контакт), если адрес привязан к реквизиту. Если адрес привязан к лиду, то этим значением будет идентификатор типа лид
+||
+|| **ANCHOR_ID**
+[`integer`](../../../data-types.md) | Это поле для служебного использования. Значение заполняется автоматически при добавлении адреса.
+
+В этом поле содержится идентификатор родительского объекта реквизита (компании или контакта), если адрес привязан к реквизиту. Если адрес привязан к лиду, то этим значением будет идентификатор лида
+||
 |#
 
-### Поля шаблона реквизитов
+## Примеры кода
+
+
+
+Поиск адресов по привязке к типу Реквизит:
+
+
+
+- cURL (Webhook)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"order":{"TYPE_ID":"asc"},"filter":{"ENTITY_TYPE_ID":8,"ENTITY_ID":7335},"limit":10}' \
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webhook_here**/crm.address.list
+    ```
+
+- cURL (OAuth) 
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"order":{"TYPE_ID":"asc"},"filter":{"ENTITY_TYPE_ID":8,"ENTITY_ID":7335},"limit":10,"auth":"**put_access_token_here**"}' \
+    https://**put_your_bitrix24_address**/rest/crm.address.list
+    ```
+
+- JS
+
+    ```js
+    BX24.callMethod(
+        "crm.address.list",
+        {
+            order: { "TYPE_ID": "asc"},
+            filter: { "ENTITY_TYPE_ID": 8, "ENTITY_ID": 7335},
+            limit: 10
+        },
+        function(result)
+        {
+            if(result.error())
+                console.error(result.error());
+            else
+            {
+                console.dir(result.data());
+                if(result.more())
+                    result.next();
+            }
+        }
+    );
+    ```
+
+- PHP
+
+    ```php
+    require_once('crest.php');
+
+    $result = CRest::call(
+        'crm.address.list',
+        [
+            'order' => ['TYPE_ID' => 'asc'],
+            'filter' => ['ENTITY_TYPE_ID' => 8, 'ENTITY_ID' => 7335],
+            'limit' => 10
+        ]
+    );
+
+    echo '<PRE>';
+    print_r($result);
+    echo '</PRE>';
+    ```
+
+
+
+## Обработка ответа
+
+HTTP-статус: **200**
+
+```json
+{
+    "result": [
+        {
+            "TYPE_ID": "1",
+            "ENTITY_TYPE_ID": "8",
+            "ENTITY_ID": "7335",
+            "ADDRESS_1": "Ленина 2",
+            "ADDRESS_2": "701",
+            "CITY": "Тюмень",
+            "POSTAL_CODE": "625003",
+            "REGION": "Тюменская обл",
+            "PROVINCE": "Тюменская обл",
+            "COUNTRY": "Россия",
+            "COUNTRY_CODE": null,
+            "LOC_ADDR_ID": "479",
+            "ANCHOR_TYPE_ID": "3",
+            "ANCHOR_ID": "17192"
+        }
+    ],
+    "total": 1,
+    "time": {
+        "start": 1716301758.664873,
+        "finish": 1716301759.73158,
+        "duration": 1.0667071342468262,
+        "processing": 0.028820037841796875,
+        "date_start": "2024-05-21T16:29:18+02:00",
+        "date_finish": "2024-05-21T16:29:19+02:00",
+        "operating": 0
+    }
+}
+```
+
+
+
+Если у контакта 2 разных реквизита, к которым привязаны адреса:
+
+HTTP-статус: **200**
+
+```json
+{
+    "result": [
+        {
+            "TYPE_ID": "1",
+            "ENTITY_TYPE_ID": "8",
+            "ENTITY_ID": "7335",
+            "ADDRESS_1": "Ленина 2",
+            "ADDRESS_2": "701",
+            "CITY": "Тюмень",
+            "POSTAL_CODE": "625003",
+            "REGION": "Тюменская обл",
+            "PROVINCE": "Тюменская обл",
+            "COUNTRY": "Россия",
+            "COUNTRY_CODE": null,
+            "LOC_ADDR_ID": "479",
+            "ANCHOR_TYPE_ID": "3",
+            "ANCHOR_ID": "17192"
+        },
+        {
+            "TYPE_ID": "1",
+            "ENTITY_TYPE_ID": "8",
+            "ENTITY_ID": "7335",
+            "ADDRESS_1": "Ленина",
+            "ADDRESS_2": "2",
+            "CITY": "Тюмень",
+            "POSTAL_CODE": "666000",
+            "REGION": "Тюменская область рег",
+            "PROVINCE": "Тюменская область",
+            "COUNTRY": "Россия",
+            "COUNTRY_CODE": null,
+            "LOC_ADDR_ID": "129",
+            "ANCHOR_TYPE_ID": "3",
+            "ANCHOR_ID": "17192"
+        }
+    ],
+    "total": 2,
+    "time": {
+        "start": 1716301758.664873,
+        "finish": 1716301759.73158,
+        "duration": 1.0667071342468262,
+        "processing": 0.028820037841796875,
+        "date_start": "2024-05-21T16:29:18+02:00",
+        "date_finish": "2024-05-21T16:29:19+02:00",
+        "operating": 0
+    }
+}
+```
+
+
+
+Поле **ANCHOR_TYPE_ID** заполнено значением из [crm.enum.ownertype](../../auxiliary/enum/crm-enum-owner-type.md) (в примере это Контакты), а поле **ANCHOR_ID** содержит ID объекта (в данном случае Контакта). 
+
+Поля **ANCHOR_TYPE_ID** и **ANCHOR_ID** в двух вышеуказанных примерах одинаковы, следовательно, оба адреса относятся к одному Контакту.
+
+
+
+### Возвращаемые данные
 
 #|
-|| **Метод** | **Описание** ||
-|| [crm.requisite.preset.field.add](./presets/fields/crm-requisite-preset-field-add.md) | Добавляет настраиваемое поле в шаблон реквизитов ||
-|| [crm.requisite.preset.field.update](./presets/fields/crm-requisite-preset-field-update.md) | Изменяет настраиваемое поле в шаблоне реквизитов ||
-|| [crm.requisite.preset.field.availabletoadd](./presets/fields/crm-requisite-preset-field-available-to-add.md) | Возвращает поля, доступные для добавления в указанный шаблон реквизитов ||
-|| [crm.requisite.preset.field.get](./presets/fields/crm-requisite-preset-field-get.md) | Возвращает описание настраиваемого поля шаблона реквизитов по идентификатору ||
-|| [crm.requisite.preset.field.list](./presets/fields/crm-requisite-preset-field-list.md) | Возвращает список всех настраиваемых полей для определенного шаблона реквизитов ||
-|| [crm.requisite.preset.field.delete](./presets/fields/crm-requisite-preset-field-delete.md) | Удаляет настраиваемое поле из шаблона реквизитов ||
-|| [crm.requisite.preset.field.fields](./presets/fields/crm-requisite-preset-field-fields.md) | Возвращает формально описание полей, описывающих настаиваемое поле шаблона реквизитов ||
+|| **Название**
+`тип` | **Описание** ||
+|| **result**
+[`array`](../../../data-types.md) | Массив объектов с информацией о выбранных адресах. Каждый элемент содержит выбранные [поля адресов](#fields) ||
+|| **total**
+[`integer`](../../../data-types.md) | Общее количество найденных записей ||
+|| **time**
+[`time`](../../../data-types.md) | Информация о времени выполнения запроса ||
+|#
+
+## Обработка ошибок
+
+HTTP-статус: **40x**, **50x**
+
+```json
+{
+    "error":0,
+    "error_description":"error"
+}
+```
+
+
+
+### Возможные коды ошибок
+
+#|  
+|| **Код** | **Описание** ||
+|| `Access denied` | Недостаточно прав доступа для получения списка адресов. Нет доступа на чтение компаний, контактов, лидов ||
 |#
 
 
 
+## Продолжите изучение
+
+- [{#T}](./crm-address-add.md)
+- [{#T}](./crm-address-update.md)
+- [{#T}](./crm-address-delete.md)
+- [{#T}](./crm-address-fields.md)

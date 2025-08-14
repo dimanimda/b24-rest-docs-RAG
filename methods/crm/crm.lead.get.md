@@ -9,137 +9,339 @@ params: {"type":"object","required":["id"],"properties":{"id":{"type":"integer"}
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Вкладка в карточке звонка CALL_CARD
+# Получить лид по Id crm.lead.get
 
-> Scope: [`telephony`](../../scopes/permissions.md)
+> Scope: [`crm`](../../scopes/permissions.md)
+>
+> Кто может выполнять метод: пользователь с правом на чтение запрашиваемого лида
 
-Вы можете добавлять свой пункт во вкладке карточки звонка.
+Метод `crm.lead.get` возвращает лид по идентификатору.
 
-![Виджет в виде пункта во вкладке карточки звонка](./_images/CALL_CARD.png "Виджет в виде пункта во вкладке карточки звонка")
+## Параметры метода
 
-Код конкретного места встройки виджета указывается в параметре `PLACEMENT` метода [placement.bind](../placement-bind.md).
 
-## Куда встраивается виджет
 
 #|
-|| **Код встройки** | **Место** ||
-|| `CALL_CARD` | Пункт во вкладке карточки звонка ||
+|| **Название**
+`тип` | **Описание** || 
+|| **id***
+[`integer`](../../data-types.md) | Идентификатор лида.
+
+Идентификатор можно получить с помощью методов [crm.lead.list](./crm-lead-list.md) или [crm.lead.add](./crm-lead-add.md) ||
 |#
 
-## Что получает обработчик
+## Примеры кода
 
-Данные передаются в виде POST-запроса {.b24-info}
 
-```php
 
-Array
-(
-    [DOMAIN] => xxx.bitrix24.com
-    [PROTOCOL] => 1
-    [LANG] => en
-    [APP_SID] => 588b8a98e848778a4ffb38fbcf70f2b9
-    [AUTH_ID] => 4172bb6600705a0700005a4b00000001f0f107c42ca5bd5f61030c5d9c3e4d60d11b5a
-    [AUTH_EXPIRES] => 3600
-    [REFRESH_ID] => 31f1e26600705a0700005a4b00000001f0f107b1918506d8a2ed9ecf76e8fdac962471
-    [member_id] => da45a03b265edd8787f8a258d793cc5d
-    [status] => L
-    [PLACEMENT] => CALL_CARD
-    [PLACEMENT_OPTIONS] => {"CALL_ID":"externalCall.c3ee67f1a63f6e6117c230ab59cc49ea.1723556778","PHONE_NUMBER":"555555","LINE_NUMBER":"","LINE_NAME":"","CRM_ENTITY_TYPE":"","CRM_ENTITY_ID":"0","CRM_ACTIVITY_ID":"undefined","CALL_DIRECTION":"incoming","CALL_STATE":"connected","CALL_LIST_MODE":"false"}
-)
 
+
+- cURL (Webhook)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"ID":123}' \
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/crm.lead.get
+    ```
+
+- cURL (OAuth)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"ID":123,"auth":"**put_access_token_here**"}' \
+    https://**put_your_bitrix24_address**/rest/crm.lead.get
+    ```
+
+- JS
+
+    ```javascript 
+    BX24.callMethod(
+      'crm.lead.get',
+      { id: 123 },
+      (result) => {
+        if(result.error())
+        {
+          console.error(result.error());
+  
+          return;
+        }
+        
+        console.info(result.data());
+      }
+    );
+    ```
+
+- PHP
+
+    ```php
+    require_once('crest.php');
+
+    $result = CRest::call(
+        'crm.lead.get',
+        [
+            'ID' => 123
+        ]
+    );
+
+    echo '<PRE>';
+    print_r($result);
+    echo '</PRE>';
+    ```
+
+
+
+## Обработка ответа
+
+HTTP-статус: **200**
+
+```json
+{
+  "result": {
+    "ID": "123",
+    "TITLE": "Лид #1591",
+    "HONORIFIC": null,
+    "NAME": "",
+    "SECOND_NAME": null,
+    "LAST_NAME": null,
+    "COMPANY_TITLE": null,
+    "COMPANY_ID": null,
+    "CONTACT_ID": null,
+    "IS_RETURN_CUSTOMER": "N",
+    "BIRTHDATE": "",
+    "SOURCE_ID": "1",
+    "SOURCE_DESCRIPTION": null,
+    "STATUS_ID": "IN_PROCESS",
+    "STATUS_DESCRIPTION": null,
+    "POST": null,
+    "COMMENTS": null,
+    "CURRENCY_ID": "RUB",
+    "OPPORTUNITY": "0.00",
+    "IS_MANUAL_OPPORTUNITY": "N",
+    "HAS_PHONE": "N",
+    "HAS_EMAIL": "N",
+    "HAS_IMOL": "N",
+    "ASSIGNED_BY_ID": "1",
+    "CREATED_BY_ID": "1",
+    "MODIFY_BY_ID": "1",
+    "DATE_CREATE": "2024-05-23T18:18:25+03:00",
+    "DATE_MODIFY": "2024-05-23T18:18:25+03:00",
+    "DATE_CLOSED": "",
+    "STATUS_SEMANTIC_ID": "P",
+    "OPENED": "Y",
+    "ORIGINATOR_ID": null,
+    "ORIGIN_ID": null,
+    "MOVED_BY_ID": "1",
+    "MOVED_TIME": "2024-05-23T18:18:25+03:00",
+    "ADDRESS": null,
+    "ADDRESS_2": null,
+    "ADDRESS_CITY": null,
+    "ADDRESS_POSTAL_CODE": null,
+    "ADDRESS_REGION": null,
+    "ADDRESS_PROVINCE": null,
+    "ADDRESS_COUNTRY": null,
+    "ADDRESS_COUNTRY_CODE": null,
+    "ADDRESS_LOC_ADDR_ID": null,
+    "UTM_SOURCE": null,
+    "UTM_MEDIUM": null,
+    "UTM_CAMPAIGN": null,
+    "UTM_CONTENT": null,
+    "UTM_TERM": null,
+    "LAST_ACTIVITY_BY": "1",
+    "LAST_ACTIVITY_TIME": "2024-05-23T18:18:25+03:00",
+    "PHONE": [
+      {
+        "ID": "11658",
+        "VALUE_TYPE": "OTHER",
+        "VALUE": "+5454777777",
+        "TYPE_ID": "PHONE"
+      }
+    ],
+    "IM": [
+      {
+        "ID": "11660",
+        "VALUE_TYPE": "OPENLINE",
+        "VALUE": "imol|livechat|1|67|21",
+        "TYPE_ID": "IM"
+      }
+    ]
+  },
+  "time": {
+      "start": 1705764932.998683,
+      "finish": 1705764937.173995,
+      "duration": 4.1753120422363281,
+      "processing": 3.3076529502868652,
+      "date_start": "2024-01-20T18:35:32+03:00",
+      "date_finish": "2024-01-20T18:35:37+03:00",
+      "operating_reset_at": 1705765533,
+      "operating": 3.3076241016387939
+  }
+}
+```
+
+### Возвращаемые данные
+
+#|
+|| **Название**
+`тип` | **Описание** ||
+|| **result**
+[`lead`](#lead) | Корневой элемент ответа. Содержит информацию о полях лида. Структура описана [ниже](#lead) ||
+|| **time**
+[`time`](../../data-types.md#time) | Информация о времени выполнения запроса ||
+|#
+
+#### Тип lead {#lead}
+
+#|
+|| **Название**
+`тип` | **Описание** ||
+|| **ID**
+[`integer`](../../data-types.md) | Целочисленный идентификатор лида ||
+|| **TITLE**
+[`string`](../../data-types.md) | Название лида ||
+|| **HONORIFIC**
+[`crm_status`](../../data-types.md) | Вид обращения. Статус из справочника. Список возможных идентификаторов можно получить методом [crm.status.list](../status/crm-status-list.md) с фильтром `filter[ENTITY_ID]=HONORIFIC` ||
+|| **NAME**
+[`string`](../../data-types.md) |  Имя контакта ||
+|| **SECOND_NAME**
+[`string`](../../data-types.md) |  Отчество контакта ||
+|| **LAST_NAME**
+[`string`](../../data-types.md) |  Фамилия контакта ||
+|| **COMPANY_ID**
+[`crm_company`](../../data-types.md) | Привязка лида к компании ||
+|| **COMPANY_TITLE**
+[`string`](../../data-types.md) | Название компании ||
+|| **CONTACT_ID**
+[`crm_contact`](../../data-types.md) | Привязка лида к контакту ||
+|| **IS_RETURN_CUSTOMER**
+[`char`](../../data-types.md) | Признак повторного лида. Допустимые значения Y или N ||
+|| **BIRTHDATE**
+[`date`](../../data-types.md) | Дата рождения ||
+|| **SOURCE_ID**
+[`crm_status`](../../data-types.md) | Идентификатор источника. Статус из справочника. Список возможных идентификаторов можно получить методом [crm.status.list](../status/crm-status-list.md) с фильтром `filter[ENTITY_ID]=SOURCE` ||
+|| **SOURCE_DESCRIPTION**
+[`string`](../../data-types.md) | Описание источника ||
+|| **STATUS_ID**
+[`crm_status`](../../data-types.md) | Идентификатор стадии лида. Статус из справочника. Список возможных идентификаторов можно получить методом [crm.status.list](../status/crm-status-list.md) с фильтром `filter[ENTITY_ID]=STATUS` ||
+|| **STATUS_DESCRIPTION**
+[`string`](../../data-types.md) | Дополнительно о стадии ||
+|| **POST**
+[`string`](../../data-types.md) | Должность ||
+|| **COMMENTS**
+[`string`](../../data-types.md) | Комментарии ||
+|| **CURRENCY_ID**
+[`crm_currency`](../../data-types.md) | Идентификатор валюты ||
+|| **OPPORTUNITY**
+[`double`](../../data-types.md) | Предполагаемая сумма ||
+|| **IS_MANUAL_OPPORTUNITY**
+[`char`](../../data-types.md) | Признак ручного расчёта суммы. Допустимые значения Y или N ||
+|| **HAS_PHONE**
+[`char`](../../data-types.md) | Признак заполненности поля телефон. Допустимые значения Y или N ||
+|| **HAS_EMAIL**
+[`char`](../../data-types.md) | Признак заполненности поля электронной почты. Допустимые значения Y или N ||
+|| **HAS_IMOL**
+[`char`](../../data-types.md) | Признак наличия привязанной открытой линии. Допустимые значения Y или N ||
+|| **ASSIGNED_BY_ID**
+[`user`](../../data-types.md) | Идентификатор пользователя ответственного за лид ||
+|| **CREATED_BY_ID**
+[`user`](../../data-types.md) | Идентификатор пользователя создавшего лид ||
+|| **MODIFY_BY_ID**
+[`user`](../../data-types.md) | Идентификатор пользователя-автора последнего изменения ||
+|| **MOVED_BY_ID**
+[`user`](../../data-types.md) | Идентификатор пользователя-автора перемещения элемента на текущую стадию ||
+|| **DATE_CREATE**
+[`datetime`](../../data-types.md) | Дата создания ||
+|| **DATE_MODIFY**
+[`datetime`](../../data-types.md) | Дата изменения ||
+|| **DATE_CLOSED**
+[`datetime`](../../data-types.md) | Дата закрытия ||
+|| **STATUS_SEMANTIC_ID**
+[`string`](../../data-types.md) |
+- F (failed) – обработан неуспешно
+- S (success) – обработан успешно
+- P (processing) – лид в обработке ||
+|| **OPENED**
+[`char`](../../data-types.md) | Признак доступности лида для всех. Допустимые значения Y или N ||
+|| **ORIGINATOR_ID**
+[`string`](../../data-types.md) | Идентификатор источника данных. Используется только для привязки к внешнему источнику ||
+|| **ORIGIN_ID**
+[`string`](../../data-types.md) | Идентификатор элемента в источнике данных. Используется только для привязки к внешнему источнику ||
+|| **MOVED_TIME**
+[`datetime`](../../data-types.md) | Дата перемещения элемента на текущую стадию ||
+|| **ADDRESS**
+[`string`](../../data-types.md) | Адрес контакта ||
+|| **ADDRESS_2**
+[`string`](../../data-types.md) | Вторая страница адреса. В некоторых странах принято разбивать адрес на 2 части ||
+|| **ADDRESS_CITY**
+[`string`](../../data-types.md) | Город ||
+|| **ADDRESS_POSTAL_CODE**
+[`string`](../../data-types.md) | Почтовый индекс ||
+|| **ADDRESS_REGION**
+[`string`](../../data-types.md) | Район ||
+|| **ADDRESS_PROVINCE**
+[`string`](../../data-types.md) | Область ||  
+|| **ADDRESS_COUNTRY**
+[`string`](../../data-types.md) | Страна ||
+|| **ADDRESS_COUNTRY_CODE**
+[`string`](../../data-types.md) | Код страны || 
+|| **ADDRESS_LOC_ADDR_ID**
+[`string`](../../data-types.md) | Используется для служебных целей ||
+|| **UTM_SOURCE**
+[`string`](../../data-types.md) | Рекламная система. Yandex-Direct, Google-Adwords и другие ||
+|| **UTM_MEDIUM**
+[`string`](../../data-types.md) | Тип трафика. CPC (объявления), CPM (баннеры) ||
+|| **UTM_CAMPAIGN**
+[`string`](../../data-types.md) | Обозначение рекламной кампании ||
+|| **UTM_CONTENT**
+[`string`](../../data-types.md) | Содержание кампании. Например, для контекстных объявлений ||
+|| **UTM_TERM**
+[`string`](../../data-types.md) | Условие поиска кампании. Например, ключевые слова контекстной рекламы ||
+|| **LAST_ACTIVITY_BY**
+[`string`](../../data-types.md) | Идентификатор пользователя ответственного за последнюю активность в этом лиде (например, создавшего новое дело в лиде) ||
+|| **LAST_ACTIVITY_TIME**
+[`datetime`](../../data-types.md) | Время последней активности ||
+||**UF_...** | Пользовательские поля. Например, `UF_CRM_25534736`.  
+
+В зависимости от настроек портала у лидов может быть набор пользовательских полей определенных типов. 
+
+Для создания, изменения или удаления пользовательских полей в лидах используйте методы [crm.lead.userfield.*](./userfield/index.md) ||
+|| **PHONE**
+[`crm_multifield`](../../data-types.md) | Массив телефонов ||
+|| **IM**
+ [`crm_multifield`](../../data-types.md) | Массив мессенджеров ||
+|#
+
+## Обработка ошибок
+
+> 40x, 50x Error
+
+```json
+{
+    "error": "",
+    "error_description": "Not found"
+}
 ```
 
 
 
+### Возможные ошибки
 
-
-### PLACEMENT_OPTIONS
-
-Значением `PLACEMENT_OPTIONS` является JSON-строка, содержащая массив из одного и более ключей.
-
-
-
-#|
-|| **Параметр** | **Описание** ||
-|| **CALL_ID***
-[`string`](../../data-types.md) | Идентификатор звонка, во время которого был открыт виджет.
-
-||
-|| **PHONE_NUMBER***
-[`string`](../../data-types.md) | Номер телефона клиента, с которым происходит разговор
-
-||
-|| **LINE_NUMBER**
-[`string`](../../data-types.md) | Номер телефона компании, который используется для разговора с клиентом.
-
-||
-|| **LINE_NAME**
-[`string`](../../data-types.md) | Название телефонной линии компании, который используется для разговора с клиентом.
-
-Линии добавляются приложениями для интеграции телефоний с помощью метода [telephony.externalLine.add](../../telephony/telephony-external-line-add.md) и используются для удобства пользователя в сквозной аналитике.
-
-||
-|| **CRM_ENTITY_TYPE**
-[`integer`](../../data-types.md) | [Тип элемента](../../crm/data-types.html#object_type) CRM, к которому привязан текущий звонок.
-
-Зная тип и идентификатор элемента CRM (указывается в параметре `CRM_ENTITY_ID`), можно получать информацию об элементе.
-
-||
-|| **CRM_ENTITY_ID**
-[`string`](../../data-types.md) | Идентификатор элемента CRM, к которому привязан текущий звонок.
-
-Зная тип (указан в параметре `CRM_ENTITY_TYPE`) и идентификатор элемента CRM (указывается в параметре `CRM_ENTITY_ID`), можно получать информацию об элементе с помощью соответствующих методов:
-
-- любой тип объекта [crm.item.get](../../crm/universal/crm-item-get.md) с указанием entityTypeId = '1' для лидов, '2' для сделок и [т.д.](../../crm/data-types.md#object_type)
-- лид [crm.lead.get](../../crm/leads/crm-lead-get.md)
-- сделка [crm.deal.get](../../crm/deals/crm-deal-get.md)
-- контакт [crm.contact.get](../../crm/contacts/crm-contact-get.md)
-- компания [crm.comany.get](../../crm/companies/crm-company-get.md)
-- коммерческое предложение [crm.quote.get](../../crm/quote/crm-quote-get.md)
-
-||
-|| **CRM_ACTIVITY_ID**
-[`string`](../../data-types.md) | Идентификатор [дела CRM](../../crm/timeline/activities/index.md), связанного с текущим звонком.
-
-Может быть использован для получения дополнительной информации с помощью метода [user.get](../../user/user-get.md).
-
-||
-|| **CALL_DIRECTION***
-[`string`](../../data-types.md) | Определяет тип звонка. Может принимать значения:
-
-- 'incoming', входящий звонок;
-- 'outcoming' исходящий звонок
-
-||
-|| **CALL_STATE**
-[`string`](../../data-types.md) | Определяет состояние звонка. Может принимать значения:
-
-- 'connected', активный звонок;
-
-Остальные возможные значения будут опубликованы позже
-
-||
-|| **CALL_LIST_MODE**
-[`string`](../../data-types.md) | Указывает, совершается ли звонок в рамках [обзвона](https://helpdesk.bitrix24.ru/open/17520342/) или нет.
-
-Может принимать следующие значения:
-
-- `False`, звонок не является частью обзвона;
-- `True`, звонок совершается в рамках обзвона
-
-||
+#|  
+|| **Текст ошибки** | **Описание** ||
+|| `ID is not defined or invalid` |  В параметр `id` либо не передано значение, либо оно является не целым числом больше нуля ||
+|| `Not found`  | Лид с указанным `id` не найден ||
+|| `Access denied` | У пользователя нет прав на чтение лида ||
 |#
 
-## Продолжите изучение
 
-- [{#T}](../placement-bind.md)
-- [{#T}](../ui-interaction/index.md)
-- [{#T}](../ui-interaction/crm-card.md)
-- [{#T}](../../interactivity/index.md)
-- [{#T}](../open-application.md)
-- [{#T}](../open-path.md)
+
+## Продолжите изучение 
+
+- [{#T}](../../../tutorials/crm/how-to-add-crm-objects/how-to-add-objects-with-crm-mode.md)
 

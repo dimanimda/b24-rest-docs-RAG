@@ -10,4 +10,7 @@ header .brand{font-weight:700}
 #controls input, #controls select{margin-right:8px}
 .copy-btn{font-size:12px;padding:4px 8px;border:1px solid #ccc;border-radius:4px;background:#fff;cursor:pointer}
 .copy-btn:hover{background:#f0f0f0}
+table.b24{border-collapse:collapse;margin:12px 0;width:100%}
+table.b24 td, table.b24 th{border:1px solid #e2e2e2;padding:8px;vertical-align:top}
+table.b24 th{background:#fafafa;text-align:left}
 

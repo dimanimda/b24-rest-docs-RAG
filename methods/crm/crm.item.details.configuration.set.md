@@ -9,245 +9,423 @@ params: {"type":"object"}
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Смарт-процессы: обзор методов
+# Установить параметры карточки элементов crm.item.details.configuration.set
 
-Смарт-процесс — это универсальный объект CRM, который можно настроить с учетом потребностей компании. Для каждого смарт-процесса Битрикс24 создает отдельный раздел в CRM. В разделе можно настроить воронки и стадии, роботов, поля, связи с другими объектами Битрикс24.
-
-> Быстрый переход: [все методы и события](#all-methods)
+> Название метода: **crm.item.details.configuration.set**
 >
-> Пользовательская документация: [Смарт-процессы в CRM](https://helpdesk.bitrix24.ru/open/18913880/)
-
-## Порядок работы со смарт-процессом
-
-1. Создайте и настройте смарт-процесс — методы [crm.type.*](./index.md).
-2. Настройте воронки и стадии — [crm.category.*](../category/index.md) для воронок и [crm.status.*](../../status/index.md) для стадий.
-3. Добавьте пользовательские поля — [userfieldconfig.*](../userfieldconfig/userfieldconfig/index.md).
-4. Настройте вид карточки элемента — [crm.item.details.configuration.*](../item-details-configuration/index.md).
-5. Создайте первые элементы внутри смарт-процесса — [crm.item.*](../index.md).
-
-Смарт-процесс можно перенести из раздела CRM в раздел Автоматизация через [цифровые рабочие места](../../automated-solution/index.md).
-
-## Связь с другими объектами
-
-**Объекты CRM.** Смарт-процесс можно [связать](./crm-type-add.md#relations) с лидами, сделками и другими объектами CRM. Связанный объект будет доступен через поле `parentId{ID}`, где `{ID}` — числовой идентификатор объекта CRM.
-
-**Клиент.** Поле в карточке смарт-процесса, которое состоит из связанных с ним компании и контактов. Компания в поле одна, изменяйте связанную компанию через поле `companyId`. Контактов в поле «Клиент» может быть несколько. Взаимодействие с контактами ведется через поле `contactIds` — передавайте в поле массив с ID контактов. Включите поле опцией `isClientEnabled` в методе [crm.type.add](./crm-type-add.md) или [crm.type.update](./crm-type-update.md).
-
-**Реквизиты вашей компании.** Укажите ID вашей компании в поле `mycompanyId`, чтобы ее реквизиты автоматически использовались в документах. Получить ID вашей компании можно методом [crm.item.list](../crm-item-list.md) для объекта компаний с фильтром по полю `isMyCompany`. Включите поле опцией `isMycompanyEnabled` в методе [crm.type.add](./crm-type-add.md) или [crm.type.update](./crm-type-update.md).
-
-**Товары.** Чтобы добавить, изменить или удалить товарные позиции в смарт-процессе используйте методы [crm.item.productrow.*](../product-rows/index.md). Включите вкладку с товарами и поле «Сумма и валюта» опцией `isLinkWithProductsEnabled` в методе [crm.type.add](./crm-type-add.md) или [crm.type.update](./crm-type-update.md).
-
-**Пользователи.** Смарт-процесс имеет привязку к пользователям по числовым идентификаторам в полях:
-- `createdBy` — кем создан,
-- `updatedBy` — кем обновлен,
-- `movedBy` — кто изменил стадию,
-- `assignedById` — ответственный за элемент,
-- `observers` — наблюдатели. Включите поле опцией `isObserversEnabled` в методе [crm.type.add](./crm-type-add.md) или [crm.type.update](./crm-type-update.md).
-
-Получить идентификатор и данные пользователя можно с помощью метода [user.get](../../../user/user-get.md).
-
-**Документы.** Чтобы создать документ по шаблону, загрузить новый шаблон для смарт-процесса или настроить нумератор для документов, используйте методы [crm.documentgenerator.*](../../document-generator/index.md). Включите работу с документами в смарт-процессе опцией `isDocumentsEnabled` в методе [crm.type.add](./crm-type-add.md) или [crm.type.update](./crm-type-update.md).
-
-**Задачи.** Элементы смарт-процесса можно привязывать к задачам. Для работы с задачами используйте методы [tasks.task.*](../../../tasks/index.md). Чтобы возможность связи была доступна, включите и настройте опцию `isUseInUserfieldEnabled` в методе [crm.type.add](./crm-type-add.md) или [crm.type.update](./crm-type-update.md).
-
-**События календаря.** Элементы смарт-процесса можно привязывать к событиям календаря. Для работы с календарем используйте методы [calendar.event.*](../../../calendar/calendar-event/index.md). Чтобы возможность связи была доступна, включите и настройте опцию `isUseInUserfieldEnabled` в методе [crm.type.add](./crm-type-add.md) или [crm.type.update](./crm-type-update.md).
-
-
-
-- [Как прикрепить задачу к смарт-процессу](../../../../tutorials/tasks/how-to-connect-task-to-spa.md)
-- [Как создать пользовательское поле в смарт-процессе](../../../../tutorials/crm/how-to-add-crm-objects/how-to-add-user-field-to-spa.md)
-- [Как добавить комментарий в таймлайн смарт-процесса](../../../../tutorials/crm/how-to-add-crm-objects/how-to-add-comment-to-spa.md)
-- [Как создать новую воронку со стадиями в смарт-процессе](../../../../tutorials/crm/how-to-add-crm-objects/how-to-add-category-to-spa.md)  
-
-
-
-## Карточка элемента смарт-процесса
-
-Основное рабочее пространство в смарт-процессе — вкладка «Общее» карточки. Она состоит из двух частей:
-
-- левая, в ней располагаются поля с информацией. Если системных полей недостаточно, можно создать собственные пользовательские поля. Поля позволяют хранить информацию в различных форматах данных: строка, число, ссылка, адрес и другие. Для создания, изменения, получения или удаления пользовательских полей смарт-процесса используйте группу методов [userfieldconfig.*](../userfieldconfig/userfieldconfig/index.md).
-
-- правая, в ней располагается таймлайн смарт-процесса. В нем можно создавать, редактировать, фильтровать, удалять дела CRM — группа методов [crm.activity.*](../../timeline/activities/index), и записи таймлайна — группа методов [crm.timeline.*](../../timeline/index).
-
-Параметрами карточки смарт-процесса можно управлять через группу методов [crm.item.details.configuration.*](../item-details-configuration/index.md).
-
-
-
-- [Карточка CRM: возможности и настройки](https://helpdesk.bitrix24.ru/open/22804914/)
-- [Системные поля в CRM](https://helpdesk.bitrix24.ru/open/18478840/)
-- [Пользовательские поля в CRM](https://helpdesk.bitrix24.ru/open/22048980/)
-- [Таймлайн в элементе CRM](https://helpdesk.bitrix24.ru/open/23960160/)
-
-
-
-## Виджеты
-
-В карточку смарт-процесса можно встроить приложение. Благодаря встраиванию можно будет использовать приложение и не покидать карточку элемента.
-
-Есть два сценария встройки:
-
-- использовать специальные [места встраивания](../../../widgets/crm/index.md). Например, через создание своей вкладки.
-  
-- создать [пользовательское поле](../../../../tutorials/crm/crm-widgets/widget-as-field-in-lead-page.md), в котором будет загружаться интерфейс вашего приложения.
-  
-### Места встраивания смарт-процессов
-
-Вместо `XXX` укажите числовой идентификатор конкретного смарт-процесса, например `CRM_DYNAMIC_183_DOCUMENTGENERATOR_BUTTON`.
-
-- [`CRM_DYNAMIC_XXX_DETAIL_TAB`](../../../widgets/crm/detail-tab.md) — вкладка в детальной карточке элемента CRM
-
-- [`CRM_DYNAMIC_XXX_DETAIL_ACTIVITY`](../../../widgets/crm/detail-activity.md) — кнопка над таймлайном карточки элемента
-
-- [`CRM_DYNAMIC_XXX_DETAIL_TOOLBAR`](../../../widgets/crm/detail-toolbar.md) — пункт выпадающего меню верхней кнопки карточки
-
-- [`CRM_DYNAMIC_XXX_DOCUMENTGENERATOR_BUTTON`](../../../widgets/crm/document-generator-button.md) — пункт выпадающего меню генератора документов
-
-- [`CRM_DYNAMIC_XXX_LIST_MENU`](../../../widgets/crm/index.md) — пункт контекстного меню в списке элементов
-
-- [`CRM_DYNAMIC_XXX_LIST_TOOLBAR`](../../../widgets/crm/list-toolbar.md) — пункт выпадающего меню над списком элементов
-
-- [`CRM_DYNAMIC_XXX_ACTIVITY_TIMELINE_MENU`](../../../widgets/crm/activity-timeline-menu.md) — пункт контекстного меню дела в карточке элемента
-
-- [`CRM_DYNAMIC_XXX_ROBOT_DESIGNER_TOOLBAR`](../../../widgets/crm/robot-designer-toolbar.md) — пункт выпадающего меню верхней кнопки дизайнера роботов
-
-
-
-- [Механизм встройки виджетов](../../../widgets/index.md)
-- [Встроить виджет в карточку CRM](../../../../tutorials/crm/crm-widgets/widget-as-detail-tab.md)
-
-
-
-## Идентификаторы смарт-процессов {#id}
-
-У каждого смарт-процесса есть четыре типа идентификаторов. Используйте идентификаторы, чтобы применить метод к определенному смарт-процессу.
-
-1. Числовой идентификатор типа `130`. Получить можно методом [crm.enum.ownertype](../../auxiliary/enum/crm-enum-owner-type.md) `ID` или [crm.type.list](./crm-type-list.md) `entityTypeId`.
-
-1. Символьный код типа `DYNAMIC_130` — [crm.enum.ownertype](../../auxiliary/enum/crm-enum-owner-type.md) `SYMBOL_CODE`.
-
-2. Краткий символьный код типа `T82` — [crm.enum.ownertype](../../auxiliary/enum/crm-enum-owner-type.md) `SYMBOL_CODE_SHORT`.
-
-3. Тип объекта пользовательского поля `CRM_13` — [crm.type.list](./crm-type-list.md). `id` из результата метода подставьте в формулу `CRM_ + {ID}`.
-
-## Обзор методов и событий {#all-methods}
-
 > Scope: [`crm`](../../../scopes/permissions.md)
 >
-> Кто может выполнять метод: в зависимости от метода
+> Кто может выполнять метод: проверка прав при выполнении метода зависит от переданных данных:
+>   - Любой пользователь имеет право установить свои личные настройки
+>   - Пользователь имеет право устанавливать общие и чужие настройки только если он является администратором
 
-### Смарт-процессы
 
-
-
-- Методы
-
-    #|
-    || **Метод** | **Описание** ||
-    || [crm.type.add](./crm-type-add.md) | Создает новый смарт-процесс ||
-    || [crm.type.update](./crm-type-update.md) | Обновляет смарт-процесс ||
-    || [crm.type.get](./crm-type-get.md) | Возвращает смарт-процесс по id ||
-    || [crm.type.getByEntityTypeId](./crm-type-get-by-entity-type-id.md) | Возвращает смарт-процесс по entityTypeId ||
-    || [crm.type.list](./crm-type-list.md) | Возвращает список смарт-процессов ||
-    || [crm.type.delete](./crm-type-delete.md) | Удаляет смарт-процесс ||
-    || [crm.type.fields](./crm-type-fields.md) | Возвращает поля смарт-процесса ||
-    |#
-
-- События
-
-    #|
-    || **Событие** | **Вызывается** ||
-    || [onCrmTypeAdd](../events/type/on-crm-type-add.md) | При создании смарт-процесса ||
-    || [onCrmTypeUpdate](../events/type/on-crm-type-update.md) | При обновлении смарт-процесса ||
-    || [onCrmTypeDelete](../events/type/on-crm-type-delete.md) | При удалении смарт-процесса ||
-    |#
+Метод устанавливает настройки карточки определенного объекта CRM. Записывает личные настройки карточки указанного пользователя или общие настройки для всех пользователей.
 
 
 
-### Элементы
-
-Идентификатор объекта CRM **entityTypeId** — [числовой идентификатор типа](#id), например `128`.
+## Параметры метода
 
 
-
-- Методы
-
-    #|
-    || **Метод** | **Описание** ||
-    || [crm.item.add](../crm-item-add.md) | Создает новый элемент ||
-    || [crm.item.update](../crm-item-update.md) | Обновляет элемент ||
-    || [crm.item.get](../crm-item-get.md) | Возвращает элемент по Id ||
-    || [crm.item.list](../crm-item-list.md) | Возвращает список элементов по фильтру ||
-    || [crm.item.delete](../crm-item-delete.md) | Удаляет элемент ||
-    || [crm.item.fields](../crm-item-fields.md) | Возвращает поля элемента ||
-    |#
-
-- События
-
-    #|
-    || **Событие** | **Вызывается** ||
-    || [onCrmDynamicItemAdd](../events/on-crm-dynamic-item-add.md) | При создании элемента смарт-процесса ||
-    || [onCrmDynamicItemDelete](../events/on-crm-dynamic-item-delete.md) | При удалении элемента смарт-процесса ||
-    || [onCrmDynamicItemUpdate](../events/on-crm-dynamic-item-update.md) | При изменении элемента смарт-процесса ||
-    |#
-
-
-
-### Воронки
-
-Идентификатор объекта CRM **entityTypeId** — [числовой идентификатор типа](#id), например `128`.
 
 #|
-|| **Метод** | **Описание** ||
-|| [crm.category.add](../category/crm-category-add.md) | Создает новую воронку ||
-|| [crm.category.update](../category/crm-category-update.md) | Обновляет воронку ||
-|| [crm.category.get](../category/crm-category-get.md) | Возвращает воронку по Id ||
-|| [crm.category.list](../category/crm-category-list.md) | Возвращает список воронок ||
-|| [crm.category.delete](../category/crm-category-delete.md) | Удаляет воронку ||
-|| [crm.category.fields](../category/crm-category-fields.md) | Возвращает поля воронки ||
+|| **Название**
+`тип` | **Описание** ||
+|| **entityTypeId***
+[`integer`][1] | Идентификатор [системного](./../../index.md) или [пользовательского типа](./../user-defined-object-types/index.md) объектов CRM ||
+|| **data***
+[`section[]`](#section)| Список `section` описывающий конфигурацию разделов полей в карточке элемента. Структура `section` описана ниже ||
+|| **userId**
+[`user`][1] | Идентификатор пользователя, для которого вы хотите установить конфигурацию.
+
+Если параметр не передан, то будет взят `userId` пользователя, вызывающего этот метод.
+
+Нужен только при запросе личных настроек
+||
+|| **scope**
+[`string`][1] | Область применения настроек. Допустимые значения:
+- `'P'` — личные настройки
+- `'C'` — общие настройки
+
+По умолчанию значение равно `'P'`
+
+||
+|| **extras**
+[`object`][1] | Дополнительные параметры. Возможные значения и их структура описана [ниже](#extras) ||
 |#
 
-### Пользовательские поля
+### section
 
-Идентификатор объекта CRM **entityId** — [тип объекта пользовательского поля](#id), например `CRM_1`.
+Описывает отдельно взятый раздел с полями внутри карточки элемента.
+
+
 
 #|
-|| **Метод** | **Описание** ||
-|| [userfieldconfig.add](../userfieldconfig/userfieldconfig/userfieldconfig-add.md) | Создает пользовательское поле ||
-|| [userfieldconfig.update](../userfieldconfig/userfieldconfig/userfieldconfig-update.md) | Изменяет настройки поля ||
-|| [userfieldconfig.get](../userfieldconfig/userfieldconfig/userfieldconfig-get.md) | Возвращает настройки пользовательского поля по идентификатору ||
-|| [userfieldconfig.getTypes](../userfieldconfig/userfieldconfig/userfieldconfig-get-types.md) | Возвращает набор доступных типов пользовательских полей для модуля ||
-|| [userfieldconfig.list](../userfieldconfig/userfieldconfig/userfieldconfig-list.md) | Возвращает список настроек пользовательских полей ||
-|| [userfieldconfig.delete](../userfieldconfig/userfieldconfig/userfieldconfig-delete.md) | Удаляет пользовательское поле ||
+|| **Название**
+`тип` | **Описание** ||
+|| **name***
+[`string`][1] | Уникальное название раздела ||
+|| **title***
+[`string`][1] | Название раздела. Отображается в карточке элемента ||
+|| **type***
+[`string`][1] | Тип раздела. 
+
+На данный момент доступно только значение `'section'` ||
+|| **elements**
+[`section_element[]`](#section_element) | Массив `section_element`, описывающий конфигурацию полей в разделе ||
 |#
 
-### Управление настройками карточки
+#### section_element
 
-Идентификатор объекта CRM **entityTypeId** — [числовой идентификатор типа](#id), например `128`.
+Конфигурация отдельно взятого поля внутри раздела.
+
+
 
 #|
-|| **Метод** | **Описание** ||
-|| [crm.item.details.configuration.forceCommonScopeForAll](../item-details-configuration/crm-item-details-configuration-forceCommonScopeForAll.md) | Устанавливает общую карточку для всех пользователей ||
-|| [crm.item.details.configuration.get](../item-details-configuration/crm-item-details-configuration-get.md) | Получает параметры карточки элементов ||
-|| [crm.item.details.configuration.reset](../item-details-configuration/crm-item-details-configuration-reset.md) | Сбрасывает параметры карточки элементов ||
-|| [crm.item.details.configuration.set](../item-details-configuration/crm-item-details-configuration-set.md) | Устанавливает параметры карточки элементов ||
+|| **Название**
+`тип` | **Описание** ||
+|| **name***
+[`string`][1] | Идентификатор поля. Список доступных полей можно узнать с помощью [`crm.item.fields`](../crm-item-fields.md) ||
+|| **optionFlags**
+[`integer`][1] | Нужно ли показывать поле всегда:
+- `1` — да
+- `0` — нет
+
+По умолчанию значение равно `0` ||
+|| **options**
+[`object`][1] | Дополнительный [список опций](#section_elementoptions) для поля ||
 |#
 
-### Товарные позиции
-
-Идентификатор объекта CRM **ownerType** — [краткий символьный код типа](#id), например `T80`.
+#### section_element.options
 
 #|
-|| **Метод** | **Описание** ||
-|| [crm.item.productrow.add](../product-rows/crm-item-productrow-add.md) | Добавляет товарную позицию ||
-|| [crm.item.productrow.update](../product-rows/crm-item-productrow-update.md) | Обновляет товарную позицию ||
-|| [crm.item.productrow.get](../product-rows/crm-item-productrow-get.md) | Получает информацию о товарной позиции по id ||
-|| [crm.item.productrow.set](../product-rows/crm-item-productrow-set.md) | Привязывает товарную позицию к объекту CRM ||
-|| [crm.item.productrow.list](../product-rows/crm-item-productrow-list.md) | Получает список товарных позиций ||
-|| [crm.item.productrow.getAvailableForPayment](../product-rows/crm-item-productrow-get-available-for-payment.md) | Получает список неоплаченных товаров ||
-|| [crm.item.productrow.delete](../product-rows/crm-item-productrow-delete.md) | Удаляет товарную позицию ||
-|| [crm.item.productrow.fields](../product-rows/crm-item-productrow-fields.md) | Получает список полей товарных позиций ||
+|| **Название**
+`тип` | **Поля, где доступна опция** | **Описание** | **По умолчанию** ||
+|| **defaultAddressType**
+[`integer`][1] | `ADDRESS` | Идентификатор типа адреса по умолчанию. Чтобы узнать возможные типы адресов, используйте [`crm.enum.addresstype`][2] | `Вычисляемое` ||
+|| **defaultCountry** 
+[`string`][1] | `PHONE`
+`CLIENT`
+`COMPANY`
+`CONTACT`
+`MYCOMPANY_ID` | Код страны для формата телефонного номера по умолчанию — строка из двух латинских букв. Например `"RU"`              | `Вычисляемое` ||
+|| **isPayButtonVisible**
+[`boolean`][1] | `OPPORTUNITY_WITH_CURRENCY` | Показана ли кнопка принятия оплаты.
+
+Возможные значения:
+- `'true'` — показана
+- `'false'` — скрыта 
+| `'true'` ||
+|| **isPaymentDocumentsVisible**
+[`boolean`][1] | `OPPORTUNITY_WITH_CURRENCY` | Показан ли блок «Оплата и доставка».
+
+Возможные значения: 
+- `'true'` — показан
+- `'false'` — скрыт 
+| `'true'` ||
 |#
+
+### extras
+
+Параметр в `extras` зависит от объекта CRM.
+
+#|
+|| **Объект CRM** | **Название** | **Описание** ||
+|| **Смарт-процесс** | `categoryId` | Идентификатор воронки смарт-процессов. Можно получить с помощью [`crm.category.list`](./../category/crm-category-list.md).
+
+Если не указано, то берется идентификатор воронки по умолчанию для данного смарт-процесса ||
+|| **Сделка** | `dealCategoryId` | Идентификатор воронки сделок. Можно получить с помощью [`crm.category.list`](./../category/crm-category-list.md).
+
+Если не указан, то берется идентификатор воронки по умолчанию для сделок ||
+|| **Лид** | `leadCustomerType` | Тип лидов. 
+
+озможные значения:
+- `1` — простые лиды
+- `2` — повторные лиды
+||
+|#
+
+## Примеры кода
+
+
+
+Для пользователя с `id = 1` в контактах установить следующую конфигурацию карточки элементов
+
+- Раздел 1 - **Личные данные**
+    - **Имя**
+        - Показывать всегда
+    - **Фамилия**
+        - Показывать всегда
+    - **Отчество**
+    - **Дата рождения**
+    - **Телефон**
+        - Показывать всегда
+        - Страна по умолчанию: **Великобритания(+44)**
+    - **Адрес**
+        - Показывать всегда
+        - Тип адреса по умолчанию: **Адрес регистрации** (см. [`crm.enum.addresstype`][2])
+- Раздел 2 - **Основная информация**
+    - **Тип контакта**
+    - **Источник**
+    - **Должность**
+- Раздел 3 - **Дополнительная информация**
+    - **Фотография**
+    - **Комментарий**
+    - **Пользовательское поле #1**
+
+
+
+- cURL (Webhook)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"entityTypeId":3,"userId":1,"data":[{"name":"section_1","title":"Личные данные","type":"section","elements":[{"name":"NAME","optionFlags":1},{"name":"LAST_NAME","optionFlags":1},{"name":"SECOND_NAME"},{"name":"BIRTHDATE"},{"name":"PHONE","optionFlags":1,"options":{"defaultCountry":"GB"}},{"name":"ADDRESS","optionFlags":1,"options":{"defaultAddressType":4}}]},{"name":"section_2","title":"Основная информация","type":"section","elements":[{"name":"TYPE_ID"},{"name":"SOURCE_ID"},{"name":"POST"}]},{"name":"section_3","title":"Дополнительная информация","type":"section","elements":[{"name":"PHOTO"},{"name":"COMMENTS"},{"name":"UF_CRM_1720697698689"}]}]}' \
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/crm.item.details.configuration.set
+    ```
+
+- cURL (OAuth)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"entityTypeId":3,"userId":1,"data":[{"name":"section_1","title":"Личные данные","type":"section","elements":[{"name":"NAME","optionFlags":1},{"name":"LAST_NAME","optionFlags":1},{"name":"SECOND_NAME"},{"name":"BIRTHDATE"},{"name":"PHONE","optionFlags":1,"options":{"defaultCountry":"GB"}},{"name":"ADDRESS","optionFlags":1,"options":{"defaultAddressType":4}}]},{"name":"section_2","title":"Основная информация","type":"section","elements":[{"name":"TYPE_ID"},{"name":"SOURCE_ID"},{"name":"POST"}]},{"name":"section_3","title":"Дополнительная информация","type":"section","elements":[{"name":"PHOTO"},{"name":"COMMENTS"},{"name":"UF_CRM_1720697698689"}]}],"auth":"**put_access_token_here**"}' \
+    https://**put_your_bitrix24_address**/rest/crm.item.details.configuration.set
+    ```
+
+- JS
+
+    ```javascript
+        BX24.callMethod(
+            'crm.item.details.configuration.set',
+            {
+                entityTypeId: 3,
+                userId: 1,
+                data: [
+                    {
+                        name: "section_1",
+                        title: "Личные данные",
+                        type: "section",
+                        elements: [
+                            {
+                                name: "NAME",
+                                optionFlags: 1,
+                            },
+                            {
+                                name: "LAST_NAME",
+                                optionFlags: 1,
+                            },
+                            {
+                                name: "SECOND_NAME",
+                            },
+                            {
+                                name: "BIRTHDATE",
+                            },
+                            {
+                                name: "PHONE",
+                                optionFlags: 1,
+                                options: {
+                                    defaultCountry: "GB",
+                                },
+                            },
+                            {
+                                name: "ADDRESS",
+                                optionFlags: 1,
+                                options: {
+                                    defaultAddressType: 4,
+                                },
+                            },
+                        ],
+                    },
+                    {
+                        name: "section_2",
+                        title: "Основная информация",
+                        type: "section",
+                        elements: [
+                            { name: "TYPE_ID" },
+                            { name: "SOURCE_ID" },
+                            { name: "POST" },
+                        ],
+                    },
+                    {
+                        name: "section_3",
+                        title: "Дополнительная информация",
+                        type: "section",
+                        elements: [
+                            { name: "PHOTO" },
+                            { name: "COMMENTS" },
+                            { name: "UF_CRM_1720697698689" },
+                        ],
+                    },
+                ],
+            },
+            (result) => {
+                if (result.error())
+                {
+                    console.error(result.error());
+
+                    return;
+                }
+
+                console.info(result.data());
+            },
+        );
+    ```
+
+- PHP
+
+    ```php
+    require_once('crest.php');
+
+    $result = CRest::call(
+        'crm.item.details.configuration.set',
+        [
+            'entityTypeId' => 3,
+            'userId' => 1,
+            'data' => [
+                [
+                    'name' => "section_1",
+                    'title' => "Личные данные",
+                    'type' => "section",
+                    'elements' => [
+                        [
+                            'name' => "NAME",
+                            'optionFlags' => 1,
+                        ],
+                        [
+                            'name' => "LAST_NAME",
+                            'optionFlags' => 1,
+                        ],
+                        [
+                            'name' => "SECOND_NAME",
+                        ],
+                        [
+                            'name' => "BIRTHDATE",
+                        ],
+                        [
+                            'name' => "PHONE",
+                            'optionFlags' => 1,
+                            'options' => [
+                                'defaultCountry' => "GB",
+                            ],
+                        ],
+                        [
+                            'name' => "ADDRESS",
+                            'optionFlags' => 1,
+                            'options' => [
+                                'defaultAddressType' => 4,
+                            ],
+                        ],
+                    ],
+                ],
+                [
+                    'name' => "section_2",
+                    'title' => "Основная информация",
+                    'type' => "section",
+                    'elements' => [
+                        ['name' => "TYPE_ID"],
+                        ['name' => "SOURCE_ID"],
+                        ['name' => "POST"],
+                    ],
+                ],
+                [
+                    'name' => "section_3",
+                    'title' => "Дополнительная информация",
+                    'type' => "section",
+                    'elements' => [
+                        ['name' => "PHOTO"],
+                        ['name' => "COMMENTS"],
+                        ['name' => "UF_CRM_1720697698689"],
+                    ],
+                ],
+            ],
+        ]
+    );
+
+    echo '<PRE>';
+    print_r($result);
+    echo '</PRE>';
+    ```
+
+
+
+### Результат
+
+![Пример получившейся конфигурации](./_images/result-item-details-configuration-example.png)
+
+## Обработка ответа
+
+HTTP-статус: **200**
+
+```json
+{
+    "result": true,
+    "time": {
+        "start": 1720699969.76157,
+        "finish": 1720699970.153406,
+        "duration": 0.39183592796325684,
+        "processing": 0.02178215980529785,
+        "date_start": "2024-07-11T14:12:49+02:00",
+        "date_finish": "2024-07-11T14:12:50+02:00",
+        "operating": 0
+    }
+}
+```
+
+### Возвращаемые данные
+
+#|
+|| **Название**
+`тип` | **Описание** ||
+|| **result**
+[`boolean`][1] | Корневой элемент ответа. Возвращает `true` в случае успеха ||
+|| **time**
+[`time`][1] | Информация о времени выполнения запроса ||
+|#
+
+## Обработка ошибок
+
+HTTP-статус: **400**
+
+```json
+{
+    "error": "",
+    "error_description": "Element at index 0 in section at index 1 does not have name."
+}
+```
+
+
+
+### Возможные коды ошибок
+
+#|
+|| **Код** | **Описание** | **Значение** ||
+|| Пустое значение | Parameter 'entityTypeID' is not defined | Не передан обязательный параметр `entityTypeId` ||
+|| Пустое значение | The entity type '`entityTypeName`' is not supported in current context. | Метод не поддерживает данный тип сущности ||
+|| Пустое значение | Access denied. | У пользователя нет административных прав ||
+|| Пустое значение | Parameter 'data' must be array. | В `data` передан не массив ||
+|| Пустое значение | The data must be indexed array. | В `data` передан не индексированный массив ||
+|| Пустое значение | There are no data to write. | В `data` передан пустой массив ||
+|| Пустое значение | Section at index `i` have type `data[i].type`. The expected type is 'section'. | В `data[i].type` находится значение отличное от `'section'` || 
+|| Пустое значение | Section at index `i` does not have name. | В `data[i].name` передано пустое значение ||
+|| Пустое значение | Section at index `i` does not have title. | В `data[i].title` передано пустое значение ||
+|| Пустое значение | Element at index `j` in section at index `i` does not have name. | В `data[i].elements[j].name` передано пустое значение ||
+|#
+
+
+
+## Продолжите изучение
+
+- [{#T}](./index.md)
+- [{#T}](./crm-item-details-configuration-get.md)
+- [{#T}](./crm-item-details-configuration-reset.md)
+- [{#T}](./crm-item-details-configuration-forceCommonScopeForAll.md)
+
+[1]: ../../../data-types.md
+[2]: ../../auxiliary/enum/crm-enum-address-type.md
+

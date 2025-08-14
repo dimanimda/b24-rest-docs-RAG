@@ -9,51 +9,158 @@ params: {"type":"object","required":["id"],"properties":{"id":{"type":"integer"}
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Головные товары: обзор методов
-
-Головной товар — это товар с вариациями. Например, футболка — головной товар, а синяя футболка M и белая футболка L — его вариации. Головной товар не является товарной единицей. Он объединяет вариации и хранит общую информацию: название, описание, категорию. Цена, валюта, НДС, единица измерения, количество на складе указываются отдельно в каждой вариации.
-
-Отличия головного товара от простого товара:
-
-- головной товар нельзя купить — нужно выбрать одну из его вариаций. Для работы с вариациями используйте группу методов [catalog.product.offer.\*](../offer/index.md).
-
-- простой товар — единичный товар без вариаций. Его можно сразу добавить в корзину и купить. Для работы с простыми товарами используйте группу методов [catalog.product.\*](../index.md).
-
-> Быстрый переход: [все методы](#all-methods) 
-> 
-> Пользовательская документация: [Как создать новый товар в каталоге](https://helpdesk.bitrix24.ru/open/11657084/)
-
-## Связь головных товаров с другими объектами
-
-**Торговый каталог.** Товар должен быть привязан к конкретному торговому каталогу. Получить идентификаторы доступных торговых каталогов можно с помощью метода [catalog.catalog.list](../../catalog/catalog-catalog-list.md).
-
-**Разделы торгового каталога.** Головные товары обычно распределены по разделам. Чтобы создать и управлять разделами, используйте группу методов [catalog.section.\* ](../../section/index.md).
-
-**Изображения.** Головной товар может содержать изображения: для анонса, детальное, дополнительное. Чтобы добавить изображения, используйте методы [catalog.productImage.\*](../../product-image/index.md), чтобы скачать — метод [catalog.product.sku.download](./catalog-product-sku-download.md).
-
-**Пользователь**. В каждом товаре хранятся идентификаторы пользователей, которые его создали и изменили. Информацию о пользователе можно получить с помощью методов [user.get](../../../user/user-get.md) и [user.search](../../../user/user-search.md).
-
-**Свойства товаров и вариаций.** Головные товары могут иметь дополнительные свойства: производитель, сезон или материал. Работать со свойствами можно с помощью методов [catalog.productProperty.\*](../../product-property/index.md).
-
-**CRM.** В головных товарах можно указать [лиды](../../../crm/leads/index.md), [сделки](../../../crm/deals/index.md), [смарт-процессы](../../../crm/universal/index.md), [счета](../../../crm/universal/invoice.md), [контакты](../../../crm/contacts/index.md) и [компании](../../../crm/companies/index.md) с помощью свойства типа «Привязка к элементам CRM».
-
-## Обзор методов {#all-methods}
+# Удалить головной товар catalog.product.sku.delete
 
 > Scope: [`catalog`](../../../scopes/permissions.md)
 >
 > Кто может выполнять метод: администратор
 
+Метод удаляет головной товар. 
+
+## Параметры метода
+
+
+
 #|
-|| **Метод** | **Описание** ||
-|| [catalog.product.sku.add](./catalog-product-sku-add.md) | Добавляет головной товар в торговый каталог ||
-|| [catalog.product.sku.update](./catalog-product-sku-update.md) | Обновляет поля головного товара ||
-|| [catalog.product.sku.get](./catalog-product-sku-get.md) | Возвращает значения полей головного товара по идентификатору ||
-|| [catalog.product.sku.list](./catalog-product-sku-list.md) | Возвращает список головных товаров по фильтру ||
-|| [catalog.product.sku.download](./catalog-product-sku-download.md) | Скачивает файлы головного товара по переданным параметрам ||
-|| [catalog.product.sku.delete](./catalog-product-sku-delete.md) | Удаляет головной товар ||
-|| [catalog.product.sku.getFieldsByFilter](./catalog-product-sku-get-fields-by-filter.md) | Возвращает поля головного товара по фильтру ||
+|| **Название**
+`тип` | **Описание** ||
+|| **id***
+[`catalog_product_sku.id`](../../data-types.md#catalog_product_sku) | Идентификатор головного товара.
+
+Для получения идентификаторов головных товаров необходимо использовать [catalog.product.sku.list](./catalog-product-sku-list.md) ||
 |#
+
+## Примеры кода
+
+
+
+
+
+- cURL (Webhook)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"id":1288}' \
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/catalog.product.sku.delete
+    ```
+
+- cURL (OAuth)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"id":1288,"auth":"**put_access_token_here**"}' \
+    https://**put_your_bitrix24_address**/rest/catalog.product.sku.delete
+    ```
+
+- JS
+
+    ```js
+    BX24.callMethod(
+        'catalog.product.sku.delete',
+        {
+            id: 1288,
+        },
+        function(result) {
+            if (result.error()) {
+                console.error(result.error());
+            } else {
+                console.info(result.data());
+            }
+        }
+    );
+    ```
+
+- PHP
+
+    ```php
+    require_once('crest.php');
+
+    $result = CRest::call(
+        'catalog.product.sku.delete',
+        [
+            'id' => 1288
+        ]
+    );
+
+    echo '<PRE>';
+    print_r($result);
+    echo '</PRE>';
+    ```
+
+
+
+## Обработка ответа
+
+HTTP-статус: **200**
+
+```json
+{
+    "result": true,
+    "time": {
+        "start": 1718630898.795719,
+        "finish": 1718630899.598307,
+        "duration": 0.8025879859924316,
+        "processing": 0.35277414321899414,
+        "date_start": "2024-06-17T16:28:18+03:00",
+        "date_finish": "2024-06-17T16:28:19+03:00"
+    }
+}
+```
+
+### Возвращаемые данные
+
+#|
+|| **Название**
+`тип` | **Описание** ||
+|| **result**
+[`boolean`](../../../data-types.md) | Результат удаления головного товара ||
+|| **time**
+[`time`](../../../data-types.md) | Информация о времени выполнения запроса ||
+|#
+
+## Обработка ошибок
+
+HTTP-статус: **400**
+
+```json
+{	
+    "error":200040300040,
+    "error_description":"Access Denied"
+}
+```
+
+
+
+### Возможные коды ошибок
+
+#|
+|| **Код** | **Описание** ||
+|| `200040300040` | Недостаточно прав для удаления головного товара
+|| 
+|| `200040300040` | Недостаточно прав для удаления информационного блока
+|| 
+|| `200040300010` | Недостаточно прав для просмотра торгового каталога
+|| 
+|| `200040300000` | Информационный блок не найден
+|| 
+|| `0` | Другие ошибки (например, фатальные ошибки)
+|| 
+|#
+
+
+
+## Продолжите изучение
+
+- [{#T}](./catalog-product-sku-add.md)
+- [{#T}](./catalog-product-sku-update.md)
+- [{#T}](./catalog-product-sku-get.md)
+- [{#T}](./catalog-product-sku-list.md)
+- [{#T}](./catalog-product-sku-download.md)
+- [{#T}](./catalog-product-sku-get-fields-by-filter.md)

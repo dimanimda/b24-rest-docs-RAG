@@ -9,86 +9,375 @@ params: {"type":"object","required":["id","fields"],"properties":{"id":{"type":"
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Валюты в CRM: обзор методов
-
-Валюта в CRM помогает работать с клиентами из разных стран. Например, основная валюта, в которой компания ведет расчеты, — рубли. В сделку менеджер добавляет товары с ценой в рублях, а клиент платит в удобной ему валюте — тенге. Менеджеру достаточно изменить валюту сделки в карточке — Битрикс автоматически посчитает стоимость товаров в тенге по заданному в настройках курсу.
-
-> Быстрый переход: [все методы и события](#all-methods) 
-> 
-> Пользовательская документация: [валюты в Битрикс24](https://helpdesk.bitrix24.ru/open/6987305/)
-
-## Связь валюты с объектами CRM
-
-**Товары.** Стоимость товарной позиции можно указать через [методы цен](../../catalog/price/index.md). Поля всех типов цен составные — сумма и валюта изменяются отдельно. Для указания или изменения валюты используйте параметр `currency`, передавайте в него идентификатор валюты в формате `RUB`.
-
-**Стандартное поле «Сумма и валюта».** Поле показывает сумму товаров и валюту в [сделках](../deals/index.md), [лидах](../leads/index.md), [счетах](../universal/invoice.md), [предложениях](../quote/index.md),  [смарт-процессах](../universal/index.md). Поле `Сумма и валюта` — составное, сумма и валюта изменяются отдельно. Для указания или изменения валюты используйте параметр `CURRENCY_ID`, передавайте в него идентификатор валюты в формате `RUB`.
-
-**Пользовательское поле типа «Деньги».** Для указания или изменения значения валюты  передавайте в поле сумму и код валюты в формате `100|RUB`.
-
-## Базовая валюта
-
-Базовая валюта — валюта, в которой компания ведет расчеты.
-
-* Если создать или изменить элемент CRM, не передававя код валюты, — базовая валюта устанавливается автоматически
-* Если изменить валюту в поле, стоимость будет пересчитана по курсу базовой валюты
-
-Чтобы узнать базовую валюту, используйте метод [crm.currency.base.get](./crm-currency-base-get.md). Изменить базовую валюту — метод [crm.currency.base.set](./crm-currency-base-set.md). 
-
-## Курс валюты
-
-Курс любой валюты в Битрикс рассчитывается по отношению к базовой валюте. 
-
-
-
-Когда вы изменяете базовую валюту, соотношение курсов автоматически не пересчитывается. 
-
-
-
-Чтобы изменить курс валюты к базовой, используйте метод изменения валюты — [crm.currency.update](./crm-currency-update.md). Соотношение устанавливайте в параметре `AMOUNT`.
-
-## Локализация валюты
-
-Локализация валют — это правила написания чисел и расположения знака валюты на разных языках.
-
-Для изменения или удаления настроек локализации валюты используйте группу методов [crm.currency.localizations.*](./localizations/index.md).
-
-## Обзор методов {#all-methods}
+# Обновить валюту crm.currency.update
 
 > Scope: [`crm`](../../scopes/permissions.md)
 >
-> Кто может выполнять метод: зависит от метода
+> Кто может выполнять метод: любой пользователь с доступом к изменению настроек CRM
+
+Метод обновляет существующую валюту.
+
+## Параметры
+
+#|
+||  **Название**
+`тип`| **Описание** ||
+|| **ID**
+[`string`](../../data-types.md) | Идентификатор валюты. 
+
+Соответствует стандарту ISO 4217.
+
+Идентификатор можно получить методом [crm.currency.list](./crm-currency-list.md)
+ ||
+|| **fields**
+[`object`](../../data-types.md) | Значения полей (подробное описание приведено [ниже](#parametr-fields)) для обновления валюты в виде структуры:
+
+```js
+fields: {
+    SORT: 'значение'
+    AMOUNT_CNT: 'значение',
+    AMOUNT: 'значение'
+    BASE: 'значение',
+    LANG: {
+        lang_1: {
+            DECIMALS: 'значение',
+            DEC_POINT: 'значение',
+            ...
+        },
+        ...
+        lang_N: {
+            ...
+        }
+    }
+}
+```
+||
+|#
+
+### Параметр fields
 
 
 
+#|
+||  **Название**
+`тип`| **Описание** ||
+|| **SORT**
+[`integer`](../../data-types.md) | Положение в списке валют.
 
-- Методы
+ Значение по умолчанию — `100`
+ ||
+|| **AMOUNT_CNT***
+[`integer`](../../data-types.md) | Номинал. В качестве номинала чаще всего используется `1` или число кратное `10`
+ ||
+|| **AMOUNT***
+[`double`](../../data-types.md) | Курс обмена по отношению к базовой валюте ||
+|| **BASE**
+[`string`](../../data-types.md) | Признак, является ли валюта базовой.
 
-    #|
-    || **Метод** | **Описание** ||
-    || [crm.currency.add](./crm-currency-add.md) | Создает новую валюту ||
-    || [crm.currency.update](./crm-currency-update.md) | Обновляет существующую валюту ||
-    || [crm.currency.get](./crm-currency-get.md) | Возвращает валюту по символьному идентификатору ||
-    || [crm.currency.list](./crm-currency-list.md) | Возвращает список валют ||
-    || [crm.currency.delete](./crm-currency-delete.md) | Удаляет валюту ||
-    || [crm.currency.fields](./crm-currency-fields.md) | Возвращает описание полей валюты ||
-    || [crm.currency.base.get](./crm-currency-base-get.md) | Получает символьный идентификатор базовой валюты ||
-    || [crm.currency.base.set](./crm-currency-base-set.md) | Меняет базовую валюту ||
-    |#
+Возможные значения:
+ - `Y` — да
+ - `N` — нет
 
-- События
-
-    #|
-    || **Событие** | **Вызывается** ||
-    || [onCrmCurrencyAdd](./events/on-crm-currency-add.md) | При создании валюты ||
-    || [onCrmCurrencyUpdate](./events/on-crm-currency-update.md) | При обновлении валюты ||
-    || [onCrmCurrencyDelete](./events/on-crm-currency-delete.md) | При удалении валюты ||
-    |#
+Значение по умолчанию — `N`.
 
 
 
+Не рекомендуется менять базовую валюту через REST. Иначе необходимо будет изменить курсы всех валют
 
 
+
+ ||
+|| **LANG**
+[`object`](../../data-types.md) | Параметры локализации валюты.
+
+Объект в формате `{"lang_1": "value_1", ... "lang_N": "value_N"}`, где `lang_N` — идентификатор языка, а `value` — объект типа [crm_currency_localization](../data-types.md#crm_currency_localization).
+
+Если указать не все языки, для оставшихся будут использоваться [параметры локализации по умолчанию](../data-types.md#crm_currency_localization)
+ ||
+|#
+
+### Параметр LANG
+
+#|
+||  **Название**
+`тип`| **Описание** ||
+|| **DECIMALS***
+[`int`](../../data-types.md) | Число десятичных знаков дробной части ||
+|| **DEC_POINT**
+[`string`](../../data-types.md) | Десятичная точка при выводе ||
+|| **FORMAT_STRING**
+[`string`](../../data-types.md) | Шаблон формата ||
+|| **FULL_NAME**
+[`string`](../../data-types.md) | Название валюты на языке, для которого добавляется локализация ||
+|| **HIDE_ZERO**
+[`string`](../../data-types.md) | Признак, скрывать незначащие нули или нет ||
+|| **THOUSANDS_SEP**
+[`string`](../../data-types.md) | Разделитель триад ||
+|| **THOUSANDS_VARIANT**
+[`string`](../../data-types.md) | Код разделителя триад.
+
+Допустимые значения смотрите в справочнике [crm_currency_localization](../data-types.md#crm_currency_localization) ||
+|#
+
+## Примеры
+
+1. Изменение курса юаня по отношению к базовой валюте
+
+    
+
+    
+
+    - cURL (Webhook)
+
+        ```bash
+        curl -X POST \
+        -H "Content-Type: application/json" \
+        -H "Accept: application/json" \
+        -d '{"ID":"CNY","fields":{"AMOUNT":15.3449}}' \
+        https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/crm.currency.update
+        ```
+
+    - cURL (OAuth)
+
+        ```bash
+        curl -X POST \
+        -H "Content-Type: application/json" \
+        -H "Accept: application/json" \
+        -d '{"ID":"CNY","fields":{"AMOUNT":15.3449},"auth":"**put_access_token_here**"}' \
+        https://**put_your_bitrix24_address**/rest/crm.currency.update
+        ```
+
+    - JS
+
+        ```js
+        BX24.callMethod(
+            "crm.currency.update",
+            {
+                ID: 'CNY',
+                fields: {
+                    AMOUNT: 15.3449,
+                }
+            },
+        )
+        .then(
+            function(result)
+            {
+                if (result.error())
+                {
+                    console.error(result.error());
+                }
+                else
+                {
+                    console.log(result);
+                }
+            },
+            function(error)
+            {
+                console.info(error);
+            }
+        );
+        ```
+
+    - PHP
+
+        ```php
+        require_once('crest.php');
+
+        $result = CRest::call(
+            'crm.currency.update',
+            [
+                'ID' => 'CNY',
+                'fields' => [
+                    'AMOUNT' => 15.3449,
+                ]
+            ]
+        );
+
+        echo '<PRE>';
+        print_r($result);
+        echo '</PRE>';
+        ```
+
+    
+
+2. Изменение локализаций валюты (на примере доллара США)
+
+    После выполнения этого примера для валюты USD будут изменены (либо добавлены) локализации только для английского и немецкого языков. Локализации для остальных языков, если они были, не изменятся.
+
+    Данный пример аналогичен работе метода [crm.currency.localizations.set](./localizations/crm-currency-localizations-set.md)
+
+    
+
+    
+
+    - cURL (Webhook)
+
+        ```bash
+        curl -X POST \
+        -H "Content-Type: application/json" \
+        -H "Accept: application/json" \
+        -d '{"ID":"USD","fields":{"LANG":{"en":{"DECIMALS":2,"DEC_POINT":".","FORMAT_STRING":"$#","FULL_NAME":"доллар США","HIDE_ZERO":"Y","THOUSANDS_VARIANT":"S"},"de":{"DECIMALS":2,"DEC_POINT":".","FORMAT_STRING":"# $","FULL_NAME":"US-Dollar","HIDE_ZERO":"Y","THOUSANDS_VARIANT":"C"}}}}' \
+        https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/crm.currency.update
+        ```
+
+    - cURL (OAuth)
+
+        ```bash
+        curl -X POST \
+        -H "Content-Type: application/json" \
+        -H "Accept: application/json" \
+        -d '{"ID":"USD","fields":{"LANG":{"en":{"DECIMALS":2,"DEC_POINT":".","FORMAT_STRING":"$#","FULL_NAME":"доллар США","HIDE_ZERO":"Y","THOUSANDS_VARIANT":"S"},"de":{"DECIMALS":2,"DEC_POINT":".","FORMAT_STRING":"# $","FULL_NAME":"US-Dollar","HIDE_ZERO":"Y","THOUSANDS_VARIANT":"C"}}},"auth":"**put_access_token_here**"}' \
+        https://**put_your_bitrix24_address**/rest/crm.currency.update
+        ```
+
+    - JS
+
+        ```js
+        BX24.callMethod(
+            "crm.currency.update",
+            {
+                ID: 'USD',
+                fields: {
+                    LANG: {
+                        en: {
+                            DECIMALS: 2,
+                            DEC_POINT: '.',
+                            FORMAT_STRING: '$#',
+                            FULL_NAME: 'доллар США',
+                            HIDE_ZERO: 'Y',
+                            THOUSANDS_VARIANT: 'S'
+                        },
+                        de: {
+                            DECIMALS: 2,
+                            DEC_POINT: '.',
+                            FORMAT_STRING: '# $',
+                            FULL_NAME: 'US-Dollar',
+                            HIDE_ZERO: 'Y',
+                            THOUSANDS_VARIANT: 'C'
+                        }
+                    }
+                }
+            }
+        )
+        .then(
+            function(result)
+            {
+                if (result.error())
+                {
+                    console.error(result.error());
+                }
+                else
+                {
+                    console.log(result);
+                }
+            },
+            function(error)
+            {
+                console.info(error);
+            }
+        );
+        ```
+
+    - PHP
+
+        ```php
+        require_once('crest.php');
+
+        $result = CRest::call(
+            'crm.currency.update',
+            [
+                'ID' => 'USD',
+                'fields' => [
+                    'LANG' => [
+                        'en' => [
+                            'DECIMALS' => 2,
+                            'DEC_POINT' => '.',
+                            'FORMAT_STRING' => '$#',
+                            'FULL_NAME' => 'доллар США',
+                            'HIDE_ZERO' => 'Y',
+                            'THOUSANDS_VARIANT' => 'S',
+                        ],
+                        'de' => [
+                            'DECIMALS' => 2,
+                            'DEC_POINT' => '.',
+                            'FORMAT_STRING' => '# $',
+                            'FULL_NAME' => 'US-Dollar',
+                            'HIDE_ZERO' => 'Y',
+                            'THOUSANDS_VARIANT' => 'C',
+                        ]
+                    ]
+                ]
+            ]
+        );
+
+        echo '<PRE>';
+        print_r($result);
+        echo '</PRE>';
+        ```
+
+    
+
+## Обработка ответа
+
+HTTP-статус: **200**
+
+```json
+{
+    "result": true,
+    "time": {
+        "start": 1717764521.938284,
+        "finish": 1717764522.516576,
+        "duration": 0.5782921314239502,
+        "processing": 0.07656002044677734,
+        "date_start": "2024-06-07T14:48:41+02:00",
+        "date_finish": "2024-06-07T14:48:42+02:00",
+        "operating": 0
+    }
+}
+```
+
+### Возвращаемые данные
+
+#|
+|| **Название**
+`тип` | **Описание** ||
+|| **result**
+[`boolean`](../../data-types.md) | Результат обновления валюты ||
+|| **time**
+[`time`](../../data-types.md) | Информация о времени выполнения запроса ||
+|#
+
+## Обработка ошибок
+
+HTTP-статус: **400**
+
+```json
+{
+	"error": "",
+	"error_description": "Access denied."
+}
+```
+
+
+
+### Возможные коды ошибок
+
+#|
+|| **Код** | **Описание** | **Значение** ||
+|| Пустая строка | Access denied. | Недостаточно прав доступа ||
+|| Пустая строка | Модуль "Валюты" не найден! Пожалуйста, установите модуль "Валюты". |  ||
+|| `ERROR_CODE` | Другие ошибки в данных для изменения валюты |  ||
+|#
+
+
+
+## Продолжите изучение 
+
+- [{#T}](./crm-currency-add.md)
+- [{#T}](./crm-currency-get.md)
+- [{#T}](./crm-currency-list.md)
+- [{#T}](./crm-currency-delete.md)
+- [{#T}](./crm-currency-fields.md)

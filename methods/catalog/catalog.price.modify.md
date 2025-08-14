@@ -9,82 +9,109 @@ params: {"type":"object"}
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Цены в Торговом каталоге: обзор методов
-
-Товар может иметь одну или несколько цен. Для каждой цены указываются:
-
-- валюта: российский рубль, доллар США, евро
-
-- тип: розничная, оптовая, партнерская
-
-Это позволяет настраивать ценообразование в зависимости от типа клиента, региона или условий сотрудничества.
-
-> Быстрый переход: [все методы и события](#all-methods) 
->
-> Пользовательская документация: [Право на изменение цены продажи товара в ĸаталоге](https://helpdesk.bitrix24.ru/open/16342446/)
-
-## Связь цен с другими объектами
-
-**Тип цены.** Каждая цена принадлежит к определенному типу цен. Задать и изменить тип цены можно с помощью методов [catalog.priceType.*](../price-type/index.md).
-
-**Валюта.** Цена указывается в выбранной валюте. Работать с валютами можно через методы [crm.currency.*](../../crm/currency/index.md).
-
-**Наценка.** Она влияет на формирование цены. Получить наценку позволяет метод [catalog.extra.get](../extra/catalog-extra-get.md).
-
-**Товар.** Цена всегда привязана к товару. Создать и отредактировать товар можно с помощью групп методов:
-
-- [catalog.product.*](../product/index.md) — для простых товаров
-
-- [catalog.product.service.*](../product/service/index.md) — для услуг
-
-- [catalog.product.sku.*](../product/sku/index.md) — для головных товаров с вариациями
-
-- [catalog.product.offer.*](../product/offer/index.md) — для вариаций товаров
+# Изменить элементы коллекции цен товара catalog.price.modify
 
 
 
-- [Валюты в CRM](https://helpdesk.bitrix24.ru/open/6987305/)
-
-- [Как создать новый товар в каталоге](https://helpdesk.bitrix24.ru/open/11657084/)
-
-- [Услуги в CRM](https://helpdesk.bitrix24.ru/open/16560760/)
-
-- [Работа с вариациями товара](https://helpdesk.bitrix24.ru/open/11657102/)
+Тут может не хватать некоторых данных — дополним в ближайшее время
 
 
 
-## Обзор методов и событий {#all-methods}
+
+
+
+
+- не указана обязательность параметров
+- отсутствует ответ в случае ошибки 
+- нет примеров на др. языках
+  
+
+
+
 
 > Scope: [`catalog`](../../scopes/permissions.md)
 >
-> Кто может выполнять метод: администратор
+> Кто может выполнять метод: любой пользователь
+
+```http
+catalog.price.modify(fields)
+```
+
+Метод для изменения элементов коллекции цен товара.
 
 
 
-- Методы
+**Внимение!** Все сущности, которые не переданы или у которых не указаны ID, будут удалены.
 
-    #|
-    || **Метод** | **Описание** ||
-    || [catalog.price.add](./catalog-price-add.md) | Добавляет цену товара ||
-    || [catalog.price.delete](./catalog-price-delete.md) | Удаляет цену товара ||
-    || [catalog.price.get](./catalog-price-get.md) | Возвращает значения полей цены товара по идентификатору ||
-    || [catalog.price.getFields](./catalog-price-get-fields.md) | Возвращает поля цен товаров ||
-    || [catalog.price.list](./catalog-price-list.md) | Возвращает список цен товаров по фильтру ||
-    || [catalog.price.modify](./catalog-price-modify.md) | Изменяет элементы коллекции цен товара ||
-    || [catalog.price.update](./catalog-price-update.md) | Обновляет поля цены товара ||
-    |#
 
-- События
 
-    #|
-    || **Событие** | **Вызывается** ||
-    || [CATALOG.PRICE.ON.ADD](./events/catalog-price-on-add.md)| При добавлении цены ||
-    || [CATALOG.PRICE.ON.UPDATE](./events/catalog-price-on-update.md)| При обновлении цены ||
-    || [CATALOG.PRICE.ON.DELETE](./events/catalog-price-on-delete.md)| При удалении цены ||
-    |#
+Если операция успешна, возвращается [ресурс цены](resource.md) в теле ответа.
+
+## Параметры
+
+#|
+|| **Параметр** | **Описание** ||
+|| **fields.product.id** 
+[`string`](../../data-types.md) | Номер цены. ||
+|| **fields.product.prices[]** 
+[`list`](../../data-types.md) | Поля, соответствующие доступному списку полей [fields](catalog-price-get-fields.md). ||
+|#
+
+
+
+## Примеры
+
+
+
+- JS
+
+    ```js
+    BX24.callMethod(
+        'catalog.price.modify',
+        {
+            fields: {
+                product: {
+                    id: 8,
+                    prices: [
+                        {
+                            catalogGroupId: 1,
+                            currency: 'RUB',
+                            price: 2001,
+                            quantityFrom: 1,
+                            quantityTo: 2
+                        },
+                        {
+                            catalogGroupId: 1,
+                            currency: 'RUB',
+                            price: 2001,                
+                            quantityFrom: 3,
+                            quantityTo: 4
+                        },
+                        {
+                            catalogGroupId: 1,
+                            currency: 'RUB',
+                            price: 2001,                
+                            quantityFrom: 5,
+                            id: 122
+                        },
+                    ]
+                },
+            }
+        },
+        function(result)
+        {
+            if(result.error())
+                console.error(result.error().ex);
+            else
+                console.log(result.data());
+        }
+    );
+    ```
+
+
+
 
 

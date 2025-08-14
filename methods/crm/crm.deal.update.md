@@ -9,182 +9,258 @@ params: {"type":"object","required":["id","fields"],"properties":{"id":{"type":"
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Как обновить и удалить файлы
+# Изменить сделку crm.deal.update
 
-В Битрикс24 есть два типа файловых полей.
+> Scope: [`crm`](../../scopes/permissions.md)
+> 
+> Кто может выполнять метод: любой пользователь с правом «изменения» сделок
 
-- **Файл.** Поле не связано с Диском, в него файлы загружаются напрямую через строку формата [Base64](./how-to-upload-files.md). После загрузки в поле хранится ID файла.
+Метод `crm.deal.update` обновляет существующую сделку.
+
+## Параметры метода
+
+
+
+#|
+|| **Название**
+`тип` | **Описание** ||
+|| **id***
+[`integer`](../../data-types.md) | Идентификатор сделки.
+
+Идентификатор можно получить с помощью методов [crm.deal.list](./crm-deal-list.md) или [crm.deal.add](./crm-deal-add.md) ||
+|| **fields**
+[`object`](../../data-types.md) | Объект формата:
+
+```
+{
+    field_1: value_1,
+    field_2: value_2,
+    ...,
+    field_n: value_n,
+}
+```
+
+где:
+- `field_n` — название поля
+- `value_n` — новое значение поля
+
+Список доступных полей описан [ниже](#fields).
+
+Некорректное поле в `fields` будет проигнорировано.
+
+В `fields` нужно передавать только те поля, которые требуется изменить
+||
+|| **params** 
+[`object`](../../data-types.md)| Набор дополнительных параметров ([подробное описание](#params)) ||
+|#
+
+### Параметр fields {#fields}
+
+#|
+|| **Название**
+`тип` | **Описание** ||
+|| **TITLE**
+[`string`](../../data-types.md) | Название сделки ||
+|| **TYPE_ID**
+[`crm_status`](../data-types.md) | Строковый идентификатор типа сделки.
+
+Список доступных типов сделки можно узнать с помощью метода [crm.status.list](../status/crm-status-list.md), применив фильтр `{ ENTITY_ID: 'DEAL_TYPE' }` ||
+|| **STAGE_ID**
+[`crm_status`](../data-types.md) | Стадия сделки.
+
+Список доступных стадий можно узнать с помощью метода [crm.status.list](../status/crm-status-list.md), применив фильтр:
+- `{ ENTITY_ID: "DEAL_STAGE" }` — если сделка находится в общей воронке (направлении)
+- `{ ENTITY_ID: "DEAL_STAGE_{categoryId}" }` — если сделка находится не в общей воронке, где `categoryId` — это идентификатор [воронки](../universal/category/index.md) и равен `CATEGORY_ID` сделки.
   
-- **Файл (диск).** Поле связано с Диском, в поле хранится ID объекта диска. Поле не обрабатывает формат Base64. Для обновления файлов диска используйте методы [disk.file.*](../disk/file/index.md).
+Если необходимо сменить воронку сделки, используйте метод [crm.item.update](../universal/crm-item-update.md), `entityTypeId` сделки — `2`
+||
+|| **IS_RECURRING**
+[`char`](../../data-types.md) | Является ли сделка шаблоном регулярной сделки. Возможные значения:
+- `Y` — да
+- `N` — нет ||
+|| **IS_RETURN_CUSTOMER**
+[`char`](../../data-types.md) | Является ли сделка повторной. Возможные значения:
+- `Y` — да
+- `N` — нет ||
+|| **IS_REPEATED_APPROACH**
+[`char`](../../data-types.md) | Является ли сделка повторным обращением. Возможные значения:
+- `Y` — да
+- `N` — нет
+||
+|| **PROBABILITY**
+[`integer`](../../data-types.md) | Вероятность, % ||
+|| **CURRENCY_ID**
+[`crm_currency`](../data-types.md#crm_currency) | Валюта.
 
-## Как обновить файл
+Список доступных валют можно узнать с помощью метода [crm.currency.list](../currency/crm-currency-list.md)
+||
+|| **OPPORTUNITY**
+[`double`](../../data-types.md) | Сумма ||
+|| **IS_MANUAL_OPPORTUNITY**
+[`char`](../../data-types.md) | Включен ли режим ручного подсчета суммы. Возможные значения:
+- `Y` — да
+- `N` — нет ||
+|| **TAX_VALUE**
+[`double`](../../data-types.md) | Сумма налога ||
+|| **COMPANY_ID**
+[`crm_company`](../data-types.md) | Идентификатор компании, привязанной к сделке.
 
-Если поле не множественное, загрузите новый файл в поле методом `*.update`. Используйте формат передачи данных [Base64](./how-to-upload-files.md). При загрузке нового файла старый файл удалится автоматически.
+Список компаний можно узнать с помощью метода [crm.item.list](../universal/crm-item-list.md), передав `entityTypeId = 4`
+||
+|| **CONTACT_ID**
+[`crm_contact`](../data-types.md) | Контакт. Устаревшее ||
+|| **CONTACT_IDS**
+[`crm_contact[]`](../data-types.md) | Список привязанных к сделке контактов.
+
+Список контактов можно узнать с помощью метода [crm.item.list](../universal/crm-item-list.md), передав `entityTypeId = 3`
+||
+|| **BEGINDATE**
+[`date`](../../data-types.md) | Дата начала ||
+|| **CLOSEDATE**
+[`date`](../../data-types.md) | Дата завершения ||
+|| **OPENED**
+[`char`](../../data-types.md) | Доступна ли сделка для всех. Возможные значения:
+- `Y` — да
+- `N` — нет ||
+|| **CLOSED**
+[`char`](../../data-types.md) | Является ли сделка закрытой. Возможные значения:
+- `Y` — да
+- `N` — нет ||
+|| **COMMENTS**
+[`string`](../../data-types.md) | Комментарий. Поддерживает bb-коды ||
+|| **ASSIGNED_BY_ID**
+[`user`](../../data-types.md) | Ответственный ||
+|| **SOURCE_ID**
+[`crm_status`](../data-types.md) | Строковый идентификатор типа источника.
+
+Список доступных источников можно узнать с помощью метода [crm.status.list](../status/crm-status-list.md), применив фильтр `{ ENTITY_ID: "SOURCE" }` ||
+|| **SOURCE_DESCRIPTION**
+[`string`](../../data-types.md) | Дополнительно об источнике ||
+|| **ADDITIONAL_INFO**
+[`string`](../../data-types.md) | Дополнительная информация ||
+|| **LOCATION_ID**
+[`location`](../../data-types.md) | Местоположение клиента. Служебное поле ||
+|| **ORIGINATOR_ID**
+[`string`](../../data-types.md) | Идентификатор источника данных.
+
+Используется только для привязки к внешнему источнику
+||
+|| **ORIGIN_ID**
+[`string`](../../data-types.md) | Идентификатор элемента в источнике данных.
+
+Используется только для привязки к внешнему источнику
+||
+|| **UTM_SOURCE**
+[`string`](../../data-types.md) | Рекламная система (Google-Adwords и другие) ||
+|| **UTM_MEDIUM**
+[`string`](../../data-types.md) | Тип трафика. Возможные значения:
+- `CPC` — объявления
+- `CPM` — баннеры
+||
+|| **UTM_CAMPAIGN**
+[`string`](../../data-types.md) | Обозначение рекламной кампании ||
+|| **UTM_CONTENT**
+[`string`](../../data-types.md) | Содержание кампании. Например, для контекстных объявлений ||
+|| **UTM_TERM**
+[`string`](../../data-types.md) | Условие поиска кампании. Например, ключевые слова контекстной рекламы ||
+|| **UF_CRM_...** | Пользовательские поля. Например, `UF_CRM_25534736`. 
+
+В зависимости от настроек портала у сделок может быть набор пользовательских полей определенных типов. 
+
+Значения множественных полей передаются в виде массива.
+  
+Для изменения файловых полей рекомендуется использовать метод [crm.item.update](../universal/crm-item-update.md).
+
+Добавить пользовательское поле в сделку можно с помощью метода [crm.deal.userfield.add](./user-defined-fields/crm-deal-userfield-add.md) ||
+|| **PARENT_ID_...**
+[`crm_entity`](../data-types.md) | Поля связей. 
+
+Если на портале есть смарт-процессы, связанные со сделками, для каждого такого смарт-процесса существует поле, хранящее связь между этим смарт-процессом и сделкой. Само поле хранит идентификатор элемента такого смарт-процесса. 
+
+Например, поле `PARENT_ID_153` — связь со смарт-процессом `entityTypeId=153`, хранит идентификатор элемента этого смарт-процесса, связанного с текущей сделкой ||
+|#
+
+### Параметр params {#params}
+
+#|
+|| **Название**
+`тип` | **Описание** ||
+|| **REGISTER_SONET_EVENT**
+[`boolean`](../../data-types.md) | Зарегистрировать ли событие изменения сделки в живой ленте. Возможные значения:
+- `Y` — да
+- `N` — нет ||
+|| **REGISTER_HISTORY_EVENT**
+[`boolean`](../../data-types.md) | Создать ли запись в истории. Возможные значения:
+- `Y` — да
+- `N` — нет ||
+|#
 
 
 
-- JS
+[{#T}](./recurring-deals/crm-deal-recurring-update.md)
 
-    ```js
-    BX24.callMethod(
-        'bizproc.workflow.template.update',
-        {
-            ID: 525,
-            FIELDS: {
-                // Контент файла с новым шаблоном бизнес-процесса
-                TEMPLATE_DATA: [
-                    "bp-379.bpt", // Первый элемент массива - имя файла
-                    "base64_encoded_content_here" // Второй элемент массива - контент файла, закодированный в base64
-                ]
-            }
-        }
-    );
-    ```
+
+
+## Примеры кода
+
+
+
+
 
 - cURL (Webhook)
 
     ```bash
-    curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"ID":525,"FIELDS":{"TEMPLATE_DATA":["bp-379.bpt","base64_encoded_content_here"]}}' https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/bizproc.workflow.template.update
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"ID":123,"FIELDS":{"TITLE":"Новое название сделки!","TYPE_ID":"GOODS","STAGE_ID":"WON","IS_RECCURING":"Y","IS_RETURN_CUSTOMER":"Y","OPPORTUNITY":9999.99,"IS_MANUAL_OPPORTUNITY":"Y","ASSIGNED_BY_ID":1,"UF_CRM_1725365197310":"Строка","PARENT_ID_1032":1},"PARAMS":{"REGISTER_SONET_EVENT":"N","REGISTER_HISTORY_EVENT":"N"}}' \
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/crm.deal.update
     ```
 
 - cURL (OAuth)
 
     ```bash
-    curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"ID":525,"FIELDS":{"TEMPLATE_DATA":["bp-379.bpt","base64_encoded_content_here"]},"auth":"**put_access_token_here**"}' https://**put_your_bitrix24_address**/rest/bizproc.workflow.template.update
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"ID":123,"FIELDS":{"TITLE":"Новое название сделки!","TYPE_ID":"GOODS","STAGE_ID":"WON","IS_RECCURING":"Y","IS_RETURN_CUSTOMER":"Y","OPPORTUNITY":9999.99,"IS_MANUAL_OPPORTUNITY":"Y","ASSIGNED_BY_ID":1,"UF_CRM_1725365197310":"Строка","PARENT_ID_1032":1},"PARAMS":{"REGISTER_SONET_EVENT":"N","REGISTER_HISTORY_EVENT":"N"},"auth":"**put_access_token_here**"}' \
+    https://**put_your_bitrix24_address**/rest/crm.deal.update
     ```
-
-- PHP
-
-    ```php
-    require_once('crest.php');
-
-    $result = CRest::call(
-        'bizproc.workflow.template.update',
-        [
-            'ID' => 525,
-            'FIELDS' => [
-                'TEMPLATE_DATA' => [
-                    'bp-379.bpt',
-                    'base64_encoded_content_here'
-                ]
-            ]
-        ]
-    );
-
-    echo '<PRE>';
-    print_r($result);
-    echo '</PRE>';
-    ```
-
-
-
-
-Чтобы очистить поле, передайте пустое значение.
-
-
 
 - JS
 
     ```js
     BX24.callMethod(
-        "crm.item.update",
+        'crm.deal.update',
         {
-            id: 9,
-            entityTypeId: 177,
+            id: 123,
             fields: {
-                ufCrm_7_1739432938: [ // пустое значение для удаления файла из поля
-                ]
-            }
-        }
-    );
-    ```
-
-- cURL (Webhook)
-
-    ```bash
-    curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"id":9,"entityTypeId":177,"fields":{"ufCrm_7_1739432938":[]}}' https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/crm.item.update
-    ```
-
-- cURL (OAuth)
-
-    ```bash
-    curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"id":9,"entityTypeId":177,"fields":{"ufCrm_7_1739432938":[]},"auth":"**put_access_token_here**"}' https://**put_your_bitrix24_address**/rest/crm.item.update
-    ```
-
-- PHP
-
-    ```php
-    require_once('crest.php');
-
-    $result = CRest::call(
-        'crm.item.update',
-        [
-            'id' => 9,
-            'entityTypeId' => 177,
-            'fields' => [
-                'ufCrm_7_1739432938' => []
-            ]
-        ]
-    );
-
-    echo '<PRE>';
-    print_r($result);
-    echo '</PRE>';
-    ```
-
-
-
-## Обновить файл во множественном поле
-
-Если поле множественное, в поле хранится массив из `ID` файлов. При обновлении множественных полей типа «файл» учитывайте особенности методов.
-
-### crm.item.update — обновить поле в объекте CRM
-
-Для обновления полей в объектах CRM используйте универсальный метод [crm.item.update](../crm/universal/crm-item-update.md).
-
-
-
-Не рекомендуется использовать методы [crm.deal.update](../crm/deals/crm-deal-update.md), [crm.lead.update](../crm/leads/crm-lead-update.md), [crm.contact.update](../crm/contacts/crm-contact-update.md), [crm.company.update](../crm/companies/crm-company-update.md) для обновления файловых полей.
-
-
-
-#### 1. Получить ID файлов в поле
-
-Перед обновлением поля получите `ID` текущих файлов, чтобы сохранить их. Можно использовать метод [crm.item.get](../crm/universal/crm-item-get.md), он вернет все поля элемента, или метод [crm.item.list](../crm/universal/crm-item-list.md) с выбором только нужного поля типа «файл» в `select`.
-
-
-
-- JS
-
-    ```js
-    BX24.callMethod(
-        'crm.item.list',
-        {
-            entityTypeId: 177,
-            select: [
-                "ufCrm_7_1739432938", // поле типа «файл»
-            ],
-            filter: {
-                "id": "29",
+                TITLE: "Новое название сделки!",
+                TYPE_ID: "GOODS",
+                STAGE_ID: "WON",
+                IS_RECCURING: "Y",
+                IS_RETURN_CUSTOMER: "Y",
+                OPPORTUNITY: 9999.99,
+                IS_MANUAL_OPPORTUNITY: "Y",
+                ASSIGNED_BY_ID: 1,
+                UF_CRM_1725365197310: "Строка",
+                PARENT_ID_1032: 1,
             },
-        }
+            params: {
+                REGISTER_SONET_EVENT: "N",
+                REGISTER_HISTORY_EVENT: "N",
+            },
+        },
+        (result) => {
+            result.error()
+                ? console.error(result.error())
+                : console.info(result.data())
+            ;
+        },
     );
-    ```
-
-- cURL (Webhook)
-
-    ```bash
-    curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"entityTypeId":177,"select":["ufCrm_7_1739432938"],"filter":{"id":"29"}}' https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/crm.item.list
-    ```
-
-- cURL (OAuth)
-
-    ```bash
-    curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"entityTypeId":177,"select":["ufCrm_7_1739432938"],"filter":{"id":"29"},"auth":"**put_access_token_here**"}' https://**put_your_bitrix24_address**/rest/crm.item.list
     ```
 
 - PHP
@@ -193,329 +269,25 @@ Auto-generated stub. Fill in params/returns/examples.
     require_once('crest.php');
 
     $result = CRest::call(
-        'crm.item.list',
+        'crm.deal.update',
         [
-            'entityTypeId' => 177,
-            'select' => [
-                'ufCrm_7_1739432938' // поле типа «файл»
-            ],
-            'filter' => [
-                'id' => '29'
-            ]
-        ]
-    );
-
-    echo '<PRE>';
-    print_r($result);
-    echo '</PRE>';
-    ```
-
-
-
-В ответе получим информацию по файлам: `ID` и ссылки на скачивание.
-
-```json
-{
-    "result": {
-        "items": [
-            {
-                "ufCrm_7_1739432938": [
-                    {
-                        "id": 30577, // id файла, используем для сохранения файла в поле
-                        "url": "https://your-domain.bitrix24.com/bitrix/services/main/ajax.php?action=crm.controller.item.getFile&SITE_ID=s1&entityTypeId=177&id=29&fieldName=UF_CRM_7_1739432938&fileId=30577",
-                        "urlMachine": "https://your-domain.bitrix24.com/rest/crm.controller.item.getFile.json?auth=c2a8ad670000071b006e2cf200000001f0f107061147e530dda74d4e556cae7642992c&token=crm%7CYWN0aW9uPWNybS5jb25ZTU1NmNhZTc2NDI5OTJjIg%3D%3D.cR012fYj2JpQSObAORU0G8ZDvVc1Osnv0foUpBpaJVY%3D"
-                    },
-                    {
-                        "id": 30581, // id файла, используем для сохранения файла в поле
-                        "url": "https:///your-domain.bitrix24.com/bitrix/services/main/ajax.php?action=crm.controller.item.getFile&SITE_ID=s1&entityTypeId=177&id=29&fieldName=UF_CRM_7_1739432938&fileId=30581",
-                        "urlMachine": "https:///your-domain.bitrix24.com/rest/crm.controller.item.getFile.json?auth=c2a8ad670000071b006e2cf200000001f0f107061147e530dda74d4e556cae7642992c&token=crm%7CYWNNmNhZTc2NDI5OTJjIg%3D%3D.l6GB1qKENuwQYtQHse4GK1r%2F3zps%2FQdh%2BlFsopOuJdU%3D"
-                    }
-                ]
-            }
-        ]
-    },
-}
-```
-
-#### 2. Обновить файлы в поле
-
-В зависимости от переданных параметров метод [crm.item.update](../crm/universal/crm-item-update.md) выполняет операции:
-
-- загрузки новых файлов — передавайте контент в формате [Bаse64](./how-to-upload-files.md),
-
-- удаления старых файлов — не передавайте `ID` этих файлов в массиве,
-
-- сохранения файлов — передавайте `ID` в массиве файлов.
-
-Файлы будут сохранены, если их `ID` перечислены в запросе. Файлы будут удалены, если их `ID` отсутствует в запросе.
-
-
-
-- JS
-
-    ```js
-    BX24.callMethod(
-        "crm.item.update",
-        {
-            id: 9,
-            entityTypeId: 177,
-            fields: {
-                ufCrm_7_1739432938: [
-                    {
-                        id: 30577 // id старого файла, который будет сохранен в поле
-                    },
-                    [
-                        "myNewFile.pdf", // Имя нового файла
-                        "base64_encoded_content_here" // Контент нового файла в формате base64
-                    ]
-                ]
-            }
-        }
-    );
-    ```
-
-- cURL (Webhook)
-
-    ```bash
-    curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"id":9,"entityTypeId":177,"fields":{"ufCrm_7_1739432938":[{"id":30577},["myNewFile.pdf","base64_encoded_content_here"]]}}' https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/crm.item.update
-    ```
-
-- cURL (OAuth)
-
-    ```bash
-    curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"id":9,"entityTypeId":177,"fields":{"ufCrm_7_1739432938":[{"id":30577},["myNewFile.pdf","base64_encoded_content_here"]]},"auth":"**put_access_token_here**"}' https://**put_your_bitrix24_address**/rest/crm.item.update
-    ```
-
-- PHP
-
-    ```php
-    require_once('crest.php');
-
-    $result = CRest::call(
-        'crm.item.update',
-        [
-            'id' => 9,
-            'entityTypeId' => 177,
-            'fields' => [
-                'ufCrm_7_1739432938' => [
-                    [
-                        'id' => 30577 // id старого файла, который будет сохранен в поле
-                    ],
-                    [
-                        'myNewFile.pdf', // Имя нового файла
-                        'base64_encoded_content_here' // Контент нового файла в формате base64
-                    ]
-                ]
-            ]
-        ]
-    );
-
-    echo '<PRE>';
-    print_r($result);
-    echo '</PRE>';
-    ```
-
-
-
-Чтобы удалить все файлы, передавайте пустой массив в поле.
-
-### crm.timeline.comment.update — обновить файлы в комментарии
-
-Для обновления файлов в комментариях элементов CRM используйте метод [crm.timeline.comment.update](../crm/timeline/comments/crm-timeline-comment-update.md). Старые файлы всегда удаляются при обновлении значения поля. Новые файлы загружайте в поле в формате [Base64](./how-to-upload-files.md).
-
-Чтобы удалить все файлы, передавайте пустой массив в поле `FILES`.
-
-
-
-- JS
-
-    ```js
-    BX24.callMethod(
-        "crm.timeline.comment.update",
-        {
-            id: 62589,
-            fields: {
-                "COMMENT": "Comment was changed",
-                "FILES": [ // пустое значение для удаления файлов
-                ]
-            }
-        }
-    );
-    ```
-
-- cURL (Webhook)
-
-    ```bash
-    curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"id":62589,"fields":{"COMMENT":"Comment was changed","FILES":[]}}' https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/crm.timeline.comment.update
-    ```
-
-- cURL (OAuth)
-
-    ```bash
-    curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"id":62589,"fields":{"COMMENT":"Comment was changed","FILES":[]},"auth":"**put_access_token_here**"}' https://**put_your_bitrix24_address**/rest/crm.timeline.comment.update
-    ```
-
-- PHP
-
-    ```php
-    require_once('crest.php');
-
-    $result = CRest::call(
-        'crm.timeline.comment.update',
-        [
-            'id' => 62589,
-            'fields' => [
-                'COMMENT' => 'Comment was changed',
-                'FILES' => [] // пустое значение для удаления файлов
-            ]
-        ]
-    );
-
-    echo '<PRE>';
-    print_r($result);
-    echo '</PRE>';
-    ```
-
-
-
-### lists.element.update — обновить поле в списке
-
-Чтобы загрузить новые файлы в поле элемента списка, передавайте файлы методом [lists.element.update](../lists/elements/lists-element-update.md) в формате [Base64](./how-to-upload-files.md). Старые файлы останутся в поле без изменений.
-
-Для удаления файлов понадобится `ID` значения свойства.
-
-#### 1. Получить ID значения свойства
-
-Чтобы получить `ID` для удаления файла, выполните метод [lists.element.get](../lists/elements/lists-element-get.md), он вернет все поля элемента.
-
-
-
-- JS
-
-    ```js
-    BX24.callMethod(
-        'lists.element.get',
-        {
-            IBLOCK_TYPE_ID: 'lists',
-            IBLOCK_ID: '37',
-            ELEMENT_ID: '6783'
-        }
-    );
-    ```
-
-- cURL (Webhook)
-
-    ```bash
-    curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"IBLOCK_TYPE_ID":"lists","IBLOCK_ID":"37","ELEMENT_ID":"6783"}' https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/lists.element.get
-    ```
-
-- cURL (OAuth)
-
-    ```bash
-    curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"IBLOCK_TYPE_ID":"lists","IBLOCK_ID":"37","ELEMENT_ID":"6783","auth":"**put_access_token_here**"}' https://**put_your_bitrix24_address**/rest/lists.element.get
-    ```
-
-- PHP
-
-    ```php
-    require_once('crest.php');
-
-    $result = CRest::call(
-        'lists.element.get',
-        [
-            'IBLOCK_TYPE_ID' => 'lists',
-            'IBLOCK_ID' => '37',
-            'ELEMENT_ID' => '6783'
-        ]
-    );
-
-    echo '<PRE>';
-    print_r($result);
-    echo '</PRE>';
-    ```
-
-
-
-Поле «файл» в примере — `PROPERTY_1075`. В поле получим информацию:
-
-- первое значение `"3693"` — это `ID` значения свойства,
-
-- второе значение `"31219"`— это `ID` файла.
-
-```json
-{
-    "result": [
-        {
-            "ID": "6783",
-            "PROPERTY_1075": {
-                "3693": "31219", // 3693 — id значения, используем для удаления
-                "3697": "31221", // 3697 — id значения, используем для удаления
-                "3699": "31223"  // 3699 — id значения, используем для удаления
-            }
-        }
-    ],
-    "total": 1,
-}
-```
-
-#### 2. Удалить файл из поля
-
-Передайте в метод [lists.element.update](../lists/elements/lists-element-update.md) поле с постфиксом `_DEL`, например `PROPERTY_1075_DEL`. В поле укажите список из `ID` значений свойств, которые будут удалены:
-
-- ключ — `ID` значения свойства,
-
-- значение — `Y`.
-
-
-
-- JS
-
-    ```js
-    BX24.callMethod(
-        "lists.element.update",
-        {
-            IBLOCK_TYPE_ID: "lists",
-            IBLOCK_ID: 37,
-            ELEMENT_ID: 6783,
-            FIELDS: {
-                NAME: "файлы реста",
-                PROPERTY_1075_DEL: { // постфикс _DEL для операции удаления
-                    3693: "Y" // список значений для удаления
-                }
-            }
-        }
-    );
-    ```
-
-- cURL (Webhook)
-
-    ```bash
-    curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"IBLOCK_TYPE_ID":"lists","IBLOCK_ID":37,"ELEMENT_ID":6783,"FIELDS":{"NAME":"файлы реста","PROPERTY_1075_DEL":{"3693":"Y"}}}' https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/lists.element.update
-    ```
-
-- cURL (OAuth)
-
-    ```bash
-    curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"IBLOCK_TYPE_ID":"lists","IBLOCK_ID":37,"ELEMENT_ID":6783,"FIELDS":{"NAME":"файлы реста","PROPERTY_1075_DEL":{"3693":"Y"}},"auth":"**put_access_token_here**"}' https://**put_your_bitrix24_address**/rest/lists.element.update
-    ```
-
-- PHP
-
-    ```php
-    require_once('crest.php');
-
-    $result = CRest::call(
-        'lists.element.update',
-        [
-            'IBLOCK_TYPE_ID' => 'lists',
-            'IBLOCK_ID' => 37,
-            'ELEMENT_ID' => 6783,
+            'ID' => 123,
             'FIELDS' => [
-                'NAME' => 'файлы реста',
-                'PROPERTY_1075_DEL' => [
-                    3693 => 'Y' // постфикс _DEL для операции удаления
-                ]
-            ]
+                'TITLE' => 'Новое название сделки!',
+                'TYPE_ID' => 'GOODS',
+                'STAGE_ID' => 'WON',
+                'IS_RECCURING' => 'Y',
+                'IS_RETURN_CUSTOMER' => 'Y',
+                'OPPORTUNITY' => 9999.99,
+                'IS_MANUAL_OPPORTUNITY' => 'Y',
+                'ASSIGNED_BY_ID' => 1,
+                'UF_CRM_1725365197310' => 'Строка',
+                'PARENT_ID_1032' => 1,
+            ],
+            'PARAMS' => [
+                'REGISTER_SONET_EVENT' => 'N',
+                'REGISTER_HISTORY_EVENT' => 'N',
+            ],
         ]
     );
 
@@ -526,344 +298,78 @@ Auto-generated stub. Fill in params/returns/examples.
 
 
 
+### Пояснения к методу
 
-### log.blogpost.update — обновить файлы в посте
+Для управления контактами сделки не рекомендуется использовать поля `CONTACT_IDS` и `CONTACT_ID`. 
 
-Чтобы загрузить новые файлы к посту в ленте, передавайте файлы методом [log.blogpost.update](../log/log-blogpost-update.md) в формате [Base64](./how-to-upload-files.md). Старые файлы останутся в посте без изменений.
+Используйте методы [crm.deal.contact.*](./contacts/index.md) для работы с одним контактом, методы [crm.deal.contact.items.*](./contacts/index.md) для работы с группой контактов сделки.
 
-Для удаления файлов понадобится их `ID`.
+## Обработка ответа
 
-#### 1. Получить ID файла в посте
-
-Чтобы получить `ID` для удаления файла, выполните метод [log.blogpost.get](../log/log-blogpost-get.md), он вернет все поля поста, включая `FILES`.
-
-
-
-- JS
-
-    ```js
-    BX24.callMethod(
-        "log.blogpost.get",
-        {
-            POST_ID: 211
-        }
-    );
-    ```
-
-- cURL (Webhook)
-
-    ```bash
-    curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"POST_ID":211}' https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/log.blogpost.get
-    ```
-
-- cURL (OAuth)
-
-    ```bash
-    curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"POST_ID":211,"auth":"**put_access_token_here**"}' https://**put_your_bitrix24_address**/rest/log.blogpost.get
-    ```
-
-- PHP
-
-    ```php
-    require_once('crest.php');
-
-    $result = CRest::call(
-        'log.blogpost.get',
-        [
-            'POST_ID' => 211
-        ]
-    );
-
-    echo '<PRE>';
-    print_r($result);
-    echo '</PRE>';
-    ```
-
-
-
-В ответе получим массив объектов:
-
-- первое значение `0` — это порядковый `ID` файла в посте,
-
-- второе значение `437`— это `ID` файла.
-
-```json
-[FILES] => Array
-    (
-        [0] => 437 
-        [1] => 439
-        [2] => 441
-```
-
-#### 2. Удалить файл из поста
-
-Передайте в метод [log.blogpost.update](../log/log-blogpost-update.md) поле `FILES`. В поле укажите массив `ID` файлов, которые будут удалены:
-
-- ключ — `ID` файла,
-
-- значение — `del`.
-
-
-
-- JS
-
-    ```js
-    BX24.callMethod(
-        "log.blogpost.update",
-        {
-            POST_ID: 211,
-            POST_TITLE: "Новый заголовок поста",
-            FILES: {
-                "445": "del" // id файлов для удаления
-            }
-        }
-    );
-    ```
-
-- cURL (Webhook)
-
-    ```bash
-    curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"POST_ID":211,"POST_TITLE":"Новый заголовок поста","FILES":{"445":"del"}}' https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/log.blogpost.update
-    ```
-
-- cURL (OAuth)
-
-    ```bash
-    curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"POST_ID":211,"POST_TITLE":"Новый заголовок поста","FILES":{"445":"del"},"auth":"**put_access_token_here**"}' https://**put_your_bitrix24_address**/rest/log.blogpost.update
-    ```
-
-- PHP
-
-    ```php
-    require_once('crest.php');
-
-    $result = CRest::call(
-        'log.blogpost.update',
-        [
-            'POST_ID' => 211,
-            'POST_TITLE' => 'Новый заголовок поста',
-            'FILES' => [
-                '445' => 'del' // id файлов для удаления
-            ]
-        ]
-    );
-
-    echo '<PRE>';
-    print_r($result);
-    echo '</PRE>';
-    ```
-
-
-
-
-Чтобы удалить все файлы из поста, передайте в метод [log.blogpost.update](../log/log-blogpost-update.md) поле `UF_BLOG_POST_FILE`. В значении поля укажите `["empty"]`.
-
-
-
-- JS
-
-    ```js
-    BX24.callMethod(
-        "log.blogpost.update",
-        {
-            POST_ID: 211,
-            POST_TITLE: "Новый заголовок поста",
-            UF_BLOG_POST_FILE: ["empty"] // удаление всех файлов поста
-        }
-    );
-    ```
-
-- cURL (Webhook)
-
-    ```bash
-    curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"POST_ID":211,"POST_TITLE":"Новый заголовок поста","UF_BLOG_POST_FILE":["empty"]}' https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/log.blogpost.update
-    ```
-
-- cURL (OAuth)
-
-    ```bash
-    curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"POST_ID":211,"POST_TITLE":"Новый заголовок поста","UF_BLOG_POST_FILE":["empty"],"auth":"**put_access_token_here**"}' https://**put_your_bitrix24_address**/rest/log.blogpost.update
-    ```
-
-- PHP
-
-    ```php
-    require_once('crest.php');
-
-    $result = CRest::call(
-        'log.blogpost.update',
-        [
-            'POST_ID' => 211,
-            'POST_TITLE' => 'Новый заголовок поста',
-            'UF_BLOG_POST_FILE' => ['empty'] // удаление всех файлов поста
-        ]
-    );
-
-    echo '<PRE>';
-    print_r($result);
-    echo '</PRE>';
-    ```
-
-
-
-### catalog.product.update — обновить поле в товаре
-
-Чтобы загрузить новые файлы в карточку товара, передавайте файлы методом [catalog.product.update](../catalog/product/catalog-product-update.md) в формате [Base64](./how-to-upload-files.md). Старые файлы останутся в поле без изменений.
-
-Для удаления файлов понадобится `ID` значения поля.
-
-#### 1. Получить ID значения поля
-
-Чтобы получить `ID` для удаления файла, выполните метод [catalog.product.get](../catalog/product/catalog-product-get.md). Метод вернет все поля товара.
-
-
-
-- JS
-
-    ```js
-    BX24.callMethod(
-        'catalog.product.get',
-        {
-            'id': 541
-        }
-    );
-    ```
-
-- cURL (Webhook)
-
-    ```bash
-    curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"id":541}' https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/catalog.product.get
-    ```
-
-- cURL (OAuth)
-
-    ```bash
-    curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"id":541,"auth":"**put_access_token_here**"}' https://**put_your_bitrix24_address**/rest/catalog.product.get
-    ```
-
-- PHP
-
-    ```php
-    require_once('crest.php');
-
-    $result = CRest::call(
-        'catalog.product.get',
-        [
-            'id' => 541
-        ]
-    );
-
-    echo '<PRE>';
-    print_r($result);
-    echo '</PRE>';
-    ```
-
-
-
-Поле «файл» в примере — `property1077`. Поле содержит массив объектов:
-
-- `value` — это информация по файлу: `ID` и ссылки на скачивание,
-
-- `valueId` — это `ID` значения поля.
+HTTP-статус: **200**
 
 ```json
 {
-    "result": {
-        "product": {
-            "iblockId": 25,
-            "id": 541,
-            "property1077": [
-                {
-                    "value": {
-                        "id": "31251",
-                        "url": "/rest/catalog.product.download?fields%5BfieldName%5D=property1077&fields%5BfileId%5D=31251&fields%5BproductId%5D=541",
-                        "urlMachine": "/rest/catalog.product.download?fields%5BfieldName%5D=property1077&fields%5BfileId%5D=31251&fields%5BproductId%5D=541"
-                    },
-                    "valueId": "3705" // id значения, используем для удаления
-                },
-                {
-                    "value": {
-                        "id": "31253",
-                        "url": "/rest/catalog.product.download?fields%5BfieldName%5D=property1077&fields%5BfileId%5D=31253&fields%5BproductId%5D=541",
-                        "urlMachine": "/rest/catalog.product.download?fields%5BfieldName%5D=property1077&fields%5BfileId%5D=31253&fields%5BproductId%5D=541"
-                    },
-                    "valueId": "3707" // id значения, используем для удаления
-                }
-            ],
-
-        }
-    },
+    "result": true,
+    "time": {
+        "start": 1725365418.056843,
+        "finish": 1725365419.671506,
+        "duration": 1.6146628856658936,
+        "processing": 1.3475170135498047,
+        "date_start": "2024-09-03T14:10:18+02:00",
+        "date_finish": "2024-09-03T14:10:19+02:00",
+        "operating": 0
+    }
 }
 ```
 
-#### 2. Удалить файл из поля
+### Возвращаемые данные
 
-Чтобы удалить файл, передайте в метод [catalog.product.update](../catalog/product/catalog-product-update.md) поле со значениями:
+#|
+|| **Название**
+`тип` | **Описание** ||
+|| **result**
+[`boolean`](../../data-types.md) | Корневой элемент ответа, содержит `true` в случае успеха ||
+|| **time**
+[`time`](../../data-types.md#time) | Информация о времени выполнения запроса ||
+|#
 
-- `value` — укажите `remove` как ключ, `Y` как значение,
+## Обработка ошибок
 
-- `valueId` — укажите`ID` значения поля, файл которого  будет удален.
+HTTP-статус: **400**
+
+```json
+{
+    "error": "",
+    "error_description": "Parameter 'fields' must be array."
+}
+```
 
 
 
-- JS
+### Возможные коды ошибок
 
-    ```js
-    BX24.callMethod(
-        'catalog.product.update',
-        {
-            id: 541,
-            fields: {
-                property1077: [
-                    {
-                        "value": {
-                            'remove': 'Y', // операция удаления файла
-                        },
-                        'valueId': '3705', // id значения для удаления
-                    }
-                ]
-            }
-        }
-    );
-    ```
+#|
+|| **Код** | **Описание** | **Значение** ||
+|| `-`     | `ID is not defined or invalid` | В параметр `id` передано не целое число больше нуля ||
+|| `-`     | `Not found` | Сделка с переданным `id` не существует ||
+|| `-`     | `Parameter 'fields' must be array` | В параметр `fields` передан не объект ||
+|| `-`     | `Parameter 'params' must be array` | В параметр `params` передан не объект ||
+|| `-`     | `Access denied` | У пользователя нет прав на «изменение» сделок ||
+|| `-`     | Исчерпан выделенный дисковый ресурс |> ||
+|| `-`     | Неверное значение поля «Валюта» |> ||
+|#
 
-- cURL (Webhook)
 
-    ```bash
-    curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"id":541,"fields":{"property1077":[{"value":{"remove":"Y"},"valueId":"3705"}]}}' https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/catalog.product.update
-    ```
 
-- cURL (OAuth)
+## Продолжите изучение
 
-    ```bash
-    curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"id":541,"fields":{"property1077":[{"value":{"remove":"Y"},"valueId":"3705"}]},"auth":"**put_access_token_here**"}' https://**put_your_bitrix24_address**/rest/catalog.product.update
-    ```
-
-- PHP
-
-    ```php
-    require_once('crest.php');
-
-    $result = CRest::call(
-        'catalog.product.update',
-        [
-            'id' => 541,
-            'fields' => [
-                'property1077' => [
-                    [
-                        'value' => [
-                            'remove' => 'Y' // операция удаления файла
-                        ],
-                        'valueId' => '3705' // id значения для удаления
-                    ]
-                ]
-            ]
-        ]
-    );
-
-    echo '<PRE>';
-    print_r($result);
-    echo '</PRE>';
-    ```
+- [{#T}](./crm-deal-add.md)
+- [{#T}](./crm-deal-get.md)
+- [{#T}](./crm-deal-list.md)
+- [{#T}](./crm-deal-delete.md)
+- [{#T}](./crm-deal-fields.md)
+- [{#T}](../universal/crm-item-update.md)
+- [{#T}](../../../tutorials/crm/how-to-edit-crm-objects/how-to-set-paid-date-to-deal.md)
 
 

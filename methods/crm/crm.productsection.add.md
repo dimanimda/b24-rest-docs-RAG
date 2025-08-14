@@ -11,21 +11,43 @@ returns: {"type":"object"}
 
 Auto-generated stub. Fill in params/returns/examples.
 
----
+Example (curl):
 
-# Обзор методов
+```bash
+catalogId=$(prompt "Введите ID каталога")
+    sectionId=$(prompt "Введите ID родительской секции (если в корне, то 0)")
+    sectionName=$(prompt "Введите название секции")
 
-> Scope: [`crm`](../../../scopes/permissions.md)
->
-> Кто может выполнять метод: любой пользователь
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{
+        "fields": {
+            "CATALOG_ID": '"$catalogId"',
+            "NAME": "'"$sectionName"'",
+            "SECTION_ID": '"$sectionId"'
+        }
+    }' \
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/crm.productsection.add
+    ```
 
-#|
-|| **Метод** | **Описание** ||
-|| [crm.productsection.add](./crm-product-section-add.md) | Создаёт новый раздел товаров. ||
-|| [crm.productsection.delete](./crm-product-section-delete.md) | Удаляет раздел товаров. ||
-|| [crm.productsection.fields](./crm-product-section-fields.md) | Возвращает описание полей раздела товара. ||
-|| [crm.productsection.get](./crm-product-section-get.md) | Возвращает раздел товаров по идентификатору. ||
-|| [crm.productsection.list](./crm-product-section-list.md) | Возвращает список разделов товаров по фильтру. ||
-|| [crm.productsection.update](./crm-product-section-update.md) | Обновляет существующий раздел товаров. ||
-|#
+- cURL (OAuth)
 
+    ```curl
+    catalogId=$(prompt "Введите ID каталога")
+    sectionId=$(prompt "Введите ID родительской секции (если в корне, то 0)")
+    sectionName=$(prompt "Введите название секции")
+
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{
+        "fields": {
+            "CATALOG_ID": '"$catalogId"',
+            "NAME": "'"$sectionName"'",
+            "SECTION_ID": '"$sectionId"'
+        },
+        "auth": "**put_access_token_here**"
+    }' \
+    https://**put_your_bitrix24_address**/rest/crm.productsection.add
+```

@@ -9,112 +9,455 @@ params: {"type":"object","properties":{"filter":{"type":"object"},"order":{"type
 returns: {"type":"array","items":{"type":"object"}}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Получить большие объемы данных
+# Получить список лидов crm.lead.list
 
-Часто встает задача импорта каких либо сущностей с портала посредством rest. При этом при большом количестве сущностей прямой подход к задаче, с установкой фильтра и передачей в каждый следующий запрос `start = start+50`, не оптимальный.
-Так как при использовании `start >= 0` на каждый запрос выполняется еще и запрос подсчета количества элементов удовлетворяющих фильтру. Что при большом количестве элементов, попадающих в него, или при сложной фильтрации работает медленно.
+> Scope: [`crm`](../../scopes/permissions.md)
+>
+> Кто может выполнять метод: пользователь с правами на чтение лидов
 
-Поэтому в случае, если вам не нужно количество элементов (например, вам нужно просто 10 последних записей), или вы делаете импорт всех записей по фильтру, передавайте `start = -1`.
+Метод `crm.lead.list` возвращает список лидов по фильтру. Является реализацией списочного метода для лидов.
 
-Данный параметр отключит выполнение запроса подсчета количества элементов и сильно ускорит выборку.
+## Параметры метода
 
-Для выполнения импорта, при этом необходимо будет отсортировать записи по `ID` и добавить в фильтр условие `ID > значения последнего элемента`. И с каждым шагом увеличивать его значение. Значение же последнего элемента брать из последнего значения полученного результата.
 
-Условием остановки импорта будет пустой ответ, или то, что в ответе элементов меньше 50.
 
-Ниже приведен пример кода и сравнение времени выполнения с классическим подходом. Так при 2 387 743 лидах, с одинаковыми правами и фильтром, время выполнения уменьшилось с 49.9 секунд до 0,097 секунд.
+#|
+|| **Название**
+`тип` | **Описание** ||
+|| **select**
+[`array`](../../data-types.md) | Массив содержит список полей, которые необходимо выбрать (смотрите поля лида [crm-lead-fields](./crm-lead-fields.md)).
 
-## Пример
+При выборке используйте маски:
+- "*" - для выборки всех полей (без пользовательских и множественных)
+- "UF_*"- для выборки всех пользовательских полей (без множественных)
 
-```php
-$tokenID = 'XXXXXXXXXXXXXXXXXXXXX';
-$host = 'XXXX.bitrix24.ru';
-$user = 1;
-/**
-* Начинаем с нуля или с какого то предыдущего шага
-*/
-$leadID = 0;
-$finish = false;
-while (!$finish)
-{
-    /**
-    * Выполняем пока не заберем все данные, в этом случае не стоит забывать и про задержку между хитами.
-    * Либо каждый раз выбираем только 50, начиная с того элемента, на котором остановилась прошлая итерация
-    */
-    $http = new \Bitrix\Main\Web\HttpClient();
-    $http->setTimeout(5);
-    $http->setStreamTimeout(50);
-    $json = $http->post(
-        'https://'.$host.'/rest/'.$user.'/'.$tokenID.'/crm.lead.list/',
-        [
-            'order' => ['ID' => 'ASC'],
-            'filter' => ['>ID' => $leadID],
-            'select' => ['ID', 'TITLE', 'DATE_CREATE'],
-            'start' => -1
-        ]
-    );
-    $result = \Bitrix\Main\Web\Json::decode($json);
-    if (count($result['result']) > 0)
-    {
-        foreach ($result['result'] as $lead)
+Маски для выборки множественных полей нет. Для выборки множественных полей укажите нужные в списке выбора ("PHONE", "EMAIL" и так далее).
+Возможности добавить к фильтру логическое условие OR, если нужно выбрать по нескольким разным полям, нет||
+|| **filter**
+[`object`](../../data-types.md) | Объект для фильтрации выбранных лидов в формате `{"field_1": "value_1", ... "field_N": "value_N"}`.
+
+Возможные значения для `field` соответствуют полям лида [crm-lead-fields](./crm-lead-fields.md).
+
+Ключу может быть задан дополнительный префикс, уточняющий поведение фильтра. Возможные значения префикса:
+- `>=` — больше либо равно
+- `>` — больше
+- `<=` — меньше либо равно
+- `<` — меньше
+- `@` — IN (в качестве значения передаётся массив)
+- `!@`— NOT IN (в качестве значения передаётся массив)
+- `%` — LIKE, поиск по подстроке. Символ `%` в значении фильтра передавать не нужно. Поиск ищет подстроку в любой позиции строки
+- `=%` — LIKE, поиск по подстроке. Символ `%` нужно передавать в значении. Примеры:
+  - "мол%" — ищем значения, начинающиеся с «мол»
+  - "%мол" — ищем значения, заканчивающиеся на «мол»
+  - "%мол%" — ищем значения, где «мол» может быть в любой позиции
+
+- `%=` — LIKE (см. описание выше)
+
+- `!%` — NOT LIKE, поиск по подстроке. Символ `%` в значении фильтра передавать не нужно. Поиск идет с обоих сторон.
+
+- `=%` — NOT LIKE, поиск по подстроке. Символ `%` нужно передавать в значении. Примеры:
+  - "мол%" — ищем значения, не начинающиеся с «мол»
+  - "%мол" — ищем значения, не заканчивающиеся на «мол»
+  - "%мол%" — ищем значения, где подстроки «мол» нет в любой позиции
+
+- `!%=` — NOT LIKE (см. описание выше)
+
+- `=` — равно, точное совпадение (используется по умолчанию)
+- `!=` - не равно
+- `!` — не равно
+  ||
+  || **order**
+Возможные значения для `order`:
+- `asc` — в порядке возрастания
+- `desc` — в порядке убывания ||
+  || **start**
+  [`integer`](../data-types.md) | Параметр используется для управления постраничной навигацией.
+
+Размер страницы результатов всегда статичный: 50 записей.
+
+Чтобы выбрать вторую страницу результатов, необходимо передавать значение `50`. Чтобы выбрать третью страницу результатов — значение `100` и так далее.
+
+Формула расчета значения параметра `start`:
+
+`start = (N-1) * 50`, где `N` — номер нужной страницы ||
+|#
+
+Так же смотрите описание [списочных методов](../../how-to-call-rest-api/list-methods-pecularities.md).
+
+## Примеры кода
+
+
+
+
+
+- cURL (Webhook)
+
+  ```bash
+  curl -X POST \
+  -H "Content-Type: application/json" \
+  -H "Accept: application/json" \
+  -d '{"select":["*","UF_*"],"start":50,"filter":{"=OPPORTUNITY":15000},"order":{"STATUS_ID":"ASC"}}' \
+  https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/crm.lead.list
+  ```
+
+- cURL (OAuth)
+
+  ```bash
+  curl -X POST \
+  -H "Content-Type: application/json" \
+  -H "Accept: application/json" \
+  -d '{"select":["*","UF_*"],"start":50,"filter":{"=OPPORTUNITY":15000},"order":{"STATUS_ID":"ASC"},"auth":"**put_access_token_here**"}' \
+  https://**put_your_bitrix24_address**/rest/crm.lead.list
+  ```
+
+- JS
+
+    ```javascript 
+    BX24.callMethod(
+      'crm.lead.list',
+      {
+        select: ['*', 'UF_*'],
+        start: 50,
+        filter: {
+            '=OPPORTUNITY': 15000,
+        },
+        order: {
+            STATUS_ID: 'ASC',
+        }, 
+      },
+      (result) => {
+        if(result.error())
         {
-            $leadID = $lead['ID'];
+          console.error(result.error());
+  
+          return;
         }
-        // Do something
-    }
-    else
+        
+        console.info(result.data());
+      }
+    );
+    ```
+
+- PHP
+
+  ```php
+  require_once('crest.php');
+
+  $result = CRest::call(
+      'crm.lead.list',
+      [
+          'select' => ['*', 'UF_*'],
+          'start' => 50,
+          'filter' => [
+              '=OPPORTUNITY' => 15000,
+          ],
+          'order' => [
+              'STATUS_ID' => 'ASC',
+          ],
+      ]
+  );
+
+  echo '<PRE>';
+  print_r($result);
+  echo '</PRE>';
+  ```
+
+- PHP (B24PhpSdk)
+
+  ```php      
+  try {
+      $order = [];
+      $filter = []; // Define your filter criteria here
+      $select = [
+          'ID', 'TITLE', 'HONORIFIC', 'NAME', 'SECOND_NAME', 'LAST_NAME', 
+          'BIRTHDATE', 'COMPANY_TITLE', 'SOURCE_ID', 'SOURCE_DESCRIPTION', 
+          'STATUS_ID', 'STATUS_DESCRIPTION', 'STATUS_SEMANTIC_ID', 'POST', 
+          'ADDRESS', 'ADDRESS_2', 'ADDRESS_CITY', 'ADDRESS_POSTAL_CODE', 
+          'ADDRESS_REGION', 'ADDRESS_PROVINCE', 'ADDRESS_COUNTRY', 
+          'ADDRESS_COUNTRY_CODE', 'ADDRESS_LOC_ADDR_ID', 'CURRENCY_ID', 
+          'OPPORTUNITY', 'IS_MANUAL_OPPORTUNITY', 'OPENED', 'COMMENTS', 
+          'HAS_PHONE', 'HAS_EMAIL', 'HAS_IMOL', 'ASSIGNED_BY_ID', 
+          'CREATED_BY_ID', 'MODIFY_BY_ID', 'MOVED_BY_ID', 'DATE_CREATE', 
+          'DATE_MODIFY', 'MOVED_TIME', 'COMPANY_ID', 'CONTACT_ID', 
+          'CONTACT_IDS', 'IS_RETURN_CUSTOMER', 'DATE_CLOSED', 
+          'ORIGINATOR_ID', 'ORIGIN_ID', 'UTM_SOURCE', 'UTM_MEDIUM', 
+          'UTM_CAMPAIGN', 'UTM_CONTENT', 'UTM_TERM', 'PHONE', 'EMAIL', 
+          'WEB', 'IM', 'LINK'
+      ];
+      $startItem = 0;
+      $leadsResult = $serviceBuilder->getCRMScope()->lead()->list($order, $filter, $select, $startItem);
+      
+      foreach ($leadsResult->getLeads() as $lead) {
+          print("ID: {$lead->ID}, TITLE: {$lead->TITLE}, NAME: {$lead->NAME}, BIRTHDATE: " . 
+                ($lead->BIRTHDATE ? $lead->BIRTHDATE->format(DATE_ATOM) : 'N/A') . "\n");
+      }
+  } catch (Throwable $e) {
+      print("Error: " . $e->getMessage());
+  }
+  ```
+
+
+
+## Некоторые практические примеры
+
+
+
+- Поиск несконвертированных лидов с суммой больше нуля
+
+  ```js
+  BX24.callMethod(
+      "crm.lead.list",
+      {
+          order: { "STATUS_ID": "ASC" },
+          filter: { ">OPPORTUNITY": 0, "!STATUS_ID": "CONVERTED" },
+          select: [ "ID", "TITLE", "STATUS_ID", "OPPORTUNITY", "CURRENCY_ID" ],
+      },
+      (result) => {
+          if(result.error())
+          {
+              console.error(result.error());
+          }
+          else
+          {
+              console.dir(result.data());
+              if (result.more())
+              {
+                  result.next();
+              }
+          }
+      }
+  );
+  ```
+
+- Поиск лида по телефону
+
+  ```js
+  BX24.callMethod(
+      "crm.lead.list",
+      {
+          filter: { "PHONE": "555888" },
+          select: [ "ID", "TITLE" ]
+      },
+      (result) => {
+        if(result.error())
+        {
+          console.error(result.error());
+        }
+        else
+        {
+          console.dir(result.data());
+          if (result.more())
+          {
+            result.next();
+          }
+        }
+      }
+  );
+  ```
+
+- Выборка лидов за месяц
+
+  ```php
+  $result = CRest::call(
+      'crm.lead.list',
+      [
+          'filter' => [
+              '>DATE_CREATE' => '2023-10-01T00:00:00',
+              '<DATE_CREATE' => '2023-10-31T23:59:59',
+          ],
+          'select' => [
+              'ID',
+              'DATE_CREATE',
+          ],
+      ]
+  );
+  ```
+
+
+## Обработка ответа
+
+HTTP-статус: **200**
+
+```json
+{
+  "result": [
     {
-        $finish = true;
-    }
+      "ID": "5",
+      "TITLE": "Лид 1",
+      "HONORIFIC": null,
+      "NAME": "Erasmus",
+      "SECOND_NAME": null,
+      "LAST_NAME": "Golden of Ireland",
+      "COMPANY_TITLE": null,
+      "COMPANY_ID": "0",
+      "CONTACT_ID": "2069",
+      "IS_RETURN_CUSTOMER": "N",
+      "BIRTHDATE": "",
+      "SOURCE_ID": "CALL",
+      "SOURCE_DESCRIPTION": null,
+      "STATUS_ID": "CONVERTED",
+      "STATUS_DESCRIPTION": null,
+      "POST": null,
+      "COMMENTS": null,
+      "CURRENCY_ID": "RUB",
+      "OPPORTUNITY": "15000.00",
+      "IS_MANUAL_OPPORTUNITY": "Y",
+      "HAS_PHONE": "Y",
+      "HAS_EMAIL": "Y",
+      "HAS_IMOL": "N",
+      "ASSIGNED_BY_ID": "1",
+      "CREATED_BY_ID": "1",
+      "MODIFY_BY_ID": "1",
+      "DATE_CREATE": "2021-05-31T15:10:16+03:00",
+      "DATE_MODIFY": "2021-11-26T18:56:13+03:00",
+      "DATE_CLOSED": "2021-07-16T16:43:44+03:00",
+      "STATUS_SEMANTIC_ID": "S",
+      "OPENED": "Y",
+      "ORIGINATOR_ID": null,
+      "ORIGIN_ID": null,
+      "MOVED_BY_ID": "1",
+      "MOVED_TIME": "2021-07-16T16:43:44+03:00",
+      "ADDRESS": "7677 Hollow Ridge Alley",
+      "ADDRESS_2": null,
+      "ADDRESS_CITY": null,
+      "ADDRESS_POSTAL_CODE": null,
+      "ADDRESS_REGION": null,
+      "ADDRESS_PROVINCE": null,
+      "ADDRESS_COUNTRY": "Indonesia",
+      "ADDRESS_COUNTRY_CODE": null,
+      "ADDRESS_LOC_ADDR_ID": "1",
+      "UTM_SOURCE": null,
+      "UTM_MEDIUM": null,
+      "UTM_CAMPAIGN": null,
+      "UTM_CONTENT": null,
+      "UTM_TERM": null,
+      "LAST_ACTIVITY_BY": "1",
+      "LAST_ACTIVITY_TIME": "2021-05-31T15:10:16+03:00",
+      "UF_CRM_1704817278": null,
+      "UF_CRM_1706782596092": null,
+      "UF_CRM_1708952993785": false
+    },
+    {
+      "ID": "6",
+      "TITLE": "Лид 2",
+      "HONORIFIC": null,
+      "NAME": "Ignacius",
+      "SECOND_NAME": null,
+      "LAST_NAME": "Slayny",
+      "COMPANY_TITLE": null,
+      "COMPANY_ID": "0",
+      "CONTACT_ID": "2070",
+      "IS_RETURN_CUSTOMER": "N",
+      "BIRTHDATE": "",
+      "SOURCE_ID": "CALL",
+      "SOURCE_DESCRIPTION": null,
+      "STATUS_ID": "CONVERTED",
+      "STATUS_DESCRIPTION": null,
+      "POST": null,
+      "COMMENTS": null,
+      "CURRENCY_ID": "RUB",
+      "OPPORTUNITY": "15000.00",
+      "IS_MANUAL_OPPORTUNITY": "Y",
+      "HAS_PHONE": "Y",
+      "HAS_EMAIL": "Y",
+      "HAS_IMOL": "N",
+      "ASSIGNED_BY_ID": "1",
+      "CREATED_BY_ID": "1",
+      "MODIFY_BY_ID": "1",
+      "DATE_CREATE": "2021-05-31T15:10:16+03:00",
+      "DATE_MODIFY": "2021-11-26T18:56:13+03:00",
+      "DATE_CLOSED": "2021-07-16T16:43:47+03:00",
+      "STATUS_SEMANTIC_ID": "S",
+      "OPENED": "Y",
+      "ORIGINATOR_ID": null,
+      "ORIGIN_ID": null,
+      "MOVED_BY_ID": "1",
+      "MOVED_TIME": "2021-07-16T16:43:47+03:00",
+      "ADDRESS": "35 Mosinee Street",
+      "ADDRESS_2": null,
+      "ADDRESS_CITY": null,
+      "ADDRESS_POSTAL_CODE": null,
+      "ADDRESS_REGION": null,
+      "ADDRESS_PROVINCE": null,
+      "ADDRESS_COUNTRY": "Japan",
+      "ADDRESS_COUNTRY_CODE": null,
+      "ADDRESS_LOC_ADDR_ID": "2",
+      "UTM_SOURCE": null,
+      "UTM_MEDIUM": null,
+      "UTM_CAMPAIGN": null,
+      "UTM_CONTENT": null,
+      "UTM_TERM": null,
+      "LAST_ACTIVITY_BY": "1",
+      "LAST_ACTIVITY_TIME": "2021-05-31T15:10:16+03:00",
+      "UF_CRM_1704817278": null,
+      "UF_CRM_1706782596092": null,
+      "UF_CRM_1708952993785": true
+    },
+    
+      еще 48 лидов с аналогичной структурой
+    
+  ],
+  "next": 50,
+  "total": 654,
+  "time": {
+    "start": 1718292234.554781,
+    "finish": 1718292234.657739,
+    "duration": 0.10295796394348145,
+    "processing": 0.05574321746826172,
+    "date_start": "2024-06-13T18:23:54+03:00",
+    "date_finish": "2024-06-13T18:23:54+03:00",
+    "operating": 0
+  }
 }
-/*
-//Результаты выполнения rest запроса с использованием count.
-Array
-(
-    [result] => Array
-    (
-        [0] => Array()
-        [1] => Array()
-        .....
-        [49] => Array()
-    )
-    [next] => 50
-    [total] => 2387743
-    [time] => Array
-    (
-        [start] => 1581607213.4833
-        [finish] => 1581607263.3997
-        [duration] => 49.916450023651
-        [processing] => 49.899916887283
-        [date_start] => 2020-02-13T18:20:13+03:00
-        [date_finish] => 2020-02-13T18:21:03+03:00
-    )
-)
-//Результаты выполнения rest запроса без использования count.
-Array
-(
-    [result] => Array
-    (
-        [0] => Array()
-        [1] => Array()
-        .....
-        [1] => Array()
-    )
-    [total] => 0
-    [time] => Array
-    (
-        [start] => 1581609136.3857
-        [finish] => 1581609136.4835
-        [duration] => 0.097883939743042
-        [processing] => 0.068500995635986
-        [date_start] => 2020-02-13T18:52:16+03:00
-        [date_finish] => 2020-02-13T18:52:16+03:00
-    )
-)
+```
+
+### Возвращаемые данные
+
+#|
+|| **Название**
+`тип`  | **Описание** ||
+|| **result**
+[`array`](../../data-types.md) | Корневой элемент ответа. Содержит массив из объектов, содержащих информацию о полях сделок. 
+
+Стоит учитывать, что структура полей может быть изменена из-за параметра `select`.
+
+ Для получения информации о структуре лида смотрите метод [`crm.lead.get`](./crm-lead-get.md) ||
+|| **total**
+[`integer`](../../data-types.md) | Общее количество найденных элементов ||
+|| **next**
+[`integer`](../../data-types.md) | Содержит значение, которое нужно передать в следующий запрос в параметр `start`, чтобы получить следующую порцию данных.
+
+Параметр `next` появляется в ответе, если количество элементов, соответствующих вашему запросу, превышает значение `50` ||
+|| **time**
+[`time`](../../data-types.md#time) | Информация о времени выполнения запроса ||
+|#
+
+## Обработка ошибок
+
+> HTTP-статус: 40x, 50x Error
+
+```json
+{
+    "error": "",
+    "error_description": "Access denied."
+}
 ```
 
 
+
+### Возможные ошибки
+
+#|  
+|| **Текст ошибки** | **Описание** ||
+|| `Access denied` | У пользователя нет прав на чтение лидов ||
+|#
+
+
+
+## Продолжите изучение 
+
+- [{#T}](../../../tutorials/crm/how-to-add-crm-objects/how-to-add-repeat-lead.md)
+- [{#T}](../../../tutorials/crm/how-to-get-lists/search-by-phone-and-email.md)

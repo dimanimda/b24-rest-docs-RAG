@@ -9,11 +9,10 @@ params: {"type":"object","properties":{"filter":{"type":"object"},"order":{"type
 returns: {"type":"array","items":{"type":"object"}}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Пользовательские поля документов складского учёта
+# Получить список значений пользовательских полей документов складского учета catalog.userfield.document.list
 
 
 
@@ -25,7 +24,10 @@ Auto-generated stub. Fill in params/returns/examples.
 
 
 
-- добавить ссылку на [`userfieldconfig.*`](.)
+- добавить ссылку на `userfieldconfig.list`(.)
+- не указана обязательность параметров
+- отсутствует ответ в случае ошибки
+- нет примеров на др. языках
   
 
 
@@ -35,13 +37,70 @@ Auto-generated stub. Fill in params/returns/examples.
 >
 > Кто может выполнять метод: любой пользователь
 
-Для создания пользовательских полей документов складского учёта используются стандартные методы класса [`userfieldconfig.*`](.).
+```http
+catalog.userfield.document.list(select, filter, order, start)
+```
 
-Получить список значений пользовательских полей документов складского учёта и обновить информацию в них можно с помощью следующих методов:
+Метод возвращает список значений пользовательских полей документов складского учёта.
+
+## Параметры
 
 #|
-|| **Метод** | **Описание** ||
-|| [catalog.userfield.document.list](./catalog-userfield-document-list.md) | Возвращает список значений пользовательских полей документов складского учёта. ||
-|| [catalog.userfield.document.update](./catalog-userfield-document-update.md) | Обновляет значения пользовательских полей документов складского учёта. ||
+|| **Параметр** | **Описание** ||
+|| **select**
+[`array`](../../data-types.md)| Массив с полями, которые надо показать. Обязательно должен быть указан `documentType` – [тип документов складского учёта](../enum/catalog-enum-get-store-document-types.md). | ||
+|| **order** 
+[`object`](../../data-types.md)| Список для определения порядка отображения, где ключ – название поля, а значение – `ASC` или `DESC`. | ||
+|| **filter** 
+[`object`](../../data-types.md)| Список для фильтрации. Обязательно должен быть указан `documentType` – [тип документов складского учёта](../enum/catalog-enum-get-store-document-types.md). | ||
+|| **start** 
+[`string`](../../data-types.md)| Номер страницы вывода. Работает для https запросов. ||
 |#
+
+
+
+## Пример
+
+В API используются названия полей в виде `field[ID поля в базе]` – например, `field288`. ID поля можно узнать с помощью метода [`userfieldconfig.list`](.).
+
+
+
+- JS
+  
+    ```js
+    BX24.callMethod(
+    'catalog.userfield.document.list',
+    {
+        select: [
+            'documentType',
+            'documentId',
+            'field287',
+            'field288',
+            'field289',
+        ],
+        filter:{
+            'documentType' : 'S',
+            '>=field287': 10,
+        },
+    },
+    function(result)
+    {
+        if(result.error())
+            console.error(result.error().ex);
+        else
+            console.log(result.data());
+        result.next();
+    }
+    );
+    ```
+
+- Для HTTPS:
+
+    ```
+    https://ваш_портал/rest/catalog.userfield.document.list?auth=_ключ_авторизации_&start=50
+    ```
+
+
+
+
 

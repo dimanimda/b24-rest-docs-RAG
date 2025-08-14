@@ -11,49 +11,22 @@ returns: {"type":"object"}
 
 Auto-generated stub. Fill in params/returns/examples.
 
----
+Example (curl):
 
-# Импорт данных в CRM
+```bash
+curl -X POST \
+        -H "Content-Type: application/json" \
+        -H "Accept: application/json" \
+        -d '{"entityTypeId":2,"data":[{"title":"Новая сделка (специально для примера REST методов)","typeId":"SERVICE","categoryId":9,"stageId":"C9:UC_KN8KFI","isReccurring":"Y","probability":50,"currencyId":"RUB","isManualOpportunity":"Y","opportunity":999.99,"taxValue":99.9,"companyId":5,"contactId":4,"contactIds":[4,5],"quoteId":7,"begindate":"formatDate(monthAgo)","closedate":"formatDate(twelveDaysInAdvance)","opened":"N","comments":"commentsExample","assignedById":6,"sourceId":"WEB","sourceDescription":"Тут должно быть дополнительное описание об источнике","leadId":102,"additionalInfo":"Тут должна быть дополнительная информация","observers":[2,3],"utmSource":"google","utmMedium":"CPC","ufCrm_1721244707107":1111.1,"parentId1220":[1,2]},{"title":"Новая сделка (специально для примера REST методов)","typeId":"SERVICE","categoryId":4,"stageId":"C9:UC_KN8KFI","isReccurring":"Y","probability":50,"currencyId":"RUB","isManualOpportunity":"Y","opportunity":999.99,"taxValue":99.9,"companyId":5,"contactId":4,"contactIds":[4,5],"quoteId":7,"begindate":"formatDate(monthAgo)","closedate":"formatDate(twelveDaysInAdvance)","opened":"N","comments":"commentsExample","assignedById":6,"sourceId":"WEB","sourceDescription":"Тут должно быть дополнительное описание об источнике","leadId":102,"additionalInfo":"Тут должна быть дополнительная информация","observers":[2,3],"utmSource":"google","utmMedium":"CPC","ufCrm_1721244707107":1111.1,"parentId1220":[1,2]}]}' \
+        https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/crm.item.batchImport
+        ```
 
-> Scope: [`crm`](../../../scopes/permissions.md)
->
-> Кто может выполнять метод: любой пользователь с правом «импорта» элемента объекта CRM
+    - cURL (OAuth)
 
-Импорт поддерживает все основные [сущности CRM](../../data-types.md#object_type):
-
-- [Лиды](../../leads/index.md)
-- [Сделки](../../deals/index.md)
-- [Контакты](../../contacts/index.md)
-- [Компании](../../companies/index.md)
-- [Коммерческие предложения](../../quote/index.md)
-- [Cчета](../../universal/invoice.md)
-- [Смарт-процессы](../user-defined-object-types/index.md)
-
-Для импорта доступны два метода:
-
-- [`crm.item.import`](./crm-item-import.md) — импорт одной записи
-- [`crm.item.batchImport`](./crm-item-batch-import.md) — групповой импорт записей
-
-Добавление элементов через импорт, в отличие от добавления через [`crm.*.add`](../crm-item-add.md), имеет следующие особенности:
-
-- Проверка прав производится на импорт, а не на добавление элементов.
-- Роботы и бизнес-процессы не будут запущены на добавленном элементе.
-- При выполнении под администратором портала, есть возможность установить значения некоторых системных полей:
-
-#|
-|| **Поле** | **Описание** ||
-|| **createdTime** | Дата и время создания записи ||
-|| **updatedTime** | Дата и время обновления записи ||
-|| **movedTime** | Дата и время изменения стадии, если объект поддерживает стадии ||
-|| **createdBy** | Пользователь, создавший запись ||
-|| **updatedBy** | Пользователь, изменивший запись ||
-|| **movedBy** | Пользователь, изменивший стадию, если объект поддерживает стадии ||
-|#
-
-На значения этих полей накладываются некоторые ограничения:
-
-- Требуется монотонное возрастание значения поля `createdTime`. То есть нельзя будет создавать записи с датой создания меньшей, чем у какой-либо из уже существующих записей.
-- Значения `createdTime` и `updatedTime` не могут быть в будущем.
-- Время `updatedTime` не может быть меньше `createdTime`.
-- Время `movedTime` должно быть в диапазоне между `createdTime` и `updatedTime`.
-
+        ```bash
+        curl -X POST \
+        -H "Content-Type: application/json" \
+        -H "Accept: application/json" \
+        -d '{"entityTypeId":2,"data":[{"title":"Новая сделка (специально для примера REST методов)","typeId":"SERVICE","categoryId":9,"stageId":"C9:UC_KN8KFI","isReccurring":"Y","probability":50,"currencyId":"RUB","isManualOpportunity":"Y","opportunity":999.99,"taxValue":99.9,"companyId":5,"contactId":4,"contactIds":[4,5],"quoteId":7,"begindate":"formatDate(monthAgo)","closedate":"formatDate(twelveDaysInAdvance)","opened":"N","comments":"commentsExample","assignedById":6,"sourceId":"WEB","sourceDescription":"Тут должно быть дополнительное описание об источнике","leadId":102,"additionalInfo":"Тут должна быть дополнительная информация","observers":[2,3],"utmSource":"google","utmMedium":"CPC","ufCrm_1721244707107":1111.1,"parentId1220":[1,2]},{"title":"Новая сделка (специально для примера REST методов)","typeId":"SERVICE","categoryId":4,"stageId":"C9:UC_KN8KFI","isReccurring":"Y","probability":50,"currencyId":"RUB","isManualOpportunity":"Y","opportunity":999.99,"taxValue":99.9,"companyId":5,"contactId":4,"contactIds":[4,5],"quoteId":7,"begindate":"formatDate(monthAgo)","closedate":"formatDate(twelveDaysInAdvance)","opened":"N","comments":"commentsExample","assignedById":6,"sourceId":"WEB","sourceDescription":"Тут должно быть дополнительное описание об источнике","leadId":102,"additionalInfo":"Тут должна быть дополнительная информация","observers":[2,3],"utmSource":"google","utmMedium":"CPC","ufCrm_1721244707107":1111.1,"parentId1220":[1,2]}],"auth":"**put_access_token_here**"}' \
+        https://**put_your_bitrix24_address**/rest/crm.item.batchImport
+```

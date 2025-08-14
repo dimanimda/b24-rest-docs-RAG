@@ -9,27 +9,158 @@ params: {"type":"object","required":["id"],"properties":{"id":{"type":"integer"}
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Обзор методов
+# Получить информацию об иконке crm.timeline.icon.get
 
 > Scope: [`crm`](../../../../scopes/permissions.md)
 >
-> Кто может выполнять метод: `зависит от метода`
+> Кто может выполнять метод: `любой пользователь`
 
-Список методов для управления иконками лог-записей журнала.
+Метод получает информацию об иконке лог-записи таймлайна.
+
+## Параметры метода
+
+
 
 #|
-|| **Метод** | **Описание** ||
-|| [crm.timeline.icon.add](./crm-timeline-icon-add.md) | Добавляет новую иконку ||
-|| [crm.timeline.icon.get](./crm-timeline-icon-get.md) | Получает информацию об иконке ||
-|| [crm.timeline.icon.list](./crm-timeline-icon-list.md) | Получает список всех доступных иконок ||
-|| [crm.timeline.icon.delete](./crm-timeline-icon-delete.md) | Удаляет иконку ||
+|| **Название**
+`тип` | **Описание** ||
+|| **code***
+[`string`](../../../../data-types.md) | Код иконки (например, `info`).
+
+Получить список всех доступных кодов можно методом [`crm.timeline.icon.list`](./crm-timeline-icon-list.md) ||
 |#
 
-## Продолжите изучение
+## Примеры кода
 
-- [{#T}](../index.md)
+
+
+
+
+- cURL (Webhook)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"code":"info"}' \
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webhook_here**/crm.timeline.icon.get
+    ```
+
+- cURL (OAuth)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"code":"info","auth":"**put_access_token_here**"}' \
+    https://**put_your_bitrix24_address**/rest/crm.timeline.icon.get
+    ```
+
+- JS
+
+    ```js
+    BX24.callMethod(
+        "crm.timeline.icon.get",
+        {
+            code: "info",
+        },
+        result => {
+            if (result.error())
+                console.error(result.error());
+            else
+                console.dir(result.data());
+        }
+    );
+    ```
+
+- PHP
+
+    ```php
+    require_once('crest.php');
+
+    $result = CRest::call(
+        'crm.timeline.icon.get',
+        [
+            'code' => 'info'
+        ]
+    );
+
+    echo '<PRE>';
+    print_r($result);
+    echo '</PRE>';
+    ```
+
+
+
+## Обработка ответа
+
+HTTP-статус: **200**
+
+```json
+{
+    "result": {
+        "icon": {
+            "code": "info",
+            "isSystem": false,
+            "fileUri": "/upload/crm/13f/huhnvzds7ckoy6mk5mdze9pb7jqscpxi/e66fm2cbau9f8u32oe9jzx2qflqhj2vv"
+        }
+    },
+    "time": {
+        "start": 1712132792.910734,
+        "finish": 1712132793.530359,
+        "duration": 0.6196250915527344,
+        "processing": 0.032338857650756836,
+        "date_start": "2024-04-03T10:26:32+02:00",
+        "date_finish": "2024-04-03T10:26:33+02:00",
+        "operating_reset_at": 1705765533,
+        "operating": 3.3076241016387939
+    }
+}
+```
+
+### Возвращаемые данные
+
+#|
+|| **Название**
+`тип` | **Описание** ||
+|| **result**
+[`object`](../../../../data-types.md) | Корневой элемент ответа.
+
+Поле `result` содержит объект [icon](./crm-timeline-icon-add.md#icon) ||
+|| **time**
+[`time`](../../../data-types.md) | Информация о времени выполнения запроса ||
+|#
+
+## Обработка ошибок
+
+HTTP-статус: **400**
+
+```json
+{
+    "error": "NOT_FOUND",
+    "error_description": "Icon not found for code `test`"
+}
+```
+
+
+
+### Возможные коды ошибок
+
+#|
+|| **Код** | **Описание** ||
+|| `NOT_FOUND` | Иконки с указанным `code` не существует ||
+|| `100` | Не переданы обязательные поля ||
+|| `0` | Другие ошибки (например, фатальные) ||
+|#
+
+
+
+## Продолжите изучение 
+
+- [{#T}](./crm-timeline-icon-add.md)
+- [{#T}](./crm-timeline-icon-list.md)
+- [{#T}](./crm-timeline-icon-delete.md)
 

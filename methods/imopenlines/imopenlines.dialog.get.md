@@ -9,11 +9,10 @@ params: {"type":"object","required":["id"],"properties":{"id":{"type":"integer"}
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Диалоги открытых линий
+# Получить информацию о диалоге (чате) оператора открытой линии imopenlines.dialog.get
 
 
 
@@ -25,27 +24,148 @@ Auto-generated stub. Fill in params/returns/examples.
 
 
 
-- из файла Сергея: диалоги/сессии - что это, как они работают
+- нужны правки под стандарт написания
+- отсутствуют примеры
 
 
 
 
 
+> Scope: [`imopenlines`](../../../scopes/permissions.md)
+>
+> Кто может выполнять метод: любой пользователь
+
+Метод получает информацию о диалоге (чате) оператора открытой линии.
+
+## Параметры метода
 
 #|
-|| **Метод** | **Описание** ||
-|| [imopenlines.crm.lead.create](./imopenlines-crm-lead-create.md) | Создает лид на основании диалога ||
-|| [imopenlines.dialog.get](./imopenlines-dialog-get.md) | Получает информацию о диалоге (чате) оператора открытой линии ||
-|| [imopenlines.message.session.start](./imopenlines-message-session-start.md) | Начинает новый диалог на основании сообщения ||
-|| [imopenlines.session.head.vote](./imopenlines-session-head-vote.md) | Ставит оценку работе сотрудника в диалоге ||
-|| [imopenlines.session.history.get](./imopenlines-session-history-get.md) | Получает сообщения чата и диалога ||
-|| [imopenlines.session.intercept](./imopenlines-session-intercept.md) | Забирает диалог у текущего оператора ||
-|| [imopenlines.session.join](./imopenlines-session-join.md) | Присоединяется к диалогу ||
-|| [imopenlines.session.mode.pinAll](./imopenlines-session-mode-pin-all.md) | Закрепляет все доступные диалоги за оператором ||
-|| [imopenlines.session.mode.pin](./imopenlines-session-mode-pin.md) | Закрепляет или открепляет диалог ||
-|| [imopenlines.session.mode.silent](./imopenlines-session-mode-silent.md) | Переключает диалог в «скрытый» режим ||
-|| [imopenlines.session.mode.unpinAll](./imopenlines-session-mode-unpin-all.md) | Открепляет все диалоги от оператора ||
-|| [imopenlines.session.open](./imopenlines-session-open.md) | Получает чат по символьному коду ||
-|| [imopenlines.session.start](./imopenlines-session-start.md) | Начинает новый диалог ||
+|| **Параметр** | **Пример** | **Описание** | **Ревизия** ||
+|| **CHAT_ID**
+[`integer`](../../../data-types.md) | `13` | Числовой идентификатор чата | 2 ||
+|| **DIALOG_ID**
+[`string`](../../../data-types.md) | `chat29`
+или
+`256` | Идентификатор диалога. Формат:
+- **chatXXX** — чат получателя, если сообщение для чата
+- **XXX** — идентификатор получателя, если сообщение для приватного диалога | 2 ||
+|| **SESSION_ID**
+[`integer`](../../../data-types.md) | `1743` | Идентификатор сессии в рамках открытой линии | 2 ||
+|| **USER_CODE**
+[`string`](../../../data-types.md) | `livechat`\|`1`\|`1373`\|`211` | Строковый идентификатор пользователя открытой линии из CRM, пример `livechat`\|`1`\|`1373`\|`211` или `imol`\|`livechat`\|`1`\|`1373`\|`211` | 2 ||
 |#
 
+Можно использовать для вызова любой из параметров.
+
+## Примеры
+
+
+
+- cURL
+
+    // пример для cURL
+
+- JS
+
+    ```js
+    BX24.callMethod(
+        'imopenlines.dialog.get',
+        {
+            USER_CODE: 'livechat|1|1373|211'
+        },
+        function(result){
+            if(result.error())
+            {
+                console.error(result.error().ex);
+            }
+            else
+            {
+                console.log(result.data());
+            }
+        }
+    );
+    ```
+
+- PHP
+
+    
+
+    ```php
+    $result = restCommand(
+        'imopenlines.dialog.get',
+        Array(
+            'DIALOG_ID' => 'chat29'
+        ),
+        $_REQUEST["auth"]
+    );
+    ```
+
+
+
+
+
+## Ответ в случае успеха
+
+```json
+{
+    "result": {
+        "avatar": "",
+        "color": "#4ba984",
+        "date_create": "2020-05-12T17:40:55+02:00",
+        "dialog_id": null,
+        "entity_data_1": "N|NONE|0|N|N|0|1591872180|1|0|",
+        "entity_data_2": "",
+        "entity_data_3": "",
+        "entity_id": "livechat|1|1363|203",
+        "entity_type": "LINES",
+        "extranet": false,
+        "id": 1364,
+        "manager_list": [],
+        "message_type": "L",
+        "name": "Евгений Перекопский - Приоритетная поддержка",
+        "owner": 0,
+        "type": "lines"
+    }
+}
+```
+
+### Описание ключей
+
+- `avatar` – ссылка на аватар (если пусто, значит аватар не задан)
+- `color` – цвет чата в формате hex
+- `date_create` – дата создания чата в формате АТОМ
+- `dialog_id` – идентификатор диалога
+- `entity_data_1` – внешние данные для чата
+- `entity_data_2` – внешние данные для чата
+- `entity_data_3` – внешние данные для чата
+- `entity_id` – внешний код для чата – идентификатор
+- `entity_type` – внешний код для чата – тип
+- `extranet` – признак участия в чате внешнего экстранет-пользователя (`true/false`)
+- `id` – идентификатор чата
+- `manager_list` – список операторов
+- `message_type` – тип сообщений чата
+- `name` – название открытой линии
+- `owner` – идентификатор пользователя-владельца чата
+- `type` – тип чата (групповой чат, чат для звонка, чат открытой линии и тд)
+
+## Ответ в случае ошибки
+
+```json
+{
+    "error": "DIALOG_ID_EMPTY",
+    "error_description": "Dialog ID can't be empty"
+}
+```
+
+### Описание ключей
+
+- `error` – код возникшей ошибки
+- `error_description` – краткое описание возникшей ошибки
+
+### Возможные коды ошибок
+
+#|
+|| **Код** | **Описание** ||
+|| **DIALOG_ID_EMPTY** | Не передан идентификатор диалога ||
+|| **ACCESS_ERROR** | Текущий пользователь не имеет прав доступа к диалогу ||
+|#

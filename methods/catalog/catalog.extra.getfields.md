@@ -11,17 +11,22 @@ returns: {"type":"object"}
 
 Auto-generated stub. Fill in params/returns/examples.
 
----
+Example (curl):
 
-# Обзор методов
+```bash
+curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{}' \
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/catalog.extra.getFields
+    ```
 
-> Scope: [`catalog`](../../scopes/permissions.md)
->
-> Кто может выполнять методы: администратор
+- cURL (OAuth)
 
-#|
-|| **Метод** | **Описание** ||
-|| [catalog.extra.get](catalog-extra-get.md) | Возвращает информацию о наценке по ее идентификатору ||
-|| [catalog.extra.list](catalog-extra-list.md) | Возвращает список наценок по фильтру ||
-|| [catalog.extra.getFields](catalog-extra-get-fields.md) | Возвращает поля наценки ||
-|#
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"auth":"**put_access_token_here**"}' \
+    https://**put_your_bitrix24_address**/rest/catalog.extra.getFields
+```

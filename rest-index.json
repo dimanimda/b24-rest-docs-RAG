@@ -15,7 +15,7 @@
             "path": "methods\\crm\\crm.activity.list.md",
             "deprecated": false,
             "pagination": "start",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.activity.get",
@@ -23,7 +23,7 @@
             "path": "methods\\crm\\crm.activity.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.timeline.comment.list",
@@ -31,7 +31,7 @@
             "path": "methods\\crm\\crm.timeline.comment.list.md",
             "deprecated": false,
             "pagination": "start",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.deal.get",
@@ -39,7 +39,7 @@
             "path": "methods\\crm\\crm.deal.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.deal.list",
@@ -47,7 +47,7 @@
             "path": "methods\\crm\\crm.deal.list.md",
             "deprecated": false,
             "pagination": "start",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.deal.userfield.list",
@@ -55,28 +55,28 @@
             "path": "methods\\crm\\crm.deal.userfield.list.md",
             "deprecated": false,
             "pagination": "start",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "task.items.getlist",
             "scope": "task",
             "path": "methods\\task\\task.items.getlist.md",
-            "deprecated": false,
+            "deprecated": true,
             "aliases": [
                 "tasks.task.list"
             ],
             "notes": "Legacy API with positional args",
             "pagination": "nav_params",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "task.item.list",
             "scope": "task",
             "path": "methods\\task\\task.item.list.md",
-            "deprecated": true,
+            "deprecated": false,
             "notes": "Older legacy API with positional args",
             "pagination": "nav_params",
-            "has_example": false,
+            "has_example": true,
             "aliases": [
                 "tasks.task.list",
                 "task.items.getlist"
@@ -112,7 +112,7 @@
             "path": "methods\\sale\\sale.cashbox.handler.add.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.item.add",
@@ -128,7 +128,7 @@
             "path": "methods\\crm\\crm.deal.add.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "biconnector.connector.add",
@@ -136,7 +136,7 @@
             "path": "methods\\biconnector\\biconnector.connector.add.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "biconnector.connector.delete",
@@ -144,7 +144,7 @@
             "path": "methods\\biconnector\\biconnector.connector.delete.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "biconnector.connector.list",
@@ -152,7 +152,7 @@
             "path": "methods\\biconnector\\biconnector.connector.list.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "biconnector.connector.fields",
@@ -160,7 +160,7 @@
             "path": "methods\\biconnector\\biconnector.connector.fields.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "biconnector.connector.get",
@@ -168,7 +168,7 @@
             "path": "methods\\biconnector\\biconnector.connector.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "biconnector.connector.update",
@@ -176,7 +176,7 @@
             "path": "methods\\biconnector\\biconnector.connector.update.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "biconnector.dataset.add",
@@ -184,7 +184,7 @@
             "path": "methods\\biconnector\\biconnector.dataset.add.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "biconnector.source.list",
@@ -192,7 +192,7 @@
             "path": "methods\\biconnector\\biconnector.source.list.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "biconnector.source.add",
@@ -200,7 +200,7 @@
             "path": "methods\\biconnector\\biconnector.source.add.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "biconnector.dataset.delete",
@@ -208,7 +208,7 @@
             "path": "methods\\biconnector\\biconnector.dataset.delete.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "biconnector.dataset.list",
@@ -216,7 +216,7 @@
             "path": "methods\\biconnector\\biconnector.dataset.list.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "biconnector.dataset.fields.update",
@@ -224,7 +224,7 @@
             "path": "methods\\biconnector\\biconnector.dataset.fields.update.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "biconnector.dataset.get",
@@ -232,7 +232,7 @@
             "path": "methods\\biconnector\\biconnector.dataset.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "biconnector.dataset.fields",
@@ -240,7 +240,7 @@
             "path": "methods\\biconnector\\biconnector.dataset.fields.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "biconnector.dataset.update",
@@ -248,7 +248,7 @@
             "path": "methods\\biconnector\\biconnector.dataset.update.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "biconnector.source.update",
@@ -256,7 +256,7 @@
             "path": "methods\\biconnector\\biconnector.source.update.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "biconnector.source.get",
@@ -264,7 +264,7 @@
             "path": "methods\\biconnector\\biconnector.source.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "biconnector.source.delete",
@@ -272,7 +272,7 @@
             "path": "methods\\biconnector\\biconnector.source.delete.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "biconnector.source.fields",
@@ -280,7 +280,7 @@
             "path": "methods\\biconnector\\biconnector.source.fields.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "bizproc.activity.add",
@@ -288,7 +288,7 @@
             "path": "methods\\bizproc\\bizproc.activity.add.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "bizproc.activity.delete",
@@ -296,7 +296,7 @@
             "path": "methods\\bizproc\\bizproc.activity.delete.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "bizproc.activity.list",
@@ -304,7 +304,7 @@
             "path": "methods\\bizproc\\bizproc.activity.list.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "bizproc.activity.log",
@@ -312,7 +312,7 @@
             "path": "methods\\bizproc\\bizproc.activity.log.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "bizproc.activity.update",
@@ -320,7 +320,7 @@
             "path": "methods\\bizproc\\bizproc.activity.update.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "bizproc.event.send",
@@ -328,7 +328,7 @@
             "path": "methods\\bizproc\\bizproc.event.send.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "bizproc.robot.add",
@@ -336,7 +336,7 @@
             "path": "methods\\bizproc\\bizproc.robot.add.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "bizproc.robot.update",
@@ -344,7 +344,7 @@
             "path": "methods\\bizproc\\bizproc.robot.update.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "bizproc.robot.delete",
@@ -352,7 +352,7 @@
             "path": "methods\\bizproc\\bizproc.robot.delete.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "bizproc.robot.list",
@@ -360,7 +360,7 @@
             "path": "methods\\bizproc\\bizproc.robot.list.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "bizproc.task.complete",
@@ -368,7 +368,7 @@
             "path": "methods\\bizproc\\bizproc.task.complete.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "bizproc.task.list",
@@ -376,7 +376,7 @@
             "path": "methods\\bizproc\\bizproc.task.list.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "bizproc.workflow.instances",
@@ -384,7 +384,7 @@
             "path": "methods\\bizproc\\bizproc.workflow.instances.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "bizproc.workflow.instance.list",
@@ -400,7 +400,7 @@
             "path": "methods\\bizproc\\bizproc.workflow.kill.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "bizproc.workflow.start",
@@ -408,7 +408,7 @@
             "path": "methods\\bizproc\\bizproc.workflow.start.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "bizproc.workflow.terminate",
@@ -416,7 +416,7 @@
             "path": "methods\\bizproc\\bizproc.workflow.terminate.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "bizproc.workflow.template.add",
@@ -440,7 +440,7 @@
             "path": "methods\\bizproc\\bizproc.workflow.template.delete.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "bizproc.workflow.template.list",
@@ -448,7 +448,7 @@
             "path": "methods\\bizproc\\bizproc.workflow.template.list.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.item.get",
@@ -456,7 +456,7 @@
             "path": "methods\\crm\\crm.item.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.item.list",
@@ -464,7 +464,7 @@
             "path": "methods\\crm\\crm.item.list.md",
             "deprecated": false,
             "pagination": "start",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "oauth.bitrix24.tech",
@@ -488,7 +488,7 @@
             "path": "methods\\calendar\\calendar.accessibility.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "calendar.event.add",
@@ -496,7 +496,7 @@
             "path": "methods\\calendar\\calendar.event.add.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "calendar.event.delete",
@@ -504,7 +504,7 @@
             "path": "methods\\calendar\\calendar.event.delete.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "calendar.event.get",
@@ -512,7 +512,7 @@
             "path": "methods\\calendar\\calendar.event.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "calendar.event.get.nearest",
@@ -520,7 +520,7 @@
             "path": "methods\\calendar\\calendar.event.get.nearest.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "calendar.event.getbyid",
@@ -528,7 +528,7 @@
             "path": "methods\\calendar\\calendar.event.getbyid.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "calendar.event.update",
@@ -536,7 +536,7 @@
             "path": "methods\\calendar\\calendar.event.update.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "calendar.meeting.status.get",
@@ -544,7 +544,7 @@
             "path": "methods\\calendar\\calendar.meeting.status.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "calendar.meeting.status.set",
@@ -552,7 +552,7 @@
             "path": "methods\\calendar\\calendar.meeting.status.set.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "calendar.event.getnearest",
@@ -568,7 +568,7 @@
             "path": "methods\\calendar\\calendar.section.add.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "calendar.section.delete",
@@ -576,7 +576,7 @@
             "path": "methods\\calendar\\calendar.section.delete.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "calendar.section.get",
@@ -584,7 +584,7 @@
             "path": "methods\\calendar\\calendar.section.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "calendar.section.update",
@@ -592,7 +592,7 @@
             "path": "methods\\calendar\\calendar.section.update.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "calendar.settings.get",
@@ -600,7 +600,7 @@
             "path": "methods\\calendar\\calendar.settings.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "calendar.user.settings.get",
@@ -608,7 +608,7 @@
             "path": "methods\\calendar\\calendar.user.settings.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "calendar.user.settings.set",
@@ -616,7 +616,7 @@
             "path": "methods\\calendar\\calendar.user.settings.set.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "calendar.resource.add",
@@ -624,7 +624,7 @@
             "path": "methods\\calendar\\calendar.resource.add.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "calendar.resource.update",
@@ -632,7 +632,7 @@
             "path": "methods\\calendar\\calendar.resource.update.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "calendar.resource.delete",
@@ -640,7 +640,7 @@
             "path": "methods\\calendar\\calendar.resource.delete.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "calendar.resource.list",
@@ -648,7 +648,7 @@
             "path": "methods\\calendar\\calendar.resource.list.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "calendar.resource.booking.list",
@@ -656,7 +656,7 @@
             "path": "methods\\calendar\\calendar.resource.booking.list.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.lead.get",
@@ -664,7 +664,7 @@
             "path": "methods\\crm\\crm.lead.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.lead.list",
@@ -672,7 +672,7 @@
             "path": "methods\\crm\\crm.lead.list.md",
             "deprecated": false,
             "pagination": "start",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.lead.userfield.list",
@@ -688,7 +688,7 @@
             "path": "methods\\catalog\\catalog.catalog.getfields.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "catalog.catalog.get",
@@ -696,7 +696,7 @@
             "path": "methods\\catalog\\catalog.catalog.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "catalog.catalog.isoffers",
@@ -704,7 +704,7 @@
             "path": "methods\\catalog\\catalog.catalog.isoffers.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "catalog.catalog.list",
@@ -712,7 +712,7 @@
             "path": "methods\\catalog\\catalog.catalog.list.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "catalog.product.service",
@@ -744,7 +744,7 @@
             "path": "methods\\catalog\\catalog.product.list.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "catalog.product.sku.list",
@@ -752,7 +752,7 @@
             "path": "methods\\catalog\\catalog.product.sku.list.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "catalog.product.offer.list",
@@ -760,7 +760,7 @@
             "path": "methods\\catalog\\catalog.product.offer.list.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "catalog.product.service.list",
@@ -768,7 +768,7 @@
             "path": "methods\\catalog\\catalog.product.service.list.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "catalog.productimage.list",
@@ -784,7 +784,7 @@
             "path": "methods\\catalog\\catalog.store.list.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "catalog.measure.list",
@@ -792,7 +792,7 @@
             "path": "methods\\catalog\\catalog.measure.list.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "catalog.ratio.list",
@@ -800,7 +800,7 @@
             "path": "methods\\catalog\\catalog.ratio.list.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "catalog.pricetype.list",
@@ -840,7 +840,7 @@
             "path": "methods\\catalog\\catalog.extra.list.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "catalog.section.list",
@@ -848,21 +848,21 @@
             "path": "methods\\catalog\\catalog.section.list.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "catalog.vat.list",
             "scope": "catalog",
             "path": "methods\\catalog\\catalog.vat.list.md",
-            "deprecated": true,
+            "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "catalog.productproperty.list",
             "scope": "catalog",
             "path": "methods\\catalog\\catalog.productproperty.list.md",
-            "deprecated": true,
+            "deprecated": false,
             "pagination": "unknown",
             "has_example": false
         },
@@ -870,9 +870,9 @@
             "method": "crm.currency.list",
             "scope": "crm",
             "path": "methods\\crm\\crm.currency.list.md",
-            "deprecated": true,
+            "deprecated": false,
             "pagination": "start",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "catalog.product.get",
@@ -888,7 +888,7 @@
             "path": "methods\\catalog\\catalog.product.sku.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "catalog.product.offer.get",
@@ -896,7 +896,7 @@
             "path": "methods\\catalog\\catalog.product.offer.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "catalog.product.service.get",
@@ -904,7 +904,7 @@
             "path": "methods\\catalog\\catalog.product.service.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "catalog.document.add",
@@ -912,7 +912,7 @@
             "path": "methods\\catalog\\catalog.document.add.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "catalog.document.cancellist",
@@ -926,7 +926,7 @@
             "method": "catalog.document.cancel",
             "scope": "catalog",
             "path": "methods\\catalog\\catalog.document.cancel.md",
-            "deprecated": true,
+            "deprecated": false,
             "pagination": "unknown",
             "has_example": false
         },
@@ -942,7 +942,7 @@
             "method": "catalog.document.conduct",
             "scope": "catalog",
             "path": "methods\\catalog\\catalog.document.conduct.md",
-            "deprecated": true,
+            "deprecated": false,
             "pagination": "unknown",
             "has_example": false
         },
@@ -966,7 +966,7 @@
             "method": "catalog.document.getfields",
             "scope": "catalog",
             "path": "methods\\catalog\\catalog.document.getfields.md",
-            "deprecated": true,
+            "deprecated": false,
             "pagination": "unknown",
             "has_example": false
         },
@@ -1014,7 +1014,7 @@
             "method": "catalog.document.element.getfields",
             "scope": "catalog",
             "path": "methods\\catalog\\catalog.document.element.getfields.md",
-            "deprecated": true,
+            "deprecated": false,
             "pagination": "unknown",
             "has_example": false
         },
@@ -1056,7 +1056,7 @@
             "path": "methods\\catalog\\catalog.document.confirm.md",
             "deprecated": true,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "catalog.document.element.fields",
@@ -1064,7 +1064,7 @@
             "path": "methods\\catalog\\catalog.document.element.fields.md",
             "deprecated": true,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "catalog.document.fields",
@@ -1072,7 +1072,7 @@
             "path": "methods\\catalog\\catalog.document.fields.md",
             "deprecated": true,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "catalog.document.unconfirm",
@@ -1080,7 +1080,7 @@
             "path": "methods\\catalog\\catalog.document.unconfirm.md",
             "deprecated": true,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "catalog.documentcontractor.add",
@@ -1096,7 +1096,7 @@
             "path": "methods\\crm\\crm.category.list.md",
             "deprecated": false,
             "pagination": "start",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "catalog.documentcontractor.delete",
@@ -1152,7 +1152,7 @@
             "path": "methods\\catalog\\catalog.extra.getfields.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "catalog.extra.get",
@@ -1160,7 +1160,7 @@
             "path": "methods\\catalog\\catalog.extra.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "catalog.measure.add",
@@ -1168,7 +1168,7 @@
             "path": "methods\\catalog\\catalog.measure.add.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "catalog.measure.delete",
@@ -1176,7 +1176,7 @@
             "path": "methods\\catalog\\catalog.measure.delete.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "catalog.measure.getfields",
@@ -1184,7 +1184,7 @@
             "path": "methods\\catalog\\catalog.measure.getfields.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "catalog.measure.get",
@@ -1192,7 +1192,7 @@
             "path": "methods\\catalog\\catalog.measure.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "catalog.measure.update",
@@ -1200,7 +1200,7 @@
             "path": "methods\\catalog\\catalog.measure.update.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "catalog.measure.on.add",
@@ -1312,7 +1312,7 @@
             "path": "methods\\catalog\\catalog.pricetype.add.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "catalog.pricetype.delete",
@@ -1320,7 +1320,7 @@
             "path": "methods\\catalog\\catalog.pricetype.delete.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "catalog.pricetype.getfields",
@@ -1328,7 +1328,7 @@
             "path": "methods\\catalog\\catalog.pricetype.getfields.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "catalog.pricetype.get",
@@ -1336,7 +1336,7 @@
             "path": "methods\\catalog\\catalog.pricetype.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "catalog.pricetype.update",
@@ -1344,7 +1344,7 @@
             "path": "methods\\catalog\\catalog.pricetype.update.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "catalog.price.type.on.add",
@@ -1464,7 +1464,7 @@
             "path": "methods\\catalog\\catalog.product.delete.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "catalog.product.getfieldsbyfilter",
@@ -1472,7 +1472,7 @@
             "path": "methods\\catalog\\catalog.product.getfieldsbyfilter.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "catalog.product.update",
@@ -1486,7 +1486,7 @@
             "method": "catalog.product.on.add",
             "scope": "catalog",
             "path": "methods\\catalog\\catalog.product.on.add.md",
-            "deprecated": true,
+            "deprecated": false,
             "pagination": "none",
             "has_example": false
         },
@@ -1494,7 +1494,7 @@
             "method": "catalog.product.on.delete",
             "scope": "catalog",
             "path": "methods\\catalog\\catalog.product.on.delete.md",
-            "deprecated": true,
+            "deprecated": false,
             "pagination": "none",
             "has_example": false
         },
@@ -1502,7 +1502,7 @@
             "method": "catalog.product.on.update",
             "scope": "catalog",
             "path": "methods\\catalog\\catalog.product.on.update.md",
-            "deprecated": true,
+            "deprecated": false,
             "pagination": "none",
             "has_example": false
         },
@@ -1512,7 +1512,7 @@
             "path": "methods\\catalog\\catalog.product.service.add.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "catalog.product.sku.add",
@@ -1520,7 +1520,7 @@
             "path": "methods\\catalog\\catalog.product.sku.add.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "catalog.product.offer.add",
@@ -1528,7 +1528,7 @@
             "path": "methods\\catalog\\catalog.product.offer.add.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "catalog.product.service.update",
@@ -1536,7 +1536,7 @@
             "path": "methods\\catalog\\catalog.product.service.update.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "catalog.product.sku.update",
@@ -1544,7 +1544,7 @@
             "path": "methods\\catalog\\catalog.product.sku.update.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "catalog.product.offer.update",
@@ -1552,7 +1552,7 @@
             "path": "methods\\catalog\\catalog.product.offer.update.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "catalog.product.service.delete",
@@ -1560,7 +1560,7 @@
             "path": "methods\\catalog\\catalog.product.service.delete.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "catalog.product.sku.delete",
@@ -1568,7 +1568,7 @@
             "path": "methods\\catalog\\catalog.product.sku.delete.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "catalog.product.offer.delete",
@@ -1576,7 +1576,7 @@
             "path": "methods\\catalog\\catalog.product.offer.delete.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "catalog.product.service.download",
@@ -1584,7 +1584,7 @@
             "path": "methods\\catalog\\catalog.product.service.download.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "catalog.product.service.getfieldsbyfilter",
@@ -1600,7 +1600,7 @@
             "path": "methods\\catalog\\catalog.product.sku.download.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "catalog.product.sku.getfieldsbyfilter",
@@ -1616,7 +1616,7 @@
             "path": "methods\\catalog\\catalog.product.offer.download.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "catalog.product.offer.getfieldsbyfilter",
@@ -1632,7 +1632,7 @@
             "path": "methods\\catalog\\catalog.productimage.add.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "catalog.productimage.delete",
@@ -1640,7 +1640,7 @@
             "path": "methods\\catalog\\catalog.productimage.delete.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "catalog.productimage.getfields",
@@ -1648,7 +1648,7 @@
             "path": "methods\\catalog\\catalog.productimage.getfields.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "catalog.productimage.get",
@@ -1656,13 +1656,13 @@
             "path": "methods\\catalog\\catalog.productimage.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "catalog.productproperty.add",
             "scope": "catalog",
             "path": "methods\\catalog\\catalog.productproperty.add.md",
-            "deprecated": true,
+            "deprecated": false,
             "pagination": "none",
             "has_example": false
         },
@@ -1670,7 +1670,7 @@
             "method": "catalog.productproperty.delete",
             "scope": "catalog",
             "path": "methods\\catalog\\catalog.productproperty.delete.md",
-            "deprecated": true,
+            "deprecated": false,
             "pagination": "none",
             "has_example": false
         },
@@ -1678,15 +1678,15 @@
             "method": "catalog.productproperty.getfields",
             "scope": "catalog",
             "path": "methods\\catalog\\catalog.productproperty.getfields.md",
-            "deprecated": true,
+            "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "catalog.productproperty.get",
             "scope": "catalog",
             "path": "methods\\catalog\\catalog.productproperty.get.md",
-            "deprecated": true,
+            "deprecated": false,
             "pagination": "none",
             "has_example": false
         },
@@ -1694,7 +1694,7 @@
             "method": "catalog.productproperty.update",
             "scope": "catalog",
             "path": "methods\\catalog\\catalog.productproperty.update.md",
-            "deprecated": true,
+            "deprecated": false,
             "pagination": "none",
             "has_example": false
         },
@@ -1816,7 +1816,7 @@
             "path": "methods\\catalog\\catalog.ratio.getfields.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "catalog.ratio.get",
@@ -1824,7 +1824,7 @@
             "path": "methods\\catalog\\catalog.ratio.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "catalog.roundingrule.add",
@@ -1832,7 +1832,7 @@
             "path": "methods\\catalog\\catalog.roundingrule.add.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "catalog.roundingrule.delete",
@@ -1840,7 +1840,7 @@
             "path": "methods\\catalog\\catalog.roundingrule.delete.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "catalog.roundingrule.getfields",
@@ -1848,7 +1848,7 @@
             "path": "methods\\catalog\\catalog.roundingrule.getfields.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "catalog.roundingrule.get",
@@ -1856,7 +1856,7 @@
             "path": "methods\\catalog\\catalog.roundingrule.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "catalog.roundingrule.update",
@@ -1864,7 +1864,7 @@
             "path": "methods\\catalog\\catalog.roundingrule.update.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "catalog.rounding.on.add",
@@ -1896,7 +1896,7 @@
             "path": "methods\\catalog\\catalog.section.add.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "catalog.section.delete",
@@ -1904,7 +1904,7 @@
             "path": "methods\\catalog\\catalog.section.delete.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "catalog.section.getfields",
@@ -1912,7 +1912,7 @@
             "path": "methods\\catalog\\catalog.section.getfields.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "catalog.section.get",
@@ -1920,7 +1920,7 @@
             "path": "methods\\catalog\\catalog.section.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "catalog.section.update",
@@ -1928,7 +1928,7 @@
             "path": "methods\\catalog\\catalog.section.update.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "catalog.store.add",
@@ -1936,7 +1936,7 @@
             "path": "methods\\catalog\\catalog.store.add.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "catalog.store.delete",
@@ -1944,7 +1944,7 @@
             "path": "methods\\catalog\\catalog.store.delete.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "catalog.store.getfields",
@@ -1952,7 +1952,7 @@
             "path": "methods\\catalog\\catalog.store.getfields.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "catalog.store.get",
@@ -1960,7 +1960,7 @@
             "path": "methods\\catalog\\catalog.store.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "catalog.store.update",
@@ -1968,7 +1968,7 @@
             "path": "methods\\catalog\\catalog.store.update.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "catalog.storeproduct.getfields",
@@ -2014,25 +2014,25 @@
             "method": "catalog.vat.add",
             "scope": "catalog",
             "path": "methods\\catalog\\catalog.vat.add.md",
-            "deprecated": true,
+            "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "catalog.vat.delete",
             "scope": "catalog",
             "path": "methods\\catalog\\catalog.vat.delete.md",
-            "deprecated": true,
+            "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "catalog.vat.getfields",
             "scope": "catalog",
             "path": "methods\\catalog\\catalog.vat.getfields.md",
-            "deprecated": true,
+            "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "catalog.vat.get",
@@ -2040,15 +2040,15 @@
             "path": "methods\\catalog\\catalog.vat.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "catalog.vat.update",
             "scope": "catalog",
             "path": "methods\\catalog\\catalog.vat.update.md",
-            "deprecated": true,
+            "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "im.revision.get",
@@ -2248,7 +2248,7 @@
             "path": "methods\\im\\im.dialog.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "im.recent.get",
@@ -2312,7 +2312,7 @@
             "path": "methods\\im\\im.message.add.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "im.message.command",
@@ -2600,7 +2600,7 @@
             "path": "methods\\crm\\crm.lead.add.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.automatedsolution.add",
@@ -2608,7 +2608,7 @@
             "path": "methods\\crm\\crm.automatedsolution.add.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.automatedsolution.delete",
@@ -2640,7 +2640,7 @@
             "path": "methods\\crm\\crm.automatedsolution.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.type.get",
@@ -2648,7 +2648,7 @@
             "path": "methods\\crm\\crm.type.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.automatedsolution.update",
@@ -2664,7 +2664,7 @@
             "path": "methods\\crm\\crm.automation.trigger.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.automation.trigger.execute",
@@ -2672,7 +2672,7 @@
             "path": "methods\\crm\\crm.automation.trigger.execute.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.automation.trigger.add",
@@ -2680,7 +2680,7 @@
             "path": "methods\\crm\\crm.automation.trigger.add.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.automation.trigger.delete",
@@ -2688,7 +2688,7 @@
             "path": "methods\\crm\\crm.automation.trigger.delete.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.enum.ownertype",
@@ -2704,7 +2704,7 @@
             "path": "methods\\crm\\crm.automation.trigger.list.md",
             "deprecated": false,
             "pagination": "start",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.enum.addresstype",
@@ -2712,7 +2712,7 @@
             "path": "methods\\crm\\crm.enum.addresstype.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.enum.fields",
@@ -2720,7 +2720,7 @@
             "path": "methods\\crm\\crm.enum.fields.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.enum.getorderownertypes",
@@ -2728,7 +2728,7 @@
             "path": "methods\\crm\\crm.enum.getorderownertypes.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.enum.settings.mode",
@@ -2736,7 +2736,7 @@
             "path": "methods\\crm\\crm.enum.settings.mode.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.settings.mode.get",
@@ -2752,7 +2752,7 @@
             "path": "methods\\crm\\crm.address.list.md",
             "deprecated": false,
             "pagination": "start",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.enum.contenttype",
@@ -2832,7 +2832,7 @@
             "path": "methods\\crm\\crm.calllist.add.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.calllist.get",
@@ -2840,7 +2840,7 @@
             "path": "methods\\crm\\crm.calllist.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.calllist.items.get",
@@ -2848,7 +2848,7 @@
             "path": "methods\\crm\\crm.calllist.items.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.calllist.list",
@@ -2856,7 +2856,7 @@
             "path": "methods\\crm\\crm.calllist.list.md",
             "deprecated": false,
             "pagination": "start",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.calllist.statuslist",
@@ -2864,7 +2864,7 @@
             "path": "methods\\crm\\crm.calllist.statuslist.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.calllist.update",
@@ -2872,7 +2872,7 @@
             "path": "methods\\crm\\crm.calllist.update.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.activity.delete",
@@ -2880,7 +2880,7 @@
             "path": "methods\\crm\\crm.activity.delete.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.deal.delete",
@@ -2888,7 +2888,7 @@
             "path": "methods\\crm\\crm.deal.delete.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.company.contact.add",
@@ -3088,7 +3088,7 @@
             "path": "methods\\crm\\crm.userfield.fields.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.company.userfield.updates",
@@ -3104,7 +3104,7 @@
             "path": "methods\\crm\\crm.userfield.types.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.userfield.settings.fields",
@@ -3112,7 +3112,7 @@
             "path": "methods\\crm\\crm.userfield.settings.fields.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.contact.company.add",
@@ -3120,7 +3120,7 @@
             "path": "methods\\crm\\crm.contact.company.add.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.contact.list",
@@ -3128,7 +3128,7 @@
             "path": "methods\\crm\\crm.contact.list.md",
             "deprecated": false,
             "pagination": "start",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.contact.add",
@@ -3136,7 +3136,7 @@
             "path": "methods\\crm\\crm.contact.add.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.contact.company.delete",
@@ -3144,7 +3144,7 @@
             "path": "methods\\crm\\crm.contact.company.delete.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.contact.company.fields",
@@ -3152,7 +3152,7 @@
             "path": "methods\\crm\\crm.contact.company.fields.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.contact.company.items.delete",
@@ -3160,7 +3160,7 @@
             "path": "methods\\crm\\crm.contact.company.items.delete.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.contact.company.items.get",
@@ -3168,7 +3168,7 @@
             "path": "methods\\crm\\crm.contact.company.items.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.contact.company.items.set",
@@ -3176,7 +3176,7 @@
             "path": "methods\\crm\\crm.contact.company.items.set.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.contact.company",
@@ -3192,7 +3192,7 @@
             "path": "methods\\crm\\crm.status.list.md",
             "deprecated": false,
             "pagination": "start",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.contact.userfield.add",
@@ -3200,7 +3200,7 @@
             "path": "methods\\crm\\crm.contact.userfield.add.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.contact.delete",
@@ -3208,7 +3208,7 @@
             "path": "methods\\crm\\crm.contact.delete.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.contact.fields",
@@ -3216,7 +3216,7 @@
             "path": "methods\\crm\\crm.contact.fields.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.contact.update",
@@ -3224,7 +3224,7 @@
             "path": "methods\\crm\\crm.contact.update.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.contact.get",
@@ -3232,7 +3232,7 @@
             "path": "methods\\crm\\crm.contact.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.item.update",
@@ -3248,7 +3248,7 @@
             "path": "methods\\crm\\crm.contact.details.configuration.forcecommonscopeforall.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.contact.details.configuration.get",
@@ -3256,7 +3256,7 @@
             "path": "methods\\crm\\crm.contact.details.configuration.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.contact.details.configuration.reset",
@@ -3264,7 +3264,7 @@
             "path": "methods\\crm\\crm.contact.details.configuration.reset.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.contact.details.configuration.set",
@@ -3272,7 +3272,7 @@
             "path": "methods\\crm\\crm.contact.details.configuration.set.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.contact.details.configuration",
@@ -3296,7 +3296,7 @@
             "path": "methods\\crm\\crm.contact.userfield.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "crm.contact.userfield.update",
@@ -3304,7 +3304,7 @@
             "path": "methods\\crm\\crm.contact.userfield.update.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.contact.userfield.get",
@@ -3312,7 +3312,7 @@
             "path": "methods\\crm\\crm.contact.userfield.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.contact.userfield.list",
@@ -3320,7 +3320,7 @@
             "path": "methods\\crm\\crm.contact.userfield.list.md",
             "deprecated": false,
             "pagination": "start",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.contact.userfield.delete",
@@ -3328,7 +3328,7 @@
             "path": "methods\\crm\\crm.contact.userfield.delete.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.status.entity.types",
@@ -3336,7 +3336,7 @@
             "path": "methods\\crm\\crm.status.entity.types.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.stagehistory.list",
@@ -3344,7 +3344,7 @@
             "path": "methods\\crm\\crm.stagehistory.list.md",
             "deprecated": false,
             "pagination": "start",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.currency.add",
@@ -3352,7 +3352,7 @@
             "path": "methods\\crm\\crm.currency.add.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.currency.localizations.set",
@@ -3360,7 +3360,7 @@
             "path": "methods\\crm\\crm.currency.localizations.set.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.currency.base.get",
@@ -3368,7 +3368,7 @@
             "path": "methods\\crm\\crm.currency.base.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.currency.base.set",
@@ -3376,7 +3376,7 @@
             "path": "methods\\crm\\crm.currency.base.set.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.currency.delete",
@@ -3384,7 +3384,7 @@
             "path": "methods\\crm\\crm.currency.delete.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.currency.fields",
@@ -3392,7 +3392,7 @@
             "path": "methods\\crm\\crm.currency.fields.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.currency.get",
@@ -3400,7 +3400,7 @@
             "path": "methods\\crm\\crm.currency.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.currency.update",
@@ -3408,7 +3408,7 @@
             "path": "methods\\crm\\crm.currency.update.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.currency.localizations",
@@ -3432,7 +3432,7 @@
             "path": "methods\\crm\\crm.currency.localizations.fields.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.currency.localizations.get",
@@ -3440,7 +3440,7 @@
             "path": "methods\\crm\\crm.currency.localizations.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.quote.get",
@@ -3456,7 +3456,7 @@
             "path": "methods\\crm\\crm.category.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.item.productrow.list",
@@ -3464,7 +3464,7 @@
             "path": "methods\\crm\\crm.item.productrow.list.md",
             "deprecated": false,
             "pagination": "start",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.deal.contact.add",
@@ -3536,7 +3536,7 @@
             "path": "methods\\crm\\crm.deal.userfield.add.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.deal.fields",
@@ -3544,7 +3544,7 @@
             "path": "methods\\crm\\crm.deal.fields.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.deal.productrows.get",
@@ -3552,7 +3552,7 @@
             "path": "methods\\crm\\crm.deal.productrows.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.deal.productrows.set",
@@ -3560,7 +3560,7 @@
             "path": "methods\\crm\\crm.deal.productrows.set.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.deal.update",
@@ -3568,7 +3568,7 @@
             "path": "methods\\crm\\crm.deal.update.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.deal.details.configuration.forcecommonscopeforall",
@@ -3696,7 +3696,7 @@
             "path": "methods\\crm\\crm.deal.userfield.update.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.deal.userfield.get",
@@ -3704,7 +3704,7 @@
             "path": "methods\\crm\\crm.deal.userfield.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.deal.userfield.delete",
@@ -3712,7 +3712,7 @@
             "path": "methods\\crm\\crm.deal.userfield.delete.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.documentgenerator.document.add",
@@ -3872,7 +3872,7 @@
             "path": "methods\\crm\\crm.duplicate.findbycomm.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.entity.mergebatch",
@@ -3880,7 +3880,7 @@
             "path": "methods\\crm\\crm.entity.mergebatch.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.type.list",
@@ -3888,7 +3888,7 @@
             "path": "methods\\crm\\crm.type.list.md",
             "deprecated": false,
             "pagination": "start",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.duplicate.volatiletype.fields",
@@ -3944,7 +3944,7 @@
             "path": "methods\\crm\\crm.lead.fields.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.lead.delete",
@@ -3952,7 +3952,7 @@
             "path": "methods\\crm\\crm.lead.delete.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.lead.productrows.get",
@@ -3974,9 +3974,9 @@
             "method": "crm.productrow.fields",
             "scope": "crm",
             "path": "methods\\crm\\crm.productrow.fields.md",
-            "deprecated": false,
+            "deprecated": true,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.lead.update",
@@ -3984,7 +3984,7 @@
             "path": "methods\\crm\\crm.lead.update.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.lead.details.configuration.forcecommonscopeforall",
@@ -4032,7 +4032,7 @@
             "path": "methods\\crm\\crm.lead.contact.add.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.lead.contact.delete",
@@ -4040,7 +4040,7 @@
             "path": "methods\\crm\\crm.lead.contact.delete.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.lead.contact.items.get",
@@ -4048,7 +4048,7 @@
             "path": "methods\\crm\\crm.lead.contact.items.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.lead.contact.items.set",
@@ -4056,7 +4056,7 @@
             "path": "methods\\crm\\crm.lead.contact.items.set.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.lead.contact.items.delete",
@@ -4064,7 +4064,7 @@
             "path": "methods\\crm\\crm.lead.contact.items.delete.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.lead.contact.fields",
@@ -4072,7 +4072,7 @@
             "path": "methods\\crm\\crm.lead.contact.fields.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.lead.userfield.add",
@@ -4120,7 +4120,7 @@
             "path": "methods\\crm\\crm.requisite.fields.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.requisite.list",
@@ -4128,7 +4128,7 @@
             "path": "methods\\crm\\crm.requisite.list.md",
             "deprecated": false,
             "pagination": "start",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.requisite.preset.list",
@@ -4136,7 +4136,7 @@
             "path": "methods\\crm\\crm.requisite.preset.list.md",
             "deprecated": false,
             "pagination": "start",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.requisite.userfield.add",
@@ -4160,7 +4160,7 @@
             "path": "methods\\crm\\crm.requisite.preset.countries.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.requisite.preset.fields",
@@ -4168,7 +4168,7 @@
             "path": "methods\\crm\\crm.requisite.preset.fields.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.requisite.preset.field.fields",
@@ -4176,7 +4176,7 @@
             "path": "methods\\crm\\crm.requisite.preset.field.fields.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.address.fields",
@@ -4184,7 +4184,7 @@
             "path": "methods\\crm\\crm.address.fields.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.activity.fields",
@@ -4192,7 +4192,7 @@
             "path": "methods\\crm\\crm.activity.fields.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.catalog.fields",
@@ -4200,7 +4200,7 @@
             "path": "methods\\crm\\crm.catalog.fields.md",
             "deprecated": true,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.catalog.get",
@@ -4208,7 +4208,7 @@
             "path": "methods\\crm\\crm.catalog.get.md",
             "deprecated": true,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.catalog.list",
@@ -4216,7 +4216,7 @@
             "path": "methods\\crm\\crm.catalog.list.md",
             "deprecated": true,
             "pagination": "start",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.dealcategory.add",
@@ -4232,7 +4232,7 @@
             "path": "methods\\crm\\crm.category.add.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.dealcategory.fields",
@@ -4272,7 +4272,7 @@
             "path": "methods\\crm\\crm.category.delete.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.category.fields",
@@ -4280,7 +4280,7 @@
             "path": "methods\\crm\\crm.category.fields.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.dealcategory.get",
@@ -4312,7 +4312,7 @@
             "path": "methods\\crm\\crm.dealcategory.status.md",
             "deprecated": true,
             "pagination": "unknown",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "crm.status.add",
@@ -4320,7 +4320,7 @@
             "path": "methods\\crm\\crm.status.add.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.dealcategory.update",
@@ -4336,7 +4336,7 @@
             "path": "methods\\crm\\crm.category.update.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.deal.category.add",
@@ -4424,7 +4424,7 @@
             "path": "methods\\crm\\crm.invoice.add.md",
             "deprecated": true,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.requisite.link.register",
@@ -4432,7 +4432,7 @@
             "path": "methods\\crm\\crm.requisite.link.register.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.invoice.fields",
@@ -4440,7 +4440,7 @@
             "path": "methods\\crm\\crm.invoice.fields.md",
             "deprecated": true,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.invoice.delete",
@@ -4448,7 +4448,7 @@
             "path": "methods\\crm\\crm.invoice.delete.md",
             "deprecated": true,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.invoice.getexternallink",
@@ -4456,7 +4456,7 @@
             "path": "methods\\crm\\crm.invoice.getexternallink.md",
             "deprecated": true,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.invoice.get",
@@ -4464,15 +4464,15 @@
             "path": "methods\\crm\\crm.invoice.get.md",
             "deprecated": true,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.invoice.list",
             "scope": "crm",
             "path": "methods\\crm\\crm.invoice.list.md",
-            "deprecated": false,
+            "deprecated": true,
             "pagination": "start",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.invoice.recurring.add",
@@ -4480,7 +4480,7 @@
             "path": "methods\\crm\\crm.invoice.recurring.add.md",
             "deprecated": true,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.invoice.recurring.fields",
@@ -4488,7 +4488,7 @@
             "path": "methods\\crm\\crm.invoice.recurring.fields.md",
             "deprecated": true,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.invoice.recurring.delete",
@@ -4496,7 +4496,7 @@
             "path": "methods\\crm\\crm.invoice.recurring.delete.md",
             "deprecated": true,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.invoice.recurring.expose",
@@ -4504,7 +4504,7 @@
             "path": "methods\\crm\\crm.invoice.recurring.expose.md",
             "deprecated": true,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.invoice.recurring.get",
@@ -4512,7 +4512,7 @@
             "path": "methods\\crm\\crm.invoice.recurring.get.md",
             "deprecated": true,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.invoice.recurring.list",
@@ -4520,7 +4520,7 @@
             "path": "methods\\crm\\crm.invoice.recurring.list.md",
             "deprecated": true,
             "pagination": "start",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.invoice.recurring.update",
@@ -4528,7 +4528,7 @@
             "path": "methods\\crm\\crm.invoice.recurring.update.md",
             "deprecated": true,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.invoice.update",
@@ -4536,7 +4536,7 @@
             "path": "methods\\crm\\crm.invoice.update.md",
             "deprecated": true,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.invoice.userfield.add",
@@ -4552,7 +4552,7 @@
             "path": "methods\\crm\\crm.paysystem.list.md",
             "deprecated": true,
             "pagination": "start",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.invoice.userfield.delete",
@@ -4560,7 +4560,7 @@
             "path": "methods\\crm\\crm.invoice.userfield.delete.md",
             "deprecated": true,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.invoice.userfield.get",
@@ -4568,7 +4568,7 @@
             "path": "methods\\crm\\crm.invoice.userfield.get.md",
             "deprecated": true,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.invoice.userfield.list",
@@ -4576,7 +4576,7 @@
             "path": "methods\\crm\\crm.invoice.userfield.list.md",
             "deprecated": true,
             "pagination": "start",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.invoice.userfield.update",
@@ -4584,7 +4584,7 @@
             "path": "methods\\crm\\crm.invoice.userfield.update.md",
             "deprecated": true,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.paysystem.fields",
@@ -4592,7 +4592,7 @@
             "path": "methods\\crm\\crm.paysystem.fields.md",
             "deprecated": true,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.persontype.fields",
@@ -4600,21 +4600,21 @@
             "path": "methods\\crm\\crm.persontype.fields.md",
             "deprecated": true,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.persontype.list",
             "scope": "crm",
             "path": "methods\\crm\\crm.persontype.list.md",
-            "deprecated": false,
+            "deprecated": true,
             "pagination": "start",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "sale.persontype.list",
             "scope": "sale",
             "path": "methods\\sale\\sale.persontype.list.md",
-            "deprecated": false,
+            "deprecated": true,
             "pagination": "unknown",
             "has_example": false
         },
@@ -4648,7 +4648,7 @@
             "path": "methods\\crm\\crm.status.delete.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.status.fields",
@@ -4656,7 +4656,7 @@
             "path": "methods\\crm\\crm.status.fields.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.invoice.status.get",
@@ -4672,7 +4672,7 @@
             "path": "methods\\crm\\crm.status.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.invoice.status.list",
@@ -4696,7 +4696,7 @@
             "path": "methods\\crm\\crm.status.update.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.measure.add",
@@ -4704,7 +4704,7 @@
             "path": "methods\\crm\\crm.measure.add.md",
             "deprecated": true,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.measure.fields",
@@ -4712,7 +4712,7 @@
             "path": "methods\\crm\\crm.measure.fields.md",
             "deprecated": true,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.measure.delete",
@@ -4720,7 +4720,7 @@
             "path": "methods\\crm\\crm.measure.delete.md",
             "deprecated": true,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.measure.get",
@@ -4728,7 +4728,7 @@
             "path": "methods\\crm\\crm.measure.get.md",
             "deprecated": true,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.measure.list",
@@ -4736,7 +4736,7 @@
             "path": "methods\\crm\\crm.measure.list.md",
             "deprecated": true,
             "pagination": "start",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.measure.update",
@@ -4744,7 +4744,7 @@
             "path": "methods\\crm\\crm.measure.update.md",
             "deprecated": true,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.productsection.add",
@@ -4752,7 +4752,7 @@
             "path": "methods\\crm\\crm.productsection.add.md",
             "deprecated": true,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.productsection.fields",
@@ -4768,7 +4768,7 @@
             "path": "methods\\crm\\crm.productsection.delete.md",
             "deprecated": true,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.productsection.get",
@@ -4776,7 +4776,7 @@
             "path": "methods\\crm\\crm.productsection.get.md",
             "deprecated": true,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.productsection.list",
@@ -4784,7 +4784,7 @@
             "path": "methods\\crm\\crm.productsection.list.md",
             "deprecated": true,
             "pagination": "start",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.productsection.update",
@@ -4792,7 +4792,7 @@
             "path": "methods\\crm\\crm.productsection.update.md",
             "deprecated": true,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.item.productrow.fields",
@@ -4800,7 +4800,7 @@
             "path": "methods\\crm\\crm.item.productrow.fields.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.productrow.list",
@@ -4808,7 +4808,7 @@
             "path": "methods\\crm\\crm.productrow.list.md",
             "deprecated": true,
             "pagination": "start",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.product.add",
@@ -4816,7 +4816,7 @@
             "path": "methods\\crm\\crm.product.add.md",
             "deprecated": true,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.product.fields",
@@ -4824,7 +4824,7 @@
             "path": "methods\\crm\\crm.product.fields.md",
             "deprecated": true,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.product.delete",
@@ -4840,7 +4840,7 @@
             "path": "methods\\crm\\crm.product.get.md",
             "deprecated": true,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.product.list",
@@ -4848,7 +4848,7 @@
             "path": "methods\\crm\\crm.product.list.md",
             "deprecated": true,
             "pagination": "start",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.product.property.add",
@@ -4864,7 +4864,7 @@
             "path": "methods\\crm\\crm.product.property.fields.md",
             "deprecated": true,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.product.property.delete",
@@ -4872,7 +4872,7 @@
             "path": "methods\\crm\\crm.product.property.delete.md",
             "deprecated": true,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.product.property.enumeration.fields",
@@ -4880,7 +4880,7 @@
             "path": "methods\\crm\\crm.product.property.enumeration.fields.md",
             "deprecated": true,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.product.property.get",
@@ -4896,7 +4896,7 @@
             "path": "methods\\crm\\crm.product.property.list.md",
             "deprecated": true,
             "pagination": "start",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.product.property.settings.fields",
@@ -4904,7 +4904,7 @@
             "path": "methods\\crm\\crm.product.property.settings.fields.md",
             "deprecated": true,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.product.property.types",
@@ -4912,7 +4912,7 @@
             "path": "methods\\crm\\crm.product.property.types.md",
             "deprecated": true,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.product.property.update",
@@ -4920,7 +4920,7 @@
             "path": "methods\\crm\\crm.product.property.update.md",
             "deprecated": true,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.product.update",
@@ -4928,7 +4928,7 @@
             "path": "methods\\crm\\crm.product.update.md",
             "deprecated": true,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.livefeedmessage.add",
@@ -4944,7 +4944,7 @@
             "path": "methods\\crm\\crm.timeline.comment.add.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.livefeedmessage.md",
@@ -4960,7 +4960,7 @@
             "path": "methods\\crm\\crm.vat.add.md",
             "deprecated": true,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.vat.delete",
@@ -4968,7 +4968,7 @@
             "path": "methods\\crm\\crm.vat.delete.md",
             "deprecated": true,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.vat.list",
@@ -4976,7 +4976,7 @@
             "path": "methods\\crm\\crm.vat.list.md",
             "deprecated": true,
             "pagination": "start",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.vat.fields",
@@ -4984,7 +4984,7 @@
             "path": "methods\\crm\\crm.vat.fields.md",
             "deprecated": true,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.vat.get",
@@ -4992,7 +4992,7 @@
             "path": "methods\\crm\\crm.vat.get.md",
             "deprecated": true,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.vat.update",
@@ -5000,7 +5000,7 @@
             "path": "methods\\crm\\crm.vat.update.md",
             "deprecated": true,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.quote.add",
@@ -5014,9 +5014,9 @@
             "method": "crm.quote.fields",
             "scope": "crm",
             "path": "methods\\crm\\crm.quote.fields.md",
-            "deprecated": false,
+            "deprecated": true,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.quote.delete",
@@ -5030,7 +5030,7 @@
             "method": "crm.quote.userfield.add",
             "scope": "crm",
             "path": "methods\\crm\\crm.quote.userfield.add.md",
-            "deprecated": false,
+            "deprecated": true,
             "pagination": "none",
             "has_example": false
         },
@@ -5104,7 +5104,7 @@
             "path": "methods\\crm\\crm.address.add.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.address.delete",
@@ -5112,7 +5112,7 @@
             "path": "methods\\crm\\crm.address.delete.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.address.update",
@@ -5120,7 +5120,7 @@
             "path": "methods\\crm\\crm.address.update.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.requisite.bankdetail.add",
@@ -5128,7 +5128,7 @@
             "path": "methods\\crm\\crm.requisite.bankdetail.add.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.requisite.bankdetail.delete",
@@ -5136,7 +5136,7 @@
             "path": "methods\\crm\\crm.requisite.bankdetail.delete.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.requisite.bankdetail.list",
@@ -5152,7 +5152,7 @@
             "path": "methods\\crm\\crm.requisite.bankdetail.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.requisite.bankdetail.update",
@@ -5160,7 +5160,7 @@
             "path": "methods\\crm\\crm.requisite.bankdetail.update.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.requisite.preset",
@@ -5192,7 +5192,7 @@
             "path": "methods\\crm\\crm.requisite.add.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.requisite.update",
@@ -5200,7 +5200,7 @@
             "path": "methods\\crm\\crm.requisite.update.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.requisite.get",
@@ -5208,7 +5208,7 @@
             "path": "methods\\crm\\crm.requisite.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.requisite.delete",
@@ -5216,7 +5216,7 @@
             "path": "methods\\crm\\crm.requisite.delete.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.requisite.userfield.add.md",
@@ -5264,7 +5264,7 @@
             "path": "methods\\crm\\crm.requisite.link.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.requisite.link.list",
@@ -5272,7 +5272,7 @@
             "path": "methods\\crm\\crm.requisite.link.list.md",
             "deprecated": false,
             "pagination": "start",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.requisite.link.unregister",
@@ -5280,7 +5280,7 @@
             "path": "methods\\crm\\crm.requisite.link.unregister.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.requisite.link.fields",
@@ -5288,7 +5288,7 @@
             "path": "methods\\crm\\crm.requisite.link.fields.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.requisite.preset.add",
@@ -5296,7 +5296,7 @@
             "path": "methods\\crm\\crm.requisite.preset.add.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.requisite.preset.update",
@@ -5304,7 +5304,7 @@
             "path": "methods\\crm\\crm.requisite.preset.update.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.requisite.preset.get",
@@ -5312,7 +5312,7 @@
             "path": "methods\\crm\\crm.requisite.preset.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.requisite.preset.delete",
@@ -5320,7 +5320,7 @@
             "path": "methods\\crm\\crm.requisite.preset.delete.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.requisite.preset.field.add",
@@ -5328,7 +5328,7 @@
             "path": "methods\\crm\\crm.requisite.preset.field.add.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.requisite.preset.field.update",
@@ -5336,7 +5336,7 @@
             "path": "methods\\crm\\crm.requisite.preset.field.update.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.requisite.preset.field.availabletoadd",
@@ -5352,7 +5352,7 @@
             "path": "methods\\crm\\crm.requisite.preset.field.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.requisite.preset.field.list",
@@ -5360,7 +5360,7 @@
             "path": "methods\\crm\\crm.requisite.preset.field.list.md",
             "deprecated": false,
             "pagination": "start",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.requisite.preset.field.delete",
@@ -5368,7 +5368,7 @@
             "path": "methods\\crm\\crm.requisite.preset.field.delete.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.requisite.userfield.delete",
@@ -5384,7 +5384,7 @@
             "path": "methods\\crm\\crm.requisite.userfield.list.md",
             "deprecated": false,
             "pagination": "start",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.requisite.userfield.get",
@@ -5408,7 +5408,7 @@
             "path": "methods\\crm\\crm.status.entity.items.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.xx.userfield",
@@ -5424,7 +5424,7 @@
             "path": "methods\\crm\\crm.timeline.item.pin.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.timeline.item.unpin",
@@ -5432,7 +5432,7 @@
             "path": "methods\\crm\\crm.timeline.item.unpin.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.activity.add",
@@ -5440,7 +5440,7 @@
             "path": "methods\\crm\\crm.activity.add.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.activity.todo.add",
@@ -5448,7 +5448,7 @@
             "path": "methods\\crm\\crm.activity.todo.add.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.activity.configurable.add",
@@ -5456,7 +5456,7 @@
             "path": "methods\\crm\\crm.activity.configurable.add.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.activity.communication.fields",
@@ -5464,7 +5464,7 @@
             "path": "methods\\crm\\crm.activity.communication.fields.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.activity.binding.move",
@@ -5472,7 +5472,7 @@
             "path": "methods\\crm\\crm.activity.binding.move.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.activity.update",
@@ -5480,7 +5480,7 @@
             "path": "methods\\crm\\crm.activity.update.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.activity.todo.update",
@@ -5488,7 +5488,7 @@
             "path": "methods\\crm\\crm.activity.todo.update.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.activity.configurable.update",
@@ -5496,7 +5496,7 @@
             "path": "methods\\crm\\crm.activity.configurable.update.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.activity.binding.add",
@@ -5504,7 +5504,7 @@
             "path": "methods\\crm\\crm.activity.binding.add.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.activity.binding.delete",
@@ -5512,7 +5512,7 @@
             "path": "methods\\crm\\crm.activity.binding.delete.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.activity.binding.list",
@@ -5520,7 +5520,7 @@
             "path": "methods\\crm\\crm.activity.binding.list.md",
             "deprecated": false,
             "pagination": "start",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.activity.badge.add",
@@ -5528,7 +5528,7 @@
             "path": "methods\\crm\\crm.activity.badge.add.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.activity.badge.delete",
@@ -5536,7 +5536,7 @@
             "path": "methods\\crm\\crm.activity.badge.delete.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.activity.badge.get",
@@ -5544,7 +5544,7 @@
             "path": "methods\\crm\\crm.activity.badge.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.activity.badge.list",
@@ -5552,7 +5552,7 @@
             "path": "methods\\crm\\crm.activity.badge.list.md",
             "deprecated": false,
             "pagination": "start",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.activity.type.add",
@@ -5560,7 +5560,7 @@
             "path": "methods\\crm\\crm.activity.type.add.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.activity.configurable.get",
@@ -5568,7 +5568,7 @@
             "path": "methods\\crm\\crm.activity.configurable.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.timeline.logo.list",
@@ -5576,7 +5576,7 @@
             "path": "methods\\crm\\crm.timeline.logo.list.md",
             "deprecated": false,
             "pagination": "start",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.timeline.icon.list",
@@ -5584,7 +5584,7 @@
             "path": "methods\\crm\\crm.timeline.icon.list.md",
             "deprecated": false,
             "pagination": "start",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.activity.binding",
@@ -5646,7 +5646,7 @@
             "method": "crm.activity.layout.blocks",
             "scope": "crm",
             "path": "methods\\crm\\crm.activity.layout.blocks.md",
-            "deprecated": true,
+            "deprecated": false,
             "pagination": "unknown",
             "has_example": false
         },
@@ -5656,7 +5656,7 @@
             "path": "methods\\crm\\crm.activity.type.list.md",
             "deprecated": false,
             "pagination": "start",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.activity.type.delete",
@@ -5664,15 +5664,15 @@
             "path": "methods\\crm\\crm.activity.type.delete.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.activity.layout.blocks.set",
             "scope": "crm",
             "path": "methods\\crm\\crm.activity.layout.blocks.set.md",
-            "deprecated": false,
+            "deprecated": true,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.activity.layout.blocks.get",
@@ -5680,7 +5680,7 @@
             "path": "methods\\crm\\crm.activity.layout.blocks.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.activity.layout.blocks.delete",
@@ -5688,7 +5688,7 @@
             "path": "methods\\crm\\crm.activity.layout.blocks.delete.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.activity.todo.updatecolor",
@@ -5696,7 +5696,7 @@
             "path": "methods\\crm\\crm.activity.todo.updatecolor.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.activity.todo.updateresponsibleuser",
@@ -5704,7 +5704,7 @@
             "path": "methods\\crm\\crm.activity.todo.updateresponsibleuser.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.timeline.bindings.bind",
@@ -5712,7 +5712,7 @@
             "path": "methods\\crm\\crm.timeline.bindings.bind.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.timeline.bindings.fields",
@@ -5720,7 +5720,7 @@
             "path": "methods\\crm\\crm.timeline.bindings.fields.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.timeline.bindings.list",
@@ -5728,7 +5728,7 @@
             "path": "methods\\crm\\crm.timeline.bindings.list.md",
             "deprecated": false,
             "pagination": "start",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.timeline.bindings.unbind",
@@ -5736,7 +5736,7 @@
             "path": "methods\\crm\\crm.timeline.bindings.unbind.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.timeline.comment.delete",
@@ -5744,7 +5744,7 @@
             "path": "methods\\crm\\crm.timeline.comment.delete.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.timeline.comment.fields",
@@ -5752,7 +5752,7 @@
             "path": "methods\\crm\\crm.timeline.comment.fields.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.timeline.comment.get",
@@ -5760,7 +5760,7 @@
             "path": "methods\\crm\\crm.timeline.comment.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.timeline.comment.update",
@@ -5808,7 +5808,7 @@
             "path": "methods\\crm\\crm.timeline.note.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.timeline.note.save",
@@ -5816,7 +5816,7 @@
             "path": "methods\\crm\\crm.timeline.note.save.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.timeline.note.delete",
@@ -5824,15 +5824,15 @@
             "path": "methods\\crm\\crm.timeline.note.delete.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.timeline.layout.blocks.set",
             "scope": "crm",
             "path": "methods\\crm\\crm.timeline.layout.blocks.set.md",
-            "deprecated": false,
+            "deprecated": true,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.timeline.layout.blocks.get",
@@ -5840,7 +5840,7 @@
             "path": "methods\\crm\\crm.timeline.layout.blocks.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.timeline.layout.blocks.delete",
@@ -5848,7 +5848,7 @@
             "path": "methods\\crm\\crm.timeline.layout.blocks.delete.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.timeline.logmessage.add",
@@ -5856,7 +5856,7 @@
             "path": "methods\\crm\\crm.timeline.logmessage.add.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.timeline.logmessage.get",
@@ -5864,7 +5864,7 @@
             "path": "methods\\crm\\crm.timeline.logmessage.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.timeline.logmessage.list",
@@ -5872,7 +5872,7 @@
             "path": "methods\\crm\\crm.timeline.logmessage.list.md",
             "deprecated": false,
             "pagination": "start",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.timeline.logmessage.delete",
@@ -5880,7 +5880,7 @@
             "path": "methods\\crm\\crm.timeline.logmessage.delete.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.timeline.icon",
@@ -5912,7 +5912,7 @@
             "path": "methods\\crm\\crm.timeline.icon.add.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.timeline.icon.delete",
@@ -5920,7 +5920,7 @@
             "path": "methods\\crm\\crm.timeline.icon.delete.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.timeline.icon.get",
@@ -5928,7 +5928,7 @@
             "path": "methods\\crm\\crm.timeline.icon.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.timeline.logo.add",
@@ -5944,7 +5944,7 @@
             "path": "methods\\crm\\crm.timeline.logo.delete.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.timeline.logo.get",
@@ -5952,7 +5952,7 @@
             "path": "methods\\crm\\crm.timeline.logo.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.type.add",
@@ -5960,7 +5960,7 @@
             "path": "methods\\crm\\crm.type.add.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.item.delete",
@@ -5968,7 +5968,7 @@
             "path": "methods\\crm\\crm.item.delete.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.item.fields",
@@ -5976,7 +5976,7 @@
             "path": "methods\\crm\\crm.item.fields.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.item.delivery.get",
@@ -5984,7 +5984,7 @@
             "path": "methods\\crm\\crm.item.delivery.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.item.delivery.list",
@@ -5992,7 +5992,7 @@
             "path": "methods\\crm\\crm.item.delivery.list.md",
             "deprecated": false,
             "pagination": "start",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "sale.shipment.list",
@@ -6000,7 +6000,7 @@
             "path": "methods\\sale\\sale.shipment.list.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.item.batchimport",
@@ -6008,7 +6008,7 @@
             "path": "methods\\crm\\crm.item.batchimport.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.item.import",
@@ -6016,7 +6016,7 @@
             "path": "methods\\crm\\crm.item.import.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.requisite.link",
@@ -6032,7 +6032,7 @@
             "path": "methods\\crm\\crm.item.productrow.add.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.item.productrow.update",
@@ -6040,7 +6040,7 @@
             "path": "methods\\crm\\crm.item.productrow.update.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.item.productrow.get",
@@ -6048,7 +6048,7 @@
             "path": "methods\\crm\\crm.item.productrow.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.item.productrow.set",
@@ -6056,7 +6056,7 @@
             "path": "methods\\crm\\crm.item.productrow.set.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.item.productrow.getavailableforpayment",
@@ -6072,7 +6072,7 @@
             "path": "methods\\crm\\crm.item.productrow.delete.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.item.payment.add",
@@ -6080,7 +6080,7 @@
             "path": "methods\\crm\\crm.item.payment.add.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.item.payment.update",
@@ -6088,7 +6088,7 @@
             "path": "methods\\crm\\crm.item.payment.update.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.item.payment.get",
@@ -6096,7 +6096,7 @@
             "path": "methods\\crm\\crm.item.payment.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.item.payment.list",
@@ -6104,7 +6104,7 @@
             "path": "methods\\crm\\crm.item.payment.list.md",
             "deprecated": false,
             "pagination": "start",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.item.payment.delete",
@@ -6112,7 +6112,7 @@
             "path": "methods\\crm\\crm.item.payment.delete.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.item.payment.pay",
@@ -6120,7 +6120,7 @@
             "path": "methods\\crm\\crm.item.payment.pay.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.item.payment.unpay",
@@ -6128,7 +6128,7 @@
             "path": "methods\\crm\\crm.item.payment.unpay.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.item.payment.product.add",
@@ -6136,7 +6136,7 @@
             "path": "methods\\crm\\crm.item.payment.product.add.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.item.payment.product.list",
@@ -6144,7 +6144,7 @@
             "path": "methods\\crm\\crm.item.payment.product.list.md",
             "deprecated": false,
             "pagination": "start",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.item.payment.product.delete",
@@ -6152,7 +6152,7 @@
             "path": "methods\\crm\\crm.item.payment.product.delete.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.item.payment.product.setquantity",
@@ -6168,7 +6168,7 @@
             "path": "methods\\crm\\crm.item.payment.delivery.add.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.item.payment.delivery.list",
@@ -6176,7 +6176,7 @@
             "path": "methods\\crm\\crm.item.payment.delivery.list.md",
             "deprecated": false,
             "pagination": "start",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.item.payment.delivery.delete",
@@ -6184,7 +6184,7 @@
             "path": "methods\\crm\\crm.item.payment.delivery.delete.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.item.payment.delivery.setdelivery",
@@ -6200,7 +6200,7 @@
             "path": "methods\\crm\\crm.item.details.configuration.forcecommonscopeforall.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.item.details.configuration.get",
@@ -6208,7 +6208,7 @@
             "path": "methods\\crm\\crm.item.details.configuration.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.item.details.configuration.reset",
@@ -6216,7 +6216,7 @@
             "path": "methods\\crm\\crm.item.details.configuration.reset.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.item.details.configuration.set",
@@ -6224,7 +6224,7 @@
             "path": "methods\\crm\\crm.item.details.configuration.set.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.orderentity.add",
@@ -6232,7 +6232,7 @@
             "path": "methods\\crm\\crm.orderentity.add.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.orderentity.deletebyfilter",
@@ -6240,7 +6240,7 @@
             "path": "methods\\crm\\crm.orderentity.deletebyfilter.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.orderentity.getfields",
@@ -6248,7 +6248,7 @@
             "path": "methods\\crm\\crm.orderentity.getfields.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.orderentity.list",
@@ -6256,7 +6256,7 @@
             "path": "methods\\crm\\crm.orderentity.list.md",
             "deprecated": false,
             "pagination": "start",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "sale.payment.list",
@@ -6264,7 +6264,7 @@
             "path": "methods\\sale\\sale.payment.list.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "sale.payment.update",
@@ -6280,7 +6280,7 @@
             "path": "methods\\crm\\crm.userfield.enumeration.fields.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.type.delete",
@@ -6288,7 +6288,7 @@
             "path": "methods\\crm\\crm.type.delete.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.type.fields",
@@ -6296,7 +6296,7 @@
             "path": "methods\\crm\\crm.type.fields.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.type.getbyentitytypeid",
@@ -6304,7 +6304,7 @@
             "path": "methods\\crm\\crm.type.getbyentitytypeid.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "crm.type.update",
@@ -6312,7 +6312,7 @@
             "path": "methods\\crm\\crm.type.update.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "disk.attachedobject.get",
@@ -6424,7 +6424,7 @@
             "path": "methods\\disk\\disk.file.uploadversion.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "disk.folder.addsubfolder",
@@ -6656,7 +6656,7 @@
             "path": "methods\\documentgenerator\\documentgenerator.template.add.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "documentgenerator.numerator.add",
@@ -7056,7 +7056,7 @@
             "path": "methods\\lists\\lists.element.update.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "lists.element.get",
@@ -7078,7 +7078,7 @@
             "method": "telephony.externalcall.attachrecord",
             "scope": "telephony",
             "path": "methods\\telephony\\telephony.externalcall.attachrecord.md",
-            "deprecated": true,
+            "deprecated": false,
             "pagination": "unknown",
             "has_example": false
         },
@@ -7168,7 +7168,7 @@
             "path": "methods\\imopenlines\\imopenlines.crm.chat.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "imopenlines.crm.chat.user.add",
@@ -8376,7 +8376,7 @@
             "path": "methods\\sale\\sale.paysystem.handler.update.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.paysystem.handler.list",
@@ -8392,7 +8392,7 @@
             "path": "methods\\sale\\sale.paysystem.handler.delete.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.paysystem.add",
@@ -8408,7 +8408,7 @@
             "path": "methods\\sale\\sale.paysystem.update.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.paysystem.list",
@@ -8424,7 +8424,7 @@
             "path": "methods\\sale\\sale.paysystem.settings.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.paysystem.settings.update",
@@ -8432,7 +8432,7 @@
             "path": "methods\\sale\\sale.paysystem.settings.update.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.paysystem.delete",
@@ -8440,7 +8440,7 @@
             "path": "methods\\sale\\sale.paysystem.delete.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.paysystem.pay.payment",
@@ -8448,7 +8448,7 @@
             "path": "methods\\sale\\sale.paysystem.pay.payment.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.paysystem.pay.invoice",
@@ -8456,7 +8456,7 @@
             "path": "methods\\sale\\sale.paysystem.pay.invoice.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.paysystem.settings.payment.get",
@@ -8464,7 +8464,7 @@
             "path": "methods\\sale\\sale.paysystem.settings.payment.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.paysystem.settings.invoice.get",
@@ -8472,7 +8472,7 @@
             "path": "methods\\sale\\sale.paysystem.settings.invoice.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.order.list",
@@ -8480,7 +8480,7 @@
             "path": "methods\\sale\\sale.order.list.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "sale.basketitem.add",
@@ -8488,7 +8488,7 @@
             "path": "methods\\sale\\sale.basketitem.add.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.basketitem.update",
@@ -8496,7 +8496,7 @@
             "path": "methods\\sale\\sale.basketitem.update.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.basketitem.get",
@@ -8520,7 +8520,7 @@
             "path": "methods\\sale\\sale.basketitem.delete.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.basketitem.getfields",
@@ -8528,7 +8528,7 @@
             "path": "methods\\sale\\sale.basketitem.getfields.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.basketitem.addcatalogproduct",
@@ -8544,7 +8544,7 @@
             "path": "methods\\sale\\sale.basketitem.updatecatalogproduct.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.basketitem.getcatalogproductfields",
@@ -8560,7 +8560,7 @@
             "path": "methods\\sale\\sale.order.add.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "sale.basketitem.getfieldscatalogproduct",
@@ -8576,7 +8576,7 @@
             "path": "methods\\sale\\sale.basketproperties.add.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.basketproperties.update",
@@ -8584,7 +8584,7 @@
             "path": "methods\\sale\\sale.basketproperties.update.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.basketproperties.get",
@@ -8592,7 +8592,7 @@
             "path": "methods\\sale\\sale.basketproperties.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.basketproperties.list",
@@ -8600,7 +8600,7 @@
             "path": "methods\\sale\\sale.basketproperties.list.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.basketproperties.delete",
@@ -8608,7 +8608,7 @@
             "path": "methods\\sale\\sale.basketproperties.delete.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.basketproperties.getfields",
@@ -8616,7 +8616,7 @@
             "path": "methods\\sale\\sale.basketproperties.getfields.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.businessvaluepersondomain.add",
@@ -8624,7 +8624,7 @@
             "path": "methods\\sale\\sale.businessvaluepersondomain.add.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.businessvaluepersondomain.list",
@@ -8640,7 +8640,7 @@
             "path": "methods\\sale\\sale.businessvaluepersondomain.deletebyfilter.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.businessvaluepersondomain.getfields",
@@ -8648,7 +8648,7 @@
             "path": "methods\\sale\\sale.businessvaluepersondomain.getfields.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.cashbox.handler.update",
@@ -8664,7 +8664,7 @@
             "path": "methods\\sale\\sale.cashbox.handler.list.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "sale.cashbox.handler.delete",
@@ -8696,7 +8696,7 @@
             "path": "methods\\sale\\sale.cashbox.list.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "sale.cashbox.delete",
@@ -8728,7 +8728,7 @@
             "path": "methods\\sale\\sale.shipmentitem.list.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.paymentitemshipment.list",
@@ -8736,7 +8736,7 @@
             "path": "methods\\sale\\sale.paymentitemshipment.list.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.paymentitembasket.list",
@@ -8744,7 +8744,7 @@
             "path": "methods\\sale\\sale.paymentitembasket.list.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.status.list",
@@ -8752,7 +8752,7 @@
             "path": "methods\\sale\\sale.status.list.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "sale.statuslang.list",
@@ -8760,7 +8760,7 @@
             "path": "methods\\sale\\sale.statuslang.list.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.statuslang.getlistlangs",
@@ -8768,7 +8768,7 @@
             "path": "methods\\sale\\sale.statuslang.getlistlangs.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.property.list",
@@ -8776,7 +8776,7 @@
             "path": "methods\\sale\\sale.property.list.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "sale.shipmentproperty.list",
@@ -8784,7 +8784,7 @@
             "path": "methods\\sale\\sale.shipmentproperty.list.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.shipmentpropertyvalue.list",
@@ -8792,7 +8792,7 @@
             "path": "methods\\sale\\sale.shipmentpropertyvalue.list.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.propertygroup.list",
@@ -8800,7 +8800,7 @@
             "path": "methods\\sale\\sale.propertygroup.list.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.propertyvalue.list",
@@ -8808,7 +8808,7 @@
             "path": "methods\\sale\\sale.propertyvalue.list.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.propertyvariant.list",
@@ -8816,7 +8816,7 @@
             "path": "methods\\sale\\sale.propertyvariant.list.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.propertyrelation.list",
@@ -8824,7 +8824,7 @@
             "path": "methods\\sale\\sale.propertyrelation.list.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.tradeplatform.list",
@@ -8832,7 +8832,7 @@
             "path": "methods\\sale\\sale.tradeplatform.list.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.tradebinding.list",
@@ -8864,7 +8864,7 @@
             "path": "methods\\sale\\sale.delivery.extra.service.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "sale.property.add",
@@ -8872,7 +8872,7 @@
             "path": "methods\\sale\\sale.property.add.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "sale.delivery.request.sendmessage",
@@ -8896,7 +8896,7 @@
             "path": "methods\\sale\\sale.propertyrelation.add.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.delivery.add",
@@ -8904,7 +8904,7 @@
             "path": "methods\\sale\\sale.delivery.add.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "sale.delivery.update",
@@ -8912,7 +8912,7 @@
             "path": "methods\\sale\\sale.delivery.update.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "sale.delivery.config.update",
@@ -8920,7 +8920,7 @@
             "path": "methods\\sale\\sale.delivery.config.update.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "sale.delivery.config.get",
@@ -8928,7 +8928,7 @@
             "path": "methods\\sale\\sale.delivery.config.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "sale.delivery.delete",
@@ -8936,7 +8936,7 @@
             "path": "methods\\sale\\sale.delivery.delete.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "sale.delivery.handler.add",
@@ -8944,7 +8944,7 @@
             "path": "methods\\sale\\sale.delivery.handler.add.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "sale.delivery.handler.update",
@@ -8952,7 +8952,7 @@
             "path": "methods\\sale\\sale.delivery.handler.update.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "sale.delivery.request.update",
@@ -8960,7 +8960,7 @@
             "path": "methods\\sale\\sale.delivery.request.update.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "sale.delivery.request.delete",
@@ -8968,7 +8968,7 @@
             "path": "methods\\sale\\sale.delivery.request.delete.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "sale.delivery.extra.service.add",
@@ -8976,7 +8976,7 @@
             "path": "methods\\sale\\sale.delivery.extra.service.add.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "sale.delivery.extra.service.update",
@@ -8984,7 +8984,7 @@
             "path": "methods\\sale\\sale.delivery.extra.service.update.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "sale.delivery.extra.service.delete",
@@ -8992,7 +8992,7 @@
             "path": "methods\\sale\\sale.delivery.extra.service.delete.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "sale.delivery.handler.delete",
@@ -9000,7 +9000,7 @@
             "path": "methods\\sale\\sale.delivery.handler.delete.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "sale.order.get",
@@ -9008,7 +9008,7 @@
             "path": "methods\\sale\\sale.order.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "sale.payment.get",
@@ -9024,7 +9024,7 @@
             "path": "methods\\sale\\sale.propertyvalue.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.shipment.get",
@@ -9056,7 +9056,7 @@
             "path": "methods\\sale\\sale.order.getfields.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.payment.add",
@@ -9080,7 +9080,7 @@
             "path": "methods\\sale\\sale.payment.getfields.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.paymentitembasket.add",
@@ -9088,7 +9088,7 @@
             "path": "methods\\sale\\sale.paymentitembasket.add.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.paymentitembasket.update",
@@ -9096,7 +9096,7 @@
             "path": "methods\\sale\\sale.paymentitembasket.update.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.paymentitembasket.get",
@@ -9104,7 +9104,7 @@
             "path": "methods\\sale\\sale.paymentitembasket.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.paymentitembasket.delete",
@@ -9112,7 +9112,7 @@
             "path": "methods\\sale\\sale.paymentitembasket.delete.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.paymentitembasket.getfields",
@@ -9120,7 +9120,7 @@
             "path": "methods\\sale\\sale.paymentitembasket.getfields.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.paymentitemshipment.add",
@@ -9128,7 +9128,7 @@
             "path": "methods\\sale\\sale.paymentitemshipment.add.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.paymentitemshipment.update",
@@ -9136,7 +9136,7 @@
             "path": "methods\\sale\\sale.paymentitemshipment.update.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.paymentitemshipment.get",
@@ -9144,7 +9144,7 @@
             "path": "methods\\sale\\sale.paymentitemshipment.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.paymentitemshipment.delete",
@@ -9152,7 +9152,7 @@
             "path": "methods\\sale\\sale.paymentitemshipment.delete.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.paymentitemshipment.getfields",
@@ -9160,7 +9160,7 @@
             "path": "methods\\sale\\sale.paymentitemshipment.getfields.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.persontype.add",
@@ -9168,7 +9168,7 @@
             "path": "methods\\sale\\sale.persontype.add.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.persontype.update",
@@ -9176,7 +9176,7 @@
             "path": "methods\\sale\\sale.persontype.update.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.persontype.get",
@@ -9184,7 +9184,7 @@
             "path": "methods\\sale\\sale.persontype.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.persontype.delete",
@@ -9192,7 +9192,7 @@
             "path": "methods\\sale\\sale.persontype.delete.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.persontype.getfields",
@@ -9200,7 +9200,7 @@
             "path": "methods\\sale\\sale.persontype.getfields.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.property.update",
@@ -9232,7 +9232,7 @@
             "path": "methods\\sale\\sale.property.getfieldsbytype.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.propertygroup.add",
@@ -9240,7 +9240,7 @@
             "path": "methods\\sale\\sale.propertygroup.add.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.propertygroup.update",
@@ -9248,7 +9248,7 @@
             "path": "methods\\sale\\sale.propertygroup.update.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.propertygroup.get",
@@ -9256,7 +9256,7 @@
             "path": "methods\\sale\\sale.propertygroup.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.propertygroup.delete",
@@ -9264,7 +9264,7 @@
             "path": "methods\\sale\\sale.propertygroup.delete.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.propertygroup.getfields",
@@ -9272,7 +9272,7 @@
             "path": "methods\\sale\\sale.propertygroup.getfields.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.propertyrelation.deletebyfilter",
@@ -9280,7 +9280,7 @@
             "path": "methods\\sale\\sale.propertyrelation.deletebyfilter.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.propertyrelation.getfields",
@@ -9288,7 +9288,7 @@
             "path": "methods\\sale\\sale.propertyrelation.getfields.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.propertyvalue.modify",
@@ -9296,7 +9296,7 @@
             "path": "methods\\sale\\sale.propertyvalue.modify.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.propertyvalue.delete",
@@ -9304,7 +9304,7 @@
             "path": "methods\\sale\\sale.propertyvalue.delete.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.propertyvalue.getfields",
@@ -9312,7 +9312,7 @@
             "path": "methods\\sale\\sale.propertyvalue.getfields.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.propertyvariant.add",
@@ -9320,7 +9320,7 @@
             "path": "methods\\sale\\sale.propertyvariant.add.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.propertyvariant.update",
@@ -9328,7 +9328,7 @@
             "path": "methods\\sale\\sale.propertyvariant.update.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.propertyvariant.get",
@@ -9336,7 +9336,7 @@
             "path": "methods\\sale\\sale.propertyvariant.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.propertyvariant.delete",
@@ -9344,7 +9344,7 @@
             "path": "methods\\sale\\sale.propertyvariant.delete.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.propertyvariant.getfields",
@@ -9352,7 +9352,7 @@
             "path": "methods\\sale\\sale.propertyvariant.getfields.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.propertyvairant.getfields",
@@ -9400,7 +9400,7 @@
             "path": "methods\\sale\\sale.shipment.getfields.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.shipmentitem.add",
@@ -9408,7 +9408,7 @@
             "path": "methods\\sale\\sale.shipmentitem.add.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.shipmentitem.update",
@@ -9416,7 +9416,7 @@
             "path": "methods\\sale\\sale.shipmentitem.update.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.shipmentitem.get",
@@ -9424,7 +9424,7 @@
             "path": "methods\\sale\\sale.shipmentitem.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.shipmentitem.delete",
@@ -9432,7 +9432,7 @@
             "path": "methods\\sale\\sale.shipmentitem.delete.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.shipmentitem.getfields",
@@ -9456,7 +9456,7 @@
             "path": "methods\\sale\\sale.shipmentproperty.update.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.shipmentproperty.get",
@@ -9464,7 +9464,7 @@
             "path": "methods\\sale\\sale.shipmentproperty.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.shipmentproperty.delete",
@@ -9472,7 +9472,7 @@
             "path": "methods\\sale\\sale.shipmentproperty.delete.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.shipmentproperty.getfieldsbytype",
@@ -9480,7 +9480,7 @@
             "path": "methods\\sale\\sale.shipmentproperty.getfieldsbytype.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.shipmentpropertyvalue.modify",
@@ -9488,7 +9488,7 @@
             "path": "methods\\sale\\sale.shipmentpropertyvalue.modify.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.shipmentpropertyvalue.get",
@@ -9496,7 +9496,7 @@
             "path": "methods\\sale\\sale.shipmentpropertyvalue.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.shipmentpropertyvalue.delete",
@@ -9504,7 +9504,7 @@
             "path": "methods\\sale\\sale.shipmentpropertyvalue.delete.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.shipmentpropertyvalue.getfields",
@@ -9512,7 +9512,7 @@
             "path": "methods\\sale\\sale.shipmentpropertyvalue.getfields.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.status.update",
@@ -9536,7 +9536,7 @@
             "path": "methods\\sale\\sale.status.delete.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "sale.status.getfields",
@@ -9544,7 +9544,7 @@
             "path": "methods\\sale\\sale.status.getfields.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.statuslang.add",
@@ -9552,7 +9552,7 @@
             "path": "methods\\sale\\sale.statuslang.add.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.statuslang.deletebyfilter",
@@ -9560,7 +9560,7 @@
             "path": "methods\\sale\\sale.statuslang.deletebyfilter.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.statuslang.getfields",
@@ -9568,7 +9568,7 @@
             "path": "methods\\sale\\sale.statuslang.getfields.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.tradebinding.getfields",
@@ -9576,7 +9576,7 @@
             "path": "methods\\sale\\sale.tradebinding.getfields.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "sale.tradeplatform.getfields",
@@ -9584,7 +9584,7 @@
             "path": "methods\\sale\\sale.tradeplatform.getfields.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "telephony.externalcall.register",
@@ -9664,7 +9664,7 @@
             "path": "methods\\tasks\\tasks.task.add.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "tasks.task.update",
@@ -9704,7 +9704,7 @@
             "path": "methods\\tasks\\tasks.api.scrum.backlog.add.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "tasks.api.scrum.backlog.update",
@@ -9712,7 +9712,7 @@
             "path": "methods\\tasks\\tasks.api.scrum.backlog.update.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "tasks.api.scrum.backlog.get",
@@ -9720,7 +9720,7 @@
             "path": "methods\\tasks\\tasks.api.scrum.backlog.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "tasks.api.scrum.backlog.delete",
@@ -9728,7 +9728,7 @@
             "path": "methods\\tasks\\tasks.api.scrum.backlog.delete.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "tasks.api.scrum.backlog.getfields",
@@ -9744,7 +9744,7 @@
             "path": "methods\\tasks\\tasks.api.scrum.epic.add.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "tasks.api.scrum.epic.update",
@@ -9752,7 +9752,7 @@
             "path": "methods\\tasks\\tasks.api.scrum.epic.update.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "tasks.api.scrum.epic.get",
@@ -9760,7 +9760,7 @@
             "path": "methods\\tasks\\tasks.api.scrum.epic.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "tasks.api.scrum.epic.list",
@@ -9768,7 +9768,7 @@
             "path": "methods\\tasks\\tasks.api.scrum.epic.list.md",
             "deprecated": false,
             "pagination": "nav_params",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "tasks.api.scrum.epic.delete",
@@ -9776,7 +9776,7 @@
             "path": "methods\\tasks\\tasks.api.scrum.epic.delete.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "tasks.api.scrum.epic.getfields",
@@ -9832,7 +9832,7 @@
             "path": "methods\\tasks\\tasks.api.scrum.kanban.addstage.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "tasks.api.scrum.kanban.updatestage",
@@ -9840,7 +9840,7 @@
             "path": "methods\\tasks\\tasks.api.scrum.kanban.updatestage.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "tasks.api.scrum.kanban.getstages",
@@ -9856,7 +9856,7 @@
             "path": "methods\\tasks\\tasks.api.scrum.kanban.deletestage.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "tasks.api.scrum.kanban.addtask",
@@ -9864,7 +9864,7 @@
             "path": "methods\\tasks\\tasks.api.scrum.kanban.addtask.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "tasks.api.scrum.kanban.deletetask",
@@ -9872,7 +9872,7 @@
             "path": "methods\\tasks\\tasks.api.scrum.kanban.deletetask.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "tasks.api.scrum.kanban.getfields",
@@ -9920,7 +9920,7 @@
             "path": "methods\\tasks\\tasks.api.scrum.sprint.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "tasks.api.scrum.sprint.list",
@@ -9944,7 +9944,7 @@
             "path": "methods\\tasks\\tasks.api.scrum.sprint.getfields.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "tasks.api.scrum.task.update",
@@ -9968,7 +9968,7 @@
             "path": "methods\\tasks\\tasks.api.scrum.task.getfields.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "tasks.task.list",
@@ -10162,7 +10162,7 @@
             "method": "task.item.getdata",
             "scope": "task",
             "path": "methods\\task\\task.item.getdata.md",
-            "deprecated": false,
+            "deprecated": true,
             "pagination": "unknown",
             "has_example": false
         },
@@ -10170,9 +10170,9 @@
             "method": "task.item.getmanifest",
             "scope": "task",
             "path": "methods\\task\\task.item.getmanifest.md",
-            "deprecated": false,
+            "deprecated": true,
             "pagination": "unknown",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "task.item.update",
@@ -10186,15 +10186,15 @@
             "method": "task.item.getdescription",
             "scope": "task",
             "path": "methods\\task\\task.item.getdescription.md",
-            "deprecated": false,
+            "deprecated": true,
             "pagination": "unknown",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "task.item.getfiles",
             "scope": "task",
             "path": "methods\\task\\task.item.getfiles.md",
-            "deprecated": false,
+            "deprecated": true,
             "pagination": "unknown",
             "has_example": false
         },
@@ -10202,15 +10202,15 @@
             "method": "task.item.getdependson",
             "scope": "task",
             "path": "methods\\task\\task.item.getdependson.md",
-            "deprecated": false,
+            "deprecated": true,
             "pagination": "unknown",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "task.item.getallowedactions",
             "scope": "task",
             "path": "methods\\task\\task.item.getallowedactions.md",
-            "deprecated": false,
+            "deprecated": true,
             "pagination": "unknown",
             "has_example": false
         },
@@ -10218,15 +10218,15 @@
             "method": "task.item.getallowedtaskactionsasstrings",
             "scope": "task",
             "path": "methods\\task\\task.item.getallowedtaskactionsasstrings.md",
-            "deprecated": false,
+            "deprecated": true,
             "pagination": "unknown",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "task.item.isactionallowed",
             "scope": "task",
             "path": "methods\\task\\task.item.isactionallowed.md",
-            "deprecated": false,
+            "deprecated": true,
             "pagination": "unknown",
             "has_example": false
         },
@@ -10242,9 +10242,9 @@
             "method": "task.item.startexecution",
             "scope": "task",
             "path": "methods\\task\\task.item.startexecution.md",
-            "deprecated": false,
+            "deprecated": true,
             "pagination": "unknown",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "task.item.defer",
@@ -10290,7 +10290,7 @@
             "method": "task.item.addtofavourite",
             "scope": "task",
             "path": "methods\\task\\task.item.addtofavourite.md",
-            "deprecated": false,
+            "deprecated": true,
             "pagination": "unknown",
             "has_example": false
         },
@@ -10298,33 +10298,33 @@
             "method": "task.item.deletefromfavorite",
             "scope": "task",
             "path": "methods\\task\\task.item.deletefromfavorite.md",
-            "deprecated": false,
+            "deprecated": true,
             "pagination": "unknown",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "task.item.addfile",
             "scope": "task",
             "path": "methods\\task\\task.item.addfile.md",
-            "deprecated": false,
+            "deprecated": true,
             "pagination": "unknown",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "task.item.deletefile",
             "scope": "task",
             "path": "methods\\task\\task.item.deletefile.md",
-            "deprecated": false,
+            "deprecated": true,
             "pagination": "unknown",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "task.logitem.list",
             "scope": "task",
             "path": "methods\\task\\task.logitem.list.md",
-            "deprecated": false,
+            "deprecated": true,
             "pagination": "nav_params",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "task.comment.add",
@@ -10420,7 +10420,7 @@
             "path": "methods\\tasks\\tasks.flow.flow.activate.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "tasks.flow.flow.isexists",
@@ -10436,7 +10436,7 @@
             "path": "methods\\tasks\\tasks.flow.flow.create.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "tasks.flow.flow.update",
@@ -10444,7 +10444,7 @@
             "path": "methods\\tasks\\tasks.flow.flow.update.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "tasks.flow.flow.get",
@@ -10452,7 +10452,7 @@
             "path": "methods\\tasks\\tasks.flow.flow.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "tasks.flow.flow.delete",
@@ -10460,7 +10460,7 @@
             "path": "methods\\tasks\\tasks.flow.flow.delete.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "tasks.flow.flow.pin",
@@ -10716,7 +10716,7 @@
             "path": "methods\\task\\task.item.userfield.update.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "task.item.userfield.get",
@@ -10724,7 +10724,7 @@
             "path": "methods\\task\\task.item.userfield.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "task.item.userfield.getlist",
@@ -10732,7 +10732,7 @@
             "path": "methods\\task\\task.item.userfield.getlist.md",
             "deprecated": false,
             "pagination": "nav_params",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "task.item.userfield.delete",
@@ -10740,7 +10740,7 @@
             "path": "methods\\task\\task.item.userfield.delete.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "task.item.userfield.gettypes",
@@ -10748,7 +10748,7 @@
             "path": "methods\\task\\task.item.userfield.gettypes.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "task.item.userfield.getfields",
@@ -10788,7 +10788,7 @@
             "path": "methods\\task\\task.stages.canmovetask.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "task.stages.movetask",
@@ -10796,7 +10796,7 @@
             "path": "methods\\task\\task.stages.movetask.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": true
+            "has_example": false
         },
         {
             "method": "task.stages.delete",
@@ -10956,7 +10956,7 @@
             "path": "methods\\timeman\\timeman.schedule.get.md",
             "deprecated": false,
             "pagination": "none",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "timeman.timecontrol.report.add",
@@ -11060,7 +11060,7 @@
             "path": "methods\\user\\user.userfield.list.md",
             "deprecated": false,
             "pagination": "unknown",
-            "has_example": false
+            "has_example": true
         },
         {
             "method": "user.userfield.update",

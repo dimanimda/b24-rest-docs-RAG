@@ -9,33 +9,106 @@ params: {"type":"object","properties":{"filter":{"type":"object"},"order":{"type
 returns: {"type":"array","items":{"type":"object"}}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Товары
+# Получить список свойств товаров crm.product.property.list
 
 > Scope: [`crm`](../../../scopes/permissions.md)
 >
-> Кто может выполнять метод: зависит от метода
+> Кто может выполнять метод: любой пользователь
+
+
+
+Метод `crm.product.property.list` продолжает работать, но у него есть более актуальный аналог [catalog.productProperty.list](../../../catalog/product-property/catalog-product-property-list.md).
+
+
+
+Метод `crm.product.property.list` возвращает список свойств товаров.
+
+## Параметры метода
+
+
 
 #|
-|| **Метод** | **Описание** ||
-|| [crm.product.add](./crm-product-add.md) | Создает новый товар ||
-|| [crm.product.delete](./crm-product-delete.md) | Удаляет товар ||
-|| [crm.product.fields](./crm-product-fields.md) | Возвращает описание полей товара ||
-|| [crm.product.get](./crm-product-get.md) | Возвращает товар по идентификатору ||
-|| [crm.product.list](./crm-product-list.md) | Возвращает список товаров по фильтру ||
-|| [crm.product.update](./crm-product-update.md) | Обновляет существующий товар ||
-|| [crm.product.property.types](./crm-product-property-types.md) | Возвращает список типов свойств товаров ||
-|| [crm.product.property.fields](./crm-product-property-fields.md) | Возвращает описание полей для свойств товаров ||
-|| [crm.product.property.settings.fields](./crm-product-property-settings-fields.md) | Возвращает описание полей дополнительных настроек свойства товаров пользовательского типа ||
-|| [crm.product.property.enumeration.fields](./crm-product-property-enumeration-fields.md) | Возвращает описание полей элемента свойства товаров списочного типа ||
-|| [crm.product.property.add](./crm-product-property-add.md) | Создает новое свойство товаров ||
-|| [crm.product.property.get](./crm-product-property-get.md) | Возвращает свойство товаров по идентификатору ||
-|| [crm.product.property.list](./crm-product-property-list.md) | Возвращает список свойств товаров ||
-|| [crm.product.property.update](./crm-product-property-update.md) | Обновляет существующее свойство товаров ||
-|| [crm.product.property.delete](./crm-product-property-delete.md) | Удаляет свойство товаров ||
+|| **Название**
+`тип` | **Описание** ||
+|| **order** |  Сортировка ||
+|| **filter** | Поля фильтра ||
 |#
 
-Общий список **событий товаров** приведен в статье [События](./events-custom/index.md).
+## Примеры кода
+
+
+
+
+
+- cURL (Webhook)
+
+    ```http
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"order":{"SORT":"ASC"},"filter":{"PROPERTY_TYPE":"S","USER_TYPE":"HTML"}}' \
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/crm.product.property.list
+    ```
+
+- cURL (OAuth)
+
+    ```http
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"order":{"SORT":"ASC"},"filter":{"PROPERTY_TYPE":"S","USER_TYPE":"HTML"},"auth":"**put_access_token_here**"}' \
+    https://**put_your_bitrix24_address**/rest/crm.product.property.list
+    ```
+
+- JS
+
+    ```js
+    BX24.callMethod(
+        "crm.product.property.list", {
+            order: {"SORT": "ASC"},
+            filter: {
+                "PROPERTY_TYPE": "S",
+                "USER_TYPE": "HTML"
+            }
+        },
+        function (result)
+        {
+            if (result.error())
+            {
+                console.error(result.error());
+            }
+            else
+            {
+                console.dir(result.data());
+                if (result.more())
+                    result.next();
+            }
+        }
+    );
+    ```
+
+- PHP
+
+    ```php
+    require_once('crest.php');
+
+    $result = CRest::call(
+        'crm.product.property.list',
+        [
+            'order' => ['SORT' => 'ASC'],
+            'filter' => [
+                'PROPERTY_TYPE' => 'S',
+                'USER_TYPE' => 'HTML'
+            ]
+        ]
+    );
+
+    echo '<PRE>';
+    print_r($result);
+    echo '</PRE>';
+    ```
+
+

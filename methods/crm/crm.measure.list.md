@@ -9,23 +9,95 @@ params: {"type":"object","properties":{"filter":{"type":"object"},"order":{"type
 returns: {"type":"array","items":{"type":"object"}}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Обзор методов
+# Получить список единиц измерения crm.measure.list
 
 > Scope: [`crm`](../../../scopes/permissions.md)
 >
-> Кто может выполнять методы: любой пользователь
+> Кто может выполнять метод: любой пользователь
 
-#|
-|| **Метод** | **Описание** ||
-|| [crm.measure.add](./crm-measure-add.md) | Добавляет новую единицу измерения ||
-|| [crm.measure.update](./crm-measure-update.md) | Обновляет существующую единицу измерения ||
-|| [crm.measure.get](./crm-measure-get.md) | Возвращает значения всех полей единицы измерения по ее идентификатору ||
-|| [crm.measure.list](./crm-measure-list.md) | Возвращает список единиц измерения ||
-|| [crm.measure.delete](./crm-measure-delete.md) | Удаляет единицу измерения ||
-|| [crm.measure.fields](./crm-measure-fields.md) | Возвращает описание полей для единиц измерения ||
-|#
+Метод возвращает список единиц измерения.
+
+Cмотрите описание [списочных методов](../../../how-to-call-rest-api/list-methods-pecularities.md).
+
+## Примеры кода
+
+
+
+
+
+- cURL (Webhook)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"order":{"ID":"ASC"},"filter":{"IS_DEFAULT":"Y"},"select":["ID","CODE","STAGE_ID","SYMBOL_RUS","SYMBOL_INTL"]}' \
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webhook_here**/crm.measure.list
+    ```
+
+- cURL (OAuth)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"order":{"ID":"ASC"},"filter":{"IS_DEFAULT":"Y"},"select":["ID","CODE","STAGE_ID","SYMBOL_RUS","SYMBOL_INTL"],"auth":"**put_access_token_here**"}' \
+    https://**put_your_bitrix24_address**/rest/crm.measure.list
+    ```
+
+- JS
+
+    ```js
+    BX24.callMethod(
+        "crm.measure.list",
+        {
+            order: {"ID": "ASC"},
+            filter: {"IS_DEFAULT": "Y"},
+            select: ["ID", "CODE", "STAGE_ID", "SYMBOL_RUS", "SYMBOL_INTL"]
+        },
+        function (result)
+        {
+            if (result.error())
+                console.error(result.error());
+            else
+            {
+                console.dir(result.data());
+                if (result.more())
+                    result.next();
+            }
+        }
+    );
+    ```
+
+- PHP
+
+    ```php
+    require_once('crest.php');
+
+    $result = CRest::call(
+        'crm.measure.list',
+        [
+            'order' => ['ID' => 'ASC'],
+            'filter' => ['IS_DEFAULT' => 'Y'],
+            'select' => ['ID', 'CODE', 'STAGE_ID', 'SYMBOL_RUS', 'SYMBOL_INTL']
+        ]
+    );
+
+    echo '<PRE>';
+    print_r($result);
+    echo '</PRE>';
+    ```
+
+
+
+## Продолжите изучение
+
+- [{#T}](./crm-measure-add.md)
+- [{#T}](./crm-measure-update.md)
+- [{#T}](./crm-measure-get.md)
+- [{#T}](./crm-measure-delete.md)
+- [{#T}](./crm-measure-fields.md)
 

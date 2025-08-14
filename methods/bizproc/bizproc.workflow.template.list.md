@@ -9,100 +9,339 @@ params: {"type":"object","properties":{"filter":{"type":"object"},"order":{"type
 returns: {"type":"array","items":{"type":"object"}}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Лента новостей: обзор методов
+# Получить список шаблонов bizproc.workflow.template.list
 
-Лента новостей корпоративного портала напоминает ленты в социальных сетях. Она позволяет сотрудникам быть в курсе событий компании. В ней отображаются новости, сообщения, задачи, опросы, поздравления и многое другое.
-
-> Быстрый переход: [все методы и события](#all-methods)
+> Scope: [`bizproc`](../../scopes/permissions.md)
 >
-> Пользовательская документация: [Лента новостей](https://helpdesk.bitrix24.ru/section/108537/)
+> Кто может выполнять метод: администратор
 
-## Связь Ленты с другими объектами
+Метод получает список шаблонов бизнес-процессов.
 
-**Пользователи**. Чтобы написать сообщение Ленты новостей конкретным пользователям, нужно знать их ID. Список пользователей можно получить методом [user.get](./../user/user-get.md).
+## Параметры метода
 
-**Рабочие группы и проекты**. Сообщение Ленты новостей можно направить участникам рабочих групп и проектов с помощью ID рабочих групп и проектов. Список групп доступен через метод [sonet_group.get](./../sonet-group/sonet-group-get.md).
+#|
+|| **Название**
+`тип` | **Описание** ||
+|| **SELECT**
+[`array`](../../data-types.md) | Массив содержит список [полей](#fields), которые необходимо выбрать.
 
-**Подразделения компании**. Чтобы адресовать сообщение Ленты подразделениям компании, нужно знать ID подразделений. Получить список подразделений можно через метод [department.get](./../departments/department-get.md).
+Можно указать только те поля, которые необходимы.
 
-**Файлы**. К сообщениям в Ленте новостей можно прикреплять файлы из локального хранилища, Диска Битрикс24 или облака. Чтобы прикрепить файл к сообщению, передайте массив из имени файла и строки с `Base64` в поле `Files`. Чтобы получить информацию о прикрепленном файле, используйте метод [disk.attachedObject.get](./../disk/attached-object/disk-attached-object-get.md).
+Значение по умолчанию — `['ID']` ||
+|| **FILTER**
+[`object`](../../data-types.md) | Объект для фильтрации списка шаблонов бизнес-процессов в формате `{"field_1": "value_1", ... "field_N": "value_N"}`, где
+- `field_N` — [поле](#fields) шаблона для фильтра
+- `value_N` — значение поля
+
+Перед названием фильтруемого поля можно указать тип фильтрации:
+- `!` — не равно
+- `<` — меньше
+- `<=` — меньше либо равно
+- `>` — больше
+- `>=` — больше либо равно | ||
+|| **ORDER**
+[`object`](../../data-types.md) | Объект для сортировки списка запущенных бизнес-процессов в формате `{"field_1": "value_1", ... "field_N": "value_N"}`, где
+- `field_N` — [поле](#fields) шаблона для сортировки
+- `value_N` — направление сортировки
+
+Направление сортировки может принимать значения:
+- `asc` — по возрастанию
+- `desc` — по убыванию
+  
+Можно указать несколько полей для сортировки, например, `{NAME: 'ASC', ID: 'DESC'}`.
+
+Значение по умолчанию — `{ID: 'ASC'}` ||
+|| **start**
+[`integer`](../../data-types.md) | Параметр используется для управления постраничной навигацией.
+
+Размер страницы результатов всегда статичный — 50 записей.
+
+Чтобы выбрать вторую страницу результатов, необходимо передавать значение `50`. Чтобы выбрать третью страницу результатов — значение `100` и так далее.
+
+Формула расчета значения параметра `start`:
+
+`start = (N - 1) * 50`, где `N` — номер нужной страницы ||
+|#
+
+### Поля шаблона {#fields}
+
+#|
+|| **Название**
+`тип` | **Описание**||
+|| **ID**
+[`integer`](../../data-types.md) | Идентификатор шаблона бизнес-процесса ||
+|| **MODULE_ID**
+[`string`](../../data-types.md) | Идентификатор модуля по документу. Возможные значения:
+- `crm` — CRM
+- `lists` — универсальные списки
+- `disk` — диск ||
+|| **ENTITY**
+[`string`](../../data-types.md) | Идентификатор объекта по документу. Возможные значения:
+
+CRM
+- `CCrmDocumentLead` — лиды
+- `CCrmDocumentContact` — контакты
+- `CCrmDocumentCompany` — компании
+- `CCrmDocumentDeal` — сделки
+- `Bitrix\Crm\Integration\BizProc\Document\Quote` — коммерческие предложения
+- `Bitrix\Crm\Integration\BizProc\Document\SmartInvoice` — счета
+- `Bitrix\Crm\Integration\BizProc\Document\Dynamic` — смарт-процессы
+
+Списки
+- `BizprocDocument` — процессы в ленте новостей
+- `Bitrix\Lists\BizprocDocumentLists` — списки в группах
+
+Диск
+- `Bitrix\Disk\BizProcDocument` ||
+|| **DOCUMENT_TYPE**
+[`integer`](../../data-types.md) | Тип документа. Возможные значения:
+crm:
+- `LEAD` — лиды
+- `CONTACT` — контакты
+- `COMPANY` — компании
+- `DEAL` — сделки
+- `QUOTE` — коммерческие предложения
+- `SMART_INVOICE` — счета
+- `DYNAMIC_XXX` — смарт-процессы, где XXX — идентификатор смарт-процесса
+
+списки:
+- `iblock_XXX` — информационный блок, где XXX — идентификатор информационного блока
+
+диск:
+- `STORAGE_XXX` — хранилище диска, где XXX — идентификатор хранилища
+ ||
+|| **AUTO_EXECUTE**
+[`integer`](../../data-types.md) | Флаг автозапуска. Может принимать значения:
+
+- `0` — без автозапуска
+- `1` — запуск на создание
+- `2` — запуск на изменение
+- `3` — запуск на создание и изменение
+||
+|| **NAME**
+[`string`](../../data-types.md) | Название шаблона ||
+|| **TEMPLATE**
+[`array`](../../data-types.md) | Массив с описанием структуры действий шаблона ||
+|| **PARAMETERS**
+[`array`](../../data-types.md) | Параметры шаблона ||
+|| **VARIABLES**
+[`array`](../../data-types.md) | Переменные шаблона ||
+|| **CONSTANTS**
+[`array`](../../data-types.md) | Константы шаблона ||
+|| **MODIFIED**
+[`datetime`](../../data-types.md) | Дата последнего изменения ||
+|| **IS_MODIFIED**
+[`boolean`](../../data-types.md) | Был ли изменен шаблон. Возможные значения:
+- `Y` — да, был изменен
+- `N` — нет
+
+Опция нужна для [типовых шаблонов](https://helpdesk.bitrix24.ru/open/5415841/) бизнес-процессов ||
+|| **USER_ID**
+[`integer`](../../data-types.md) | Идентификатор пользователя, который создал или изменил шаблон ||
+|| **SYSTEM_CODE**
+[`string`](../../data-types.md) | Системный код шаблона.
+
+Нужен для идентификации шаблонов типовых бизнес-процессов или шаблонов, созданных приложением ||
+|#
+
+## Примеры кода
 
 
 
-- [Как загрузить файлы](../files/how-to-upload-files.md)
+
+
+- cURL (Webhook)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"select":["ID","NAME","USER_ID","SYSTEM_CODE"],"filter":{"MODULE_ID":"lists","AUTO_EXECUTE":0},"order":{"ID":"DESC"}}' \
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/bizproc.workflow.template.list
+    ```
+
+- cURL (OAuth)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"select":["ID","NAME","USER_ID","SYSTEM_CODE"],"filter":{"MODULE_ID":"lists","AUTO_EXECUTE":0},"order":{"ID":"DESC"},"auth":"**put_access_token_here**"}' \
+    https://**put_your_bitrix24_address**/rest/bizproc.workflow.template.list
+    ```
+
+- JS
+
+    ```js
+    BX24.callMethod(
+        'bizproc.workflow.template.list',
+        {
+            select: [
+                'ID',
+                'NAME',
+                'USER_ID',
+                'SYSTEM_CODE'
+            ],
+            filter: {
+                MODULE_ID: 'lists',
+                AUTO_EXECUTE: 0
+            },
+            order: {
+                ID: 'DESC'
+            }
+        },
+        function(result)
+        {
+            if(result.error())
+                alert("Error: " + result.error());
+            else
+                console.log(result.data());
+        }
+    );
+    ```
+
+- PHP
+
+    ```php
+    require_once('crest.php');
+
+    $result = CRest::call(
+        'bizproc.workflow.template.list',
+        [
+            'select' => [
+                'ID',
+                'NAME',
+                'USER_ID',
+                'SYSTEM_CODE'
+            ],
+            'filter' => [
+                'MODULE_ID' => 'lists',
+                'AUTO_EXECUTE' => 0
+            ],
+            'order' => [
+                'ID' => 'DESC'
+            ]
+        ]
+    );
+
+    echo '<PRE>';
+    print_r($result);
+    echo '</PRE>';
+    ```
+
+- PHP (B24PhpSdk)
+
+	```php
+	try {
+		$result = $serviceBuilder
+			->getBizProcScope()
+			->template()
+			->list(
+				['ID', 'MODULE_ID', 'ENTITY', 'DOCUMENT_TYPE', 'AUTO_EXECUTE', 'NAME', 'TEMPLATE', 'PARAMETERS', 'VARIABLES', 'CONSTANTS', 'MODIFIED', 'IS_MODIFIED', 'USER_ID', 'SYSTEM_CODE'],
+				[]
+			);
+		foreach ($result->getTemplates() as $template) {
+			print("ID: " . $template->ID . "\n");
+			print("MODULE_ID: " . $template->MODULE_ID . "\n");
+			print("ENTITY: " . $template->ENTITY . "\n");
+			print("DOCUMENT_TYPE: " . json_encode($template->DOCUMENT_TYPE) . "\n");
+			print("AUTO_EXECUTE: " . ($template->AUTO_EXECUTE ? $template->AUTO_EXECUTE->value : 'null') . "\n");
+			print("NAME: " . $template->NAME . "\n");
+			print("TEMPLATE: " . json_encode($template->TEMPLATE) . "\n");
+			print("PARAMETERS: " . json_encode($template->PARAMETERS) . "\n");
+			print("VARIABLES: " . json_encode($template->VARIABLES) . "\n");
+			print("CONSTANTS: " . json_encode($template->CONSTANTS) . "\n");
+			print("MODIFIED: " . ($template->MODIFIED ? $template->MODIFIED->format(DATE_ATOM) : 'null') . "\n");
+			print("IS_MODIFIED: " . ($template->IS_MODIFIED ? 'true' : 'false') . "\n");
+			print("USER_ID: " . $template->USER_ID . "\n");
+			print("SYSTEM_CODE: " . $template->SYSTEM_CODE . "\n");
+			print("\n");
+		}
+	} catch (Throwable $e) {
+		print("Error: " . $e->getMessage() . "\n");
+	}
+	```
 
 
 
-**События календаря**. Автоматически отображаются в Ленте новостей. Вы можете создавать и редактировать события календаря с помощью методов группы [calendar.events.*](./../calendar/events/index.md).
+## Обработка ответа
 
-**Задачи**. Автоматически отображаются  в Ленте новостей. Чтобы создавать и редактировать задачи, используйте методы группы [tasks.*](./../tasks/index.md).
+HTTP-статус: **200**
 
-**Новые сотрудники**. Пользователей можно создавать с помощью метода [user.add](./../user/user-add.md). Лента новостей автоматически публикует сообщения о принятых на работу сотрудниках, если это разрешено настройками.
+```json
+{
+    "result": [
+        {
+            "ID": "525",
+            "NAME": "Вывести время",
+            "USER_ID": "503",
+            "SYSTEM_CODE": "rest_app_5"
+        },
+        {
+           "ID": "379",
+           ... 
+        }
+        ...
+    ],
+    "total": 34,
+    "time": {
+        "start": 1737535822.539526,
+        "finish": 1737535822.564579,
+        "duration": 0.025053024291992188,
+        "processing": 0.0019738674163818359,
+        "date_start": "2025-01-22T11:50:22+03:00",
+        "date_finish": "2025-01-22T11:50:22+03:00",
+        "operating_reset_at": 1737536422,
+        "operating": 0
+    }
+}
+```
 
+### Возвращаемые данные
 
+#|
+|| **Название**
+`тип` | **Описание** ||
+|| **result**
+[`object`](../../data-types.md) | Корневой элемент ответа. 
 
-- [Настройки Битрикс24](https://helpdesk.bitrix24.ru/open/18371844/)
+Cодержит массив объектов с информацией о шаблонах бизнес-процессов.
 
+Каждый объект содержит [поля](#fields) шаблона, указанные в параметре `SELECT` ||
+|| **total**
+[`integer`](../../data-types.md) | Общее количество найденных записей ||
+|| **time**
+[`time`](../../data-types.md#time) | Информация о времени выполнения запроса ||
+|#
 
+## Обработка ошибок
 
-## Запуск бизнес-процессов из Ленты
+HTTP-статус: **400**
 
-Бизнес-процессы можно запускать непосредственно из Ленты новостей без перехода в другие разделы.
-
-
-
-- [Бизнес-процессы в Ленте новостей](https://helpdesk.bitrix24.ru/open/1312890/)
-
-
-
-Используйте метод [bizproc.workflow.template.list](./../bizproc/template/bizproc-workflow-template-list.md), чтобы получить список доступных бизнес-процессов и их идентификаторов. Чтобы отфильтровать только бизнес-процессы Ленты новостей, укажите `MODULE_ID: "lists"` и `ENTITY: "BizprocDocument"`.
-
-С помощью метода [bizproc.workflow.start](./../bizproc/bizproc-workflow-start.md) запустите бизнес-процесс, указав его ID. Чтобы связать бизнес-процесс с Лентой новостей, привяжите его к элементу списка. Для работы с элементами списка используйте группу методов [lists.element.*](./../lists/elements/index.md). Чтобы создать или получить элемент списка, связанного с бизнес-процессом Ленты, укажите `IBLOCK_TYPE_ID: bitrix_processes`. Если бизнес-процесс запущен для элемента списка, Лента новостей автоматически создаст сообщение.
-
-## **Управление сообщениями в Ленте**
-
-**Как добавить, изменить или удалить сообщение**. С помощью методов  вы можете добавлять, изменять и удалять сообщения Ленты новостей. Используйте метод [log.blogpost.add](./../log/log-blogpost-add.md), чтобы добавить сообщение в Ленту новостей от имени текущего пользователя. Изменить сообщение вы можете с помощью метода [log.blogpost.update](./../log/log-blogpost-update.md). Для удаления сообщения применяйте метод [log.blogpost.delete](./../log/log-blogpost-delete.md).
-
-**Как управлять комментариями**. Используйте метод [log.blogcomment.add](./../log/log-blogcomment-add.md), чтобы добавлять комментарии к сообщениям и метод [log.blogcomment.delete](./../log/log-blogcomment-add.md), чтобы удалять комментарии. Метод [log.blogcomment.user.get](./../log/log-blogcomment-add.md) возвращает комментарии к сообщениям и может фильтровать их по диапазону ID (`FIRST_ID`, `LAST_ID`). Если не передать параметры фильтрации, метод вернет все доступные текущему пользователю комментарии с учетом его прав доступа.
-
-**Как узнать, кто из пользователей прочитал важное сообщение**. Опубликованное в Ленте новостей сообщение можно пометить как важное. Чтобы просмотреть список пользователей, которые прочитали важное сообщение, используйте метод [log.blogpost.getusers.important](./log-blogpost-getusers-important.md). Комбинацию «важное сообщение и отслеживание списка прочитавших» можно использовать для автоматизированных сценариев массового информирования сотрудников.
-
-**Как получить список сообщений**. Получить доступные пользователю сообщения Ленты новостей позволяет метод [log.blogpost.get](./log-blogpost-get.md).
-
-**Какие события доступны**. События `OnLiveFeedPostAdd`, `OnLiveFeedPostUpdate` и `OnLiveFeedPostDelete` позволяют отслеживать появление, изменение и удаление сообщений.
-
-## Обзор методов и событий {#all-methods}
-
-> Scope: [`log`](../scopes/permissions.md)
-> 
-> Кто может выполнять метод: любой пользователь
-
-
-
-- Методы
-
-    #|
-    || **Метод** | **Описание** ||
-    || [log.blogcomment.add](./log-blogcomment-add.md) | Добавляет комментарий к сообщению Ленты новостей ||
-    || [log.blogpost.add](./log-blogpost-add.md) | Добавляет сообщение в Ленту новостей от имени текущего пользователя ||
-    || [log.blogpost.update](./log-blogpost-update.md) | Изменяет сообщение Ленты новостей ||
-    || [log.blogpost.get](./log-blogpost-get.md) | Получает доступные пользователю сообщения Ленты новостей ||
-    || [log.blogpost.getusers.important](./log-blogpost-getusers-important.md) | Просматривает пользователей, прочитавших важное сообщение ||
-    || [log.blogpost.share](./log-blogpost-share.md) | Добавляет получателей в сообщение Ленты новостей ||
-    || [log.blogpost.delete](./log-blogpost-delete.md) | Удаляет сообщение Ленты новостей ||
-    |#
-
-- События
-
-    #|
-    || **Событие** | **Вызывается** ||
-    || [OnLiveFeedPostAdd](./events/on-live-feed-post-add.md) | На добавление сообщения в Ленту новостей ||
-    || [OnLiveFeedPostDelete](./events/on-live-feed-post-delete.md) | На удаление сообщения из Ленты новостей ||
-    || [OnLiveFeedPostUpdate](./events/on-live-feed-post-update.md) | На редактирование сообщения в Ленте новостей ||
-    |#
+```json
+{
+    "error": "ACCESS_DENIED",
+    "error_description": "Access denied!",
+}
+```
 
 
+
+### Возможные коды ошибок
+
+#|
+|| **Код** | **Сообщение об ошибке** | **Описание** ||
+|| `ACCESS_DENIED` | Access denied! | Метод запустил не администратор ||
+|#
+
+
+
+## Продолжите изучение 
+
+- [{#T}](./index.md)
+- [{#T}](./bizproc-workflow-template-add.md)
+- [{#T}](./bizproc-workflow-template-update.md)
+- [{#T}](./bizproc-workflow-template-delete.md)

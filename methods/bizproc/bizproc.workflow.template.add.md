@@ -9,553 +9,73 @@ params: {"type":"object","required":["fields"],"properties":{"fields":{"type":"o
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
-
-Example (curl):
-
-```bash
-В PHP можно использовать функцию [base64_encode](https://www.php.net/manual/en/function.base64-encode.php). Код читает файл с диска и кодирует его в Bаse64.
-
-```PHP
-$filePath = 'path/to/your/file.jpg'; // Путь к файлу
-$fileData = file_get_contents($filePath); // Читаем файл
-$base64 = base64_encode($fileData); // Кодируем в base64
-```
-
-В результате кодирования файла получим строку вида `YmFzZSDRgtC10YHRgg==`. Чем больше размер файла, тем длиннее будет строка.
-
-## Как передать строку с Bаse64 в поле
-
-В Битрикс24 есть 4 особенности загрузки файлов.
-
-
-1. Передавайте строку с Bаse64 в поле `file`, если используете методы:
-
-   - [documentgenerator.template.add](../document-generator/templates/document-generator-template-add.md)
-
-   - [crm.documentgenerator.template.add](../crm/document-generator/templates/crm-document-generator-template-add.md)
-
-    {% list tabs %}
-
-    - JS
-    
-        ```JavaScript
-        BX24.callMethod(
-            'documentgenerator.template.add',
-            {
-                fields: {
-                    name: "Пример шаблона",
-                    file: "base64_encoded_content_here", // Контент файла, закодированный в base64
-                    code: "example_template_code"
-                }
-            }
-        );
-        ```
-
-    - PHP
-    
-        ```php
-        require_once('crest.php');
-
-        $result = CRest::call(
-            'documentgenerator.template.add',
-            [
-                'fields' => [
-                    'name' => 'Пример шаблона',
-                    'file' => 'base64_encoded_content_here', // Контент файла, закодированный в base64
-                    'code' => 'example_template_code' 
-                ]
-            ]
-        );
-        ```
-
-    - cURL (OAuth)
-
-        ```bash
-        curl -X POST \
-        -H "Content-Type: application/json" \
-        -H "Accept: application/json" \
-        -d '{"fields":{"name":"Пример шаблона","file":"base64_encoded_content_here","code":"example_template_code"},"auth":"**put_access_token_here**"}' \
-        https://**put_your_bitrix24_address**/rest/documentgenerator.template.add
-        ```
-
-    - cURL (Webhook)
-
-        ```bash
-        curl -X POST \
-        -H "Content-Type: application/json" \
-        -H "Accept: application/json" \
-        -d '{"fields":{"name":"Пример шаблона","file":"base64_encoded_content_here","code":"example_template_code"}}' \
-        https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/documentgenerator.template.add
-        ```
-
-    {% endlist %}
-
-2. Передавайте массив из имени файла и строки с Bаse64, если используете методы:
-
-   - [crm.timeline.comment.add](../crm/timeline/comments/crm-timeline-comment-add.md) — в поле `FILES`
-
-   - [crm.item.add](../crm/universal/crm-item-add.md) — в поля типа «файл» объектов CRM
-
-   - [log.blogpost.add](../log/log-blogpost-add.md) — в поле `FILES`
-
-   - [lists.element.add](../lists/elements/lists-element-add.md) — в свойства типа «файл»
-
-   - [entity.item.add](../entity/items/entity-item-add.md) — в свойства типа «файл»
-
-   - [bizproc.workflow.template.add](../bizproc/template/bizproc-workflow-template-add.md) — в поле `TEMPLATE_DATA`
-
-
-    {% list tabs %}
-
-    - JS
-    
-        ```JavaScript
-        BX24.callMethod(
-            'bizproc.workflow.template.add',
-            {
-                DOCUMENT_TYPE: ['lists', 'BizprocDocument', 'iblock_164'],
-                NAME: 'App template', 
-                // Контент файла с шаблоном бизнес-процесса
-                TEMPLATE_DATA: [   
-                    "bp-379.bpt", // Первый элемент массива - имя файла
-                    "base64_encoded_content_here" // Второй элемент массива - контент файла, закодированный в base64
-                ]
-            }
-        );
-        ```
-
-    - PHP
-    
-        ```php
-        require_once('crest.php');
-
-        $result = CRest::call(
-            'bizproc.workflow.template.add',
-            [
-                'DOCUMENT_TYPE' => ['lists', 'BizprocDocument', 'iblock_164'],
-                'NAME' => 'App template',
-                // Контент файла с шаблоном бизнес-процесса
-                'TEMPLATE_DATA' => [
-                    'bp-379.bpt', // Имя файла
-                    'base64_encoded_content_here' // Контент файла, закодированный в base64
-                ]
-            ]
-        );
-        ```
-
-    - cURL (OAuth)
-
-        ```bash
-        curl -X POST \
-        -H "Content-Type: application/json" \
-        -H "Accept: application/json" \
-        -d '{"DOCUMENT_TYPE":["lists","BizprocDocument","iblock_164"],"NAME":"App template","TEMPLATE_DATA":["bp-379.bpt","base64_encoded_content_here"],"auth":"**put_access_token_here**"}' \
-        https://**put_your_bitrix24_address**/rest/bizproc.workflow.template.add
-```
 
 ---
 
-# Как загрузить файлы 
+# Добавить шаблон бизнес-процесса bizproc.workflow.template.add
 
-В Битрикс24 есть два типа файловых полей.
+> Scope: [`bizproc`](../../scopes/permissions.md)
+>
+> Кто может выполнять метод: администратор
 
-- **Файл.** Поле не связано с Диском, в него файлы загружаются напрямую, через строку формата Base64.
+Метод добавляет шаблон бизнес-процесса из файла. 
 
-- **Файл (диск).** Поле связано с Диском, в поле хранится ID объекта диска. Формат Bаse64 в поле не обрабатывается, поэтому сначала файл загружается на Диск Битрикс24 методами [disk.folder.uploadfile](../disk/folder/disk-folder-upload-file.md) или [disk.storage.uploadfile](../disk/storage/disk-storage-upload-file.md).
+Шаблон бизнес-процесса нужно предварительно настроить. Готовый шаблон [экспортируйте](https://helpdesk.bitrix24.ru/open/5435897/) в файл с расширением `.bpt`. Полученный файл можно добавить в качестве шаблона на нужный Битрикс24.
 
-Для загрузки файлов в Битрикс24 используйте стандарт кодирования Base64. Кодирование используется, когда нужно передать файл через текстовые протоколы, например HTTP.
+Метод работает только в контексте [приложения](../../app-installation/index.md). Система привязывает новый шаблон к приложению.
 
-## Как кодировать файл в Bаse64
+## Параметры метода
 
-В JavaScript можно использовать встроенный объект [FileReader](https://www.w3.org/TR/FileAPI/). Код считывает файл, который выбрал пользователь, и преобразует его в Bаse64.
 
-```JavaScript
-const fileInput = document.getElementById('fileInput'); // Поле для выбора файла
 
-fileInput.addEventListener('change', function() {
-    const file = fileInput.files[0]; // Получаем выбранный файл
-    const reader = new FileReader();
+#|
+|| **Название**
+`тип` | **Описание**||
+|| **DOCUMENT_TYPE***
+[`array`](../../data-types.md) | Тип документа. Состоит из трех элементов типа строка. Они определяют, к какому типу объектов прикрепить новый шаблон бизнес-процесса.
 
-    reader.onload = function() {
-        const base64 = reader.result.split(',')[1]; // Получаем base64 без префикса
-        console.log(base64); // Выводим результат
-    };
+Возможные варианты значений:
 
-    reader.readAsDataURL(file); // Кодируем файл в base64
-});
-```
+- Модуль CRM
+    `['crm', 'CCrmDocumentLead', 'LEAD']` — лиды
+    `['crm', 'CCrmDocumentContact', 'CONTACT']` — контакты
+    `['crm', 'CCrmDocumentCompany', 'COMPANY']` — компании
+    `['crm', 'CCrmDocumentDeal', 'DEAL']` — сделки
+    `['crm', 'Bitrix\Crm\Integration\BizProc\Document\Quote', 'QUOTE']` — коммерческие предложения
+    `['crm', 'Bitrix\Crm\Integration\BizProc\Document\SmartInvoice', 'SMART_INVOICE']` — счета
+    `['crm', 'Bitrix\Crm\Integration\BizProc\Document\Dynamic', 'DYNAMIC_XXX']` — смарт-процессы, где XXX — идентификатор смарт-процесса
 
-В PHP можно использовать функцию [base64_encode](https://www.php.net/manual/en/function.base64-encode.php). Код читает файл с диска и кодирует его в Bаse64.
+- Модуль Списки
+    `['lists', 'BizprocDocument', 'iblock_XXX']` — процессы в ленте новостей, где XXX — идентификатор информационного блока
+    `['lists', 'Bitrix\Lists\BizprocDocumentLists', 'iblock_XXX']` — списки в группах, где XXX — идентификатор информационного блока
 
-```PHP
-$filePath = 'path/to/your/file.jpg'; // Путь к файлу
-$fileData = file_get_contents($filePath); // Читаем файл
-$base64 = base64_encode($fileData); // Кодируем в base64
-```
+- Модуль Диск
+    `['disk', 'Bitrix\Disk\BizProcDocument', 'STORAGE_XXX']`, где XXX — идентификатор хранилища
+||
+|| **NAME***
+[`string`](../../data-types.md) | Название шаблона ||
+|| **DESCRIPTION**
+[`string`](../../data-types.md) | Описание шаблона ||
+|| **TEMPLATE_DATA***
+[`file`](../../data-types.md) | Контент файла с шаблоном бизнес-процесса в формате `.bpt`.
 
-В результате кодирования файла получим строку вида `YmFzZSDRgtC10YHRgg==`. Чем больше размер файла, тем длиннее будет строка.
+Подробнее о способах передачи файлов — в статье [{#T}](../../files/how-to-upload-files.md) ||
+|| **AUTO_EXECUTE**
+[`integer`](../../data-types.md) | Настройки автозапуска шаблона. Может иметь значение:
 
-## Как передать строку с Bаse64 в поле
+- `0` — без автозапуска
+- `1` — запуск на создание
+- `2` — запуск на изменение
+- `3` — запуск на создание и изменение
 
-В Битрикс24 есть 4 особенности загрузки файлов.
+По умолчанию — `0` ||
+|#
 
+## Примеры кода
 
-1. Передавайте строку с Bаse64 в поле `file`, если используете методы:
 
-   - [documentgenerator.template.add](../document-generator/templates/document-generator-template-add.md)
 
-   - [crm.documentgenerator.template.add](../crm/document-generator/templates/crm-document-generator-template-add.md)
 
-    
-
-    - JS
-    
-        ```JavaScript
-        BX24.callMethod(
-            'documentgenerator.template.add',
-            {
-                fields: {
-                    name: "Пример шаблона",
-                    file: "base64_encoded_content_here", // Контент файла, закодированный в base64
-                    code: "example_template_code"
-                }
-            }
-        );
-        ```
-
-    - PHP
-    
-        ```php
-        require_once('crest.php');
-
-        $result = CRest::call(
-            'documentgenerator.template.add',
-            [
-                'fields' => [
-                    'name' => 'Пример шаблона',
-                    'file' => 'base64_encoded_content_here', // Контент файла, закодированный в base64
-                    'code' => 'example_template_code' 
-                ]
-            ]
-        );
-        ```
-
-    - cURL (OAuth)
-
-        ```bash
-        curl -X POST \
-        -H "Content-Type: application/json" \
-        -H "Accept: application/json" \
-        -d '{"fields":{"name":"Пример шаблона","file":"base64_encoded_content_here","code":"example_template_code"},"auth":"**put_access_token_here**"}' \
-        https://**put_your_bitrix24_address**/rest/documentgenerator.template.add
-        ```
-
-    - cURL (Webhook)
-
-        ```bash
-        curl -X POST \
-        -H "Content-Type: application/json" \
-        -H "Accept: application/json" \
-        -d '{"fields":{"name":"Пример шаблона","file":"base64_encoded_content_here","code":"example_template_code"}}' \
-        https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/documentgenerator.template.add
-        ```
-
-    
-
-2. Передавайте массив из имени файла и строки с Bаse64, если используете методы:
-
-   - [crm.timeline.comment.add](../crm/timeline/comments/crm-timeline-comment-add.md) — в поле `FILES`
-
-   - [crm.item.add](../crm/universal/crm-item-add.md) — в поля типа «файл» объектов CRM
-
-   - [log.blogpost.add](../log/log-blogpost-add.md) — в поле `FILES`
-
-   - [lists.element.add](../lists/elements/lists-element-add.md) — в свойства типа «файл»
-
-   - [entity.item.add](../entity/items/entity-item-add.md) — в свойства типа «файл»
-
-   - [bizproc.workflow.template.add](../bizproc/template/bizproc-workflow-template-add.md) — в поле `TEMPLATE_DATA`
-
-
-    
-
-    - JS
-    
-        ```JavaScript
-        BX24.callMethod(
-            'bizproc.workflow.template.add',
-            {
-                DOCUMENT_TYPE: ['lists', 'BizprocDocument', 'iblock_164'],
-                NAME: 'App template', 
-                // Контент файла с шаблоном бизнес-процесса
-                TEMPLATE_DATA: [   
-                    "bp-379.bpt", // Первый элемент массива - имя файла
-                    "base64_encoded_content_here" // Второй элемент массива - контент файла, закодированный в base64
-                ]
-            }
-        );
-        ```
-
-    - PHP
-    
-        ```php
-        require_once('crest.php');
-
-        $result = CRest::call(
-            'bizproc.workflow.template.add',
-            [
-                'DOCUMENT_TYPE' => ['lists', 'BizprocDocument', 'iblock_164'],
-                'NAME' => 'App template',
-                // Контент файла с шаблоном бизнес-процесса
-                'TEMPLATE_DATA' => [
-                    'bp-379.bpt', // Имя файла
-                    'base64_encoded_content_here' // Контент файла, закодированный в base64
-                ]
-            ]
-        );
-        ```
-
-    - cURL (OAuth)
-
-        ```bash
-        curl -X POST \
-        -H "Content-Type: application/json" \
-        -H "Accept: application/json" \
-        -d '{"DOCUMENT_TYPE":["lists","BizprocDocument","iblock_164"],"NAME":"App template","TEMPLATE_DATA":["bp-379.bpt","base64_encoded_content_here"],"auth":"**put_access_token_here**"}' \
-        https://**put_your_bitrix24_address**/rest/bizproc.workflow.template.add
-        ```
-
-    - cURL (Webhook)
-
-        ```bash
-        curl -X POST \
-        -H "Content-Type: application/json" \
-        -H "Accept: application/json" \
-        -d '{"DOCUMENT_TYPE":["lists","BizprocDocument","iblock_164"],"NAME":"App template","TEMPLATE_DATA":["bp-379.bpt","base64_encoded_content_here"]}' \
-        https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/bizproc.workflow.template.add
-        ```
-
-    
-
-3. Передавайте объект с ключом `fileData`, который содержит массив из имени файла и строки с Bаse64, если используете методы:
-
-   - [catalog.product.add](../catalog/product/catalog-product-add.md) — в поля `previewPicture`, `detailPicture`
-
-    
-
-    - JS
-    
-        ```JavaScript
-        BX24.callMethod(
-            "catalog.product.add",
-            {
-                fields: {
-                    iblockId: '24', 
-                    name: "Пример товара",
-                    // Превью изображение товара, fileData - массив, где первый элемент - имя файла, второй - контент файла в формате base64
-                    previewPicture: {
-                        fileData: [
-                            "example.jpg", // Имя файла изображения
-                            "base64_encoded_content_here" // Контент изображения в формате base64
-                        ]
-                    }
-                }
-            }
-        );
-        ```
-
-    - PHP
-    
-        ```php
-        require_once('crest.php');
-
-        $result = CRest::call(
-            'catalog.product.add',
-            [
-                'fields' => [
-                    'iblockId' => '24', 
-                    'name' => 'Пример товара', 
-                    // Превью изображение товара, fileData - массив, где первый элемент - имя файла, второй - контент файла в формате base64            
-                    'previewPicture' => [
-                        'fileData' => [
-                            'example.jpg', // Имя файла изображения
-                            'base64_encoded_content_here' // Контент изображения в формате base64
-                        ]
-                    ]
-                ]
-            ]
-        );
-        ```
-
-    - cURL (OAuth)
-
-        ```bash
-        curl -X POST \
-        -H "Content-Type: application/json" \
-        -H "Accept: application/json" \
-        -d '{"fields":{"iblockId":"24","name":"Пример товара","previewPicture":{"fileData":["example.jpg","base64_encoded_content_here"]}},"auth":"**put_access_token_here**"}' \
-        https://**put_your_bitrix24_address**/rest/catalog.product.add
-        ```
-
-    - cURL (Webhook)
-
-        ```bash
-        curl -X POST \
-        -H "Content-Type: application/json" \
-        -H "Accept: application/json" \
-        -d '{"fields":{"iblockId":"24","name":"Пример товара","previewPicture":{"fileData":["example.jpg","base64_encoded_content_here"]}}}' \
-        https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/catalog.product.add
-        ```
-
-    
-
-4. Передавайте параметр `fileContent`, который содержит массив из имени файла и строки с Bаse64, если используете методы:
-
-   - [disk.file.uploadversion](../disk/file/disk-file-upload-version.md)
-
-   - [disk.storage.uploadfile](../disk/storage/disk-storage-upload-file.md)
-
-   - [disk.folder.uploadfile](../disk/folder/disk-folder-upload-file.md)
-
-   - [telephony.externalCall.attachRecord](../telephony/telephony-external-call-attach-record.md)
-
-   - [catalog.productImage.add](../catalog/product-image/catalog-product-image-add.md)
-
-    
-
-    - JS
-    
-        ```JavaScript
-        BX24.callMethod(
-            "disk.file.uploadversion",
-            {    
-                id: 4, // Идентификатор файла, для которого загружается новая версия
-                // Содержимое файла, который загружается как новая версия
-                fileContent: [
-                    '1.gif', // Первый элемент массива - имя файла
-                    'base64_encoded_content_here' // Второй элемент массива - контент файла в формате base64
-                ]
-            }
-        );
-        ```
-
-    - PHP
-    
-        ```php
-        require_once('crest.php');
-
-        $result = CRest::call(
-            'disk.file.uploadversion',
-            [
-                'id' => 4, // Идентификатор файла, для которого загружается новая версия
-                'fileContent' => [
-                    '1.gif', // Имя файла
-                    'base64_encoded_content_here' // Контент файла в формате base64
-                ]
-            ]
-        );
-        ```
-
-    - cURL (OAuth)
-
-        ```bash
-        curl -X POST \
-        -H "Content-Type: application/json" \
-        -H "Accept: application/json" \
-        -d '{"id":4,"fileContent":["1.gif","base64_encoded_content_here"],"auth":"**put_access_token_here**"}' \
-        https://**put_your_bitrix24_address**/rest/disk.file.uploadversion
-        ```
-
-    - cURL (Webhook)
-
-        ```bash
-        curl -X POST \
-        -H "Content-Type: application/json" \
-        -H "Accept: application/json" \
-        -d '{"id":4,"fileContent":["1.gif","base64_encoded_content_here"]}' \
-        https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/disk.file.uploadversion
-        ```
-
-    
-
-## Как загрузить файлы во множественное поле
-
-Если у поля есть флаг «множественное», в него можно загрузить несколько файлов. Загрузка нескольких файлов работает в методах:
-
-- [crm.item.add](../crm/universal/crm-item-add.md) — поля типа «файл»
-
-- [lists.element.add](../lists/elements/lists-element-add.md) — свойства типа «файл»
-
-- [crm.timeline.comment.add](../crm/timeline/comments/crm-timeline-comment-add.md) — поле `FILES`
-
-- [log.blogpost.add](../log/log-blogpost-add.md) — поле `FILES`
-
-- [catalog.product.add](../catalog/product/catalog-product-add.md) —  поля типа «файл»
-
-Для загрузки нескольких файлов передавайте массив, где каждый элемент — это имя файла и сам файл, в формате строки закодированной в Bаse64.
-
-
-
-- JS
-  
-    ```JavaScript
-    BX24.callMethod(
-        'crm.item.add',
-        {
-            entityTypeId: 2, 
-            fields: {
-                title: "Новая сделка (специально для примера REST методов)", 
-                // Множественное поле с массивом файлов
-                ufCrm_123456: [ 
-                    [
-                        "green_pixel.png", // Имя файла №1
-                        "base64_encoded_content_here" // Base64-контент первого файла
-                    ],
-                    [
-                        "blue_pixel.png", // Имя файла №2
-                        "base64_encoded_content_here" // Base64-контент второго файла
-                    ],
-                    [
-                        "red_pixel.png", // Имя файла №3
-                        "base64_encoded_content_here" // Base64-контент третьего файла
-                    ]
-                ]
-            }
-        }
-    );
-    ```
-
-- PHP
-
-    ```php
-    require_once('crest.php');
-
-    $result = CRest::call(
-        'crm.item.add',
-        [
-            'entityTypeId' => 2, 
-            'fields' => [
-                'title' => 'Новая сделка (специально для примера REST методов)', 
-                // Множественное поле с массивом файлов
-                'ufCrm_123456' => [
-                    [
-                        'green_pixel.png', // Имя файла №1
-                        'base64_encoded_content_here' // Base64-контент первого файла
-                    ],
-                    [
-                        'blue_pixel.png', // Имя файла №2
-                        'base64_encoded_content_here' // Base64-контент второго файла
-                    ],
-                    [
-                        'red_pixel.png', // Имя файла №3
-                        'base64_encoded_content_here' // Base64-контент третьего файла
-                    ]
-                ]
-            ]
-        ]
-    );
-    ```
 
 - cURL (OAuth)
 
@@ -563,69 +83,34 @@ $base64 = base64_encode($fileData); // Кодируем в base64
     curl -X POST \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"entityTypeId":2,"fields":{"title":"Новая сделка (специально для примера REST методов)","ufCrm_123456":[["green_pixel.png","base64_encoded_content_here"],["blue_pixel.png","base64_encoded_content_here"],["red_pixel.png","base64_encoded_content_here"]]},"auth":"**put_access_token_here**"}' \
-    https://**put_your_bitrix24_address**/rest/crm.item.add
+    -d '{"DOCUMENT_TYPE":["lists","BizprocDocument","iblock_164"],"NAME":"App template","DESCRIPTION":"Template was generated by rest application.","AUTO_EXECUTE":3,"TEMPLATE_DATA":["bp-379.bpt","eNrlWNtO41YUfe9XRH5vlTiJhxj1IYkdYTU3Jeb2ZBkwg1UHU9t0BiFLhKk6rTq9aNSHqupF7RcwU1JSIOEXjv+oex/biZ04YWagIKYvcE7Ots9ea9+t8hx/aPOPeGZFbLWlRp1Z1Hl20eYXeEYWa81qURaZRZXP8Ic6n4ZFHsVzcHiwpzEgx3I809Y+29d2HV01Vk3r023DfFLcdPTPdecAJUC4rnaoML5U6+wZqkO3BZ6hgrDdwn2GZ9bp/zTPNC1zT7McXbPxehZvzcPTumPQRzkQIb+TodclF6RHTsmQvCYn3jGsL7wXZOB9Q/5JkVekT87IgPS87ofkyjsC+S9x43VH12hWR7dt3dzFaxbwGtBCwE2aP3TpToztWrFdO7aTY7vl2G41tlsLd65LaSnv6MaWpe3O5xovNDfrmlPTbFt9rM2gmYV1MZ9Oc2llocCxBYUrsByr5Atsnn073qlzZOA8uFDWnjpUMov8vwRGe+TS+z4FRhiSc3Likw/rHp86/Lh9YDtah6+bT6rmpmq4H0SeAMP1YPOa/j2JS4PgnyB27j3zvgajwutPqW2jYgIo7/qqjLSrmFZHpfqBdvQsPzpbtjWrYpmdCMHgRTyj7js7psUsurE3obRszpGN+mIW6CZ/AOgheQUK94CAPukhQnC3jyjQY9IPdRW3dMe0ymanAyEz0nXaC3znQPegZim2ijVRhhgduxGYcaXYkoqlqhj/tdyot+ViXY46JygsNMrLNbEuKxVJrAr0kE2jgVmekajLFwKHCx0pU8CTlPctDbJLhIZmCNwtdEsApftQUNOKbjiapW4gNxt8xo96BB3+lPZ/akHS0C10wNFPtX3D0ffGUkg5+mn0sZJqa9MXQ/4CRuHRp8xindoSo1GqicBDramsJYHLodl+9B0rRRMFBejbDz10PmrQZQt80NEDqt4EeubWoE/cnoi/1hAkMLWglNaT8GM2IT8jwgn0E0BhuQ/hcA8gIzcnAhSgOCnllhjUqCkDsxEDYzQCSEgk74V5QR0f+CzrYugG1o1Cv6Ft03diW8w6pWqj/ImSnJYwciEtgdcOvC8gyR6BFU+gsvcB54CWn7/IEKt/UJVulq8SrJq59XwFjxbLsrSS6MhZECc/QD2EMgIVc4Btj3fsvbjOh2G5YZrG/URuePO070JYlppKc7lUldpLYqKFWQzd36Ble0at2Acr0gYvyYFnQ0zfG8RMaE6l0mrUkhDmC9HqM4DFc2yfcHMyaWnSf9jZqjBiQ24kccHlo1wMqbEHlA8/Vb9/jICi7UZLTnQM7Kx/AqCntAXu+n3kEWLGAQY4OL8e/c1T3O23ZIgReljaVGcnqxW8l/wKdj7zoxwb6P8gQUcYggttx9J3HwfM2abl4OybCUDZmuPA6Xj6xN69vdRYVYqCoFQarVpscsoFh6IgyROn7gRrqBsmCP8XxRnnE58eP0MK2rYK2q+oxr4WmWgm6I6hmE5DEFfNlrgiiatKUyrLy63E8pLnqMed0fkFhjHy92iGASe8wAC8onPbaTBDd8HvhlCAjpIqzrZuaPeTjsObEytOyIMsrskzpwF/6oT88i7AnXA2vnPg4c3TwB/FgSvyetMPwPSkD2Qp/D65StGPKJQFzMZvyQM6pGZom6E+jT1HN3fHUTTB05jx4D07TscIlkt06d45oZMQRpTiJa4f64IoF6XqvKDKLbxRUD3AYMqM4M+KpSw3M5YeYAxxMbyzQyiXvz6E/uehk8NvU0LyjIMJ6Bf6AeKSjnF9aAB7QBd0O/gpF3vCU2ZODb/jRmd+5YXTtVp1xvjKItSX9LP0VzQlUHgX3nfe8wcC0HX/BTDK1SA="],"auth":"**put_access_token_here**"}' \
+    https://**put_your_bitrix24_address**/rest/bizproc.workflow.template.add
     ```
-
-- cURL (Webhook)
-
-    ```bash
-    curl -X POST \
-    -H "Content-Type: application/json" \
-    -H "Accept: application/json" \
-    -d '{"entityTypeId":2,"fields":{"title":"Новая сделка (специально для примера REST методов)","ufCrm_123456":[["green_pixel.png","base64_encoded_content_here"],["blue_pixel.png","base64_encoded_content_here"],["red_pixel.png","base64_encoded_content_here"]]}}' \
-    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/crm.item.add
-    ```
-
-
-
-Для загрузки нескольких файлов в методе [catalog.product.add](../catalog/product/catalog-product-add.md) передавайте массив объектов, где каждый объект содержит поле `value`, в котором находится объект с ключом `fileData`. Значение `fileData` — массив из двух элементов: имя файла и сам файл, в формате строки закодированной в Bаse64.
-
-
 
 - JS
 
     ```js
     BX24.callMethod(
-        'catalog.product.add',
+        'bizproc.workflow.template.add',
         {
-            fields: {
-                iblockId: 1,
-                name: "Пример товара",
-                PROPERTY_1077: [
-                    {
-                        value: {
-                            fileData: [
-                                "blue_pixel.txt", // Имя файла
-                                "YmFzZSDRgtC10YHRgg==" // Base64-контент
-                            ]
-                        }
-                    },
-                    {
-                        value: {
-                            fileData: [
-                                "red_pixel.txt", // Имя файла
-                                "YmFzZSDRgtC10YHRgg==" // Base64-контент
-                            ]
-                        }
-                    }
+            DOCUMENT_TYPE: ['lists', 'BizprocDocument', 'iblock_164'],
+            NAME: 'App template',
+            DESCRIPTION: 'Template was generated by rest application.',
+            AUTO_EXECUTE: 3,
+            TEMPLATE_DATA: [
+                    "bp-379.bpt",
+                    "eNrlWNtO41YUfe9XRH5vlTiJhxj1IYkdYTU3Jeb2ZBkwg1UHU9t0BiFLhKk6rTq9aNSHqupF7RcwU1JSIOEXjv+oex/biZ04YWagIKYvcE7Ots9ea9+t8hx/aPOPeGZFbLWlRp1Z1Hl20eYXeEYWa81qURaZRZXP8Ic6n4ZFHsVzcHiwpzEgx3I809Y+29d2HV01Vk3r023DfFLcdPTPdecAJUC4rnaoML5U6+wZqkO3BZ6hgrDdwn2GZ9bp/zTPNC1zT7McXbPxehZvzcPTumPQRzkQIb+TodclF6RHTsmQvCYn3jGsL7wXZOB9Q/5JkVekT87IgPS87ofkyjsC+S9x43VH12hWR7dt3dzFaxbwGtBCwE2aP3TpToztWrFdO7aTY7vl2G41tlsLd65LaSnv6MaWpe3O5xovNDfrmlPTbFt9rM2gmYV1MZ9Oc2llocCxBYUrsByr5Atsnn073qlzZOA8uFDWnjpUMov8vwRGe+TS+z4FRhiSc3Likw/rHp86/Lh9YDtah6+bT6rmpmq4H0SeAMP1YPOa/j2JS4PgnyB27j3zvgajwutPqW2jYgIo7/qqjLSrmFZHpfqBdvQsPzpbtjWrYpmdCMHgRTyj7js7psUsurE3obRszpGN+mIW6CZ/AOgheQUK94CAPukhQnC3jyjQY9IPdRW3dMe0ymanAyEz0nXaC3znQPegZim2ijVRhhgduxGYcaXYkoqlqhj/tdyot+ViXY46JygsNMrLNbEuKxVJrAr0kE2jgVmekajLFwKHCx0pU8CTlPctDbJLhIZmCNwtdEsApftQUNOKbjiapW4gNxt8xo96BB3+lPZ/akHS0C10wNFPtX3D0ffGUkg5+mn0sZJqa9MXQ/4CRuHRp8xindoSo1GqicBDramsJYHLodl+9B0rRRMFBejbDz10PmrQZQt80NEDqt4EeubWoE/cnoi/1hAkMLWglNaT8GM2IT8jwgn0E0BhuQ/hcA8gIzcnAhSgOCnllhjUqCkDsxEDYzQCSEgk74V5QR0f+CzrYugG1o1Cv6Ft03diW8w6pWqj/ImSnJYwciEtgdcOvC8gyR6BFU+gsvcB54CWn7/IEKt/UJVulq8SrJq59XwFjxbLsrSS6MhZECc/QD2EMgIVc4Btj3fsvbjOh2G5YZrG/URuePO070JYlppKc7lUldpLYqKFWQzd36Ble0at2Acr0gYvyYFnQ0zfG8RMaE6l0mrUkhDmC9HqM4DFc2yfcHMyaWnSf9jZqjBiQ24kccHlo1wMqbEHlA8/Vb9/jICi7UZLTnQM7Kx/AqCntAXu+n3kEWLGAQY4OL8e/c1T3O23ZIgReljaVGcnqxW8l/wKdj7zoxwb6P8gQUcYggttx9J3HwfM2abl4OybCUDZmuPA6Xj6xN69vdRYVYqCoFQarVpscsoFh6IgyROn7gRrqBsmCP8XxRnnE58eP0MK2rYK2q+oxr4WmWgm6I6hmE5DEFfNlrgiiatKUyrLy63E8pLnqMed0fkFhjHy92iGASe8wAC8onPbaTBDd8HvhlCAjpIqzrZuaPeTjsObEytOyIMsrskzpwF/6oT88i7AnXA2vnPg4c3TwB/FgSvyetMPwPSkD2Qp/D65StGPKJQFzMZvyQM6pGZom6E+jT1HN3fHUTTB05jx4D07TscIlkt06d45oZMQRpTiJa4f64IoF6XqvKDKLbxRUD3AYMqM4M+KpSw3M5YeYAxxMbyzQyiXvz6E/uehk8NvU0LyjIMJ6Bf6AeKSjnF9aAB7QBd0O/gpF3vCU2ZODb/jRmd+5YXTtVp1xvjKItSX9LP0VzQlUHgX3nfe8wcC0HX/BTDK1SA="
                 ]
-            }
+        },
+        function(result)
+        {
+            if(result.error())
+                alert("Error: " + result.error());
+            else
+                console.log(result.data());
         }
     );
-    ```
-
-- cURL (Webhook)
-
-    ```bash
-    curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"fields": {"iblockId": 1, "name": "Пример товара", "PROPERTY_1077": [{"value": {"fileData": ["blue_pixel.txt", "YmFzZSDRgtC10YHRgg=="]}}, {"value": {"fileData": ["red_pixel.txt", "YmFzZSDRgtC10YHRgg=="]}}]}}' https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/catalog.product.add
-    ```
-
-- cURL (OAuth)
-
-    ```bash
-    curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"fields": {"iblockId": 1, "name": "Пример товара", "PROPERTY_1077": [{"value": {"fileData": ["blue_pixel.txt", "YmFzZSDRgtC10YHRgg=="]}}, {"value": {"fileData": ["red_pixel.txt", "YmFzZSDRgtC10YHRgg=="]}}]}, "auth": "**put_access_token_here**"}' https://**put_your_bitrix24_address**/rest/catalog.product.add
-    ```
+	```
 
 - PHP
 
@@ -633,29 +118,15 @@ $base64 = base64_encode($fileData); // Кодируем в base64
     require_once('crest.php');
 
     $result = CRest::call(
-        'catalog.product.add',
+        'bizproc.workflow.template.add',
         [
-            'fields' => [
-                'iblockId' => 1,
-                'name' => 'Пример товара',
-                'PROPERTY_1077' => [
-                    [
-                        'value' => [
-                            'fileData' => [
-                                'blue_pixel.txt',
-                                'YmFzZSDRgtC10YHRgg=='
-                            ]
-                        ]
-                    ],
-                    [
-                        'value' => [
-                            'fileData' => [
-                                'red_pixel.txt',
-                                'YmFzZSDRgtC10YHRgg=='
-                            ]
-                        ]
-                    ]
-                ]
+            'DOCUMENT_TYPE' => ['lists', 'BizprocDocument', 'iblock_164'],
+            'NAME' => 'App template',
+            'DESCRIPTION' => 'Template was generated by rest application.',
+            'AUTO_EXECUTE' => 3,
+            'TEMPLATE_DATA' => [
+                "bp-379.bpt",
+                "eNrlWNtO41YUfe9XRH5vlTiJhxj1IYkdYTU3Jeb2ZBkwg1UHU9t0BiFLhKk6rTq9aNSHqupF7RcwU1JSIOEXjv+oex/biZ04YWagIKYvcE7Ots9ea9+t8hx/aPOPeGZFbLWlRp1Z1Hl20eYXeEYWa81qURaZRZXP8Ic6n4ZFHsVzcHiwpzEgx3I809Y+29d2HV01Vk3r023DfFLcdPTPdecAJUC4rnaoML5U6+wZqkO3BZ6hgrDdwn2GZ9bp/zTPNC1zT7McXbPxehZvzcPTumPQRzkQIb+TodclF6RHTsmQvCYn3jGsL7wXZOB9Q/5JkVekT87IgPS87ofkyjsC+S9x43VH12hWR7dt3dzFaxbwGtBCwE2aP3TpToztWrFdO7aTY7vl2G41tlsLd65LaSnv6MaWpe3O5xovNDfrmlPTbFt9rM2gmYV1MZ9Oc2llocCxBYUrsByr5Atsnn073qlzZOA8uFDWnjpUMov8vwRGe+TS+z4FRhiSc3Likw/rHp86/Lh9YDtah6+bT6rmpmq4H0SeAMP1YPOa/j2JS4PgnyB27j3zvgajwutPqW2jYgIo7/qqjLSrmFZHpfqBdvQsPzpbtjWrYpmdCMHgRTyj7js7psUsurE3obRszpGN+mIW6CZ/AOgheQUK94CAPukhQnC3jyjQY9IPdRW3dMe0ymanAyEz0nXaC3znQPegZim2ijVRhhgduxGYcaXYkoqlqhj/tdyot+ViXY46JygsNMrLNbEuKxVJrAr0kE2jgVmekajLFwKHCx0pU8CTlPctDbJLhIZmCNwtdEsApftQUNOKbjiapW4gNxt8xo96BB3+lPZ/akHS0C10wNFPtX3D0ffGUkg5+mn0sZJqa9MXQ/4CRuHRp8xindoSo1GqicBDramsJYHLodl+9B0rRRMFBejbDz10PmrQZQt80NEDqt4EeubWoE/cnoi/1hAkMLWglNaT8GM2IT8jwgn0E0BhuQ/hcA8gIzcnAhSgOCnllhjUqCkDsxEDYzQCSEgk74V5QR0f+CzrYugG1o1Cv6Ft03diW8w6pWqj/ImSnJYwciEtgdcOvC8gyR6BFU+gsvcB54CWn7/IEKt/UJVulq8SrJq59XwFjxbLsrSS6MhZECc/QD2EMgIVc4Btj3fsvbjOh2G5YZrG/URuePO070JYlppKc7lUldpLYqKFWQzd36Ble0at2Acr0gYvyYFnQ0zfG8RMaE6l0mrUkhDmC9HqM4DFc2yfcHMyaWnSf9jZqjBiQ24kccHlo1wMqbEHlA8/Vb9/jICi7UZLTnQM7Kx/AqCntAXu+n3kEWLGAQY4OL8e/c1T3O23ZIgReljaVGcnqxW8l/wKdj7zoxwb6P8gQUcYggttx9J3HwfM2abl4OybCUDZmuPA6Xj6xN69vdRYVYqCoFQarVpscsoFh6IgyROn7gRrqBsmCP8XxRnnE58eP0MK2rYK2q+oxr4WmWgm6I6hmE5DEFfNlrgiiatKUyrLy63E8pLnqMed0fkFhjHy92iGASe8wAC8onPbaTBDd8HvhlCAjpIqzrZuaPeTjsObEytOyIMsrskzpwF/6oT88i7AnXA2vnPg4c3TwB/FgSvyetMPwPSkD2Qp/D65StGPKJQFzMZvyQM6pGZom6E+jT1HN3fHUTTB05jx4D07TscIlkt06d45oZMQRpTiJa4f64IoF6XqvKDKLbxRUD3AYMqM4M+KpSw3M5YeYAxxMbyzQyiXvz6E/uehk8NvU0LyjIMJ6Bf6AeKSjnF9aAB7QBd0O/gpF3vCU2ZODb/jRmd+5YXTtVp1xvjKItSX9LP0VzQlUHgX3nfe8wcC0HX/BTDK1SA="
             ]
         ]
     );
@@ -667,14 +138,67 @@ $base64 = base64_encode($fileData); // Кодируем в base64
 
 
 
+## Обработка ответа
 
-## Ограничения при работе с файлами
+HTTP-статус: **200**
 
-- Ограничение на длину GET-запроса — 2048 символов, это длина URL-адреса. Файлы, кодированные в Bаse64, часто превышают это значение. Для передачи больших файлов используйте POST-запрос.
+```json
+{
+    "result": 525,
+    "time": {
+        "start": 1737529740.157058,
+        "finish": 1737529740.4302571,
+        "duration": 0.27319908142089844,
+        "processing": 0.25160598754882812,
+        "date_start": "2025-01-22T10:09:00+03:00",
+        "date_finish": "2025-01-22T10:09:00+03:00",
+        "operating_reset_at": 1737530340,
+        "operating": 0.25158905982971191
+    }
+}
+```
 
-- Ограничение на размер POST-запроса в Битрикс24 — 2Гб. Файлы больше 2Гб обработаны не будут. Если в одном в запросе передается несколько файлов суммарно больше 2Гб — запрос прервется. Для загрузки нескольких файлов большого размера передавайте данные в отдельных запросах.
+### Возвращаемые данные
 
-- Ограничение на время выполнения запроса — 60 секунд для облачного Битрикс24. Запрос прервется по таймауту, если обработка занимает дольше 60 секунд. Проверить время выполнения запроса можно в объекте [time](../data-types.md#time) ответа на запрос, параметр `duration`.
+#|
+|| **Название**
+`тип` | **Описание** ||
+|| **result**
+[`object`](../../data-types.md) | Идентификатор добавленного шаблона бизнес-процесса ||
+|| **time**
+[`time`](../../data-types.md#time) | Информация о времени выполнения запроса ||
+|#
 
-- Если при передаче файла, закодированного строку в Bаse64, метод выполняется в адресной строке GET-запросом или метод выполняется через curl — Bаse64 нужно дополнительно [закодировать в urlencode](../how-to-call-rest-api/data-encoding.md), иначе файл не прочитается.
+## Обработка ошибок
 
+HTTP-статус: **400**
+
+```json
+{
+    "error": "ERROR_TEMPLATE_VALIDATION_FAILURE",
+    "error_description": "Incorrect field DOCUMENT_TYPE!",
+}
+```
+
+
+
+### Возможные коды ошибок
+
+#|
+|| **Код** | **Сообщение об ошибке** | **Описание** ||
+|| `ACCESS_DENIED` | Application context required | Токен доступа не из приложения ||
+|| `ACCESS_DENIED` | Access denied! | Метод запустил не администратор ||
+|| `ERROR_TEMPLATE_VALIDATION_FAILURE` | Incorrect field DOCUMENT_TYPE! | Указан неверный тип документа ||
+|| `ERROR_TEMPLATE_VALIDATION_FAILURE` | Empty template name! | Не указано название шаблона ||
+|| `ERROR_TEMPLATE_VALIDATION_FAILUR` | Incorrect field AUTO_EXECUTE! | Указан неверный код автозапуска ||
+|| `ERROR_TEMPLATE_VALIDATION_FAILURE` | Incorrect field TEMPLATE_DATA! | Указаны неверные данные шаблона ||
+|#
+
+
+
+## Продолжите изучение 
+
+- [{#T}](./index.md)
+- [{#T}](./bizproc-workflow-template-update.md)
+- [{#T}](./bizproc-workflow-template-list.md)
+- [{#T}](./bizproc-workflow-template-delete.md)

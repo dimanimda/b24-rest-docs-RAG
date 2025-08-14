@@ -9,23 +9,134 @@ params: {"type":"object","required":["fields"],"properties":{"fields":{"type":"o
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Обзор методов
+# Добавить единицу измерения crm.measure.add
 
 > Scope: [`crm`](../../../scopes/permissions.md)
 >
-> Кто может выполнять методы: любой пользователь
+> Кто может выполнять метод: любой пользователь
+
+Метод добавляет новую единицу измерения.
+
+## Параметры метода
+
+
 
 #|
-|| **Метод** | **Описание** ||
-|| [crm.measure.add](./crm-measure-add.md) | Добавляет новую единицу измерения ||
-|| [crm.measure.update](./crm-measure-update.md) | Обновляет существующую единицу измерения ||
-|| [crm.measure.get](./crm-measure-get.md) | Возвращает значения всех полей единицы измерения по ее идентификатору ||
-|| [crm.measure.list](./crm-measure-list.md) | Возвращает список единиц измерения ||
-|| [crm.measure.delete](./crm-measure-delete.md) | Удаляет единицу измерения ||
-|| [crm.measure.fields](./crm-measure-fields.md) | Возвращает описание полей для единиц измерения ||
+|| **Название**
+`тип` | **Описание** ||
+|| **fields***
+[`array`](../../data-types.md) | Набор полей — массив вида `array("поле"=>"значение"[, ...])`, содержащий значения полей единицы измерения. 
+
+Чтобы узнать требуемый формат полей, выполните метод [crm.measure.fields](./crm-measure-fields.md) и посмотрите формат пришедших значений этих полей 
+||
 |#
 
+### Параметр fields
+
+
+
+#|
+|| **Название**
+`тип` | **Описание** ||
+|| **CODE***
+[`integer`](../../data-types.md) | Код ||
+|| **MEASURE_TITLE***
+[`string`](../../data-types.md) | Наименование единицы измерения ||
+|| **SYMBOL_RUS**
+[`string`](../../data-types.md) | Условное обозначение ||
+|| **SYMBOL_INTL**
+[`string`](../../data-types.md) | Условное обозначение (международное) ||
+|| **SYMBOL_LETTER_INTL**
+[`string`](../../data-types.md) | Кодовое буквенное обозначение (международное) ||
+|| **IS_DEFAULT**
+[`char`](../../data-types.md) | По умолчанию ||
+|#
+
+## Примеры кода
+
+
+
+
+
+- cURL (Webhook)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"fields":{"CODE":"212","MEASURE_TITLE":"Ватт","SYMBOL_RUS":"Вт","SYMBOL_INTL":"W","SYMBOL_LETTER_INTL":"WTT","IS_DEFAULT":"N"}}' \
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webhook_here**/crm.measure.add
+    ```
+
+- cURL (OAuth)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"fields":{"CODE":"212","MEASURE_TITLE":"Ватт","SYMBOL_RUS":"Вт","SYMBOL_INTL":"W","SYMBOL_LETTER_INTL":"WTT","IS_DEFAULT":"N"},"auth":"**put_access_token_here**"}' \
+    https://**put_your_bitrix24_address**/rest/crm.measure.add
+    ```
+
+- JS
+
+    ```js
+    BX24.callMethod(
+        "crm.measure.add",
+        {
+            fields: {
+                "CODE": "212",
+                "MEASURE_TITLE": "Ватт",
+                "SYMBOL_RUS": "Вт",
+                "SYMBOL_INTL": "W",
+                "SYMBOL_LETTER_INTL": "WTT",
+                "IS_DEFAULT": "N"
+            }
+        },
+        function(result)
+        {
+            if(result.error())
+                console.error(result.error());
+            else
+                console.info("Создана единица измерения с ID " + result.data());
+        }
+    );
+    ```
+
+- PHP
+
+    ```php
+    require_once('crest.php');
+
+    $result = CRest::call(
+        'crm.measure.add',
+        [
+            'fields' =>
+            [
+                'CODE' => '212',
+                'MEASURE_TITLE' => 'Ватт',
+                'SYMBOL_RUS' => 'Вт',
+                'SYMBOL_INTL' => 'W',
+                'SYMBOL_LETTER_INTL' => 'WTT',
+                'IS_DEFAULT' => 'N'
+            ]
+        ]
+    );
+
+    echo '<PRE>';
+    print_r($result);
+    echo '</PRE>';
+    ```
+
+
+
+## Продолжите изучение
+
+- [{#T}](./crm-measure-update.md)
+- [{#T}](./crm-measure-get.md)
+- [{#T}](./crm-measure-list.md)
+- [{#T}](./crm-measure-delete.md)
+- [{#T}](./crm-measure-fields.md)

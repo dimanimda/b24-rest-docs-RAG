@@ -9,148 +9,226 @@ params: {"type":"object"}
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Контакты в CRM: обзор методов
+# Сбросить параметры карточки crm.contact.details.configuration.reset
 
-Контакт — объект CRM, в котором хранятся данные клиентов — физических лиц. В карточке контакта находятся телефоны, электронные адреса, идентификаторы мессенджеров в специальном формате, позволяющем использовать их для коммуникации с клиентом сразу через Битрикс. 
-
-> Быстрый переход: [все методы и события](#all-methods) 
-> 
-> Пользовательская документация: [контакты в Битрикс24](https://helpdesk.bitrix24.ru/open/5491741/) 
-
-## Связь контакта с другими объектами CRM
-
-**Сделка, лид, смарт-процесс.** У любого объекта CRM, в котором доступно стандартное поле `Клиент`, есть связь с контактами. Изменение связи регулируется через группы методов [сделок](../deals/index.md), [лидов](../leads/index.md), [смарт-процессов](../universal/index.md). 
-
-**Компания.** Один контакт может быть привязан к нескольким компаниям. Для управления этой связью используется группа методов [crm.contact.company.*](./company/index.md).  Когда вы выбираете компанию в поле `Клиент` в сделках или смарт-процессах, все связанные с ней контакты подтягиваются в поле автоматически. 
-
-**Реквизиты.** Сами реквизиты это отдельный объект, для их создания или изменения используются методы группы [crm.requisite.*](../requisites/index.md) и [crm.address.*](../requisites/addresses/index.md). В карточке контакта они выводятся в поле `Реквизиты`. 
-
-
-
-- [Связь между сделками, контактами и компаниями](https://helpdesk.bitrix24.ru/open/2501159/)
-- [Связи реквизитов с объектами CRM](../requisites/links/index.md)
-- [Изменения в работе с адресами и реквизитами в CRM](https://helpdesk.bitrix24.ru/open/11706682/)
-
-
-
-## Карточка контакта
-
-Основное рабочее пространство в контакте — это вкладка Общее его карточки. Она состоит из двух частей: 
-
-* левая, в ней располагаются поля с информацией. Если системных полей недостаточно, вы можете создать собственные пользовательские поля. Они позволяют хранить информацию в различных форматах данных: строка, число, ссылка, адрес и другие. Для создания, изменения, получения или удаления пользовательских полей контактов используется группа методов [crm.contact.userfield.*](./userfield/index.md)
-
-* правая, в ней располагается таймлайн контакта.  В нем можно создавать, редактировать, фильтровать, удалять дела CRM — группа методов [crm.activity.*](../timeline/activities/index.md), и записи таймлайна — группа методов [crm.timeline.*](../timeline/index.md)
-
-Параметрами карточки контакта можно управлять через группу методов [crm.contact.details.configuration.*](./custom-form/index.md). 
-
-
-
-- [Карточка CRM: возможности и настройки](https://helpdesk.bitrix24.ru/open/22804914/)
-- [Системные поля в CRM](https://helpdesk.bitrix24.ru/open/18478840/)
-- [Пользовательские поля в CRM](https://helpdesk.bitrix24.ru/open/22048980/)
-- [Таймлайн в элементе CRM](https://helpdesk.bitrix24.ru/open/23960160/)
-
-
-
-## Виджеты
-
-В карточку контакта можно встроить приложение. Благодаря встраиванию можно будет использовать приложение и не покидать карточку контакта.
-
-Есть два сценария встройки:
-
-* Использовать специальные [места встраивания](../../widgets/crm/index.md). Например, через создание своей вкладки
-* Создать [пользовательское поле](../../../tutorials/crm/crm-widgets/widget-as-field-in-lead-page.md), в которое будет загружается интерфейс вашего приложения
-
-
-
-- [Механизм встройки виджетов](../../widgets/index.md)
-- [Встроить виджет в карточку CRM](../../../tutorials/crm/crm-widgets/widget-as-detail-tab.md)
-
-
-
-## Обзор методов и событий {#all-methods}
-
-> Scope: [`crm`](../../scopes/permissions.md)
+> Scope: [`crm`](../../../scopes/permissions.md)
 >
-> Кто может выполнять методы: в зависимости от метода
+> Кто может выполнять метод:
+>  - Любой пользователь имеет право получать свои и общие настройки
+>  - Только администратор имеет право получать чужие настройки
 
-### Основные
+Метод сбрасывает настройки карточки контактов: удаляет личные настройки карточки указанного пользователя или общие настройки, заданные для всех пользователей.
 
-
-
-- Методы
-  
-    #|
-    || **Метод** | **Описание** ||
-    || [crm.contact.add](./crm-contact-add.md) | Создает новый контакт ||
-    || [crm.contact.update](./crm-contact-update.md) | Обновляет существующий контакт ||
-    || [crm.contact.get](./crm-contact-get.md) | Возвращает контакт по идентификатору ||
-    || [crm.contact.list](./crm-contact-list.md) | Возвращает список контактов по фильтру ||
-    || [crm.contact.delete](./crm-contact-delete.md) | Удаляет контакт и все связанные с ним объекты ||
-    || [crm.contact.fields](./crm-contact-fields.md) | Возвращает описание полей контакта, в том числе пользовательских ||
-    |#
-
-- События
-
-    #|
-    || **Событие** | **Вызывается** ||
-    || [onCrmContactAdd](./events/on-crm-contact-add.md) | При создании контакта ||
-    || [onCrmContactUpdate](./events/on-crm-contact-update.md) | При изменении контакта ||
-    || [onCrmContactDelete](./events/on-crm-contact-delete.md) | При удалении контакта ||
-    |#
+## Параметры метода
 
 
-
-
-### Компании
 
 #|
-|| **Метод** | **Описание** ||
-|| [crm.contact.company.add](./company/crm-contact-company-add.md) | Добавляет компанию к указанному контакту ||
-|| [crm.contact.company.items.get](./company/crm-contact-company-items-get.md) | Получает набор компаний, связанных с указанным контактом ||
-|| [crm.contact.company.items.set](./company/crm-contact-company-items-set.md) | Устанавливает набор компаний, связанных с указанным контактом ||
-|| [crm.contact.company.delete](./company/crm-contact-company-delete.md) | Удаляет компанию из указанного контакта ||
-|| [crm.contact.company.items.delete](./company/crm-contact-company-items-delete.md) | Очищает набор компаний, связанных с указанным контактом ||
-|| [crm.contact.company.fields](./company/crm-contact-company-fields.md) | Возвращает описание полей для связи контакт-компания ||
+|| **Название**
+`тип` | **Описание** ||
+|| **scope**
+[`string`](../../../data-types.md) | Область применения настроек. 
+
+Возможные значения:
+- **P** — личные настройки
+- **C** — общие настройки
+
+По умолчанию — `P`
+||
+|| **userId**
+[`user`](../../../data-types.md) | Идентификатор пользователя. Нужен только при сбросе личных настроек.
+
+Если не задан, то берется `id` текущего пользователя
+||
 |#
 
-### Пользовательские поля
+## Примеры кода
 
 
 
-- Методы
+1. Сбросить общую конфигурацию
 
-    #|
-    || **Метод** | **Описание** ||
-    || [crm.contact.userfield.add](./userfield/crm-contact-userfield-add.md) | Создает пользовательское поле для контактов ||
-    || [crm.contact.userfield.update](./userfield/crm-contact-userfield-update.md) | Изменяет существующее пользовательское поле контактов ||
-    || [crm.contact.userfield.get](./userfield/crm-contact-userfield-get.md) | Возвращает пользовательское поле контактов по Id ||
-    || [crm.contact.userfield.list](./userfield/crm-contact-userfield-list.md) | Возвращает список пользовательских полей контактов ||
-    || [crm.contact.userfield.delete](./userfield/crm-contact-userfield-delete.md) | Удаляет пользовательское поле контактов ||
-    |#
+    
 
-- События
+    - cURL (Webhook)
 
-    #|
-    || **Событие** | **Вызывается** ||
-    || [onCrmContactUserFieldAdd](./userfield/events/on-crm-contact-user-field-add.md) | При добавлении пользовательского поля ||
-    || [onCrmContactUserFieldUpdate](./userfield/events/on-crm-contact-user-field-update.md) | При изменении пользовательского поля ||
-    || [onCrmContactUserFieldDelete](./userfield/events/on-crm-contact-user-field-delete.md) | При удалении пользовательского поля ||
-    || [onCrmContactUserFieldSetEnumValues](./userfield/events/on-crm-contact-user-field-set-enum-values.md) | При изменении набора значений для пользовательского поля списочного типа ||
-    |#
+        ```bash
+        curl -X POST \
+        -H "Content-Type: application/json" \
+        -H "Accept: application/json" \
+        -d '{"scope":"C"}' \
+        https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/crm.contact.details.configuration.reset
+        ```
 
+    - cURL (OAuth)
 
+        ```bash
+        curl -X POST \
+        -H "Content-Type: application/json" \
+        -H "Accept: application/json" \
+        -d '{"scope":"C","auth":"**put_access_token_here**"}' \
+        https://**put_your_bitrix24_address**/rest/crm.contact.details.configuration.reset
+        ```
 
-### Управление карточками контактов
+    - JS
+
+        ```js
+        BX24.callMethod(
+            'crm.contact.details.configuration.reset',
+            {
+                scope: "C",
+            },
+            (result) => {
+                result.error()
+                    ? console.error(result.error())
+                    : console.info(result.data())
+                ;
+            },
+        );
+        ```
+
+    - PHP
+
+        ```php
+        require_once('crest.php');
+
+        $result = CRest::call(
+            'crm.contact.details.configuration.reset',
+            [
+                'scope' => 'C'
+            ]
+        );
+
+        echo '<PRE>';
+        print_r($result);
+        echo '</PRE>';
+        ```
+
+    
+
+2. Сбросить личную конфигурацию
+
+    
+
+    - cURL (Webhook)
+
+        ```bash
+        curl -X POST \
+        -H "Content-Type: application/json" \
+        -H "Accept: application/json" \
+        -d '{"scope":"P","userId":6}' \
+        https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/crm.contact.details.configuration.reset
+        ```
+
+    - cURL (OAuth)
+
+        ```bash
+        curl -X POST \
+        -H "Content-Type: application/json" \
+        -H "Accept: application/json" \
+        -d '{"scope":"P","userId":6,"auth":"**put_access_token_here**"}' \
+        https://**put_your_bitrix24_address**/rest/crm.contact.details.configuration.reset
+        ```
+
+    - JS
+
+        ```js
+        BX24.callMethod(
+            'crm.contact.details.configuration.reset',
+            {
+                scope: "P",
+                userId: 6,
+            },
+            (result) => {
+                result.error()
+                    ? console.error(result.error())
+                    : console.info(result.data())
+                ;
+            },
+        );
+        ```
+
+    - PHP
+
+        ```php
+        require_once('crest.php');
+
+        $result = CRest::call(
+            'crm.contact.details.configuration.reset',
+            [
+                'scope' => 'P',
+                'userId' => 6
+            ]
+        );
+
+        echo '<PRE>';
+        print_r($result);
+        echo '</PRE>';
+        ```
+
+    
+
+## Обработка ответа
+
+HTTP-статус: **200**
+
+```json
+{
+    "result": true,
+    "time": {
+        "start": 1724682584.069094,
+        "finish": 1724682584.38436,
+        "duration": 0.31526613235473633,
+        "processing": 0.025727033615112305,
+        "date_start": "2024-08-26T16:29:44+02:00",
+        "date_finish": "2024-08-26T16:29:44+02:00",
+        "operating": 0
+    }
+}
+```
+
+### Возвращаемые данные
 
 #|
-|| **Метод** | **Описание** ||
-|| [crm.contact.details.configuration.get](./custom-form/crm-contact-details-configuration-get.md) | Получает настройки карточки контактов ||
-|| [crm.contact.details.configuration.reset](./custom-form/crm-contact-details-configuration-reset.md) | Сбрасывает настройки карточки контактов ||
-|| [crm.contact.details.configuration.set](./custom-form/crm-contact-details-configuration-set.md) | Устанавливает настройки карточки контактов ||
-|| [crm.contact.details.configuration.forceCommonScopeForAll](./custom-form/crm-contact-details-configuration-force-common-scope-for-all.md) | Позволяет принудительно установить общую карточку контактов для всех пользователей ||
+|| **Название**
+`тип` | **Описание** ||
+|| **result**
+[`boolean`](../../../data-types.md) | Корневой элемент ответа.
+
+Возвращает `true` в случае успешного сброса настроек ||
+|| **time**
+[`time`](../../../data-types.md#time) | Информация о времени выполнения запроса ||
 |#
+
+## Обработка ошибок
+
+HTTP-статус: **400**
+
+```json
+{
+    "error": "",
+    "error_description": "Access denied."
+}
+```
+
+
+
+### Возможные коды ошибок
+
+#|
+|| **Код** | **Описание**   | **Значение** ||
+|| Пустое значение | Access denied. | У пользователя нет административных прав ||
+|#
+
+
+
+## Продолжите изучение 
+
+- [{#T}](./index.md)
+- [{#T}](./crm-contact-details-configuration-get.md)
+- [{#T}](.//crm-contact-details-configuration-set.md)
+- [{#T}](./crm-contact-details-configuration-force-common-scope-for-all.md)
+

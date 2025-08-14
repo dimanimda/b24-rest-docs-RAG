@@ -9,100 +9,285 @@ params: {"type":"object","required":["id","fields"],"properties":{"id":{"type":"
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Службы доставки в Интернет-магазине: обзор методов
+# Обновить транспортную заявку sale.delivery.request.update
 
-В Битрикс24 по умолчанию доступно два варианта доставки: самовывоз и доставка курьером. Настройте другие способы, чтобы клиент мог выбрать удобный вариант. Для этого:
-
-1. создайте обработчик службы доставки,
-2. создайте службу доставки,
-3. создайте свойства отгрузки и привяжите их к службе доставки,
-4. добавьте дополнительные услуги при необходимости.
-
-Чтобы внешняя система могла сообщать статус заказа, настройте транспортные заявки.
-
-> Быстрый переход: [все методы](#all-methods)
-> 
-> Пользовательская документация: [Службы доставки](https://helpdesk.bitrix24.ru/open/17225250/)
-
-
-
-- [Настроить доставку для использования в CRM](../../../tutorials/sale/delivery-in-crm.md)
-- [Рассчитать стоимости доставки](./webhooks/calculate.md)
-- [Создать заказ на доставку](./webhooks/create-delivery-request.md)
-- [Отменить заказ на доставку](./webhooks/cancel-delivery-request.md)
-
-
-
-## Связь служб доставки с другими объектами
-
-**Заказ.** Создайте или измените заказ с помощью методов [sale.order.*](../order/index.md).
-
-**Отгрузки.** Контролируйте отправку товаров клиентам с помощью методов [sale.shipment.*](../shipment/index.md).
-
-**Свойства отгрузки.** Если в одном заказе несколько отгрузок, создайте свойства отгрузки с помощью методов [sale.shipmentproperty.*](../shipment-property/index.md). Например, в заказе три книги, которые нужно отправить по разным адресам. Чтобы указать адрес для каждой отправки, создайте свойства отгрузки.
-
-**Привязка свойства.** Задайте условия, при которых покупатель увидит конкретное свойство отгрузки. Для этого привяжите свойство к службе доставки методом [sale.propertyRelation.add](../property-relation/sale-property-relation-add.md).
-
-## Обзор методов {#all-methods}
-
-### Обработчики служб доставки
-
-> Scope: [`sale`](../../scopes/permissions.md)
+> Scope: [`sale, delivery`](../../../scopes/permissions.md)
 >
-> Кто может выполнять методы: администратор
+> Кто может выполнять метод: администратор
+
+Метод обновляет транспортную заявку.
+
+## Параметры метода
+
+
 
 #|
-|| **Метод** | **Описание** ||
-|| [sale.delivery.handler.add](./handler/sale-delivery-handler-add.md) | Добавляет обработчик службы доставки ||
-|| [sale.delivery.handler.update](./handler/sale-delivery-handler-update.md) | Изменяет обработчик службы доставки ||
-|| [sale.delivery.handler.delete](./handler/sale-delivery-handler-delete.md) | Удаляет обработчик службы доставки ||
-|| [sale.delivery.handler.list](./handler/sale-delivery-handler-list.md) | Получает список обработчиков служб доставки ||
+|| **Название**
+`тип` | **Описание** ||
+|| **DELIVERY_ID***
+[`sale_delivery_service.ID`](../../data-types.md) | Идентификатор службы доставки, к которой относится транспортная заявка.
+
+Получить идентификаторы `sale_delivery_service.ID` служб доставки можно с помощью метода [sale.delivery.getlist](../delivery/sale-delivery-get-list.md)
+||
+|| **REQUEST_ID***
+[`string`](../../../data-types.md) | Идентификатор транспортной заявки.
+
+Идентификатор назначается внешней системой в ответе вебхука на создание заказа на доставку (подробнее в описании вебхука [Создание заказа на доставку](../webhooks/create-delivery-request.md))
+||
+|| **FINALIZE**
+[`string`](../../../data-types.md) | Индикатор необходимости завершить (финализировать) транспортную заявку.
+
+Подразумевается, что значение индикатора необходимо выставлять в `Y` в том случае, когда транспортная заявка выполнена. 
+
+По умолчанию если не передано значение, то заявка не финализируется.
+
+Возможные значения:
+- `Y` — да
+- `N` — нет
+||
+|| **STATUS**
+[`object`](../../../data-types.md) | Статус транспортной заявки (подробное описание приведено [ниже](#parametr-status)) ||
+|| **PROPERTIES**
+[`object[]`](../../../data-types.md) | Свойства транспортной заявки (подробное описание приведено [ниже](#parametr-properties)) ||
+|| **OVERWRITE_PROPERTIES**
+[`string`](../../../data-types.md) | Индикатор необходимости полностью переписать значения свойств заявки при обновлении. 
+
+По умолчанию свойства при обновлении только добавляются (эквивалент передачи значения `N`). Если вызывающей стороне требуется передать полный набор свойств и перезаписать существующие свойства, то необходимо выставлять значение этого индикатора в `Y`.
+
+Возможные значения:
+- `Y` — да
+- `N` — нет
+||
 |#
 
-### Службы доставки
+### Параметр STATUS {#parametr-status}
 
-> Scope: [`sale`](../../scopes/permissions.md)
->
-> Кто может выполнять методы: администратор
+
 
 #|
-|| **Метод** | **Описание** ||
-|| [sale.delivery.add](./delivery/sale-delivery-add.md) | Добавляет службу доставки ||
-|| [sale.delivery.update](./delivery/sale-delivery-update.md) | Изменяет службу доставки ||
-|| [sale.delivery.delete](./delivery/sale-delivery-delete.md) | Удаляет службу доставки ||
-|| [sale.delivery.config.update](./delivery/sale-delivery-config-update.md) | Обновляет настройки службы доставки ||
-|| [sale.delivery.config.get](./delivery/sale-delivery-config-get.md) | Получает настройки службы доставки ||
-|| [sale.delivery.getlist](./delivery/sale-delivery-get-list.md) | Получает список служб доставки ||
+|| **Название**
+`тип` | **Описание** ||
+|| **TEXT***
+[`string`](../../../data-types.md) | Текстовое название статуса транспортной заявки ||
+|| **SEMANTIC***
+[`string`](../../../data-types.md) | Значение семантики статуса.
+
+Возможные значения:
+- `process` — заявка в процессе выполнения
+- `success` — заявка успешно выполнена
+||
 |#
 
-### Дополнительные услуги
+### Параметр PROPERTIES {#parametr-properties}
 
-> Scope: [`sale, delivery`](../../scopes/permissions.md)
->
-> Кто может выполнять методы: администратор
+
 
 #|
-|| **Метод** | **Описание** ||
-|| [sale.delivery.extra.service.add](./extra-service/sale-delivery-extra-service-add.md) | Добавляет услугу службы доставки ||
-|| [sale.delivery.extra.service.update](./extra-service/sale-delivery-extra-service-update.md) | Изменяет услугу службы доставки ||
-|| [sale.delivery.extra.service.get](./extra-service/sale-delivery-extra-service-get.md) | Возвращает информацию обо всех услугах конкретной службы доставки ||
-|| [sale.delivery.extra.service.delete](./extra-service/sale-delivery-extra-service-delete.md) | Удаляет услугу службы доставки ||
+|| **Название**
+`тип` | **Описание** ||
+|| **NAME***
+[`string`](../../../data-types.md) | Название свойства ||
+|| **VALUE***
+[`string`](../../../data-types.md) | Значение свойства ||
+|| **TAGS**
+[`string[]`](../../../data-types.md) | Список тегов.
+
+Возможные значения:
+- `phone` — переданное значение будет отображаться как телефонный номер
+||
 |#
 
-### Транспортные заявки
+## Примеры кода
 
-> Scope: [`sale, delivery`](../../scopes/permissions.md)
->
-> Кто может выполнять методы: администратор
+
+
+
+
+- cURL (Webhook)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"DELIVERY_ID":225,"REQUEST_ID":"4757aca4931a4f029f49c0db4374d13d","STATUS":{"TEXT":"Performer found","SEMANTIC":"process"},"PROPERTIES":[{"NAME":"Car","VALUE":"Gray Skoda Octavia, a777zn"},{"NAME":"Driver","VALUE":"John Smith"},{"NAME":"Phone Number","VALUE":"+11111111111","TAGS":["phone"]},{"NAME":"Something else","VALUE":"Some value"}]}' \
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/sale.delivery.request.update
+    ```
+
+- cURL (OAuth)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"DELIVERY_ID":225,"REQUEST_ID":"4757aca4931a4f029f49c0db4374d13d","STATUS":{"TEXT":"Performer found","SEMANTIC":"process"},"PROPERTIES":[{"NAME":"Car","VALUE":"Gray Skoda Octavia, a777zn"},{"NAME":"Driver","VALUE":"John Smith"},{"NAME":"Phone Number","VALUE":"+11111111111","TAGS":["phone"]},{"NAME":"Something else","VALUE":"Some value"}],"auth":"**put_access_token_here**"}' \
+    https://**put_your_bitrix24_address**/rest/sale.delivery.request.update
+    ```
+
+- JS
+
+    ```js
+    BX24.callMethod(
+        'sale.delivery.request.update', {
+            DELIVERY_ID: 225,
+            REQUEST_ID: "4757aca4931a4f029f49c0db4374d13d",
+            STATUS: {
+                TEXT: "Performer found",
+                SEMANTIC: "process",
+            },
+            PROPERTIES: [{
+                    NAME: "Car",
+                    VALUE: "Gray Skoda Octavia, a777zn",
+                },
+                {
+                    NAME: "Driver",
+                    VALUE: "John Smith",
+                },
+                {
+                    NAME: "Phone Number",
+                    VALUE: "+11111111111",
+                    TAGS: [
+                        "phone"
+                    ],
+                },
+                {
+                    NAME: "Something else",
+                    VALUE: "Some value",
+                },
+            ],
+        },
+        function(result) {
+            if (result.error()) {
+                console.error(result.error());
+            } else {
+                console.info(result.data());
+            }
+        }
+    );
+    ```
+
+- PHP
+
+    ```php
+    require_once('crest.php');
+
+    $result = CRest::call(
+        'sale.delivery.request.update',
+        [
+            'DELIVERY_ID' => 225,
+            'REQUEST_ID' => "4757aca4931a4f029f49c0db4374d13d",
+            'STATUS' => [
+                'TEXT' => "Performer found",
+                'SEMANTIC' => "process",
+            ],
+            'PROPERTIES' => [
+                [
+                    'NAME' => "Car",
+                    'VALUE' => "Gray Skoda Octavia, a777zn",
+                ],
+                [
+                    'NAME' => "Driver",
+                    'VALUE' => "John Smith",
+                ],
+                [
+                    'NAME' => "Phone Number",
+                    'VALUE' => "+11111111111",
+                    'TAGS' => [
+                        "phone"
+                    ],
+                ],
+                [
+                    'NAME' => "Something else",
+                    'VALUE' => "Some value",
+                ],
+            ]
+        ]
+    );
+
+    echo '<PRE>';
+    print_r($result);
+    echo '</PRE>';
+    ```
+
+
+
+## Обработка ответа
+
+HTTP-статус: **200**
+
+```json
+{
+    "result":true,
+    "time":{
+        "start":1714557963.841951,
+        "finish":1714557964.052347,
+        "duration":0.21039605140686035,
+        "processing":0.04059791564941406,
+        "date_start":"2024-05-01T13:06:03+03:00",
+        "date_finish":"2024-05-01T13:06:04+03:00"
+    }
+}
+```
+
+### Возвращаемые данные
 
 #|
-|| **Метод** | **Описание** ||
-|| [sale.delivery.request.update](./delivery-request/sale-delivery-request-update.md) | Обновляет транспортную заявку ||
-|| [sale.delivery.request.sendmessage](./delivery-request/sale-delivery-request-send-message.md) | Создает оповещения по транспортной заявке ||
-|| [sale.delivery.request.delete](./delivery-request/sale-delivery-request-delete.md) | Удаляет транспортную заявку ||
+|| **Название**
+`тип` | **Описание** ||
+|| **result**
+[`boolean`](../../../data-types.md) | Результат обновления транспортной заявки ||
+|| **time**
+[`time`](../../../data-types.md) | Информация о времени выполнения запроса ||
 |#
 
+## Обработка ошибок
+
+HTTP-статус: **400**, **403**
+
+```json
+{
+    "error":"DELIVERY_NOT_FOUND",
+    "error_description":"Delivery service has not been found"
+}
+```
+
+
+
+### Возможные коды ошибок
+
+#|
+|| **Код** | **Описание** | **Статус** ||
+|| `DELIVERY_ID_NOT_SPECIFIED` | Не указан идентификатор службы доставки | `400` || 
+|| `DELIVERY_NOT_FOUND` | Служба доставки не найдена | `400` || 
+|| `REQUEST_ID_NOT_SPECIFIED` | Не указан идентификатор транспортной заявки | `400` ||
+|| `REQUEST_NOT_FOUND` | Транспортная заявка не найдена | `400` ||
+|| `STATUS_UNEXPECTED_FORMAT` | Некорректный формат значения параметра `STATUS` | `400` ||
+|| `STATUS_TEXT_NOT_SPECIFIED` | Не указано значение названия статуса | `400` ||
+|| `STATUS_SEMANTIC_NOT_SPECIFIED` | Не указано значение семантики статуса | `400` ||
+|| `PROPERTIES_UNEXPECTED_FORMAT` | Некорректный формат значения параметра `PROPERTIES` | `400` ||
+|| `PROPERTY_VALUE_UNEXPECTED_FORMAT` | Некорректный формат одного из переданных свойств | `400` ||
+|| `PROPERTY_VALUE_TAGS_UNEXPECTED_FORMAT` | Некорректный формат значения тегов свойства | `400` ||
+|| `PROPERTY_VALUE_TAG_UNEXPECTED_FORMAT` | Некорректный формат значения тега свойства | `400` ||
+|| `UNEXPECTED_REQUEST_FINALIZE_INDICATOR_VALUE` | Некорректное значение параметра `FINALIZE`.
+
+Допустимые значения: `Y`, `N`
+ | `400` ||
+|| `UNEXPECTED_OVERWRITE_PROPERTIES_VALUE` | Некорректное значение параметра `OVERWRITE_PROPERTIES`.
+
+Допустимые значения: `Y`, `N`
+ | `400` ||
+|| `UPDATE_REQUEST_INTERNAL_ERROR` | Ошибка при попытке обновления транспортной заявки
+ | `400` ||
+ || `EMPTY_UPDATE_PAYLOAD` | Пустой набор полей для обновления транспортной заявки
+ | `400` ||
+|| `ACCESS_DENIED` | Недостаточно прав для добавления службы доставки | `403` ||
+|#
+
+
+
+## Продолжите изучение
+
+- [{#T}](./sale-delivery-request-send-message.md)
+- [{#T}](./sale-delivery-request-delete.md)

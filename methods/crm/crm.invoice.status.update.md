@@ -9,28 +9,37 @@ params: {"type":"object","required":["id","fields"],"properties":{"id":{"type":"
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Обзор методов
+# Изменить статус счета crm.invoice.status.update
 
 > Scope: [`crm`](../../../scopes/permissions.md)
 >
 > Кто может выполнять метод: любой пользователь
 
+Метод `crm.invoice.status.update` возвращает статус счета по идентификатору.
 
 
-С версии 19.0.0 рекомендуется использовать [общие методы работы со справочниками](../../status/index.md)
+
+С версии 19.0.0 рекомендуется использовать метод [crm.status.update](../../../crm/status/crm-status-update.md)
 
 
+
+## Параметры метода
 
 #|
-|| **Метод** | **Описание** ||
-|| [crm.invoice.status.add](./crm-invoice-status-add.md) | Создает новый статус счета ||
-|| [crm.invoice.status.delete](./crm-invoice-status-delete.md) | Удаляет статус счета ||
-|| [crm.invoice.status.get](./crm-invoice-status-get.md) | Получает статус счета по идентификатору ||
-|| [crm.invoice.status.fields](./crm-invoice-status-fields.md) | Получает поля статуса счета ||
-|| [crm.invoice.status.list](./crm-invoice-status-list.md) | Получает список статусов счета ||
-|| [crm.invoice.status.update](./crm-invoice-status-update.md) | Изменяет статус счета ||
+|| **Название**
+`тип` | **Описание** ||
+|| **id***
+[`integer`](../../../data-types.md) | Идентификатор статуса счета ||
+|| **fields***
+[`array`](../../data-types.md) | Набор полей — массив вида `array("обновляемое поле"=>"значение"[, ...])`, где "обновляемое поле" может принимать значения из возвращаемых методом [crm.invoice.status.fields](./crm-invoice-status-fields.md). 
+
+
+
+Чтобы узнать требуемый формат полей, выполните метод [crm.invoice.status.fields](./crm-invoice-status-fields.md) и посмотрите формат пришедших значений этих полей 
+
+
+||
 |#

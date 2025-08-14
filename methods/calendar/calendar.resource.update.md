@@ -9,59 +9,145 @@ params: {"type":"object","required":["id","fields"],"properties":{"id":{"type":"
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Бронирование ресурсов: обзор методов
-
-Бронирование ресурсов — это возможность предоставлять услуги на определенное время. Ресурс — это то, что бронируют клиенты, например, автомобиль, переговорная комната или дорожка для боулинга.
-
-> Быстрый переход: [все методы и события](#all-methods) 
-> 
-> Пользовательская документация: [настраиваем бронирование ресурсов в CRM](https://helpdesk.bitrix24.ru/open/18260410/)
-
-## Как работает бронирование ресурсов
-
-В Битрикс24 бронирование ресурсов осуществляется через пользовательское поле CRM типа `resourcebooking`. Такое поле можно создать в карточках лида и сделки.
-
-Отслеживать занятость ресурсов можно в Календаре CRM. Технически ресурс — это секция календаря, а бронирование — это событие календаря. 
-
-Добавляет новый ресурс метод [calendar.resource.add](./calendar-resource-add.md). Ресурс появится только в системе. Привязать его к пользовательскому полю объекта CRM можно только через карточку объекта в режиме редактирования поля.
-
-Получить бронирования ресурсов можно методом [calendar.resource.booking.list](./calendar-resource-booking-list.md). Бронирование имеет набор полей, аналогичный полям события календаря. Некоторые поля остаются пустыми, так как они неактуальны для бронирования. 
-
-
-
-- [Как работать в режиме просмотра Календарь в CRM](https://helpdesk.bitrix24.ru/open/18797220/)
-- [Пользовательские поля в CRM](https://helpdesk.bitrix24.ru/open/22048980/)
-
-
-
-## Связь ресурса с другими объектами
-
-**Пользователь.** Ресурс связан с пользователем через идентификатор в поле `CREATED_BY`. Система автоматически устанавливает идентификатор пользователя, который создал ресурс.
-
-**Пользовательские поля CRM.** Бронирования ресурсов в сделках и лидах привязаны к пользовательским полям типа `resourcebooking`. Получить идентификаторы бронирований можно:
-- универсальными методами — [crm.item.get](../../crm/universal/crm-item-get.md), [crm.item.list](../../crm/universal/crm-item-list.md)
-- методами для лидов — [crm.lead.get](../../crm/leads/crm-lead-get.md), [crm.lead.list](../../crm/leads/crm-lead-list.md)
-- методами для сделок — [crm.deal.get](../../crm/deals/crm-deal-get.md), [crm.deal.list](../../crm/deals/crm-deal-list.md) 
-
-Узнать какие пользовательские поля имеют тип resourcebooking можно методом получения списка полей:
-- для лидов — [crm.lead.userfield.list](../../crm/leads/userfield/crm-lead-userfield-list.md) 
-- для сделок — [crm.deal.userfield.list](../../crm/deals/user-defined-fields/crm-deal-userfield-list.md)
-
-## Обзор методов {#all-methods}
+# Обновить ресурс calendar.resource.update
 
 > Scope: [`calendar`](../../scopes/permissions.md)
 >
 > Кто может выполнять метод: любой пользователь
 
+Метод обновляет ресурс.
+
+## Параметры метода
+
+
+
 #|
-|| **Метод** | **Описание** ||
-|| [calendar.resource.add](./calendar-resource-add.md) | Добавить ресурс ||
-|| [calendar.resource.update](./calendar-resource-update.md) | Обновить ресурс ||
-|| [calendar.resource.list](./calendar-resource-list.md) | Получить список ресурсов ||
-|| [calendar.resource.booking.list](./calendar-resource-booking-list.md) | Получить бронирования ресурсов по фильтру ||
-|| [calendar.resource.delete](./calendar-resource-delete.md) | Удалить ресурс ||
+|| **Название**
+`тип` | **Описание** ||
+|| **resourceId***
+[`integer`](../../data-types.md) | Идентификатор ресурса.
+
+Получить идентификатор можно методом создания ресурса [calendar.resource.add](./calendar-resource-add.md) или методом получения списка ресурсов [calendar.resource.list](./calendar-resource-list.md) ||
+|| **name***
+[`string`](../../data-types.md) | Новое наименование ресурса ||
 |#
+
+## Примеры кода
+
+
+
+
+
+- cURL (Webhook)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"resourceId":197,"name":"Changed Resource Name"}' \
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/calendar.resource.update
+    ```
+
+- cURL (OAuth)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"resourceId":197,"name":"Changed Resource Name","auth":"**put_access_token_here**"}' \
+    https://**put_your_bitrix24_address**/rest/calendar.resource.update
+    ```
+
+- JS
+
+    ```js
+    BX24.callMethod(
+        'calendar.resource.update',
+        {
+            resourceId: 197,
+            name: 'Changed Resource Name'
+        }
+    );
+    ```
+
+- PHP
+
+    ```php
+    require_once('crest.php');
+
+    $result = CRest::call(
+        'calendar.resource.update',
+        [
+            'resourceId' => 197,
+            'name' => 'Changed Resource Name'
+        ]
+    );
+
+    echo '<PRE>';
+    print_r($result);
+    echo '</PRE>';
+    ```
+
+
+
+## Обработка ответа
+
+HTTP-статус: **200**
+
+```json
+{
+    "result": 197,
+    "time": {
+        "start": 1733318565.183275,
+        "finish": 1733318565.695058,
+        "duration": 0.5117831230163574,
+        "processing": 0.29406094551086426,
+        "date_start": "2024-12-04T13:22:45+00:00",
+        "date_finish": "2024-12-04T13:22:45+00:00"
+    }
+}
+```
+
+### Возвращаемые данные
+
+#|
+|| **Название**
+`тип` | **Описание** ||
+|| **result**
+[`integer`](../../data-types.md) | Идентификатор обновленного ресурса ||
+|#
+
+## Обработка ошибок
+
+HTTP-статус: **400**
+
+```json
+{
+    "error": "",
+    "error_description": "Не задан обязательный параметр "name" для метода "calendar.resource.update""
+}
+```
+
+
+### Возможные коды ошибок
+
+#|
+|| **Код** | **Сообщение об ошибке** | **Описание** ||
+|| Пустая строка | Не задан обязательный параметр "id" для метода "calendar.resource.update" | Не передан обязательный параметр `resourceId` ||
+|| Пустая строка | Не задан обязательный параметр "name" для метода "calendar.resource.update" | Не передан обязательный параметр `name` ||
+|| Пустая строка | Доступ запрещен | Метод вызывается внешним пользователем или пользователю запрещено изменение ресурсов ||
+|| Пустая строка | При изменении ресурса произошла ошибка | Другая ошибка ||
+|#
+
+
+
+## Продолжите изучение 
+
+- [{#T}](./index.md)
+- [{#T}](./calendar-resource-add.md)
+- [{#T}](./calendar-resource-list.md)
+- [{#T}](./calendar-resource-booking-list.md)
+- [{#T}](./calendar-resource-delete.md)

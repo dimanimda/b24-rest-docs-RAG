@@ -9,23 +9,103 @@ params: {"type":"object"}
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Обзор методов
+# Получить доступные поля единицы измерения crm.measure.fields
 
 > Scope: [`crm`](../../../scopes/permissions.md)
 >
-> Кто может выполнять методы: любой пользователь
+> Кто может выполнять метод: любой пользователь
+
+Метод возвращает описание полей для единиц измерения.
+
+Без параметров.
+
+## Примеры кода
+
+
+
+
+
+- cURL (Webhook)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{}' \
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webhook_here**/crm.measure.fields
+    ```
+
+- cURL (OAuth)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"auth":"**put_access_token_here**"}' \
+    https://**put_your_bitrix24_address**/rest/crm.measure.fields
+    ```
+
+- JS
+
+    ```js
+    BX24.callMethod(
+        "crm.measure.fields",
+        {},
+        function(result)
+        {
+            if(result.error())
+                console.error(result.error());
+            else
+                console.dir(result.data());
+        }
+    );
+    ```
+
+- PHP
+
+    ```php
+    require_once('crest.php');
+
+    $result = CRest::call(
+        'crm.measure.fields',
+        []
+    );
+
+    echo '<PRE>';
+    print_r($result);
+    echo '</PRE>';
+    ```
+
+
+
+## Возвращаемые поля
 
 #|
-|| **Метод** | **Описание** ||
-|| [crm.measure.add](./crm-measure-add.md) | Добавляет новую единицу измерения ||
-|| [crm.measure.update](./crm-measure-update.md) | Обновляет существующую единицу измерения ||
-|| [crm.measure.get](./crm-measure-get.md) | Возвращает значения всех полей единицы измерения по ее идентификатору ||
-|| [crm.measure.list](./crm-measure-list.md) | Возвращает список единиц измерения ||
-|| [crm.measure.delete](./crm-measure-delete.md) | Удаляет единицу измерения ||
-|| [crm.measure.fields](./crm-measure-fields.md) | Возвращает описание полей для единиц измерения ||
+|| **Поле**
+`тип` | **Описание** | **Примечание** ||
+|| **CODE** 
+[`integer`](../../data-types.md) | Код единицы | Обязательное ||
+|| **ID** 
+[`integer`](../../data-types.md) | Идентификатор | Только для чтения ||
+|| **IS_DEFAULT** 
+[`char`](../../data-types.md) | По умолчанию | ||
+|| **MEASURE_TITLE** 
+[`string`](../../data-types.md) | Наименование единицы измерения | Обязательное ||
+|| **SYMBOL_INTL** 
+[`string`](../../data-types.md) | Условное обозначение (международное) | ||
+|| **SYMBOL_LETTER_INTL** 
+[`string`](../../data-types.md) | Кодовое буквенное обозначение (международное) | ||
+|| **SYMBOL_RUS** 
+[`string`](../../data-types.md) | Условное обозначение | ||
 |#
 
+## Продолжите изучение
+
+- [{#T}](./crm-measure-add.md)
+- [{#T}](./crm-measure-update.md)
+- [{#T}](./crm-measure-get.md)
+- [{#T}](./crm-measure-list.md)
+- [{#T}](./crm-measure-delete.md)

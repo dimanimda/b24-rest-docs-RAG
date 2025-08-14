@@ -9,137 +9,395 @@ params: {"type":"object","required":["id"],"properties":{"id":{"type":"integer"}
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Вкладка в карточке звонка CALL_CARD
+# Получить контакт по Id crm.contact.get
 
-> Scope: [`telephony`](../../scopes/permissions.md)
+> Scope: [`crm`](../../scopes/permissions.md)
+>
+> Кто может выполнять метод: любой пользователь с правом «чтения» контактов
 
-Вы можете добавлять свой пункт во вкладке карточки звонка.
+Метод `crm.contact.get` возвращает контакт по его идентификатору.
 
-![Виджет в виде пункта во вкладке карточки звонка](./_images/CALL_CARD.png "Виджет в виде пункта во вкладке карточки звонка")
+Чтобы получить список компаний, привязанных к контакту, используйте метод [`crm.contact.company.items.get`](company/crm-contact-company-items-get.md).
 
-Код конкретного места встройки виджета указывается в параметре `PLACEMENT` метода [placement.bind](../placement-bind.md).
+## Параметры метода
 
-## Куда встраивается виджет
+
 
 #|
-|| **Код встройки** | **Место** ||
-|| `CALL_CARD` | Пункт во вкладке карточки звонка ||
+|| **Название**
+`тип` | **Описание** ||
+|| **id***
+[`integer`][1] | Идентификатор контакта. Можно получить при помощи методов [`crm.contact.list`](crm-contact-list.md) или [`crm.contact.add`](crm-contact-add.md) ||
 |#
 
-## Что получает обработчик
+## Примеры кода
 
-Данные передаются в виде POST-запроса {.b24-info}
 
-```php
 
-Array
-(
-    [DOMAIN] => xxx.bitrix24.com
-    [PROTOCOL] => 1
-    [LANG] => en
-    [APP_SID] => 588b8a98e848778a4ffb38fbcf70f2b9
-    [AUTH_ID] => 4172bb6600705a0700005a4b00000001f0f107c42ca5bd5f61030c5d9c3e4d60d11b5a
-    [AUTH_EXPIRES] => 3600
-    [REFRESH_ID] => 31f1e26600705a0700005a4b00000001f0f107b1918506d8a2ed9ecf76e8fdac962471
-    [member_id] => da45a03b265edd8787f8a258d793cc5d
-    [status] => L
-    [PLACEMENT] => CALL_CARD
-    [PLACEMENT_OPTIONS] => {"CALL_ID":"externalCall.c3ee67f1a63f6e6117c230ab59cc49ea.1723556778","PHONE_NUMBER":"555555","LINE_NUMBER":"","LINE_NAME":"","CRM_ENTITY_TYPE":"","CRM_ENTITY_ID":"0","CRM_ACTIVITY_ID":"undefined","CALL_DIRECTION":"incoming","CALL_STATE":"connected","CALL_LIST_MODE":"false"}
-)
+Получить контакт с `id = 23`
 
+
+
+- cURL (Webhook)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"ID":23}' \
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/crm.contact.get
+    ```
+
+- cURL (OAuth)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"ID":23,"auth":"**put_access_token_here**"}' \
+    https://**put_your_bitrix24_address**/rest/crm.contact.get
+    ```
+
+- JS
+
+    ```js
+    BX24.callMethod(
+        'crm.contact.get',
+        {
+            id: 23,
+        },
+        (result) => {
+            result.error()
+                ? console.error(result.error())
+                : console.info(result.data())
+            ;
+        },
+    );
+    ```
+
+- PHP
+
+    ```php
+    require_once('crest.php');
+
+    $result = CRest::call(
+        'crm.contact.get',
+        [
+            'ID' => 23
+        ]
+    );
+
+    echo '<PRE>';
+    print_r($result);
+    echo '</PRE>';
+    ```
+
+- PHP (B24PhpSdk)
+
+    ```php        
+    try {
+        $contactId = 123; // Example contact ID
+        $contactResult = $serviceBuilder
+            ->getCRMScope()
+            ->contact()
+            ->get($contactId);
+        $itemResult = $contactResult->contact();
+        print("ID: " . $itemResult->ID . PHP_EOL);
+        print("Name: " . $itemResult->NAME . PHP_EOL);
+        print("Last Name: " . $itemResult->LAST_NAME . PHP_EOL);
+        print("Birthday: " . $itemResult->BIRTHDATE?->format(DATE_ATOM) . PHP_EOL);
+        print("Created Date: " . $itemResult->DATE_CREATE->format(DATE_ATOM) . PHP_EOL);
+        print("Modified Date: " . $itemResult->DATE_MODIFY->format(DATE_ATOM) . PHP_EOL);
+    } catch (Throwable $e) {
+        print("Error: " . $e->getMessage() . PHP_EOL);
+    }
+    ```
+
+
+
+## Обработка ответа
+
+HTTP-статус: **200**
+
+```json
+{
+    "result": {
+        "ID": "43",
+        "POST": "Администратор",
+        "COMMENTS": "\nПример комментария внутри контакта\n\n[B]Жирный текст[\/B]\n[I]Курсив[\/I]\n[U]Подчеркнутый[\/U]\n[S]Зачеркнутый[\/S]\n[B][I][U][S]Микс[\/S][\/U][\/I][\/B]\n\n[LIST]\n[*]Элемент списка #1\n[*]Элемент списка #2\n[*]Элемент списка #3\n[\/LIST]\n\n[LIST=1]\n[*]Нумерованный элемент списка #1\n[*]Нумерованный элемент списка #2\n[*]Нумерованный элемент списка #3\n[\/LIST]\n",
+        "HONORIFIC": "HNR_RU_1",
+        "NAME": "Иван",
+        "SECOND_NAME": "Иванович",
+        "LAST_NAME": "Иванов",
+        "PHOTO": null,
+        "LEAD_ID": null,
+        "TYPE_ID": "PARTNER",
+        "SOURCE_ID": "WEB",
+        "SOURCE_DESCRIPTION": "*Дополнительно об источнике*",
+        "COMPANY_ID": "12",
+        "BIRTHDATE": "2001-11-11T02:00:00+02:00",
+        "EXPORT": "N",
+        "HAS_PHONE": "Y",
+        "HAS_EMAIL": "Y",
+        "HAS_IMOL": "N",
+        "DATE_CREATE": "2024-08-15T10:38:21+02:00",
+        "DATE_MODIFY": "2024-08-15T10:38:21+02:00",
+        "ASSIGNED_BY_ID": "6",
+        "CREATED_BY_ID": "1",
+        "MODIFY_BY_ID": "1",
+        "OPENED": "Y",
+        "ORIGINATOR_ID": null,
+        "ORIGIN_ID": null,
+        "ORIGIN_VERSION": null,
+        "FACE_ID": null,
+        "LAST_ACTIVITY_TIME": "2024-08-15T10:38:21+02:00",
+        "ADDRESS": null,
+        "ADDRESS_2": null,
+        "ADDRESS_CITY": null,
+        "ADDRESS_POSTAL_CODE": null,
+        "ADDRESS_REGION": null,
+        "ADDRESS_PROVINCE": null,
+        "ADDRESS_COUNTRY": null,
+        "ADDRESS_LOC_ADDR_ID": null,
+        "UTM_SOURCE": "yandex",
+        "UTM_MEDIUM": "CPC",
+        "UTM_CAMPAIGN": "summer_sale",
+        "UTM_CONTENT": "header_banner",
+        "UTM_TERM": "discount",
+        "PARENT_ID_1224": "12",
+        "LAST_ACTIVITY_BY": "1",
+        "UF_CRM_1720697698689": "Пример значения пользовательского поля с типом \u0022Строка\u0022",
+        "PHONE": [
+        {
+            "ID": "156",
+            "VALUE_TYPE": "WORK",
+            "VALUE": "+7333333555",
+            "TYPE_ID": "PHONE"
+        },
+        {
+            "ID": "157",
+            "VALUE_TYPE": "HOME",
+            "VALUE": "+35599888666",
+            "TYPE_ID": "PHONE"
+        }
+        ],
+        "EMAIL": [
+        {
+            "ID": "158",
+            "VALUE_TYPE": "MAILING",
+            "VALUE": "ivanov@example.mailing",
+            "TYPE_ID": "EMAIL"
+        },
+        {
+            "ID": "159",
+            "VALUE_TYPE": "WORK",
+            "VALUE": "ivanov@example.work",
+            "TYPE_ID": "EMAIL"
+        }
+        ]
+    },
+    "time": {
+        "start": 1723736139.883652,
+        "finish": 1723736140.299369,
+        "duration": 0.41571712493896484,
+        "processing": 0.14158892631530762,
+        "date_start": "2024-08-15T17:35:39+02:00",
+        "date_finish": "2024-08-15T17:35:40+02:00"
+    }
+}
+```
+
+### Возвращаемые данные
+
+#|
+|| **Название**
+`тип` | **Описание** ||
+|| **result**
+[`contact`](#contact) | Корневой элемент ответа. Содержит информацию о полях контакта. Структура описана [ниже](#contact) ||
+|| **time**
+[`time`][1] | Объект, содержащий в себе информацию о времени выполнения запроса ||
+|#
+
+### contact
+
+#|
+|| **Название**
+`тип` | **Описание** ||
+|| **ID**
+[`integer`][1] | Идентификатор контакта ||
+|| **POST**
+[`string`][1] | Должность ||
+|| **COMMENTS**
+[`text`][1] | Комментарий ||
+|| **HONORIFIC**
+[`crm_status`](../data-types.md) | Обращение ||
+|| **NAME**
+[`string`][1] | Имя ||
+|| **SECOND_NAME**
+[`string`][1] | Отчество ||
+|| **LAST_NAME**
+[`string`][1] | Фамилия ||
+|| **PHOTO**
+[`file`][1] | Фотография ||
+|| **LEAD_ID**
+[`crm_lead`](../data-types.md) | Идентификатор лида, на основе которого был создан контакт ||
+|| **TYPE_ID**
+[`crm_status`](../data-types.md) | Тип контакта ||
+|| **SOURCE_ID**
+[`crm_status`](../data-types.md) | Источник ||
+|| **SOURCE_DESCRIPTION**
+[`text`][1] | Дополнительно об источнике ||
+|| **COMPANY_ID**
+[`crm_company`](../data-types.md) | Идентификатор основной компании ||
+|| **BIRTHDATE**
+[`date`][1] | Дата рождения ||
+|| **EXPORT**
+[`boolean`][1] | Участвует ли в экспорте контактов. Возможные значения:
+- `Y` — да
+- `N` — нет ||
+|| **HAS_PHONE**
+[`boolean`][1] | Задан ли телефон. Возможные значения:
+- `Y` — да
+- `N` — нет
+||
+|| **HAS_EMAIL**
+[`boolean`][1] | Задан ли e-mail. Возможные значения:
+- `Y` — да
+- `N` — нет ||
+|| **HAS_IMOL**
+[`boolean`][1] | Задана ли открытая линия. Возможные значения:
+- `Y` — да
+- `N` — нет ||
+|| **DATE_CREATE**
+[`datetime`][1] | Дата создания ||
+|| **DATE_MODIFY**
+[`datetime`][1] | Дата изменения ||
+|| **ASSIGNED_BY_ID**
+[`user`][1] | Ответственный ||
+|| **CREATED_BY_ID**
+[`user`][1] | Кем создан ||
+|| **MODIFY_BY_ID**
+[`user`][1] | Кем изменен ||
+|| **OPENED**
+[`boolean`][1] | Доступно ли для всех. Возможные значения:
+- `Y` — да
+- `N` — нет ||
+|| **FACE_ID**
+[`integer`][1] | Привязка к лицам из модуля `faceid` ||
+|| **LAST_ACTIVITY_TIME**
+[`datetime`][1] | Последняя активность ||
+|| **LAST_ACTIVITY_BY**
+[`user`][1] | Кем осуществлена последняя активность в таймлайне ||
+|| **UTM_SOURCE**
+[`string`][1] | Рекламная система (Yandex-Direct, Google-Adwords и другие) ||
+|| **UTM_MEDIUM**
+[`string`][1] | Тип трафика. Возможные значения:
+- `CPC` — объявления
+- `CPM` — баннеры ||
+|| **UTM_CAMPAIGN**
+[`string`][1] | Обозначение рекламной кампании ||
+|| **UTM_CONTENT**
+[`string`][1] | Содержание кампании. Например, для контекстных объявлений ||
+|| **UTM_TERM**
+[`string`][1] | Условие поиска кампании. Например, ключевые слова контекстной рекламы ||
+|| **PHONE**
+[`crm_multifield[]`](../data-types.md) | Телефон ||
+|| **EMAIL**
+[`crm_multifield[]`](../data-types.md) | E-mail ||
+|| **WEB**
+[`crm_multifield[]`](../data-types.md) | Сайт ||
+|| **IM**
+[`crm_multifield[]`](../data-types.md) | Мессенджер ||
+|| **LINK**
+[`crm_multifield[]`](../data-types.md) | Ссылки. Служебное поле ||
+|#
+
+**Поля связи с внешними источниками данных**
+
+Если контакт создан внешней системой, то:
+- поле `ORIGINATOR_ID` хранит строковый идентификатор этой системы
+- поле `ORIGIN_ID` хранит строковый идентификатор контакта в этой внешней системе
+- поле `ORIGIN_VERSION` хранит версию данных контакта в этой внешней системе
+
+#|
+|| **Название**
+`тип` | **Описание** ||
+|| **ORIGINATOR_ID**
+[`string`][1] | Внешний источник ||
+|| **ORIGIN_ID**
+[`string`][1] | Идентификатор элемента во внешнем источнике ||
+|| **ORIGIN_VERSION**
+[`string`][1] | Версия оригинала ||
+|#
+
+**Устаревшие поля**
+
+Поля адреса в контакте являются устаревшими и используются только в режиме совместимости. Для работы с адресом используйте [реквизиты](../requisites/index.md).
+
+#|
+|| **Название**
+`тип` | **Описание** ||
+|| **ADDRESS**
+[`string`][1] | Адрес ||
+|| **ADDRESS_2**
+[`string`][1] | Вторая строка адреса ||
+|| **ADDRESS_CITY**
+[`string`][1] | Город ||
+|| **ADDRESS_POSTAL_CODE**
+[`string`][1] | Почтовый индекс ||
+|| **ADDRESS_REGION**
+[`string`][1] | Район ||
+|| **ADDRESS_PROVINCE**
+[`string`][1] | Область ||
+|| **ADDRESS_COUNTRY**
+[`string`][1] | Страна ||
+|| **ADDRESS_LOC_ADDR_ID**
+[`integer`][1] | Идентификатор адреса местоположения ||
+|#
+
+
+
+Поля типа `crm_multifield` (`PHONE`, `EMAIL`, `WEB`, `IM`, `LINK`) явно отдаются данным методом только в случае, если значения данного поля не равны `null`.
+
+
+
+## Обработка ошибок
+
+HTTP-статус: **400**
+
+```json
+{
+    "error": "",
+    "error_description": "ID is not defined or invalid."
+}
 ```
 
 
 
-
-
-### PLACEMENT_OPTIONS
-
-Значением `PLACEMENT_OPTIONS` является JSON-строка, содержащая массив из одного и более ключей.
-
-
+### Возможные коды ошибок
 
 #|
-|| **Параметр** | **Описание** ||
-|| **CALL_ID***
-[`string`](../../data-types.md) | Идентификатор звонка, во время которого был открыт виджет.
-
-||
-|| **PHONE_NUMBER***
-[`string`](../../data-types.md) | Номер телефона клиента, с которым происходит разговор
-
-||
-|| **LINE_NUMBER**
-[`string`](../../data-types.md) | Номер телефона компании, который используется для разговора с клиентом.
-
-||
-|| **LINE_NAME**
-[`string`](../../data-types.md) | Название телефонной линии компании, который используется для разговора с клиентом.
-
-Линии добавляются приложениями для интеграции телефоний с помощью метода [telephony.externalLine.add](../../telephony/telephony-external-line-add.md) и используются для удобства пользователя в сквозной аналитике.
-
-||
-|| **CRM_ENTITY_TYPE**
-[`integer`](../../data-types.md) | [Тип элемента](../../crm/data-types.html#object_type) CRM, к которому привязан текущий звонок.
-
-Зная тип и идентификатор элемента CRM (указывается в параметре `CRM_ENTITY_ID`), можно получать информацию об элементе.
-
-||
-|| **CRM_ENTITY_ID**
-[`string`](../../data-types.md) | Идентификатор элемента CRM, к которому привязан текущий звонок.
-
-Зная тип (указан в параметре `CRM_ENTITY_TYPE`) и идентификатор элемента CRM (указывается в параметре `CRM_ENTITY_ID`), можно получать информацию об элементе с помощью соответствующих методов:
-
-- любой тип объекта [crm.item.get](../../crm/universal/crm-item-get.md) с указанием entityTypeId = '1' для лидов, '2' для сделок и [т.д.](../../crm/data-types.md#object_type)
-- лид [crm.lead.get](../../crm/leads/crm-lead-get.md)
-- сделка [crm.deal.get](../../crm/deals/crm-deal-get.md)
-- контакт [crm.contact.get](../../crm/contacts/crm-contact-get.md)
-- компания [crm.comany.get](../../crm/companies/crm-company-get.md)
-- коммерческое предложение [crm.quote.get](../../crm/quote/crm-quote-get.md)
-
-||
-|| **CRM_ACTIVITY_ID**
-[`string`](../../data-types.md) | Идентификатор [дела CRM](../../crm/timeline/activities/index.md), связанного с текущим звонком.
-
-Может быть использован для получения дополнительной информации с помощью метода [user.get](../../user/user-get.md).
-
-||
-|| **CALL_DIRECTION***
-[`string`](../../data-types.md) | Определяет тип звонка. Может принимать значения:
-
-- 'incoming', входящий звонок;
-- 'outcoming' исходящий звонок
-
-||
-|| **CALL_STATE**
-[`string`](../../data-types.md) | Определяет состояние звонка. Может принимать значения:
-
-- 'connected', активный звонок;
-
-Остальные возможные значения будут опубликованы позже
-
-||
-|| **CALL_LIST_MODE**
-[`string`](../../data-types.md) | Указывает, совершается ли звонок в рамках [обзвона](https://helpdesk.bitrix24.ru/open/17520342/) или нет.
-
-Может принимать следующие значения:
-
-- `False`, звонок не является частью обзвона;
-- `True`, звонок совершается в рамках обзвона
-
-||
+|| **Описание** | **Значение** ||
+|| `ID is not defined or invalid` | Параметр `id` не передан либо переданное значение не является целым числом больше 0 ||
+|| `Access denied` | У пользователя нет прав на «Чтение» контакта ||
+|| `Not found` | Контакт с переданным `id` не найден ||
 |#
+
+
 
 ## Продолжите изучение
 
-- [{#T}](../placement-bind.md)
-- [{#T}](../ui-interaction/index.md)
-- [{#T}](../ui-interaction/crm-card.md)
-- [{#T}](../../interactivity/index.md)
-- [{#T}](../open-application.md)
-- [{#T}](../open-path.md)
+- [{#T}](./crm-contact-add.md)
+- [{#T}](./crm-contact-update.md)
+- [{#T}](./crm-contact-list.md)
+- [{#T}](./crm-contact-delete.md)
+- [{#T}](./crm-contact-fields.md)
+- [{#T}](../../../tutorials/crm/how-to-edit-crm-objects/how-to-change-email-or-phone.md)
+- [{#T}](../../../tutorials/crm/how-to-add-crm-objects/how-to-add-activity-to-contact.md)
+- [{#T}](../../../tutorials/crm/how-to-add-crm-objects/how-to-send-email.md)
+
+[1]: ../../data-types.md
 

@@ -9,39 +9,137 @@ params: {"type":"object","required":["fields"],"properties":{"fields":{"type":"o
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Счета (старые)
+# Добавить настройку для регулярного счета crm.invoice.recurring.add
 
 > Scope: [`crm`](../../../scopes/permissions.md)
 >
 > Кто может выполнять метод: любой пользователь
 
+
+
+Метод устарел. Рекомендуется использовать  [`Универсальные методы для счетов`](../../universal/invoice.md)
+
+
+
+Метод добавляет новую настройку для регулярного счета.
+
+## Параметры метода
+
+
+
 #|
-|| **Метод** | **Описание** ||
-|| [crm.invoice.add](./crm-invoice-add.md) | Создает новый счет. ||
-|| [crm.invoice.delete](./crm-invoice-delete.md) | Удаляет счет. ||
-|| [crm.invoice.fields](./crm-invoice-fields.md) | Возвращает описание полей счета и товаров, входящих в него. ||
-|| [crm.invoice.get](./crm-invoice-get.md) | Возвращает счет по идентификатору. ||
-|| [crm.invoice.list](./crm-invoice-list.md) | Возвращает список счетов. ||
-|| [crm.invoice.recurring.add](./crm-invoice-recurring-add.md) | Добавляет новую настройку для регулярного счета. ||
-|| [crm.invoice.recurring.delete](./crm-invoice-recurring-delete.md) | Удаляет существующую настройку для шаблона регулярного счета. ||
-|| [crm.invoice.recurring.expose](./crm-invoice-recurring-expose.md) | Создает новый счет из шаблона. ||
-|| [crm.invoice.recurring.fields](./crm-invoice-recurring-fields.md) | Возвращает список полей настройки шаблона регулярного счета c описанием. ||
-|| [crm.invoice.recurring.get](./crm-invoice-recurring-get.md) | Возвращает поля настройки шаблона регулярного счета по идентификатору. ||
-|| [crm.invoice.recurring.list](./crm-invoice-recurring-list.md) | Возвращает список настроек шаблонов регулярных счетов по фильтру. ||
-|| [crm.invoice.recurring.update](./crm-invoice-recurring-update.md) | Обновляет существующую настройку для шаблона регулярного счета. ||
-|| [crm.invoice.update](./crm-invoice-update.md) | Обновляет существующий счет. ||
-|| [crm.invoice.userfield.add](./crm-invoice-user-field-add.md) | Создает новое пользовательское поле для счетов. ||
-|| [crm.invoice.userfield.delete](./crm-invoice-user-field-delete.md) | Удаляет пользовательское поле счетов. ||
-|| [crm.invoice.userfield.get](./crm-invoice-user-field-get.md) | Возвращает пользовательское поле счетов по идентификатору. ||
-|| [crm.invoice.userfield.list](./crm-invoice-user-field-list.md) | Возвращает список пользовательских полей счетов по фильтру. ||
-|| [crm.invoice.userfield.update](./crm-invoice-user-field-update.md) | Обновляет существующее пользовательское поле счетов. ||
-|| [crm.paysystem.fields](./crm-pay-system-fields.md) | Возвращает описание полей для способов оплаты. ||
-|| [crm.paysystem.list](./crm-pay-system-list.md) | Возвращает список способов оплаты. ||
-|| [crm.persontype.fields](./crm-person-type-fields.md) | Возвращает описание полей для типов плательщиков. ||
-|| [crm.persontype.list](./crm-person-type-list.md) | Возвращает список типов плательщиков. ||
-|| [crm.invoice.getexternallink](./crm-invoice-get-external-link.md) | Возвращает ссылку на счет. ||
+|| **Название**
+`тип` | **Описание** ||
+|| **fields**
+[`array`](../../../data-types.md) | Значения полей для создания настройки регулярного счета.
+Обязательное поле - поле `INVOICE_ID` [ID счета, у которой задан параметр `IS_RECURRING=Y`]. 
+
+Чтобы узнать требуемый формат полей, выполните метод [crm.invoice.recurring.fields](./crm-invoice-recurring-fields.md) и посмотрите формат пришедших значений этих полей ||
 |#
+
+## Примеры кода
+
+
+
+
+
+- cURL (Webhook)
+
+    ```http
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"fields":{"INVOICE_ID":"10","IS_LIMIT":"N","START_DATE":"'$(date -Iseconds --utc --date='TZ="Europe/Moscow" +1 month')'","PARAMS":{"PERIOD":"day","IS_WORKING_ONLY":"N","INTERVAL":30,"DATE_PAY_BEFORE_OFFSET_TYPE":"month","DATE_PAY_BEFORE_OFFSET_VALUE":1}}}' \
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/crm.invoice.recurring.add    
+    ```
+
+- cURL (OAuth)
+
+    ```http
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"fields":{"INVOICE_ID":"10","IS_LIMIT":"N","START_DATE":"'$(date -Iseconds --utc --date='TZ="Europe/Moscow" +1 month')'","PARAMS":{"PERIOD":"day","IS_WORKING_ONLY":"N","INTERVAL":30,"DATE_PAY_BEFORE_OFFSET_TYPE":"month","DATE_PAY_BEFORE_OFFSET_VALUE":1}},"auth":"**put_access_token_here**"}' \
+    https://**put_your_bitrix24_address**/rest/crm.invoice.recurring.add
+    ```
+
+- JS
+
+    ```js
+    var current = new Date();
+    var nextMonth = new Date();
+    nextMonth.setMonth(current.getMonth() + 1);
+    var date2str = function(d)
+    {
+        return d.getFullYear() + '-' + paddatepart(1 + d.getMonth()) + '-' + paddatepart(d.getDate()) + 'T' + paddatepart(d.getHours()) + ':' + paddatepart(d.getMinutes()) + ':' + paddatepart(d.getSeconds()) + '+03:00';
+    };
+    var paddatepart = function(part)
+    {
+        return part >= 10 ? part.toString() : '0' + part.toString();
+    };
+    BX24.callMethod(
+        "crm.invoice.recurring.add",
+        {
+            fields:
+            {
+                "INVOICE_ID": "10",
+                "IS_LIMIT": "N",
+                "START_DATE": date2str(nextMonth),
+                "PARAMS": {
+                    "PERIOD": "day",
+                    "IS_WORKING_ONLY": "N",
+                    "INTERVAL": 30,
+                    "DATE_PAY_BEFORE_OFFSET_TYPE": "month",
+                    "DATE_PAY_BEFORE_OFFSET_VALUE": 1,
+                }
+            }
+        },
+        function(result)
+        {
+            if(result.error())
+                console.error(result.error());
+            else
+                console.info("Добавлены настройки регулярного счета. ID записи - " + result.data());
+        }
+    );
+    ```
+
+- PHP
+
+    ```php
+    require_once('crest.php');
+
+    $current = new DateTime();
+    $nextMonth = (new DateTime())->modify('+1 month');
+
+    function date2str($d) {
+        return $d->format('Y-m-d\TH:i:s+03:00');
+    }
+
+    $result = CRest::call(
+        'crm.invoice.recurring.add',
+        [
+            'fields' => [
+                'INVOICE_ID' => 10,
+                'IS_LIMIT' => 'N',
+                'START_DATE' => date2str($nextMonth),
+                'PARAMS' => [
+                    'PERIOD' => 'day',
+                    'IS_WORKING_ONLY' => 'N',
+                    'INTERVAL' => 30,
+                    'DATE_PAY_BEFORE_OFFSET_TYPE' => 'month',
+                    'DATE_PAY_BEFORE_OFFSET_VALUE' => 1,
+                ]
+            ]
+        ]
+    );
+
+    echo '<PRE>';
+    print_r($result);
+    echo '</PRE>';
+    ```
+
+

@@ -9,29 +9,137 @@ params: {"type":"object","required":["id"],"properties":{"id":{"type":"integer"}
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Обзор методов
-
-> Быстрый переход: [все методы](#all-methods) 
-> 
-> Пользовательская документация:[Таймлайн в элементе CRM](https://helpdesk.bitrix24.ru/open/23960160/)
-
-Приложения могут регистрировать пользовательские типы дел: загрузить собственную иконку и указать название типа. Например, можно создать свой тип дел с иконкой и названием вашего приложения. 
+# Удалить пользовательский тип дел crm.activity.type.delete
 
 > Scope: [`crm`](../../../../scopes/permissions.md)
 >
-> Кто может выполнять метод: любой пользователь
+> Кто может выполнять метод: `любой пользователь`
 
-## Обзор методов {#all-methods}
+Метод `crm.activity.type.delete` удаляет пользовательский тип дел.
+
+## Параметры метода
+
+
 
 #|
-|| **Метод** | **Описание** ||
-|| [crm.activity.type.add](./crm-activity-type-add.md) | Регистрирует пользовательский тип дела с указанием названия и иконки ||
-|| [crm.activity.type.list](./crm-activity-type-list.md) | Получает список дел ||
-|| [crm.activity.type.delete](./crm-activity-type-delete.md) | Удаляет пользовательский тип ||
+|| **Название**
+`тип` | **Описание** ||
+|| **TYPE_ID***
+[`string`](../../../../data-types.md) | Строковое значение типа дела, например `1C` ||
+|#
+
+## Примеры кода
+
+
+
+
+
+- cURL (OAuth)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"TYPE_ID":"1C","auth":"**put_access_token_here**"}' \
+    https://**put_your_bitrix24_address**/rest/crm.activity.type.delete
+    ```
+
+- JS
+
+    ```js
+    BX24.callMethod(
+        "crm.activity.type.delete",
+        {
+            "TYPE_ID": '1C',
+        }, result => {
+            if (result.error())
+                console.error(result.error());
+            else
+                console.dir(result.data());
+        }
+    );
+    ```
+
+- PHP
+
+    ```php
+    require_once('crest.php');
+
+    $result = CRest::call(
+        'crm.activity.type.delete',
+        [
+            'TYPE_ID' => '1C'
+        ]
+    );
+
+    echo '<PRE>';
+    print_r($result);
+    echo '</PRE>';
+    ```
+
+
+
+## Обработка ответа
+
+HTTP-статус: **200**
+
+```json
+{
+    "result": true,
+    "time": {
+        "start": 1724068028.331234,
+        "finish": 1724068028.726591,
+        "duration": 0.3953571319580078,
+        "processing": 0.13033390045166016,
+        "date_start": "2025-01-21T13:47:08+02:00",
+        "date_finish": "2025-01-21T13:47:08+02:00",
+        "operating": 0
+    }
+}
+```
+
+### Возвращаемые данные
+
+#|
+|| **Название**
+`тип` | **Описание** ||
+|| **result**
+[`boolean`](../../../../data-types.md) | Корневой элемент ответа. Содержит:
+- `true` — в случае успеха
+- `false` — в случае неудачи
+||
+|| **time**
+[`time`](../../../../data-types.md#time) | Информация о времени выполнения запроса ||
+|#
+
+## Обработка ошибок
+
+HTTP-статус: **400**
+
+```json
+{
+    "error": "NOT_FOUND",
+    "error_description": "Not found."
+}
+```
+
+
+
+### Возможные коды ошибок 
+
+#|
+|| **Код** | **Описание** ||
+|| `ACCESS_DENIED` | Недостаточно прав для выполнения операции ||
+|| `Access denied! Application context required` | Метод работает только в контексте приложений ||
+|| `INVALID_ARG_VALUE` | Пользовательский тип дела с указанным `TYPE_ID` не существует ||
 |#
 
 
+
+## Продолжите изучение
+
+- [{#T}](./crm-activity-type-list.md)
+- [{#T}](./crm-activity-type-add.md)

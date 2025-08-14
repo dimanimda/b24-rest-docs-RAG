@@ -9,11 +9,10 @@ params: {"type":"object","properties":{"filter":{"type":"object"},"order":{"type
 returns: {"type":"array","items":{"type":"object"}}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# О чатах в Битрикс24
+# Получить список чатов im.recent.list
 
 
 
@@ -25,124 +24,174 @@ Auto-generated stub. Fill in params/returns/examples.
 
 
 
-- из файла Сергея: индивидуальные, групповые, владелец чата. где они появляются, какие сценарии для реста есть
+- нужны правки под стандарт написания
+- не указаны типы параметров
+- отсутствуют примеры
+- отсутствует ответ в случае ошибки
 
 
 
 
 
-#|
-|| **Метод** | **Описание** ||
-|| [im.chat.add](./im-chat-add.md) | Создает чат ||
-|| [im.chat.get](./im-chat-get.md) | Получает идентификатор чата ||
-|| [im.counters.get](./im-counters-get.md) | Получает счетчики ||
-|| [im.dialog.get](./im-dialog-get.md) | Получает данные о чате ||
-|| [im.recent.get](./im-recent-get.md) | Получает сокращенный список последних чатов ||
-|| [im.recent.list](./im-recent-list.md) | Получает список чатов ||
-|#
+> Scope: [`im`](../scopes/permissions.md)
+>
+> Кто может выполнять метод: любой пользователь
 
-## Изменение чата
+Метод `im.recent.list` получает список последних диалогов пользователя (с поддержкой пагинации).
 
 #|
-|| **Метод** | **Описание** ||
-|| [im.chat.setOwner](./chat-update/im-chat-set-owner.md) | Изменяет владельца чата ||
-|| [im.chat.updateAvatar](./chat-update/im-chat-update-avatar.md) | Изменяет аватарку чата ||
-|| [im.chat.updateColor](./chat-update/im-chat-update-color.md) | Изменяет цвет чата ||
-|| [im.chat.updateTitle](./chat-update/im-chat-update-title.md) | Изменяет заголовок чата ||
+|| **Параметр** | **Пример** | **Описание** | **Ревизия** ||
+|| **SKIP_OPENLINES**
+[`unknown`](../data-types.md) | `'Y'` | Пропускать чаты открытых линий | 30 ||
+|| **SKIP_DIALOG**
+[`unknown`](../data-types.md) | `'N'` | Пропускать диалоги "один на один" | 30 ||
+|| **SKIP_CHAT**
+[`unknown`](../data-types.md) | `'Y'` | Пропускать чаты | 30 ||
+|| **LAST_MESSAGE_DATE**
+[`unknown`](../data-types.md) | `'2021-10-30'` | Дата из последнего элемента предыдущей выборки | 30 ||
 |#
 
-## Участники чата 
+## Примеры
 
-#|
-|| **Метод** | **Описание** ||
-|| [im.chat.leave](./chat-users/im-chat-leave.md) | Покидает чат ||
-|| [im.chat.user.add](./chat-users/im-chat-user-add.md) | Приглашает участников в чат ||
-|| [im.chat.user.delete](./chat-users/im-chat-user-delete.md) | Исключает участников из чата ||
-|| [im.chat.user.list](./chat-users/im-chat-user-list.md) | Получает идентификаторы участников чата ||
-|| [im.dialog.users.list](./chat-users/im-dialog-users-list.md) | Получает список участников ||
-|#
 
-## Работа с подразделениями
 
-#|
-|| **Метод** | **Описание** ||
-|| [im.department.colleagues.list](./departments/im-department-colleagues-list.md) | Получает список пользователей, состоящих в вашем отделе ||
-|| [im.department.employees.get](./departments/im-department-employees-get.md) | Получает список сотрудников подразделения ||
-|| [im.department.get](./departments/im-department-get.md) | Получает информацию о подразделении ||
-|| [im.department.managers.get](./departments/im-department-managers-get.md) | Получает список руководителей подразделений ||
-|#
+- JS
 
-## Работа с файлами в чатах
+   ```js
+   B24.callMethod(
+      'im.recent.list',
+      {
+         LAST_MESSAGE_DATE: '2021-10-30'
+      },
+      res => {
+         if (res.error())
+         {
+               console.error(result.error().ex);
+         }
+         else
+         {
+               console.log(res.data())
+         }
+      }
+   )
+   ```
 
-#|
-|| **Метод** | **Описание** ||
-|| [im.disk.file.commit](./files/im-disk-file-commit.md) | Добавляет файл в чат ||
-|| [im.disk.file.delete](./files/im-disk-file-delete.md) | Удаляет файл из папки чата ||
-|| [im.disk.file.save](./files/im-disk-file-save.md) | Сохраняет файл на свой диск ||
-|| [im.disk.folder.get](./files/im-disk-folder-get.md) | Получает папку хранения файлов указанного чата ||
-|#
 
-## Сообщения
 
-#|
-|| **Метод** | **Описание** ||
-|| [im.dialog.messages.get](./messages/im-dialog-messages-get.md) | Получает список последних сообщений ||
-|| [im.dialog.read](./messages/im-dialog-read.md) | Устанавливает признак «прочитано» у сообщений ||
-|| [im.dialog.unread](./messages/im-dialog-unread.md) | Устанавливает признак «не прочитано» у сообщений ||
-|| [im.dialog.writing](./messages/im-dialog-writing.md) | Отправляет признак «вам пишут...» ||
-|| [im.message.add](./messages/im-message-add.md) | Добавляет сообщение ||
-|| [im.message.command](./messages/im-message-command.md) | Использует команду бота ||
-|| [im.message.delete](./messages/im-message-delete.md) | Удаляет сообщение чат-бота ||
-|| [im.message.like](./messages/im-message-like.md) | Изменяет статус «Мне нравится» у сообщения ||
-|| [im.message.share](./messages/im-message-share.md) | Создает объект на основании сообщения ||
-|| [im.message.update](./messages/im-message-update.md) | Изменяет отправленное сообщение ||
-|#
 
-## Уведомления
 
-#|
-|| **Метод** | **Описание** ||
-|| [im.notify.answer](./notifications/im-notify-answer.md) | Отвечает на уведомление, поддерживающее быстрый ответ ||
-|| [im.notify.confirm](./notifications/im-notify-confirm.md) | Взаимодействует с кнопками нотификаций ||
-|| [im.notify.delete](./notifications/im-notify-delete.md) | Удаляет уведомления ||
-|| [im.notify.personal.add](./notifications/im-notify-personal-add.md) | Отправляет персональное уведомление ||
-|| [im.notify.read.list](./notifications/im-notify-read-list.md) | Читает список уведомлений (кроме CONFIRM) ||
-|| [im.notify.read](./notifications/im-notify-read.md) | Устанавливает отмену прочитанных уведомлений ||
-|| [im.notify.system.add](./notifications/im-notify-system-add.md) | Отправляет системное уведомление ||
-|#
+## Ответ в случае успеха
 
-## Поиск
+```json
+{
+"items": [
+    {
+     "id": "chat71",
+     "chat_id": 71,
+     "type": "chat",
+     "avatar": {
+        "url": "",
+        "color": "#8474c8"
+     },
+     "title": "Фиолетовый гость №3 - Открытая линия 2",
+     "message": {
+        "id": 267,
+        "text": "Отправлена форма \"Форма контактных данных для открытых линий\" [Вложение]",
+        "file": false,
+        "author_id": 0,
+        "attach": true,
+        "date": "2021-10-27T18:20:45+02:00",
+        "status": "received"
+     },
+     "counter": 3,
+     "pinned": false,
+     "unread": false,
+     "date_update": "2021-10-27T18:20:45+02:00",
+     "chat": {
+        "id": 71,
+        "name": "Фиолетовый гость №3 - Открытая линия 2",
+        "owner": 0,
+        "extranet": false,
+        "avatar": "",
+        "color": "#8474c8",
+        "type": "lines",
+        "entity_type": "LINES",
+        "entity_id": "livechat|2|70|2016",
+        "entity_data_1": "N|NONE|0|N|N|7|1635351612|0|0|0",
+        "entity_data_2": "",
+        "entity_data_3": "",
+        "mute_list": [],
+        "manager_list": [],
+        "date_create": "2021-10-27T18:20:12+02:00",
+        "message_type": "L"
+     },
+     "lines": {
+        "id": 7,
+        "status": 5,
+        "date_create": "2021-10-27T18:20:12+02:00"
+     },
+     "user": {
+        "id": 0
+     },
+     "options": []
+    },
+    ...
+],
+"hasMore": false
+}
+```
 
-#|
-|| **Метод** | **Описание** ||
-|| [im.search.chat.list](./search/im-search-chat-list.md) | Находит чаты по названиям ||
-|| [im.search.department.list](./search/im-search-department-list.md) | Находит подразделения ||
-|| [im.search.last.add](./search/im-search-last-add.md) | Добавляет поиск в историю ||
-|| [im.search.last.delete](./search/im-search-last-delete.md) | Удаляет поиск из истории ||
-|| [im.search.last.get](./search/im-search-last-get.md) | Получает историю поиска ||
-|| [im.search.user.list](./search/im-search-user-list.md) | Находит пользователей ||
-|#
+### Описание ключей
 
-## Специальные операции в чатах
-
-#|
-|| **Метод** | **Описание** ||
-|| [im.chat.mute](./special-operations/im-chat-mute.md) | Отключает уведомления от чата ||
-|| [im.dialog.read.all](./special-operations/im-dialog-read-all.md) | Устанавливает признак «прочитано» у всех чатов ||
-|| [im.recent.hide](./special-operations/im-recent-hide.md) | Удаляет чат из списка последних ||
-|| [im.recent.pin](./special-operations/im-recent-pin.md) | Закрепляет чат в избранном ||
-|| [im.recent.unread](./special-operations/im-recent-unread.md) | Устанавливает или снимает признак «прочитано» у чата ||
-|#
-
-## Пользователи
-
-#|
-|| **Метод** | **Описание** ||
-|| [im.user.get](./users/im-user-get.md) | Получает данные о пользователе ||
-|| [im.user.list.get](./users/im-user-list-get.md) | Получает данные о пользователях ||
-|| [im.user.status.get](./users/im-user-status-get.md) | Получает информацию об установленном статусе пользователя ||
-|| [im.user.status.idle.end](./users/im-user-status-idle-end.md) | Отключает автоматический статус «Отошел» ||
-|| [im.user.status.idle.start](./users/im-user-status-idle-start.md) | Устанавливает автоматический статус «Отошел» ||
-|| [im.user.status.set](./users/im-user-status-set.md) | Устанавливает статус пользователя ||
-|#
-
+- `id` – идентификатор диалога (если цифра – это пользователь; если **chatXXX** – это чат)
+- `type` – тип записи (если **user** – это пользователь, если **chat** – это чат)
+- `avatar` – объект описания аватара записи:
+  - `url` – ссылка на аватар (если пусто, значит, аватар не задан)
+  - `color` – цвет диалога в формате **hex**
+- `title` – заголовок записи (имя и фамилия – для пользователя, название чата – для чата)
+- `messages` – объект описания сообщения:
+  - `id` – идентификатор сообщения
+  - `text` – текст сообщения (без BB-кодов и переносов строк)
+  - `file` – присутствуют файлы (**true/false**)
+  - `attach` – присутствуют вложения (**true/false**)
+  - `author_id` – автор сообщения
+  - `date` – дата сообщения
+- `counter` – счетчик непрочитанных сообщений
+- `user` – объект описания данных пользователя (не доступно, если это тип записи – чат):
+  - `id` – идентификатор пользователя
+  - `name` – имя и фамилия пользователя
+  - `first_name` – имя пользователя
+  - `last_name` – фамилия пользователя
+  - `work_position` – должность
+  - `color` – цвет пользователя в формате **hex**
+  - `avatar` – ссылка на аватар (если пусто, значит, аватар не задан)
+  - `gender` – пол пользователя
+  - `birthday` – день рождения пользователя в формате **DD-MM**, если пусто – не задан
+  - `extranet` – признак внешнего экстранет-пользователя (**true/false**)
+  - `network` – признак пользователя **Битрикс24.Network** (**true/false**)
+  - `bot` – признак бота (**true/false**)
+  - `connector` – признак пользователя открытых линий (**true/false**)
+  - `external_auth_id` – код внешней авторизации
+  - `status` – выбранный статус пользователя
+  - `idle` – дата, когда пользователь отошел от компьютера, в формате **АТОМ** (если не задано, то **false**)
+  - `last_activity_date` – дата последнего действия пользователя в формате **АТОМ**
+  - `mobile_last_date` – дата последнего действия в мобильном приложении в формате **АТОМ** (если не задано, то **false**)
+  - `absent` – дата, по какое число у пользователя отпуск, в формате **АТОМ** (если не задано, то **false**)
+- `chat` – объект описания данных чата (не доступно, если это тип записи – пользователь):
+  - `id` – идентификатор чата
+  - `title` – название чата
+  - `owner` – идентификатор пользователя-владельца чата
+  - `extranet` – признак участия в чате внешнего экстранет-пользователя (**true/false**)
+  - `color` – цвет чата в формате **hex**
+  - `avatar` – ссылка на аватар (если пусто, значит, аватар не задан)
+  - `type` – тип чата (групповой чат, чат для звонка, чат открытой линии и т.д.)
+  - `entity_type` – внешний код для чата – тип
+  - `entity_id` – внешний код для чата – идентификатор
+  - `entity_data_1` – внешние данные для чата
+  - `entity_data_2` – внешние данные для чата
+  - `entity_data_3` – внешние данные для чата
+  - `date_create` – дата создания чата в формате **АТОМ**
+  - `message_type` – тип сообщений чата
+- `pinned` – закреплен чат или нет
+- `unread` – стоит ли ручная метка о том, что чат не прочитан
+- `date_update` – дата последнего изменения в связанных сущностях

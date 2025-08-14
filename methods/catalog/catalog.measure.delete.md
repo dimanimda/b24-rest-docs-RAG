@@ -9,66 +9,154 @@ params: {"type":"object","required":["id"],"properties":{"id":{"type":"integer"}
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Единицы измерения в Торговом каталоге: обзор методов
-
-У каждого товара есть единица измерения: вес, количество, объем и так далее. В Битрикс24 доступны популярные варианты, но вы можете добавить свои.
-
-Чтобы установить основную единицу измерения, укажите в параметре `isDefault` значение `Y`. Тогда при создании нового товара она будет автоматически выбрана в карточке.
-
-> Быстрый переход: [все методы и события](#all-methods)
-> 
-> Пользовательская документация: 
-> - [Единицы измерения](https://helpdesk.bitrix24.ru/open/5488453/)
-> - [Единицы измерения в услугах](https://helpdesk.bitrix24.ru/open/17277938/)
-
-## Коэффициент единицы измерения
-
-Если вы продаете товар дробно или упаковками, укажите в карточке товара коэффициент единицы измерения. Примеры:
-- для ткани установите коэффициент 0.1, чтобы покупатели могли заказывать с шагом 0,1 метра, например, 3,6 метра,
-- для напитков в упаковках по 6 бутылок используйте коэффициент 6: 1 единица — это 6 бутылок, 3 единицы — 18 бутылок.
-
-Просмотреть коэффициенты единицы измерения можно с помощью методов [catalog.ratio.*](../ratio/index.md).
-
-## Связь единиц измерения с другими объектами
-
-**Товары.** Создавайте и редактируйте товары, используя следующие группы методов:
-- [catalog.product.*](../product/index.md) — для простых товаров
-- [catalog.product.service.*](../product/service/index.md) — для услуг
-- [catalog.product.sku.*](../product/sku/index.md) — для головных товаров у товаров с вариациями
-- [catalog.product.offer.*](../product/offer/index.md) — для вариаций товаров
-
-## Обзор методов и событий {#all-methods}
+# Удалить единицу измерения catalog.measure.delete
 
 > Scope: [`catalog`](../../scopes/permissions.md)
 >
-> Кто может выполнять методы: администратор
+> Кто может выполнять метод: администратор
+
+Метод удаляет единицу измерения.
+
+## Параметры метода
 
 
 
-- Методы
-  
-    #|
-    || **Метод** | **Описание** ||
-    || [catalog.measure.add](./catalog-measure-add.md) | Добавляет единицу измерения ||
-    || [catalog.measure.update](./catalog-measure-update.md) | Обновляет единицу измерения ||
-    || [catalog.measure.get](./catalog-measure-get.md) | Возвращает информацию о единице измерения по ее идентификатору ||
-    || [catalog.measure.list](./catalog-measure-list.md) | Возвращает список единиц измерения ||
-    || [catalog.measure.delete](./catalog-measure-delete.md) | Удаляет единицу измерения ||
-    || [catalog.measure.getFields](./catalog-measure-get-fields.md) | Возвращает доступные поля единиц измерения ||
-    |#
+#|
+|| **Название**
+`тип` | **Описание** ||
+|| **id***
+[`catalog_measure.id`](../data-types.md#catalog_measure) | Идентификатор единицы измерения ||
+|#
 
-- События 
-
-    #|
-    || **Событие** | **Вызывается** ||
-    || [CATALOG.MEASURE.ON.ADD](./events/catalog-measure-on-add.md) | При добавлении единицы измерения ||
-    || [CATALOG.MEASURE.ON.UPDATE](./events/catalog-measure-on-update.md)| При обновлении единицы измерения ||
-    || [CATALOG.MEASURE.ON.DELETE](./events/catalog-measure-on-delete.md)| При удалении единицы измерения ||
-    |#
+## Примеры кода
 
 
 
+
+
+- cURL (Webhook)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"id":6}' \
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webhook_here**/catalog.measure.delete
+    ```
+
+- cURL (OAuth)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"id":6,"auth":"**put_access_token_here**"}' \
+    https://**put_your_bitrix24_address**/rest/catalog.measure.delete
+    ```
+
+- JS
+
+    ```js
+    BX24.callMethod(
+        'catalog.measure.delete', 
+        { 
+    id: 6 
+    }, 
+        function(result)
+        {
+            if(result.error())
+                console.error(result.error());
+            else
+                console.log(result.data());
+        }
+    );
+    ```
+
+- PHP
+
+    ```php
+    require_once('crest.php');
+
+    $result = CRest::call(
+        'catalog.measure.delete',
+        [
+            'id' => 6
+        ]
+    );
+
+    echo '<PRE>';
+    print_r($result);
+    echo '</PRE>';
+    ```
+
+
+
+## Обработка ответа
+
+HTTP-статус: **200**
+
+```json
+{
+    "result": true,
+    "time": {
+        "start": 1716558215.93495,
+        "finish": 1716558216.20731,
+        "duration": 0.272363901138306,
+        "processing": 0.028817892074585,
+        "date_start": "2024-05-24T15:43:35+02:00",
+        "date_finish": "2024-05-24T15:43:36+02:00",
+        "operating": 0
+    }
+}
+```
+
+### Возвращаемые данные
+
+#|
+|| **Название**
+`тип` | **Описание** ||
+|| **result**
+[`boolean`](../../data-types.md) | Результат удаления единицы измерения ||
+|| **time**
+[`time`](../../data-types.md) | Информация о времени выполнения запроса ||
+|#
+
+## Обработка ошибок
+
+HTTP-статус: **400**
+
+```json
+{
+    "error": 200040300020,
+    "error_description": "Access Denied",
+}
+```
+
+
+
+### Возможные коды ошибок
+
+#|
+|| **Код** | **Описание** ||
+|| `200040300020` | Недостаточно прав на удаление
+||
+|| `200600000020` | Единицы измерения с таким идентификатором не существует 
+||
+|| `100` | Не указан параметр `id`
+||
+|| `0` | Другие ошибки (например, фатальные ошибки)
+|| 
+|#
+
+
+
+## Продолжите изучение
+
+- [{#T}](./catalog-measure-add.md)
+- [{#T}](./catalog-measure-update.md)
+- [{#T}](./catalog-measure-get.md)
+- [{#T}](./catalog-measure-list.md)
+- [{#T}](./catalog-measure-get-fields.md)

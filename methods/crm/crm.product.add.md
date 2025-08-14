@@ -9,33 +9,143 @@ params: {"type":"object","required":["fields"],"properties":{"fields":{"type":"o
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Товары
+# Добавить товар crm.product.add
 
 > Scope: [`crm`](../../../scopes/permissions.md)
 >
-> Кто может выполнять метод: зависит от метода
+> Кто может выполнять метод: администратор, пользователь с правом «Разрешить изменять настройки» в CRM
+
+
+
+Метод `crm.product.add` продолжает работать, но у него есть более актуальные аналоги [catalog.product.*](../../../catalog/product/index.md).
+
+
+
+Метод `crm.product.add` создает новый товар. 
+
+## Параметры метода
+
+
 
 #|
-|| **Метод** | **Описание** ||
-|| [crm.product.add](./crm-product-add.md) | Создает новый товар ||
-|| [crm.product.delete](./crm-product-delete.md) | Удаляет товар ||
-|| [crm.product.fields](./crm-product-fields.md) | Возвращает описание полей товара ||
-|| [crm.product.get](./crm-product-get.md) | Возвращает товар по идентификатору ||
-|| [crm.product.list](./crm-product-list.md) | Возвращает список товаров по фильтру ||
-|| [crm.product.update](./crm-product-update.md) | Обновляет существующий товар ||
-|| [crm.product.property.types](./crm-product-property-types.md) | Возвращает список типов свойств товаров ||
-|| [crm.product.property.fields](./crm-product-property-fields.md) | Возвращает описание полей для свойств товаров ||
-|| [crm.product.property.settings.fields](./crm-product-property-settings-fields.md) | Возвращает описание полей дополнительных настроек свойства товаров пользовательского типа ||
-|| [crm.product.property.enumeration.fields](./crm-product-property-enumeration-fields.md) | Возвращает описание полей элемента свойства товаров списочного типа ||
-|| [crm.product.property.add](./crm-product-property-add.md) | Создает новое свойство товаров ||
-|| [crm.product.property.get](./crm-product-property-get.md) | Возвращает свойство товаров по идентификатору ||
-|| [crm.product.property.list](./crm-product-property-list.md) | Возвращает список свойств товаров ||
-|| [crm.product.property.update](./crm-product-property-update.md) | Обновляет существующее свойство товаров ||
-|| [crm.product.property.delete](./crm-product-property-delete.md) | Удаляет свойство товаров ||
+|| **Название**
+`тип` | **Описание** ||
+|| **fields**
+[`array`](../../../data-types.md) | Значения полей для создания товара.
+
+Чтобы узнать требуемый формат полей, выполните метод [crm.product.fields](./crm-product-fields.md) и посмотрите формат пришедших значений этих полей ||
 |#
 
-Общий список **событий товаров** приведен в статье [События](./events-custom/index.md).
+
+
+С версии **CRM 21.700.0** включена поддержка автогенерации символьного кода товара.
+
+Если сгенерированный символьный код более 100 символов, то он автоматически обрезается до 100 знаков. Это требуется учитывать при создании запросов, передавая уникальное значение в начале/середине названия товара для избежания совпадения символьных кодов.
+
+
+
+## Примеры кода
+
+
+
+
+
+- cURL (Webhook)
+
+    ```http
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"fields":{"NAME":"Стул пластиковый","CURRENCY_ID":"RUB","PRICE":4900,"SORT":500}}' \
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/crm.product.add
+    ```
+
+- cURL (OAuth)
+
+    ```http
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"fields":{"NAME":"Стул пластиковый","CURRENCY_ID":"RUB","PRICE":4900,"SORT":500},"auth":"**put_access_token_here**"}' \
+    https://**put_your_bitrix24_address**/rest/crm.product.add
+    ```
+
+- JS
+
+    ```js
+    BX24.callMethod(
+        "crm.product.add",
+        {
+            fields:
+            {
+                "NAME": "Стул пластиковый",
+                "CURRENCY_ID": "RUB",
+                "PRICE": 4900,
+                "SORT": 500
+            }
+        },
+        function(result)
+        {
+            if(result.error())
+                console.error(result.error());
+            else
+                console.info("Создан новый товар с ID " + result.data());
+        }
+    );
+    ```
+
+- PHP
+
+    ```php
+    require_once('crest.php');
+
+    $result = CRest::call(
+        'crm.product.add',
+        [
+            'fields' => [
+                'NAME' => 'Стул пластиковый',
+                'CURRENCY_ID' => 'RUB',
+                'PRICE' => 4900,
+                'SORT' => 500
+            ]
+        ]
+    );
+
+    echo '<PRE>';
+    print_r($result);
+    echo '</PRE>';
+    ```
+
+- PHP (B24PhpSdk)
+
+    ```php        
+    try {
+        $fields = [
+            'NAME' => 'Sample Product',
+            'PRICE' => '100.00',
+            'CURRENCY_ID' => 'USD',
+            'ACTIVE' => 'Y',
+            'DATE_CREATE' => (new DateTime())->format(DateTime::ATOM),
+            'TIMESTAMP_X' => (new DateTime())->format(DateTime::ATOM),
+            'CREATED_BY' => 1,
+            'MODIFIED_BY' => 1,
+            'CATALOG_ID' => 1,
+            'DESCRIPTION' => 'This is a sample product.',
+            'VAT_ID' => 1,
+            'VAT_INCLUDED' => 'Y',
+            'MEASURE' => 1,
+            'SECTION_ID' => 1,
+            'SORT' => 100,
+            'XML_ID' => 'sample_product_001',
+        ];
+        $result = $serviceBuilder->getCRMScope()->product()->add($fields);
+        print($result->getId());
+    } catch (Throwable $e) {
+        print("Error: " . $e->getMessage());
+    }
+    ```
+
+

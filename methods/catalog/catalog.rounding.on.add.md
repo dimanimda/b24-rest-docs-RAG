@@ -9,53 +9,96 @@ params: {"type":"object","required":["fields"],"properties":{"fields":{"type":"o
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Правила округления цен в Торговом каталоге: обзор методов
+# Событие при добавлении правила округления цен CATALOG.ROUNDING.ON.ADD
 
-Правило округления цен — это набор настроек, которые определяют, как изменять цену товара или услуги в корзине. Они помогают автоматически округлять цены, например до ближайшего целого числа или до определенной дробной части.
-
-Есть три типа округления цен:
-- математическое округление
-- округление вверх: цена увеличивается, что выгодно магазину
-- округление вниз: цена уменьшается, что выгодно клиенту
-
-> Быстрый переход: [все методы и события](#all-methods) 
-
-## Связь правила округления цен с другими объектами
-
-**Типы цен.** Чтобы создать разные типы цен: оптовую, розничную и партнерскую, используйте методы группы [catalog.priceType.* ](../price-type/index.md). Для каждого типа цены можно установить свои правила округления. Это позволит контролировать, как цены будут показываться и применяться.
-
-## Обзор методов и событий {#all-methods}
-
-> Scope: [`catalog`](../../scopes/permissions.md)
+> Scope: [`catalog`](../../../scopes/permissions.md)
 >
-> Кто может выполнять метод: администратор
+> Кто может подписаться: любой пользователь
+
+Событие происходит при добавлении правила округления цен.
+
+## Что получает обработчик
+
+Данные передаются в виде POST-запроса {.b24-info}
+
+```
+[
+    'event' => 'CATALOG.ROUNDING.ON.ADD',    
+    'event_handler_id' => 1,
+    'data' => [
+        'FIELDS' => [
+            'ID' => 1,
+        ],
+    ],
+    'ts' => 1714649632,
+    'auth' => [
+        'access_token' => 's6p6eclrvim6da22ft9ch94ekreb52lv',
+        'expires_in' => 3600,
+        'scope' => 'catalog',
+        'domain' => 'some-domain.bitrix24.com',
+        'server_endpoint' => 'https://oauth.bitrix24.tech/rest/',
+        'status' => 'F',
+        'client_endpoint' => 'https://some-domain.bitrix24.com/rest/',
+        'member_id' => 'a223c6b3710f85df22e9377d6c4f7553',
+        'refresh_token' => '4s386p3q0tr8dy89xvmt96234v3dljg8',
+        'application_token' => '51856fefc120afa4b628cc82d3935cce',
+    ],
+]
+```
+
+## Параметры
 
 
 
-- Методы
+#|
+|| **Название**
+`тип` | **Описание** ||
+|| **event***
+[`string`](../../data-types.md) | Символьный код события ||
+|| **event_handler_id***
+[`integer`](../../data-types.md) | Идентификатор обработчика события ||
+|| **data***
+[`object`](../../data-types.md) | Объект с данными события.
 
-    #|
-    || **Метод** | **Описание** ||
-    || [catalog.roundingRule.add](./catalog-rounding-rule-add.md) | Добавляет правило округления цен ||
-    || [catalog.roundingRule.update](./catalog-rounding-rule-update.md) | Изменяет правило округления цен ||
-    || [catalog.roundingRule.get](./catalog-rounding-rule-get.md) | Возвращает информацию о правиле округления цен по его идентификатору ||
-    || [catalog.roundingRule.list](./catalog-rounding-rule-list.md) | Возвращает список правил округления цен ||
-    || [catalog.roundingRule.delete](./catalog-rounding-rule-delete.md) | Удаляет правило округления цен ||
-    || [catalog.roundingRule.getFields](./catalog-rounding-rule-get-fields.md) | Возвращает поля правила округления цен ||
-    |#
+Структура описана [ниже](#data) ||
+|| **ts***
+[`integer`](../../data-types.md) | Timestamp отправки события из очереди событий ||
+|| **auth***
+[`object`](../../data-types.md) | Объект с параметрами авторизации и данными о портале, на котором произошло событие ||
+|#
 
-- События
-
-    #|
-    || **Событие** | **Вызывается** ||
-    || [CATALOG.ROUNDING.ON.ADD](./events/catalog-rounding-on-add.md) | При добавлении правила округления цен ||
-    || [CATALOG.ROUNDING.ON.UPDATE](./events/catalog-rounding-on-update.md) | При обновлении правила округления цен ||
-    || [CATALOG.ROUNDING.ON.DELETE](./events/catalog-rounding-on-delete.md) | При удалении правила округления цен ||
-    |#
+### Параметр data {#data}
 
 
 
+#|
+|| **Название**
+`тип` | **Описание** ||
+|| **FIELDS***
+[`object`](../../data-types.md) | Объект со свойствами правила округления цен.
+
+Структура описана [ниже](#fields) ||
+|#
+
+### Параметр FIELDS {#fields}
+
+
+
+#|
+|| **Название**
+`тип` | **Описание** ||
+|| **ID***
+[`catalog_rounding_rule.id`](../../data-types.md#catalog_rounding_rule) | Идентификатор правила округления цен. Получить все поля правила округления цен по его идентификатору можно с помощью метода [catalog.roundingRule.get](../catalog-rounding-rule-get.md) ||
+|#
+
+### Параметр auth {#auth}
+
+
+
+## Продолжите изучение
+
+- [{#T}](./catalog-rounding-on-update.md)
+- [{#T}](./catalog-rounding-on-delete.md)

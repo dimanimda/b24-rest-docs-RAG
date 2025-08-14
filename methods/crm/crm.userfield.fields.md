@@ -9,11 +9,10 @@ params: {"type":"object"}
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Пользовательские поля в CRM
+# Получить описание для пользовательских полей crm.userfield.fields
 
 
 
@@ -25,8 +24,8 @@ Auto-generated stub. Fill in params/returns/examples.
 
 
 
-- к каким типам объектов применимо и т.д. И тут какая-то путаница с разделами, надо уточнить
-- правки под стандарт написания
+- не указаны параметры и их типы
+- отсутствует ответ в случае ошибки и успеха
 
 
 
@@ -36,17 +35,64 @@ Auto-generated stub. Fill in params/returns/examples.
 >
 > Кто может выполнять метод: любой пользователь
 
-Методы работы с пользовательскими полями:
+Метод `crm.userfield.fields` возвращает описание полей для пользовательских полей.
 
-#|
-|| **Метод** | **Описание** ||
-|| [crm.userfield.fields](./crm-userfield-fields.md) | Метод возвращает описание полей для пользовательских полей. ||
-|| [crm.userfield.types](./crm-userfield-types.md) | Метод возвращает список типов пользовательских полей. ||
-|| [crm.userfield.enumeration.fields](./crm-userfield-enumeration-fields.md) | Метод возвращает описание полей для пользовательского поля типа "enumeration" (список). ||
-|| [crm.userfield.settings.fields](./crm-userfield-settings-fields.md) | Метод возвращает описание полей настроек для типа пользовательского поля. ||
-|#
 
-## Дополнительно
-- [Настройки пользовательских полей](../userfieldconfig/index.md)
-- [{#T}](../../../../tutorials/crm/how-to-add-crm-objects/how-to-add-user-field-to-spa.md)
+## Пример
+
+
+
+- JS
   
+    ```js
+    BX24.callMethod(
+        "crm.userfield.fields",
+        {},
+        function(result)
+        {
+            if(result.error())
+                console.error(result.error());
+            else
+                console.dir(result.data());
+        }
+    );
+    ```
+
+- PHP
+  
+    ```
+    require_once('crest.php');
+
+    $result = CRest::call(
+        'crm.userfield.fields',
+        []
+    );
+
+    echo '<PRE>';
+    print_r($result);
+    echo '</PRE>';
+    ```
+
+- CURL (oauth)
+
+    ```
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{}' \
+    https://**put_your_bitrix24_address**/rest/crm.userfield.fields?auth=**put_access_token_here**
+    ```
+
+- CURL (webhook)
+
+    ```
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{}' \
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webhook_here**/crm.userfield.fields
+    ```
+
+
+
+

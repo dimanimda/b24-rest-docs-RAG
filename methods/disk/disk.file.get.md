@@ -9,11 +9,10 @@ params: {"type":"object","required":["id"],"properties":{"id":{"type":"integer"}
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Загрузить новый файл в корень хранилища disk.storage.uploadfile
+# Получить параметры файла по идентификатору disk.file.get
 
 
 
@@ -21,6 +20,7 @@ Auto-generated stub. Fill in params/returns/examples.
 
 - не указаны типы параметров
 - не указана обязательность параметров
+- отсутствуют примеры (должно быть три примера - curl, js, php)
 - отсутствует ответ в случае ошибки
 
 
@@ -37,31 +37,23 @@ Auto-generated stub. Fill in params/returns/examples.
 >
 > Кто может выполнять метод: любой пользователь
 
-Метод `disk.storage.uploadfile` загружает новый файл в корне хранилища.
+Метод `disk.file.get` возвращает файл по идентификатору.
+
+
+
+Ссылка на загрузку файла из параметра `DOWNLOAD_URL` содержит токен авторизации и предназначена для скачивания файла от имени приложения. Нельзя «раздавать» эту ссылку или использовать для публичных интерфейсов.
+
+
 
 ## Параметры
 
 #|
 ||  **Параметр** / **Тип**| **Описание** ||
 || **id**
-[`unknown`](../../data-types.md) | Идентификатор хранилища. ||
-|| **fileContent**
-[`unknown`](../../data-types.md) | Загрузка файла в формате [Base64](../../files/how-to-upload-files.md). ||
-|| **data**
-[`unknown`](../../data-types.md) | Массив, описывающий файл. Обязательное поле `NAME` - имя нового файла. ||
-|| **generateUniqueName**
-[`unknown`](../../data-types.md) | Необязательный, по умолчанию `false`. При указании `true`, для загружаемого файла будет уникализировано имя, добавлением суффикса (1), (2) и т.п. Пример: avatar (1).jpg, avatar (2).jpg.||
-|| **rights**
-[`unknown`](../../data-types.md) | Необязательный, по умолчанию пустой массив. Массив прав доступа на загружаемый файл. ||
+[`unknown`](../../data-types.md) | Идентификатор файла. ||
 |#
 
 ## Пример
-
-
-
-Обратите внимание, что список доступных идентификаторов `TASK_ID` для установки прав можно получить методом [disk.rights.getTasks](../rights/disk-rights-get-tasks.md).
-
-
 
 
 
@@ -69,24 +61,9 @@ Auto-generated stub. Fill in params/returns/examples.
 
     ```js
     BX24.callMethod(
-        "disk.storage.uploadFile",
+        "disk.file.get",
         {
-            id: 4,
-            data: {
-                NAME: "avatar.jpg"
-            },
-            fileContent: document.getElementById('test_file_input'),
-            generateUniqueName: true,
-            rights: [
-                {
-                    TASK_ID: 42,
-                    ACCESS_CODE: 'U35' //доступ для пользователя с ID=35
-                },
-                {
-                    TASK_ID: 38,
-                    ACCESS_CODE: 'U2' //доступ для пользователя с ID=2
-                }
-            ]
+            id: 10
         },
         function (result)
         {
@@ -106,24 +83,24 @@ Auto-generated stub. Fill in params/returns/examples.
 
 > 200 OK
 
-В случае успеха возвращает структуру, аналогичную приведенной в [disk.file.get](../file/disk-file-get.md).
-
 ```json
 "result": {
-    "ID": "10",
-    "NAME": "2511.jpg",
-    "CODE": null,
-    "STORAGE_ID": "4",
+    "ID": "10", //идентификатор
+    "NAME": "2511.jpg", //название файла
+    "CODE": null, //символьный код
+    "STORAGE_ID": "4", //идентификатор хранилища
     "TYPE": "file",
-    "PARENT_ID": "8",
-    "DELETED_TYPE": "0",
-    "CREATE_TIME": "2015-04-24T10:41:51+03:00",
-    "UPDATE_TIME": "2015-04-24T15:52:43+03:00",
-    "DELETE_TIME": null,
-    "CREATED_BY": "1",
-    "UPDATED_BY": "1",
-    "DELETED_BY": "0",
+    "PARENT_ID": "8", //идентификатор родительской папки
+    "DELETED_TYPE": "0", //маркер удаления
+    "CREATE_TIME": "2015-04-24T10:41:51+03:00", //время создания
+    "UPDATE_TIME": "2015-04-24T15:52:43+03:00", //время изменения
+    "DELETE_TIME": null, //время перемещения в корзину
+    "CREATED_BY": "1", //идентификатор пользователя, который создал файл
+    "UPDATED_BY": "1", //идентификатор пользователя, который изменил файл
+    "DELETED_BY": "0", //идентификатор пользователя, который переместил в корзину файл
     "DOWNLOAD_URL": "https://test.bitrix24.ru/disk/downloadFile/10/?&ncc=1&filename=2511.jpg&auth=******",
+//возвращает url для скачивания файла приложением
     "DETAIL_URL": "https://test.bitrix24.ru/workgroups/group/3/disk/file/2511.jpg"
+//ссылка на страницу детальной информации о файле
 }
 ```

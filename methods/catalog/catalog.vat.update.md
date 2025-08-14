@@ -1,7 +1,7 @@
 ---
 method: catalog.vat.update
 scope: catalog
-deprecated: true
+deprecated: false
 aliases: []
 rate_limit_per_sec: 2
 pagination: none
@@ -9,23 +9,16 @@ params: {"type":"object","required":["id","fields"],"properties":{"id":{"type":"
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Обновить существующую ставку НДС crm.vat.update
+# Изменить ставку НДС catalog.vat.update
 
-> Scope: [`crm`](../../../scopes/permissions.md)
+> Scope: [`catalog`](../../scopes/permissions.md)
 >
-> Кто может выполнять метод: пользователь с правами администратора CRM
+> Кто может выполнять метод: администратор
 
-
-
-Метод `crm.vat.update` продолжает работать, но у него есть более актуальный аналог [catalog.vat.update](../../../catalog/vat/catalog-vat-update.md).
-
-
-
-Метод `crm.vat.update` обновляет параметры существующей ставки НДС.
+Метод изменяет ставку НДС.
 
 ## Параметры метода
 
@@ -34,28 +27,31 @@ Auto-generated stub. Fill in params/returns/examples.
 #|
 || **Название**
 `тип` | **Описание** ||
-|| **id*** 
-[`integer`](../../../data-types.md) | Идентификатор ставки НДС, которую нужно обновить. Получить список ставок можно методом [crm.vat.list](./crm-vat-list.md) ||
-|| **fields*** 
-[`object`](../../../data-types.md) | Массив полей для обновления. Список доступных полей описан [ниже](#fields)  ||
+|| **id***
+[`catalog_vat.id`](../data-types.md#catalog_vat) | Идентификатор ставки НДС ||
+|| **fields***
+[`object`](../../data-types.md) | Значения полей для обновления ставки НДС ([подробное описание](#fields)) ||
 |#
 
 ### Параметр fields {#fields}
 
+
+
 #|
 || **Название**
- `тип` | **Описание** ||
-|| **ACTIVE** 
-[`string`](../../../data-types.md) | Активность ставки:
-- `Y` — активна,
-- `N` — неактивна.
+`тип` | **Описание** ||
+|| **name***
+[`string`](../../data-types.md) | Название ставки НДС ||
+|| **active**
+[`string`](../../data-types.md) | Индикатор активности ставки НДС. Возможные значения:
+- `Y` — активен
+- `N` — неактивен
 ||
-|| **C_SORT** 
-[`integer`](../../../data-types.md) | Сортировка||
-|| **NAME***
-[`string`](../../../data-types.md) | Название ставки ||
-|| **RATE*** 
-[`double`](../../../data-types.md) | Значение ставки НДС, % ||
+|| **rate***
+[`double`](../../data-types.md) | Величина ставки НДС ||
+|| **sort**
+[`integer`](../../data-types.md) | Сортировка
+||
 |#
 
 ## Примеры кода
@@ -64,35 +60,14 @@ Auto-generated stub. Fill in params/returns/examples.
 
 
 
-- JS
-
-    ```js
-    BX24.callMethod(
-        "crm.vat.update",
-        {
-            id: 7,
-            fields: {
-                ACTIVE: "N",
-                NAME: "НДС 20% (неактивна)"
-            }
-        },
-        function(result) {
-            if(result.error())
-                console.error(result.error());
-            else
-                console.dir(result.data());
-        }
-    );
-    ```
-
 - cURL (Webhook)
 
     ```bash
     curl -X POST \
-         -H "Content-Type: application/json" \
-         -H "Accept: application/json" \
-         -d '{"id":7,"fields":{"ACTIVE":"N","NAME":"НДС 20% (неактивна)"}}' \
-         https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/crm.vat.update
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"id":6,"fields":{"name":"Налог 23%","rate":23,"sort":20,"active":"Y"}}' \
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/catalog.vat.update
     ```
 
 - cURL (OAuth)
@@ -101,8 +76,32 @@ Auto-generated stub. Fill in params/returns/examples.
     curl -X POST \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"id":7,"fields":{"ACTIVE":"N","NAME":"НДС 20% (неактивна)"},"auth":"**put_access_token_here**"}' \
-    https://**put_your_bitrix24_address**/rest/crm.vat.update
+    -d '{"id":6,"fields":{"name":"Налог 23%","rate":23,"sort":20,"active":"Y"},"auth":"**put_access_token_here**"}' \
+    https://**put_your_bitrix24_address**/rest/catalog.vat.update
+    ```
+
+- JS
+
+    ```js
+    BX24.callMethod(
+        'catalog.vat.update', 
+        {
+            id: 6,
+            fields: {
+                name: "Налог 23%",
+                rate: 23,
+                sort: 20,
+                active: "Y"
+            }
+        },
+        function(result)
+        {
+            if(result.error())
+                console.error(result.error());
+            else
+                console.log(result.data());
+        }
+    );
     ```
 
 - PHP
@@ -111,12 +110,14 @@ Auto-generated stub. Fill in params/returns/examples.
     require_once('crest.php');
 
     $result = CRest::call(
-        'crm.vat.update',
+        'catalog.vat.update',
         [
-            'id' => 7,
+            'id' => 6,
             'fields' => [
-                'ACTIVE' => 'N',
-                'NAME' => 'НДС 20% (неактивна)'
+                'name' => 'Налог 23%',
+                'rate' => 23,
+                'sort' => 20,
+                'active' => "Y"
             ]
         ]
     );
@@ -134,15 +135,23 @@ HTTP-статус: **200**
 
 ```json
 {
-    "result": 13,
+    "result": {
+        "vat": {
+            "active": "Y",
+            "id": 6,
+            "name": "Налог 23%",
+            "rate": 23,
+            "sort": 20,
+            "timestampX": "2024-09-16T11:53:04+02:00"
+        }
+    },
     "time": {
-        "start": 1752045209.496356,
-        "finish": 1752045209.539975,
-        "duration": 0.04361891746520996,
-        "processing": 0.009280920028686523,
-        "date_start": "2025-07-09T10:13:29+03:00",
-        "date_finish": "2025-07-09T10:13:29+03:00",
-        "operating_reset_at": 1752045809,
+        "start": 1712327086.69665,
+        "finish": 1712327086.95303,
+        "duration": 0.256376028060913,
+        "processing": 0.0112268924713135,
+        "date_start": "2024-04-05T16:24:46+02:00",
+        "date_finish": "2024-04-05T16:24:46+02:00",
         "operating": 0
     }
 }
@@ -154,9 +163,12 @@ HTTP-статус: **200**
 || **Название**
 `тип` | **Описание** ||
 || **result**
-[`boolean`](../../../data-types.md) | Корневой элемент ответа, содержит идентификатор обновленной ставки ||
+[`object`](../../data-types.md) | Корневой элемент ответа ||
+|| **vat**
+[`catalog_vat`](../data-types.md#catalog_vat) | Объект с информацией об обновленной ставке НДС
+||
 || **time**
-[`time`](../../../data-types.md#time) | Информация о времени выполнения запроса ||
+[`time`](../../data-types.md#time) | Информация о времени выполнения запроса ||
 |#
 
 ## Обработка ошибок
@@ -165,8 +177,8 @@ HTTP-статус: **400**
 
 ```json
 {
-    "error": "Invalid identifier.",
-    "error_description": "Передан некорректный идентификатор."
+    "error": 0,
+    "error_description":"Required fields: code"
 }
 ```
 
@@ -175,20 +187,27 @@ HTTP-статус: **400**
 ### Возможные коды ошибок
 
 #|
-|| **Код** | **Описание** | **Значение** ||
-|| `400`     | `The Commercial Catalog module is not installed.` | Модуль catalog не установлен ||
-|| `400`     | `Invalid parameters.` | Переданы некорректные параметры ||
-|| `400`     | `Access denied.` | Нет прав на выполнение операции ||
-|| `400`     | `Invalid identifier.` | Передан некорректный идентификатор ||
-|| `400`     | `Error on updating VAT rate.` | Ошибка при обновлении ставки НДС ||
+|| **Код** | **Описание** ||
+|| `200040300020` | Недостаточно прав для редактирования
+||
+|| `200800000000` | Ставки НДС с таким идентификатором не существует
+||
+|| `100` | Не указан параметр `id`
+||
+|| `100` | Не указан или пустой параметр `fields`
+||
+|| `0` | Не переданы обязательные поля структуры `fields`
+|| 
+|| `0` | Другие ошибки (например, фатальные ошибки)
+|| 
 |#
 
 
 
 ## Продолжите изучение
 
-- [{#T}](./crm-vat-fields.md)
-- [{#T}](./crm-vat-list.md)
-- [{#T}](./crm-vat-get.md)
-- [{#T}](./crm-vat-add.md)
-- [{#T}](./crm-vat-delete.md) 
+- [{#T}](./catalog-vat-add.md)
+- [{#T}](./catalog-vat-get.md)
+- [{#T}](./catalog-vat-list.md)
+- [{#T}](./catalog-vat-delete.md)
+- [{#T}](./catalog-vat-get-fields.md)

@@ -9,47 +9,199 @@ params: {"type":"object","required":["fields"],"properties":{"fields":{"type":"o
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Ставки НДС: обзор методов
-
-Настройка ставки НДС для товаров или товарных позиций позволяет автоматизировать:
-
--  расчет итоговой стоимости продукта или услуги
--  передачу данных в документы
--  интеграцию с платежными системами
--  обмен данными с кассами
-
-> Быстрый переход: [все методы](#all-methods) 
->
-> Пользовательская документация: [Налоги и НДС в CRM](https://helpdesk.bitrix24.ru/open/15955806)
-
-
-
-Методы `crm.vat.*` продолжают работать, но у них есть более актуальный аналог [catalog.vat.*](../../../catalog/vat/index.md).
-
-
-
-## Связь ставок НДС с другими объектами
-
-**Товарные позиции** — это товары или услуги, которые указаны в сделке или другом объекте CRM. Товарные позиции могут отсутствовать в торговом каталоге. Изменение ставки НДС для товара в одной сделке не влияет на ставку аналогичного товара в другом элементе. Чтобы задать НДС для товарной позиции в сделке или другом объекте CRM, используйте параметр `taxRate` группы методов [crm.item.productrow.*](../../universal/product-rows/index.md).
-
-**Товары и услуги** — это продукты компании с фиксированными условиями продажи, сохраненные в торговом каталоге. При выборе товара из каталога в сделке или другом объекте CRM он автоматически будет добавлен со ставкой, указанной в каталоге. Чтобы задать НДС товара или услуги в торговом каталоге, используйте параметр `vatId` групп методов [catalog.product.*](../../../catalog/product/index.md).
-
-## Обзор методов {#all-methods}
+# Создать ставку НДС crm.vat.add
 
 > Scope: [`crm`](../../../scopes/permissions.md)
 >
-> Кто может выполнять методы: в зависимости от метода
+> Кто может выполнять метод: пользователь с правами администратора CRM
+
+
+
+Метод `crm.vat.add` продолжает работать, но у него есть более актуальный аналог [catalog.vat.add](../../../catalog/vat/catalog-vat-add.md).
+
+
+
+Метод `crm.vat.add` создает новую ставку НДС в CRM.
+
+## Параметры метода
+
+
 
 #|
-|| **Метод** | **Описание** ||
-|| [crm.vat.add](./crm-vat-add.md) | Создает новую ставку НДС ||
-|| [crm.vat.delete](./crm-vat-delete.md) | Удаляет ставку НДС ||
-|| [crm.vat.get](./crm-vat-get.md) | Возвращает ставку НДС по идентификатору ||
-|| [crm.vat.fields](./crm-vat-fields.md) | Возвращает описание полей ставки НДС ||
-|| [crm.vat.list](./crm-vat-list.md) | Возвращает список ставок НДС ||
-|| [crm.vat.update](./crm-vat-update.md) | Обновляет существующую ставку НДС ||
+|| **Название**
+`тип` | **Описание** ||
+|| **fields*** 
+[`object`](../../../data-types.md) | Объект формата:
+
+```
+{
+    field_1: value_1,
+    field_2: value_2,
+    ...,
+    field_n: value_n,
+}
+```
+
+- `field_n` — название поля
+- `value_n` — значение поля
+
+Список доступных полей описан [ниже](#fields) ||
 |#
+
+### Параметр fields {#fields}
+
+#|
+|| **Название**
+ `тип` | **Описание** ||
+|| **ACTIVE** 
+[`string`](../../../data-types.md) | Активность ставки:
+- `Y` — активна,
+- `N` — неактивна.
+
+По умолчанию — `Y` ||
+|| **C_SORT** 
+[`integer`](../../../data-types.md) | Сортировка. 
+По умолчанию — 100 ||
+|| **NAME***
+[`string`](../../../data-types.md) | Название ставки ||
+|| **RATE*** 
+[`double`](../../../data-types.md) | Значение ставки НДС, % ||
+|#
+
+## Примеры кода
+
+
+
+
+
+- JS
+
+    ```js
+    BX24.callMethod(
+        "crm.vat.add",
+        {
+            fields: {
+                ACTIVE: "Y",
+                C_SORT: 100,
+                NAME: "НДС 20%",
+                RATE: 20.0
+            }
+        },
+        function(result) {
+            if(result.error())
+                console.error(result.error());
+            else
+                console.dir(result.data());
+        }
+    );
+    ```
+
+- cURL (Webhook)
+
+    ```bash
+    curl -X POST \
+         -H "Content-Type: application/json" \
+         -H "Accept: application/json" \
+         -d '{"fields":{"ACTIVE":"Y","C_SORT":100,"NAME":"НДС 20%","RATE":20.0}}' \
+         https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/crm.vat.add
+    ```
+
+- cURL (OAuth)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"fields":{"ACTIVE":"Y","C_SORT":100,"NAME":"НДС 20%","RATE":20.0},"auth":"**put_access_token_here**"}' \
+    https://**put_your_bitrix24_address**/rest/crm.vat.add
+    ```
+
+- PHP
+
+    ```php
+    require_once('crest.php');
+
+    $result = CRest::call(
+        'crm.vat.add',
+        [
+            'fields' => [
+                'ACTIVE' => 'Y',
+                'C_SORT' => 100,
+                'NAME' => 'НДС 20%',
+                'RATE' => 20.0
+            ]
+        ]
+    );
+
+    echo '<PRE>';
+    print_r($result);
+    echo '</PRE>';
+    ```
+
+
+
+## Обработка ответа
+
+HTTP-статус: **200**
+
+```json
+{
+    "result": 13,
+    "time": {
+        "start": 1751982588.245153,
+        "finish": 1751982588.287266,
+        "duration": 0.04211306571960449,
+        "processing": 0.005285978317260742,
+        "date_start": "2025-07-08T16:49:48+03:00",
+        "date_finish": "2025-07-08T16:49:48+03:00",
+        "operating_reset_at": 1751983188,
+        "operating": 0
+    }
+}
+```
+
+### Возвращаемые данные
+
+#|
+|| **Название**
+`тип` | **Описание** ||
+|| **result** 
+[`integer`](../../../data-types.md) | Корневой элемент ответа, содержит идентификатор созданной ставки НДС ||
+|| **time** 
+[`time`](../../../data-types.md#time) | Информация о времени выполнения запроса ||
+|#
+
+## Обработка ошибок
+
+HTTP-статус: **400**
+
+```json
+{
+    "error": "Invalid parameters.",
+    "error_description": "Переданы некорректные параметры."
+}
+```
+
+
+
+### Возможные коды ошибок
+
+#|
+|| **Код** | **Описание** | **Значение** ||
+|| `400`     | `The Commercial Catalog module is not installed.` | Модуль catalog не установлен ||
+|| `400`     | `Invalid parameters.` | Переданы некорректные параметры ||
+|| `400`     | `Access denied.` | Нет прав на выполнение операции ||
+|#
+
+
+
+## Продолжите изучение
+
+- [{#T}](./crm-vat-list.md)
+- [{#T}](./crm-vat-get.md)
+- [{#T}](./crm-vat-update.md)
+- [{#T}](./crm-vat-delete.md) 
+- [{#T}](./crm-vat-fields.md)

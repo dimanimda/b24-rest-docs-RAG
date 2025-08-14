@@ -9,25 +9,20 @@ params: {"type":"object"}
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Определить текущий режим работы CRM crm.settings.mode.get
+# Получить описание режимов работы CRM crm.enum.settings.mode
 
-> Название метода: **crm.settings.mode.get**
+> Scope: [`crm`](../../../scopes/permissions.md)
 >
-> Scope: [`crm`](../scopes/permissions.md)
->
-> Кто может выполнять метод: `любой пользователь`
+> Кто может выполнять метод: любой пользователь
 
-Метод возвращает текущие настройки режима работы CRM: **классический режим CRM** (с лидами) или **простой режим CRM** (без лидов).
-
-Этот режим влияет на целый ряд сценариев работы CRM и для лучшего понимания мы рекомендуем прочитать [соответствующую статью](https://helpdesk.bitrix24.ru/open/17611420/) пользовательской документации.
+Метод `crm.enum.settings.mode` возвращает список режимов работы CRM. Используйте метод для расшифровки значения `ID` типа, которое возвращает метод [crm.settings.mode.get](../../crm-settings-mode-get.md).
 
 ## Параметры метода
 
-Метод вызывается без параметров.
+Без параметров.
 
 ## Примеры кода
 
@@ -35,34 +30,35 @@ Auto-generated stub. Fill in params/returns/examples.
 
 
 
+- JS
+
+    ```js
+    BX24.callMethod("crm.enum.settings.mode", result => {
+        if (result.error())
+            console.error(result.error());
+        else
+            console.dir(result.data());
+    });
+    ```
+
 - cURL (Webhook)
 
     ```bash
     curl -X POST \
-    -H "Content-Type: application/json" \
-    -H "Accept: application/json" \
-    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/crm.settings.mode.get
+         -H "Content-Type: application/json" \
+         -H "Accept: application/json" \
+         -d '{}' \
+         https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/crm.enum.settings.mode
     ```
 
 - cURL (OAuth)
 
     ```bash
     curl -X POST \
-    -H "Content-Type: application/json" \
-    -H "Accept: application/json" \
-    -d '{"auth":"**put_access_token_here**"}' \
-    https://**put_your_bitrix24_address**/rest/crm.settings.mode.get
-    ```
-
-- JS
-
-    ```js
-    BX24.callMethod("crm.settings.mode.get", {}, result => {
-        if (result.error())
-            console.error(result.error());
-        else
-            console.dir(result.data());
-    });
+         -H "Content-Type: application/json" \
+         -H "Accept: application/json" \
+         -d '{"auth":"**put_access_token_here**"}' \
+         https://**put_your_bitrix24_address**/rest/crm.enum.settings.mode
     ```
 
 - PHP
@@ -71,7 +67,7 @@ Auto-generated stub. Fill in params/returns/examples.
     require_once('crest.php');
 
     $result = CRest::call(
-        'crm.settings.mode.get',
+        'crm.enum.settings.mode',
         []
     );
 
@@ -88,15 +84,30 @@ HTTP-статус: **200**
 
 ```json
 {
-    "result": 1,
-    "time": {
-        "start": 1715091541.642592,
-        "finish": 1715091541.730599,
-        "duration": 0.08800697326660156,
-        "date_start": "2024-05-03T17:19:01+03:00",
-        "date_finish": "2024-05-03T17:19:01+03:00",
-        "operating": 0
+"result": [
+    {
+     "ID": 1,
+     "NAME": "Классическая CRM",
+     "SYMBOL_CODE": null,
+     "SYMBOL_CODE_SHORT": null
+    },
+    {
+     "ID": 2,
+     "NAME": "Простая CRM",
+     "SYMBOL_CODE": null,
+     "SYMBOL_CODE_SHORT": null
     }
+],
+"time": {
+    "start": 1750153429.516902,
+    "finish": 1750153429.650327,
+    "duration": 0.13342499732971191,
+    "processing": 0.0002980232238769531,
+    "date_start": "2025-06-17T12:43:49+03:00",
+    "date_finish": "2025-06-17T12:43:49+03:00",
+    "operating_reset_at": 1750154029,
+    "operating": 0
+}
 }
 ```
 
@@ -106,16 +117,33 @@ HTTP-статус: **200**
 || **Название**
 `тип` | **Описание** ||
 || **result**
-[`integer`](../data-types.md) | Возвращает значение, определённое в [crm.enum.settings.mode](./auxiliary/enum/crm-enum-settings-mode.md) ||
+[`array`](../../../data-types.md) | Массив с режимами работы CRM [(подробное описание)](#result) ||
 || **time**
-[`time`](../data-types.md) | Информация о времени выполнения запроса ||
+[`time`](../../../data-types.md#time) | Информация о времени выполнения запроса ||
+|#
+
+#### Поля массива result {#result}
+
+#|
+|| **Название**
+`тип` | **Описание** ||
+|| **ID**
+[`integer`](../../../data-types.md) | Идентификатор режима работы ||
+|| **NAME**
+[`string`](../../../data-types.md) | Название режима работы ||
+|| **SYMBOL_CODE**
+[`string`](../../../data-types.md) | Символьный код ||
+|| **SYMBOL_CODE_SHORT**
+[`string`](../../../data-types.md) | Краткий символьный код ||
 |#
 
 ## Обработка ошибок
 
+Метод не возвращает ошибки.
 
 
-### Возможные коды ошибок
 
+## Продолжите изучение
 
+- [{#T}](./index.md)
 

@@ -9,282 +9,73 @@ params: {"type":"object","properties":{"filter":{"type":"object"},"order":{"type
 returns: {"type":"array","items":{"type":"object"}}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Обновить пользовательское поле user.userfield.update
+# Получить список пользовательских полей user.userfield.list
 
 > Scope: [`user.userfield`](../../scopes/permissions.md)
 >
 > Кто может выполнять метод: администратор
 
-Метод `user.userfield.update` обновляет пользовательское поле.
+Метод `user.userfield.list` получает список пользовательских полей по фильтру.
 
 ## Параметры метода
 
-
-
 #|
 || **Название**
 `тип` | **Описание** ||
-|| **id*** 
-[`integer`](../../data-types.md)| Идентификатор пользовательского поля.
+|| **order**
+[`string`](../../data-types.md)\|[`array`](../../data-types.md) | Сортировка выбранных пользовательских полей в формате `{"field_1": "order_1", ... "field_N": "order_N"}`.
 
-Для получения идентификаторов пользовательских полей используйте метод [user.userfield.list](./user-userfield-list.md)
+Возможные значения для `field_N`:
+
+- `ID` — идентификатор пользовательского поля
+- `FIELD_NAME` — название поля
+- `USER_TYPE_ID` — тип данных поля
+- `XML_ID` — внешний код
+- `SORT` — порядок сортировки поля
+- `MULTIPLE` — возможность ввода нескольких значений
+- `MANDATORY` — обязательность заполнения
+- `SHOW_FILTER` — показ поля в фильтре списка пользователей
+- `SHOW_IN_LIST` — показ поля в списке пользователей
+- `EDIT_IN_LIST` — возможность редактирования поля в списке пользователей
+- `IS_SEARCHABLE` — возможность поиска по полю
+
+Возможные значения для `order_N`:
+
+- `asc` — в порядке возрастания
+- `desc` — в порядке убывания
  ||
-|| **fields**
-[`object`](../../data-types.md)| Значения полей для обновления пользовательского поля ||
+|| **filter** 
+[`array`](../../data-types.md)| Фильтр выбранных пользовательских полей в формате `{"field_1": "value_1", ... "field_N": "value_N"}`.
+
+Возможные значения для `field_N` аналогичны полям в сортировке.
+
+Ключу может быть задан дополнительный префикс, уточняющий поведение фильтра. Возможные значения префикса:
+- `>=` — больше либо равно
+- `>` — больше
+- `<=` — меньше либо равно
+- `<` — меньше
+- `@` — IN (в качестве значения передается массив)
+- `!@` — NOT IN (в качестве значения передается массив)
+- `%` — LIKE, поиск по подстроке. Символ `%` в значении фильтра передавать не нужно. Поиск ищет подстроку в любой позиции строки.
+- `=%` — LIKE, поиск по подстроке. Символ `%` нужно передавать в значении. Примеры:
+  - `"мол%"` — ищем значения начинающиеся с «мол»
+  - `"%мол"` — ищем значения заканчивающиеся на «мол»
+  - `"%мол%"` — ищем значения, где «мол» может быть в любой позиции
+- `%=` — LIKE (аналогично `=%`)
+- `!%` — NOT LIKE, поиск по подстроке. Символ `%` в значении фильтра передавать не нужно. Поиск идет с обоих сторон.
+- `!=%` — NOT LIKE, поиск по подстроке. Символ `%` нужно передавать в значении. Примеры:
+  - `"мол%"` — ищем значения не начинающиеся с «мол»
+  - `"%мол"` — ищем значения не заканчивающиеся на «мол»
+  - `"%мол%"` — ищем значения, где подстроки «мол» нет в любой позиции
+- `!%=` — NOT LIKE (аналогично `!=%`)
+- `=` — равно, точное совпадение (используется по умолчанию)
+- `!=` — не равно
+- `!` — не равно
+ ||
 |#
-
-### Параметр fields
-
-#|
-|| **Название**
-`тип` | **Описание** ||
-|| **XML_ID**
-[`string`](../../data-types.md)| Внешний код ||
-|| **SORT**
-[`integer`](../../data-types.md)| Порядок сортировки ||
-|| **MANDATORY**
-[`boolean`](../../data-types.md)| Является ли пользовательское поле обязательным. Возможные значения:
-- `Y` — да
-- `N` — нет ||
-|| **SHOW_FILTER**
-[`boolean`](../../data-types.md)| Показывать ли поле в фильтре списка. Возможные значения:
-- `Y` — да
-- `N` — нет ||
-|| **SHOW_IN_LIST**
-[`boolean`](../../data-types.md)| Показывать ли поле в списке. Возможные значения:
-- `Y` — да
-- `N` — нет ||
-- || **EDIT_IN_LIST**
-[`boolean`](../../data-types.md)| Редактировать ли поле в списке. Возможные значения:
-- `Y` — да
-- `N` — нет ||
-- || **IS_SEARCHABLE**
-[`boolean`](../../data-types.md)| Участвует ли поле в поиске. Возможные значения:
-- `Y` — да
-- `N` — нет ||
-|| **SETTINGS**
-[`object`](../../data-types.md)| Объект в формате `{"field_1": "value_1", ... "field_N": "value_N"}` для передачи дополнительных настроек пользовательских полей. Настройки описаны [ниже](#settings) ||
-|| **EDIT_FORM_LABEL**
-[`string`](../../data-types.md)| Подпись в форме редактирования ||
-|| **LIST_COLUMN_LABEL**
-[`string`](../../data-types.md)| Заголовок столбца в списке ||
-|| **LIST_FILTER_LABEL**
-[`string`](../../data-types.md)| Заголовок фильтра в списке ||
-|| **ERROR_MESSAGE**
-[`string`](../../data-types.md)| Сообщение об ошибке при невалидном вводе ||
-|| **HELP_MESSAGE**
-[`string`](../../data-types.md)| Текст подсказки к полю ||
-|#
-
-### Параметр SETTINGS {#settings}
-
-У каждого типа пользовательских полей существует свой набор дополнительных настроек.
-
-
-
-- string
-
-    #|
-    || **Название**
-    `тип` | **Описание** ||
-    || **DEFAULT_VALUE**
-    [`string`](../../data-types.md) | Значение по умолчанию.
-
-    По умолчанию `''` ||
-    || **ROWS**
-    [`integer`](../../data-types.md) | Количество строк в поле ввода. Обязательно больше 0.
-
-    По умолчанию `1` ||
-    |#
-
-- integer
-
-    #|
-    || **Название**
-    `тип` | **Описание** ||
-    || **DEFAULT_VALUE**
-    [`integer`](../../data-types.md) | Значение по умолчанию ||
-    |#
-
-- double
-
-    #|
-    || **Название**
-    `тип` | **Описание** ||
-    || **DEFAULT_VALUE**
-    [`double`](../../data-types.md) | Значение по умолчанию ||
-    || **PRECISION**
-    [`integer`](../../data-types.md) | Точность числа. Обязательно больше или равно 0.
-
-    По умолчанию `2` ||
-    |#
-
-- boolean
-
-    #|
-    || **Название**
-    `тип` | **Описание** ||
-    || **DEFAULT_VALUE**
-    [`integer`](../../data-types.md) | Значение по умолчанию, где `1` — да, `0` — нет.
-
-    Возможные значения:
-    - `>= 1` -> 1
-    - `<= 0` -> 0
-
-    По умолчанию `0` ||
-    || **DISPLAY**
-    [`string`](../../data-types.md) | Внешний вид. Возможные значения:
-    - `CHECKBOX` — флажок
-    - `RADIO` — радиокнопки
-    - `DROPDOWN` — выпадающий список
-
-    По умолчанию `CHECKBOX` ||
-    |#
-
-- datetime
-
-    #|
-    || **Название**
-    `тип` | **Описание** ||
-    || **DEFAULT_VALUE**
-    [`object`](../../data-types.md)  | Значение по умолчанию.
-
-    Объект формата:
-
-    ```
-    {
-        VALUE: datetime|date,
-        TYPE: 'NONE'|'NOW'|'FIXED',
-    }
-    ```
-
-    где:
-    - `VALUE` — значение по умолчанию типа `datetime` или `date`
-    - `TYPE` — тип значения по умолчанию:
-      - `NONE` — не выставлять значение по умолчанию
-      - `NOW` — использовать текущее время/дату
-      - `FIXED` — использовать время/дату из `VALUE`
-
-    Значение по умолчанию:
-
-    ```
-    {
-        VALUE: '',
-        TYPE: 'NONE',
-    }
-    ```
-    ||
-    |#
-
-- enumeration
-
-    #|
-    || **Название**
-    `тип` | **Описание** ||
-    || **DISPLAY**
-    [`string`](../../data-types.md) | Внешний вид. Возможные значения:
-    - `LIST` — список
-    - `UI` — набираемый список
-    - `CHECKBOX` — флажки
-    - `DIALOG` — диалог выбора сущностей
-
-    По умолчанию `LIST` ||
-    || **LIST_HEIGHT** | Высота списка. Обязательно больше 0.
-
-    Доступен только при `DISPLAY = LIST` или `DISPLAY = UI`.
-
-    По умолчанию `1` ||
-    |#
-
-- iblock_section|iblock_element
-
-    #|
-    || **Название**
-    `тип` | **Описание** ||
-    || **IBLOCK_TYPE_ID**
-    [`string`](../../data-types.md) | Идентификатор типа инфоблока.
-
-    По умолчанию `''` ||
-    || **IBLOCK_ID**
-    [`string`](../../data-types.md) | Идентификатор инфоблока.
-
-    По умолчанию `0` ||
-    || **DEFAULT_VALUE**
-    [`string`](../../data-types.md) | Значение по умолчанию.
-
-    По умолчанию `''` ||
-    || **DISPLAY**
-    [`string`](../../data-types.md) | Внешний вид. Возможные значения:
-    - `DIALOG` — диалог
-    - `UI` — набираемый список
-    - `LIST` — список
-    - `CHECKBOX` — флажки
-
-    По умолчанию `LIST` ||
-    || **LIST_HEIGHT**
-    [`integer`](../../data-types.md) | Высота списка. Обязательно больше 0.
-
-    По умолчанию `1` ||
-    || **ACTIVE_FILTER**
-    [`boolean`](../../data-types.md) | Показывать ли элементы с включенным флагом активности. Возможные значения:
-    - `Y` — да
-    - `N` — нет
-
-    По умолчанию `N` ||
-    |#
-
-- crm_status
-
-    #|
-    || **Название**
-    `тип` | **Описание** ||
-    || **ENTITY_TYPE**
-    [`string`](../../data-types.md) | Идентификатор типа справочника.
-
-    Используйте [`crm.status.entity.types`](../../crm/status/crm-status-entity-types.md), чтобы узнать возможные значения.
-
-    По умолчанию `''` ||
-    |#
-
-- crm
-
-    Если не передать ни одну из следующих опций, то по умолчанию будет включена привязка к лидам (`LEAD = Y`).
-
-    #|
-    || **Название**
-    `тип` | **Описание** ||
-    || **LEAD**
-    [`boolean`](../../data-types.md) | Включена ли привязка к [Лидам](../../crm/leads/index.md). Возможные значения:
-    - `Y` — да
-    - `N` — нет
-
-    По умолчанию `N` ||
-    || **CONTACT**
-    [`boolean`](../../data-types.md) | Включена ли привязка к [Контактам](../../crm/contacts/index.md). Возможные значения:
-    - `Y` — да
-    - `N` — нет
-
-    По умолчанию `N` ||
-    || **COMPANY**
-    [`boolean`](../../data-types.md) | Включена ли привязка к [Компаниям](../../crm/companies/index.md). Возможные значения:
-    - `Y` — да
-    - `N` — нет
-
-    По умолчанию `N` ||
-    || **DEAL**
-    [`boolean`](../../data-types.md) | Включена ли привязка к [Сделкам](../../crm/deals/index.md). Возможные значения:
-    - `Y` — да
-    - `N` — нет
-
-    По умолчанию `N` ||
-    |#
-
-
-
 
 ## Примеры кода
 
@@ -298,15 +89,8 @@ Auto-generated stub. Fill in params/returns/examples.
     curl -X POST \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{
-        "id": 42,
-        "fields": {
-            "SORT": 150,
-            "LIST_FILTER_LABEL": "New Title",
-            "LIST_COLUMN_LABEL": "New List Title"
-        }
-    }' \
-    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/user.userfield.update
+    -d '{"order":{"id":"desc"},"filter":{"id":13}}' \
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/user.userfield.list
     ```
 
 - cURL (OAuth)
@@ -315,36 +99,29 @@ Auto-generated stub. Fill in params/returns/examples.
     curl -X POST \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{
-        "id": 42,
-        "fields": {
-            "SORT": 150,
-            "LIST_FILTER_LABEL": "New Title",
-            "LIST_COLUMN_LABEL": "New List Title"
-        },
-        "auth": "**put_access_token_here**"
-    }' \
-    https://**put_your_bitrix24_address**/rest/user.userfield.update
+    -d '{"order":{"id":"desc"},"filter":{"id":13},"auth":"**put_access_token_here**"}' \
+    https://**put_your_bitrix24_address**/rest/user.userfield.list
     ```
 
 - JS
 
     ```js
     BX24.callMethod(
-        'user.userfield.update', 
+        "user.userfield.list",
         {
-            id: 42,
-            fields: {
-                SORT: 150,
-                LIST_FILTER_LABEL: 'New Title',
-                LIST_COLUMN_LABEL: 'New List Title',
+            order: {
+                id: 'desc',
+            },
+            filter: {
+                id: 13
             },
         },
         function(result) {
-            if(result.error())
+            if (result.error()) {
                 console.error(result.error());
-            else
-                console.log(result.data());
+            } else {
+                console.info(result.data());
+            }
         }
     );
     ```
@@ -355,14 +132,14 @@ Auto-generated stub. Fill in params/returns/examples.
     require_once('crest.php');
 
     $result = CRest::call(
-        'user.userfield.update',
+        'user.userfield.list',
         [
-            'id' => 42,
-            'fields' => [
-                'SORT' => 150,
-                'LIST_FILTER_LABEL' => 'New Title',
-                'LIST_COLUMN_LABEL' => 'New List Title',
+            'order' => [
+                'id' => 'desc',
             ]
+            'filter' => [
+                'id' => 13,
+            ],
         ]
     );
 
@@ -379,14 +156,76 @@ HTTP-статус: **200**
 
 ```json
 {
-    "result": true,
-    "time": {
-        "start":1747311864.008399,
-        "finish":1747311865.063292,
-        "duration":1.0548930168151855,
-        "processing":0.17107510566711426,
-        "date_start":"2025-05-15T14:24:24+02:00",
-        "date_finish":"2025-05-15T14:24:25+02:00",
+    "result":[
+        {
+            "ID":"176",
+            "ENTITY_ID":"USER",
+            "FIELD_NAME":"UF_USR_1724228142162",
+            "USER_TYPE_ID":"enumeration",
+            "XML_ID":null,
+            "SORT":"100",
+            "MULTIPLE":"Y",
+            "MANDATORY":"N",
+            "SHOW_FILTER":"E",
+            "SHOW_IN_LIST":"Y",
+            "EDIT_IN_LIST":"Y",
+            "IS_SEARCHABLE":"N",
+            "SETTINGS":{
+                "DISPLAY":"UI",
+                "LIST_HEIGHT":1,
+                "CAPTION_NO_VALUE":"",
+                "SHOW_NO_VALUE":"Y"
+            },
+            "LIST":[
+                {
+                    "ID":"26",
+                    "SORT":"0",
+                    "VALUE":"1",
+                    "DEF":"N",
+                    "XML_ID":"2a53ce08b86a6aba152b1b19204fdef2"
+                },
+                {
+                    "ID":"27",
+                    "SORT":"100",
+                    "VALUE":"2",
+                    "DEF":"N",
+                    "XML_ID":"292df2be1171ed6ab038996deac29ac8"
+                },
+                {
+                    "ID":"28",
+                    "SORT":"200",
+                    "VALUE":"3",
+                    "DEF":"N",
+                    "XML_ID":"3c5af70eafbba79a6cf52e299ed75123"
+                }
+            ]
+        },
+        {
+            "ID":"177",
+            "ENTITY_ID":"USER",
+            "FIELD_NAME":"UF_USR_MONEY",
+            "USER_TYPE_ID":"money",
+            "XML_ID":null,
+            "SORT":"100",
+            "MULTIPLE":"N",
+            "MANDATORY":"N",
+            "SHOW_FILTER":"N",
+            "SHOW_IN_LIST":"Y",
+            "EDIT_IN_LIST":"Y",
+            "IS_SEARCHABLE":"N",
+            "SETTINGS":{
+                "DEFAULT_VALUE":""
+            }
+        }
+    ],
+    "total":2,
+    "time":{
+        "start":1747313326.788124,
+        "finish":1747313328.641663,
+        "duration":1.853538990020752,
+        "processing":0.011211156845092773,
+        "date_start":"2025-05-15T14:48:46+02:00",
+        "date_finish":"2025-05-15T14:48:48+02:00",
         "operating":0
     }
 }
@@ -398,7 +237,9 @@ HTTP-статус: **200**
 || **Название**
 `тип` | **Описание** ||
 || **result**
-[`boolean`](../../data-types.md) | Cодержит `true` в случае успешного обновления пользовательского поля||
+[`object`](../../data-types.md) | Корневой элемент ответа ||
+|| **total**
+[`integer`](../../data-types.md) | Общее количество найденных записей ||
 || **time**
 [`time`](../../data-types.md#time) | Информация о времени выполнения запроса ||
 |#
@@ -408,9 +249,9 @@ HTTP-статус: **200**
 HTTP-статус: **400**
 
 ```json
-{
-    "error":"",
-    "error_description":"Access denied."
+{	
+   "error":"",
+   "error_description":"Access denied."
 }
 ```
 
@@ -429,5 +270,5 @@ HTTP-статус: **400**
 ## Продолжите изучение 
 
 - [{#T}](./user-userfield-add.md)
-- [{#T}](./user-userfield-list.md)
+- [{#T}](./user-userfield-update.md)
 - [{#T}](./user-userfield-delete.md)

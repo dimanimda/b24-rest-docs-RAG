@@ -9,61 +9,190 @@ params: {"type":"object","required":["id","fields"],"properties":{"id":{"type":"
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# О шаблонах реквизитов
+# Изменить шаблон реквизита crm.requisite.preset.update
 
 > Scope: [`crm`](../../../scopes/permissions.md)
 >
-> Кто может выполнять методы: любой пользователь
+> Кто может выполнять метод: любой пользователь
 
-## Поля шаблона реквизитов
+Метод изменяет шаблон реквизита.
+
+## Параметры метода
+
+
 
 #|
-|| **Название** | **Описание** | **Чтение** | **Запись** | **Обязательное** | **Неизменяемое** ||
-|| **ID**
-[`integer`](../../../data-types.md) | Идентификатор реквизита. Создается автоматически и уникален в рамках портала | Да | Нет | Нет | Да ||
-|| **ENTITY_TYPE_ID**
-[`integer`](../../../data-types.md) | Идентификатор типа родительского объекта.
+|| **Название**
+`тип` | **Описание** ||
+|| **id***
+[`integer`](../../../data-types.md) | Идентификатор шаблона реквизитов, который необходимо изменить. Можно получить с помощью метода [`crm.requisite.preset.list`](./crm-requisite-preset-list.md) ||
+|| **fields***
+[`array`](../../../data-types.md) | Набор полей шаблона — объект вида `{"поле": "значение"[, ...]}`, значения которых нужно изменить ||
+|#
 
-Идентификаторы типов объектов CRM отдает метод [crm.enum.ownertype](../../auxiliary/enum/crm-enum-owner-type.md) | Да | Да | Да | Да ||
-|| **COUNTRY_ID**
-[`integer`](../../../data-types.md) | Идентификатор страны, которой соответствует набор полей шаблона реквизита (для получения доступных значений смотрите метод [crm.requisite.preset.countries](./crm-requisite-preset-countries.md)) | Да | Да | Да | Да ||
-|| **DATE_CREATE**
-[`datetime`](../../../data-types.md) | Дата создания | Да | Нет | Нет | Нет ||
-|| **DATE_MODIFY**
-[`datetime`](../../../data-types.md) | Дата изменения. Содержит пустую строку, если шаблон не менялся после создания | Да | Нет | Нет | Нет ||
-|| **CREATED_BY_ID**
-[`user`](../../../data-types.md) | Идентификатор пользователя, создавшего реквизит | Да | Нет | Нет | Нет ||
-|| **MODIFY_BY_ID**
-[`user`](../../../data-types.md) | Идентификатор пользователя, изменившего реквизит | Да | Нет | Нет | Нет ||
-|| **NAME**
-[`string`](../../../data-types.md) | Название реквизита | Да | Да | Да | Нет ||
+### Параметр fields
+
+
+
+#|
+|| **Название**
+`тип` | **Описание** ||
+|| **NAME***
+[`string`](../../../data-types.md) | Название реквизита ||
 || **XML_ID**
-[`string`](../../../data-types.md) | Внешний ключ. Используется для операций обмена. Идентификатор объекта внешней информационной базы. 
+[`string`](../../../data-types.md) |Внешний ключ. Используется для операций обмена. Идентификатор объекта внешней информационной базы. 
 
 Назначение поля может меняться конечным разработчиком. 
 
 Каждое приложение обеспечивает уникальность значений в этом поле. Рекомендуется использовать уникальный префикс для избежания коллизий с другими приложениями. 
 
-В CRM зарезервированы значения вида `#CRM_REQUISITE_PRESET_DEF_...` для идентификации шаблонов, которые используются по умолчанию. Не следует использовать эти идентификаторы для своих целей, так как это может привести к нарушению логики | Да | Да | Нет | Нет ||
+В CRM зарезервированы значения вида `#CRM_REQUISITE_PRESET_DEF_...` для идентификации шаблонов, которые используются по умолчанию. Не следует использовать эти идентификаторы для своих целей, так как это может привести к нарушению логики ||
 || **ACTIVE**
-[`char`](../../../data-types.md) | Признак активности. Используются значения `Y` или `N`. Определяет доступность шаблона в списке выбора при добавлении реквизитов | Да | Да | Нет | Нет ||
+[`char`](../../../data-types.md) | Признак активности. Используются значения `Y` или `N`. Определяет доступность шаблона в списке выбора при добавлении реквизитов ||
 || **SORT**
-[`integer`](../../../data-types.md) | Сортировка | Да | Да | Нет | Нет ||
+[`integer`](../../../data-types.md) | Сортировка ||
 |#
 
-## Обзор методов
+## Примеры кода
+
+
+
+
+
+- cURL (Webhook)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"id":347,"fields":{"NAME":"ИП (архив)","ACTIVE":"N"}}' \
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/crm.requisite.preset.update
+    ```
+
+- cURL (OAuth) 
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"id":347,"fields":{"NAME":"ИП (архив)","ACTIVE":"N"},"auth":"**put_access_token_here**"}' \
+    https://**put_your_bitrix24_address**/rest/crm.requisite.preset.update
+    ```
+
+- JS
+
+    ```js
+    BX24.callMethod(
+        "crm.requisite.preset.update",
+        {
+            id: 347,    // Идентификатор шаблона, который нужно изменить.
+            fields:
+            {
+                "NAME": "ИП (архив)",
+                "ACTIVE": "N"
+            }
+        },
+        function(result)
+        {
+            if(result.error())
+                console.error(result.error());
+            else
+            {
+                console.info(result.data());
+            }
+        }
+    );
+    ```
+
+- PHP
+
+    ```php
+    require_once('crest.php');
+
+    $result = CRest::call(
+        'crm.requisite.preset.update',
+        [
+            'id' => 347,
+            'fields' =>
+            [
+                'NAME' => 'ИП (архив)',
+                'ACTIVE' => 'N'
+            ]
+        ]
+    );
+
+    echo '<PRE>';
+    print_r($result);
+    echo '</PRE>';
+    ```
+
+
+
+## Обработка ответа
+
+HTTP-статус: **200**
+
+```json
+{
+    "result": true,
+    "time": {
+        "start": 1716566193.821566,
+        "finish": 1716566194.075617,
+        "duration": 0.25405097007751465,
+        "processing": 0.03606295585632324,
+        "date_start": "2024-05-24T17:56:33+02:00",
+        "date_finish": "2024-05-24T17:56:34+02:00",
+        "operating": 0
+    }
+}
+```
+
+### Возвращаемые данные
 
 #|
-|| **Метод** | **Описание** ||
-|| [crm.requisite.preset.add](./crm-requisite-preset-add.md) | Создает новый шаблон реквизитов ||
-|| [crm.requisite.preset.update](./crm-requisite-preset-update.md) | Изменяет шаблон реквизита ||
-|| [crm.requisite.preset.countries](./crm-requisite-preset-countries.md) | Возвращает возможный список стран для шаблонов реквизита ||
-|| [crm.requisite.preset.get](./crm-requisite-preset-get.md) | Возвращает шаблон реквизитов по идентификатору ||
-|| [crm.requisite.preset.list](./crm-requisite-preset-list.md) | Возвращает список шаблонов реквизитов по фильтру ||
-|| [crm.requisite.preset.delete](./crm-requisite-preset-delete.md) | Удаляет шаблон реквизитов ||
-|| [crm.requisite.preset.fields](./crm-requisite-preset-fields.md) | Возвращает формально описание полей шаблона реквизитов ||
+|| **Название**
+`тип` | **Описание** ||
+|| **result**
+[`boolean`](../../../data-types.md) | Результат изменения шаблона:
+- `true` — шаблон изменен
+- `false` — шаблон не изменен
+||
+|| **time**
+[`time`](../../../data-types.md) | Информация о времени выполнения запроса ||
 |#
+
+## Обработка ошибок
+
+HTTP-статус: **40x**, **50x**
+
+```json
+{
+    "error": "",
+    "error_description": "The Preset with ID '347' is not found"
+}
+```
+
+
+
+### Возможные коды ошибок
+
+#|  
+|| **Код** | **Описание** ||
+|| `The Preset with ID '347' is not found` | Шаблон с указанным идентификатором не найден ||
+|| `Access denied` | Недостаточно прав доступа для изменения шаблона ||
+|#
+
+
+
+## Продолжите изучение
+
+- [{#T}](./crm-requisite-preset-add.md)
+- [{#T}](./crm-requisite-preset-countries.md)
+- [{#T}](./crm-requisite-preset-get.md)
+- [{#T}](./crm-requisite-preset-list.md)
+- [{#T}](./crm-requisite-preset-delete.md)
+- [{#T}](./crm-requisite-preset-fields.md)
+

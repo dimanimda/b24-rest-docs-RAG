@@ -9,11 +9,10 @@ params: {"type":"object","required":["id"],"properties":{"id":{"type":"integer"}
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Методы работы со свойствами элементов хранилища данных
+# Получить список дополнительных свойств элементов хранилища entity.item.property.get
 
 
 
@@ -21,14 +20,85 @@ Auto-generated stub. Fill in params/returns/examples.
 
 
 
+
+
+
+
+- отсутствуют примеры
+- отсутствует ответ в случае ошибки
+
+
+
+
+
 > Scope: [`entity`](../../../scopes/permissions.md)
 >
 > Кто может выполнять метод: любой пользователь
 
+Метод `entity.item.property.get` получает список дополнительных свойств элементов хранилища.
+
+## Параметры
+
 #|
-|| **Метод** | **Описание** ||
-|| [entity.item.property.get](./entity-item-property-get.md) | Получение списка дополнительных свойств элементов хранилища. ||
-|| [entity.item.property.add](./entity-item-property-add.md) | Добавление дополнительного свойства элементов хранилища. ||
-|| [entity.item.property.update](./entity-item-property-update.md) | Обновление дополнительного свойства элементов хранилища. ||
-|| [entity.item.property.delete](./entity-item-property-delete.md) | Удаление дополнительного свойства элементов хранилища. ||
+|| **Параметр** | **Описание** ||
+|| **ENTITY^*^**
+[`string`](../../../data-types.md) | Обязательный. Строковый идентификатор хранилища. ||
+|| **PROPERTY**
+[`string`](../../../data-types.md) | Строковый идентификатор требуемого свойства. ||
 |#
+
+
+
+## Примеры
+
+
+
+- JS
+
+    ```js
+    BX24.callMethod(
+        'entity.item.property.get',
+        {
+            ENTITY: 'menu_new'
+        },
+        function(r){
+            console.log(r.data());
+        }
+    );
+    ```
+
+- HTTP
+
+    ```http
+    https://my.bitrix24.ru/rest/entity.item.property.get.json?ENTITY=menu_new&auth=340bf57f35ee95e0debf98399632999c
+    ```
+
+
+
+
+
+## Ответ в случае успеха
+
+> 200 OK
+```json
+{
+    "result":
+    [
+        {
+            "PROPERTY":"test",
+            "NAME":"Тестовое свойство",
+            "TYPE":"S"
+        },
+        {
+            "PROPERTY":"test1",
+            "NAME":"Второе тестовое свойство",
+            "TYPE":"N"
+        },
+        {
+            "PROPERTY":"test_file",
+            "NAME":"Файло",
+            "TYPE":"F"
+        }
+    ]
+}
+```

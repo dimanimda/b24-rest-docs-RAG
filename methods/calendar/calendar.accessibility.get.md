@@ -9,140 +9,234 @@ params: {"type":"object","required":["id"],"properties":{"id":{"type":"integer"}
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Календарь: обзор методов
+# Получить занятость пользователей из списка calendar.accessibility.get
 
-Календарь  помогает пользователям планировать встречи, задачи и мероприятия. Управлять календарями можно с помощью группы методов [calendar.section.*](#base).
-
-События календаря — это запланированные дела или встречи. Для создания, изменения, получения или удаления событий используется группа методов [calendar.event.*](./calendar-event/index.md).
-
-> Быстрый переход: [все методы и события](#all-methods) 
-> 
-> Пользовательская документация: [календарь Битрикс24](https://helpdesk.bitrix24.ru/open/17525000/)
-
-## Связь календаря с другими объектами
-
-**Пользователь.** Календарь имеет привязку к пользователю по идентификатору владельца календаря `ownerId` для типа календаря `user`. Получить идентификатор пользователя можно с помощью метода [user.get](../user/user-get.md).
-
-**Группа.** Календарь имеет привязку к группе по идентификатору владельца календаря `ownerId` для типа календаря `group`. Идентификатор можно получить методом [создания новой группы](../sonet-group/sonet-group-create.md) или методом [получения списка групп](../sonet-group/socialnetwork-api-workgroup-list.md).
-
-
-
-- [Как создать группу и проект](https://helpdesk.bitrix24.ru/open/22699004/)
-
-
-
-## Настройки календаря
-
-В основных настройках календаря указывается рабочий график компании, выходные и праздничные дни. Получить настройки можно методом [calendar.settings.get](./calendar-settings-get.md).
-
-В пользовательских настройках сотрудник может указать персональные особенности, например, часовой пояс или показ номеров недель. Получить пользовательские настройки можно методом [calendar.user.settings.get](./calendar-user-settings-get.md), установить — методом [calendar.user.settings.set.](./calendar-user-settings-set.md)
-
-
-
--  [Настройки календаря](https://helpdesk.bitrix24.ru/open/7397539/)
-
-
-
-## Бронирование ресурсов
-
-В Битрикс24 бронирование ресурсов осуществляется через пользовательское поле CRM типа `resourcebooking`. Такое поле можно создать в карточках [лида](../crm/leads/userfield/index.md) и [сделки](../crm/deals/user-defined-fields/index.md).
-
-Отслеживать занятость ресурсов можно в Календаре CRM. Технически ресурс — это секция календаря, а бронирование — это событие календаря.
-
-Управляет ресурсами группа методов [calendar.resource.\*.](./resource/index.md)
-
-
-
--  [Настраиваем бронирование ресурсов в CRM](https://helpdesk.bitrix24.ru/open/18260410/)
-
-
-
-## **Виджеты**
-
-В календарь можно встроить приложение. В списке видов отображения календаря есть место для встройки `CALENDAR_GRIDVIEW`, куда можно добавить [свой пункт](../widgets/calendar.md).
-
-
-
--  [{#T}](../widgets/index.md)
--  [{#T}](./calendar-grid-veiw.md)
-
-
-
-## Обзор методов и событий {#all-methods}
-
-> Scope: [`calendar`](../scopes/permissions.md)
+> Scope: [`calendar`](../../scopes/permissions.md)
 >
 > Кто может выполнять метод: любой пользователь
 
-## Основные {#base}
+Метод получает занятость пользователей из списка.
+
+## Параметры метода
 
 
 
-- Методы
+#|s
+|| **Название**
+`тип` | **Описание** ||
+|| **users***
+[`array`](../../data-types.md) | Массив идентификаторов пользователей ||
+|| **from***
+[`date`](../../data-types.md) | Дата начала периода для определения занятости в формате `ГГГГ-ММ-ДД`.
 
-    #|
-    || **Метод** | **Описание** ||
-    || [calendar.section.add](./calendar-section-add.md) | Добавить новый календарь ||
-    || [calendar.section.update](./calendar-section-update.md) | Обновить календарь ||
-    || [calendar.section.get](./calendar-section-get.md) | Получить список календарей ||
-    || [calendar.section.delete](./calendar-section-delete.md) | Удалить календарь ||
-    || [calendar.settings.get](./calendar-settings-get.md) | Получить основные настройки календаря ||
-    || [calendar.user.settings.get](./calendar-user-settings-get.md) | Получить пользовательские настройки календаря ||
-    || [calendar.user.settings.set](./calendar-user-settings-set.md) | Установить пользовательские настройки календаря ||
-    |#
+Например, `2024-06-20` ||
+|| **to***
+[`date`](../../data-types.md) | Дата окончания периода для определения занятости в формате `ГГГГ-ММ-ДД`.
 
-- События
+Например, `2024-12-20`  ||
+|#
 
-    #|
-    || **Событие** | **Вызывается** ||
-    || [OnCalendarSectionAdd](./events/on-calendar-section-add.md) | При добавлении секции календаря или ресурса ||
-    || [OnCalendarSectionUpdate](./events/on-calendar-section-update.md) | При изменении секции календаря или ресурса ||
-    || [OnCalendarSectionDelete](./events/on-calendar-section-delete.md) | При удалении секции календаря или ресурса ||
-    |#
+## Примеры кода
 
 
 
-## События календаря
+
+
+- cURL (Webhook)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"from":"2024-06-20","to":"2024-12-20","users":[1,2,34]}' \
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/calendar.accessibility.get
+    ```
+
+- cURL (OAuth)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"from":"2024-06-20","to":"2024-12-20","users":[1,2,34],"auth":"**put_access_token_here**"}' \
+    https://**put_your_bitrix24_address**/rest/calendar.accessibility.get
+    ```
+
+- JS
+
+    ```js
+    BX24.callMethod(
+        'calendar.accessibility.get',
+        {
+            from: '2024-06-20',
+            to: '2024-12-20',
+            users: [1, 2, 34]
+        }
+    );
+    ```
+
+- PHP
+
+    ```php
+    require_once('crest.php');
+
+    $result = CRest::call(
+        'calendar.accessibility.get',
+        [
+            'from' => '2024-06-20',
+            'to' => '2024-12-20',
+            'users' => [1, 2, 34]
+        ]
+    );
+
+    echo '<PRE>';
+    print_r($result);
+    echo '</PRE>';
+    ```
 
 
 
-- Методы
+## Обработка ответа
 
-    #|
-    || **Метод** | **Описание** ||
-    || [calendar.event.add](./calendar-event/calendar-event-add.md) | Добавить событие ||
-    || [calendar.event.update](./calendar-event/calendar-event-update.md) | Обновить событие ||
-    || [calendar.event.getById](./calendar-event/calendar-event-get-by-id.md) | Получить событие по `id` ||
-    || [calendar.event.get](./calendar-event/calendar-event-get.md) | Получить список событий календаря ||
-    || [calendar.event.getNearest](./calendar-event/calendar-event-get-nearest.md) | Получить список будущих событий ||
-    || [calendar.event.delete](./calendar-event/calendar-event-delete.md) | Удалить событие ||
-    || [calendar.meeting.status.get](./calendar-event/calendar-meeting-status-get.md) | Получить статус участия текущего пользователя в событии ||
-    || [calendar.meeting.status.set](./calendar-event/calendar-meeting-status-set.md) | Установить статус участия в событии для текущего пользователя ||
-    || [calendar.accessibility.get](./calendar-event/calendar-accessibility-get.md) | Получить занятость пользователей из списка ||
-    |#
+HTTP-статус: **200**
 
-- События
+```json
+{
+    "result": {
+        "1": [
+            {
+                "ID": "1213",
+                "NAME": "Event name",
+                "DATE_FROM": "02.12.2024 11:00:00",
+                "DATE_TO": "02.12.2024 12:00:00",
+                "DATE_FROM_TS_UTC": "1733158800",
+                "DATE_TO_TS_UTC": "1733162400",
+                "~USER_OFFSET_FROM": -21600,
+                "~USER_OFFSET_TO": -21600,
+                "DT_SKIP_TIME": "N",
+                "TZ_FROM": "America/Managua",
+                "TZ_TO": "America/Managua",
+                "ACCESSIBILITY": "busy",
+                "IMPORTANCE": "normal",
+                "EVENT_TYPE": "#collab#"
+            },
+            {
+                "ID": "1216",
+                ...
+            }
+        ],
+        "2": [
+            {
+                "ID": 1,
+                ...
+            },
+            {
+                "ID": 2,
+                ...
+            }
+        ],
+        "34": []
+    }
+}
+```
 
-    #|
-    || **Событие** | **Вызывается** ||
-    || [OnCalendarEntryAdd](./calendar-event/events/on-calendar-entry-add.md) | При добавлении события ||
-    || [OnCalendarEntryUpdate](./calendar-event/events/on-calendar-entry-update.md) | При изменении события ||
-    || [OnCalendarEntryDelete](./calendar-event/events/on-calendar-entry-delete.md) | При удалении события ||
-    |#
-
-
-
-## Бронирование ресурсов
+### Возвращаемые данные
 
 #|
-|| **Метод** | **Описание** ||
-|| [calendar.resource.add](./resource/calendar-resource-add.md) | Добавить ресурс ||
-|| [calendar.resource.update](./resource/calendar-resource-update.md) | Обновить ресурс ||
-|| [calendar.resource.list](./resource/calendar-resource-list.md) | Получить список ресурсов ||
-|| [calendar.resource.booking.list](./resource/calendar-resource-booking-list.md) | Получить бронирования ресурсов по фильтру ||
-|| [calendar.resource.delete](./resource/calendar-resource-delete.md) | Удалить ресурс ||
+|| **Название**
+`тип` | **Описание** ||
+|| **result**
+[`object`](../../data-types.md) | Результат содержит объект.
+
+Ключ объекта — это идентификатор пользователя из запроса.
+
+Значение — массив объектов, каждый из которых описывает [событие](#event), в котором занят пользователь в указанный период ||
 |#
+
+#### Объект события {#event}
+
+#|
+|| **Название**
+`тип` | **Описание** ||
+|| **ID**
+[`string`](../../data-types.md) | Идентификатор события ||
+|| **NAME**
+[`string`](../../data-types.md) | Название события ||
+|| **DATE_FROM**
+[`datetime`](../../data-types.md) | Дата и время начала события ||
+|| **DATE_TO**
+[`datetime`](../../data-types.md) | Дата и время окончания события ||
+|| **DATE_FROM_TS_UTC**
+[`string`](../../data-types.md) | Дата и время начала события в UTC в формате timestamp ||
+|| **DATE_TO_TS_UTC**
+[`string`](../../data-types.md) | Дата и время окончания события в UTC в формате timestamp ||
+|| **~USER_OFFSET_FROM**
+[`integer`](../../data-types.md) | Смещение времени начала события относительно UTC в секундах ||
+|| **~USER_OFFSET_TO**
+[`integer`](../../data-types.md) | Смещение времени окончания события относительно UTC в секундах ||
+|| **DT_SKIP_TIME**
+[`integer`](../../data-types.md) | Флаг отображающий что событие длится целый день. Возможные значения:
+- `Y` — целый день
+- `N` — не целый день ||
+|| **TZ_FROM**
+[`integer`](../../data-types.md) | Таймзона даты начала события ||
+|| **TZ_TO**
+[`integer`](../../data-types.md) | Таймзона даты окончания события ||
+|| **ACCESSIBILITY**
+[`integer`](../../data-types.md) | Доступность участников события. Возможные значения:
+
+- `busy` — занят
+- `absent` — отсутствую
+- `quest` — под вопросом
+- `free` — свободен ||
+|| **IMPORTANCE**
+[`string`](../../data-types.md) | Важность события. Возможные значения:
+
+- `high` — высокая
+- `normal` — средняя
+- `low`— низкая ||
+|| **EVENT_TYPE**
+[`string`](../../data-types.md) | Некоторые события содержат информацию о способе создания.
+
+Событие может быть создано через:
+
+- `#shared#` — слоты календаря
+- `#shared_crm#` — слоты CRM
+- `#collab#` — коллабу
+- `#shared_collab#` — слоты коллабы
+||
+|#
+
+## Обработка ошибок
+
+HTTP-статус: **400**
+
+```json
+{
+    "error": "",
+    "error_description": "Не задан обязательный параметр "from" для метода "calendar.accessibility.get""
+}
+```
+
+
+
+### Возможные коды ошибок
+
+#|
+|| **Код** | **Сообщение об ошибке** | **Описание** ||
+|| Пустая строка | Не задан обязательный параметр "from" для метода "calendar.accessibility.get" | Не передан обязательный параметр `from` ||
+|| Пустая строка | Не задан обязательный параметр "to" для метода "calendar.accessibility.get" | Не передан обязательный параметр `to` ||
+|| Пустая строка | Не задан обязательный параметр "users" для метода "calendar.accessibility.get" | Не передан обязательный параметр `users` ||
+|| Пустая строка | Доступ запрещен | Запрещен доступ к методу для внешних пользователей ||
+|#
+
+
+
+## Продолжите изучение 
+
+- [{#T}](./index.md)
+- [{#T}](./calendar-meeting-status-get.md)
+- [{#T}](./calendar-meeting-status-set.md)

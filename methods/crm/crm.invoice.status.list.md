@@ -9,11 +9,10 @@ params: {"type":"object","properties":{"filter":{"type":"object"},"order":{"type
 returns: {"type":"array","items":{"type":"object"}}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Обзор методов
+# Получить список статусов счета crm.invoice.status.list
 
 > Scope: [`crm`](../../../scopes/permissions.md)
 >
@@ -21,16 +20,12 @@ Auto-generated stub. Fill in params/returns/examples.
 
 
 
-С версии 19.0.0 рекомендуется использовать [общие методы работы со справочниками](../../status/index.md)
+С версии 19.0.0 рекомендуется использовать метод [crm.status.list](../../../crm/status/crm-status-list.md)
 
 
 
-#|
-|| **Метод** | **Описание** ||
-|| [crm.invoice.status.add](./crm-invoice-status-add.md) | Создает новый статус счета ||
-|| [crm.invoice.status.delete](./crm-invoice-status-delete.md) | Удаляет статус счета ||
-|| [crm.invoice.status.get](./crm-invoice-status-get.md) | Получает статус счета по идентификатору ||
-|| [crm.invoice.status.fields](./crm-invoice-status-fields.md) | Получает поля статуса счета ||
-|| [crm.invoice.status.list](./crm-invoice-status-list.md) | Получает список статусов счета ||
-|| [crm.invoice.status.update](./crm-invoice-status-update.md) | Изменяет статус счета ||
-|#
+Метод `crm.invoice.status.list` возвращает список статусов счета по фильтру. Является реализацией списочных методов для статусов счета.
+
+## Параметры метода
+
+Cм. описание [списочных методов](../../../how-to-call-rest-api/list-methods-pecularities.md)

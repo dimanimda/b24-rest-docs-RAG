@@ -9,140 +9,181 @@ params: {"type":"object","required":["id"],"properties":{"id":{"type":"integer"}
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Календарь: обзор методов
-
-Календарь  помогает пользователям планировать встречи, задачи и мероприятия. Управлять календарями можно с помощью группы методов [calendar.section.*](#base).
-
-События календаря — это запланированные дела или встречи. Для создания, изменения, получения или удаления событий используется группа методов [calendar.event.*](./calendar-event/index.md).
-
-> Быстрый переход: [все методы и события](#all-methods) 
-> 
-> Пользовательская документация: [календарь Битрикс24](https://helpdesk.bitrix24.ru/open/17525000/)
-
-## Связь календаря с другими объектами
-
-**Пользователь.** Календарь имеет привязку к пользователю по идентификатору владельца календаря `ownerId` для типа календаря `user`. Получить идентификатор пользователя можно с помощью метода [user.get](../user/user-get.md).
-
-**Группа.** Календарь имеет привязку к группе по идентификатору владельца календаря `ownerId` для типа календаря `group`. Идентификатор можно получить методом [создания новой группы](../sonet-group/sonet-group-create.md) или методом [получения списка групп](../sonet-group/socialnetwork-api-workgroup-list.md).
-
-
-
-- [Как создать группу и проект](https://helpdesk.bitrix24.ru/open/22699004/)
-
-
-
-## Настройки календаря
-
-В основных настройках календаря указывается рабочий график компании, выходные и праздничные дни. Получить настройки можно методом [calendar.settings.get](./calendar-settings-get.md).
-
-В пользовательских настройках сотрудник может указать персональные особенности, например, часовой пояс или показ номеров недель. Получить пользовательские настройки можно методом [calendar.user.settings.get](./calendar-user-settings-get.md), установить — методом [calendar.user.settings.set.](./calendar-user-settings-set.md)
-
-
-
--  [Настройки календаря](https://helpdesk.bitrix24.ru/open/7397539/)
-
-
-
-## Бронирование ресурсов
-
-В Битрикс24 бронирование ресурсов осуществляется через пользовательское поле CRM типа `resourcebooking`. Такое поле можно создать в карточках [лида](../crm/leads/userfield/index.md) и [сделки](../crm/deals/user-defined-fields/index.md).
-
-Отслеживать занятость ресурсов можно в Календаре CRM. Технически ресурс — это секция календаря, а бронирование — это событие календаря.
-
-Управляет ресурсами группа методов [calendar.resource.\*.](./resource/index.md)
-
-
-
--  [Настраиваем бронирование ресурсов в CRM](https://helpdesk.bitrix24.ru/open/18260410/)
-
-
-
-## **Виджеты**
-
-В календарь можно встроить приложение. В списке видов отображения календаря есть место для встройки `CALENDAR_GRIDVIEW`, куда можно добавить [свой пункт](../widgets/calendar.md).
-
-
-
--  [{#T}](../widgets/index.md)
--  [{#T}](./calendar-grid-veiw.md)
-
-
-
-## Обзор методов и событий {#all-methods}
+# Получить основные настройки календаря calendar.settings.get
 
 > Scope: [`calendar`](../scopes/permissions.md)
 >
 > Кто может выполнять метод: любой пользователь
 
-## Основные {#base}
+Метод получает основные настройки календаря. Изменить основные настройки может только администратор портала.
+
+Без параметров.
+
+## Примеры кода
 
 
 
-- Методы
-
-    #|
-    || **Метод** | **Описание** ||
-    || [calendar.section.add](./calendar-section-add.md) | Добавить новый календарь ||
-    || [calendar.section.update](./calendar-section-update.md) | Обновить календарь ||
-    || [calendar.section.get](./calendar-section-get.md) | Получить список календарей ||
-    || [calendar.section.delete](./calendar-section-delete.md) | Удалить календарь ||
-    || [calendar.settings.get](./calendar-settings-get.md) | Получить основные настройки календаря ||
-    || [calendar.user.settings.get](./calendar-user-settings-get.md) | Получить пользовательские настройки календаря ||
-    || [calendar.user.settings.set](./calendar-user-settings-set.md) | Установить пользовательские настройки календаря ||
-    |#
-
-- События
-
-    #|
-    || **Событие** | **Вызывается** ||
-    || [OnCalendarSectionAdd](./events/on-calendar-section-add.md) | При добавлении секции календаря или ресурса ||
-    || [OnCalendarSectionUpdate](./events/on-calendar-section-update.md) | При изменении секции календаря или ресурса ||
-    || [OnCalendarSectionDelete](./events/on-calendar-section-delete.md) | При удалении секции календаря или ресурса ||
-    |#
 
 
+- cURL (Webhook)
 
-## События календаря
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{}' \
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/calendar.settings.get
+    ```
 
+- cURL (OAuth)
 
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"auth":"**put_access_token_here**"}' \
+    https://**put_your_bitrix24_address**/rest/calendar.settings.get
+    ```
 
-- Методы
+- JS
 
-    #|
-    || **Метод** | **Описание** ||
-    || [calendar.event.add](./calendar-event/calendar-event-add.md) | Добавить событие ||
-    || [calendar.event.update](./calendar-event/calendar-event-update.md) | Обновить событие ||
-    || [calendar.event.getById](./calendar-event/calendar-event-get-by-id.md) | Получить событие по `id` ||
-    || [calendar.event.get](./calendar-event/calendar-event-get.md) | Получить список событий календаря ||
-    || [calendar.event.getNearest](./calendar-event/calendar-event-get-nearest.md) | Получить список будущих событий ||
-    || [calendar.event.delete](./calendar-event/calendar-event-delete.md) | Удалить событие ||
-    || [calendar.meeting.status.get](./calendar-event/calendar-meeting-status-get.md) | Получить статус участия текущего пользователя в событии ||
-    || [calendar.meeting.status.set](./calendar-event/calendar-meeting-status-set.md) | Установить статус участия в событии для текущего пользователя ||
-    || [calendar.accessibility.get](./calendar-event/calendar-accessibility-get.md) | Получить занятость пользователей из списка ||
-    |#
+    ```js
+    BX24.callMethod(
+        'calendar.settings.get',
+        {}
+    );
+    ```
 
-- События
+- PHP
 
-    #|
-    || **Событие** | **Вызывается** ||
-    || [OnCalendarEntryAdd](./calendar-event/events/on-calendar-entry-add.md) | При добавлении события ||
-    || [OnCalendarEntryUpdate](./calendar-event/events/on-calendar-entry-update.md) | При изменении события ||
-    || [OnCalendarEntryDelete](./calendar-event/events/on-calendar-entry-delete.md) | При удалении события ||
-    |#
+    ```php
+    require_once('crest.php');
+
+    $result = CRest::call(
+        'calendar.settings.get',
+        []
+    );
+
+    echo '<PRE>';
+    print_r($result);
+    echo '</PRE>';
+    ```
 
 
 
-## Бронирование ресурсов
+## Обработка ответа
+
+HTTP-статус: **200**
+
+```json
+{
+    "result": {
+        "work_time_start": "9",
+        "work_time_end": "19",
+        "year_holidays": "1.01,2.01,7.01,23.02,8.03,1.05,9.05,12.06,4.11",
+        "year_workdays": "31.12",
+        "week_holidays": [
+            "SA",
+            "SU"
+        ],
+        "week_start": "MO",
+        "user_name_template": "#NAME# #LAST_NAME#",
+        "sync_by_push": false,
+        "user_show_login": true,
+        "path_to_user": "/company/personal/user/#user_id#/",
+        "path_to_user_calendar": "/company/personal/user/#user_id#/calendar/",
+        "path_to_group": "/workgroups/group/#group_id#/",
+        "path_to_group_calendar": "/workgroups/group/#group_id#/calendar/",
+        "path_to_vr": "",
+        "path_to_rm": "",
+        "rm_iblock_type": "",
+        "rm_iblock_id": "",
+        "dep_manager_sub": true,
+        "denied_superpose_types": [],
+        "pathes_for_sites": "",
+        "forum_id": "8",
+        "rm_for_sites": true,
+        "path_to_type_company_calendar": "",
+        "path_to_type_location": "",
+        "path_to_type_open_event": ""
+    },
+    "time": {
+        "start": 1733924639.802569,
+        "finish": 1733924640.184363,
+        "duration": 0.3817939758300781,
+        "processing": 0.012382984161376953,
+        "date_start": "2024-12-11T13:43:59+00:00",
+        "date_finish": "2024-12-11T13:44:00+00:00"
+    }
+}
+```
+
+### Возвращаемые данные
 
 #|
-|| **Метод** | **Описание** ||
-|| [calendar.resource.add](./resource/calendar-resource-add.md) | Добавить ресурс ||
-|| [calendar.resource.update](./resource/calendar-resource-update.md) | Обновить ресурс ||
-|| [calendar.resource.list](./resource/calendar-resource-list.md) | Получить список ресурсов ||
-|| [calendar.resource.booking.list](./resource/calendar-resource-booking-list.md) | Получить бронирования ресурсов по фильтру ||
-|| [calendar.resource.delete](./resource/calendar-resource-delete.md) | Удалить ресурс ||
+|| **Название**
+`тип` | **Описание** ||
+|| **result**
+[`object`](../data-types.md) | Корневой элемент ответа ||
+|| **work_time_start**
+[`string`](../data-types.md) | Время начала рабочего дня ||
+|| **work_time_end**
+[`string`](../data-types.md) | Время окончания рабочего дня ||
+|| **year_holidays**
+[`string`](../data-types.md) | Список праздничных дней ||
+|| **week_holidays**
+[`array`](../data-types.md) | Массив выходных дней ||
+|| **week_start**
+[`string`](../data-types.md) | День начала недели ||
+|| **user_name_template**
+[`string`](../data-types.md) | Шаблон имени пользователя ||
+|| **sync_by_push**
+[`boolean`](../data-types.md) | Флаг автоматической синхронизации календарей по подписке. Push-события от Google/Office365 ||
+|| **user_show_login**
+[`boolean`](../data-types.md) | Флаг отображения логина пользователя ||
+|| **path_to_user**
+[`string`](../data-types.md) | Шаблон ссылки на профиль пользователя ||
+|| **path_to_user_calendar**
+[`string`](../data-types.md) | Шаблон ссылки на просмотр календаря пользователя ||
+|| **path_to_group**
+[`string`](../data-types.md) | Шаблон ссылки на просмотр рабочей группы ||
+|| **path_to_group_calendar**
+[`string`](../data-types.md) | Шаблон ссылки на просмотр календаря группы ||
+|| **path_to_vr**
+[`string`](../data-types.md) | Шаблон ссылки к видеопереговорной ||
+|| **path_to_rm**
+[`string`](../data-types.md) | Шаблон ссылки к переговорной ||
+|| **rm_iblock_type**
+[`string`](../data-types.md) | Тип инфоблока бронирования переговорных и видеопереговорных ||
+|| **rm_iblock_id**
+[`string`](../data-types.md) | Идентификатор инфоблока бронирования переговорных ||
+|| **dep_manager_sub**
+[`boolean`](../data-types.md) | Флаг разрешения начальникам просматривать календари подчиненных ||
+|| **denied_superpose_types**
+[`array`](../data-types.md) | Список типов календарей, которые не могут быть добавлены в избранные ||
+|| **pathes_for_sites**
+[`boolean`](../data-types.md) | Устанавливает шаблоны ссылок общие для всех сайтов ||
+|| **forum_id**
+[`string`](../data-types.md) | Идентификатор форума для комментариев ||
+|| **rm_for_sites**
+[`boolean`](../data-types.md) | Устанавливает параметры переговорных общие для всех сайтов ||
+|| **path_to_type_company_calendar**
+[`string`](../data-types.md) | Шаблон ссылки на просмотр календарей компании ||
+|| **path_to_type_location**
+[`string`](../data-types.md) | Шаблон ссылки на просмотр бронирования переговорных ||
+|| **path_to_type_open_event**
+[`string`](../data-types.md) | Шаблон ссылки на просмотр календаря открытых событий ||
 |#
+
+## Обработка ошибок
+
+
+
+## Продолжите изучение 
+
+- [{#T}](./index.md)
+- [{#T}](./calendar-user-settings-get.md)
+- [{#T}](./calendar-user-settings-set.md)

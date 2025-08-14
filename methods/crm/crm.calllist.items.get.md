@@ -9,154 +9,168 @@ params: {"type":"object","required":["id"],"properties":{"id":{"type":"integer"}
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Список обзвона: обзор методов
+# Получить список участников обзвона crm.calllist.items.get
 
-Список обзвона — это дело CRM, из которого можно позвонить нескольким клиентам подряд. Сотрудник работает с одним делом, в котором собраны выбранные контакты или компании. Результаты обзвона автоматически сохранятся в карточках клиентов:
-- в прикрепленном деле звонка и комментарии к нему,
-- заполненной CRM-форме и полях карточки,
-- созданной из обзвона сделке или счете.
+> Scope: [`crm`](../../scopes/permissions.md)
+>
+> Кто может выполнять метод: пользователь с правами на чтение элементов CRM
 
-> Быстрый переход: [все методы](#all-methods)
-> 
-> Пользовательская документация: [Обзвон в Битрикс24](https://helpdesk.bitrix24.ru/open/24945678/)
+Метод `crm.calllist.items.get` возвращает список участников, контактов или компаний, и статус обзвона. 
 
-## Связь с другими объектами
+## Параметры метода
 
-**Контакт**. Для обзвона нескольких контактов укажите массив из `ID` контактов в методе [создания](./crm-calllist-add.md) или [изменения](./crm-calllist-update.md) обзвона. Получить `ID` контактов можно методом [crm.item.list](../../crm/universal/crm-item-list.md) с параметром `entityTypeId = 3`.
 
-**Компания**. Для обзвона нескольких компаний укажите массив из `ID` компаний в методе [создания](./crm-calllist-add.md) или [изменения](./crm-calllist-update.md) обзвона. Получить `ID` компаний можно методом [crm.item.list](../../crm/universal/crm-item-list.md) с параметром `entityTypeId = 4`.
 
-**CRM-форма**. Во время звонка сотрудник может заполнять информацию о клиенте в прикрепленной к обзвону CRM-форме. После завершения звонка форма будет доступна в карточке клиента, информация из формы будет сохранена в полях карточки. Чтобы прикрепить форму к обзвону, укажите ее `ID` в методе [создания](./crm-calllist-add.md) или [изменения](./crm-calllist-update.md) обзвона. `ID` формы можно найти в списке форм Битрикс24 `https://your-domain.ru/crm/webform/`.
+#|
+|| **Название**
+`тип` | **Описание** ||
+|| **LIST_ID***
+[`integer`](../../data-types.md) | Идентификатор обзвона, можно получить методами [crm.calllist.add](./crm-calllist-add.md) и [crm.calllist.list](./crm-calllist-list.md) ||
+|| **FILTER**
+[`object`](../../data-types.md) | Фильтр по статусу обзвона элемента: `{ STATUS: "код_статуса" }`. 
+Получить значения кодов статусов можно методом [crm.calllist.statuslist](./crm-calllist-statuslist.md)||
+|#
 
-**Справочник**. Статус звонка в карточка обзвона — это элемент [справочника](../status/index.md). Чтобы изменить статусы обзвона, используйте методы справочников [crm.status.*](../status/index.md) с параметром `ENTITY_ID = CALL_LIST`.
-
-**Пользователь**. Лист обзвона имеет привязку к пользователю по числовому идентификатору в поле `createdBy` — кем создан. Получить данные пользователя по идентификатору можно с помощью метода [user.get](../../user/user-get.md).
-
-## Как удалить список обзвона
-
-Среди методов списка обзвона нет метода удаления. Удалить список обзвона можно через удаление дела методом [crm.activity.delete](../timeline/activities/activity-base/crm-activity-delete.md).
-
-1. Используйте метод [crm.activity.list](../timeline/activities/activity-base/crm-activity-list.md) с фильтром по названию дела `SUBJECT`. В значении поля укажите `Обзвон #ID`. На место `ID` подставьте `ID` обзвона, полученное методами [crm.calllist.add](./crm-calllist-add) или [crm.calllist.list](./crm-calllist-list).
-
-2. Передайте `ID` дела из результата в метод удаления [crm.activity.delete](../timeline/activities/activity-base/crm-activity-delete.md).
+## Примеры кода
 
 
 
 
 
 - JS
-  
-    ```javascript
+
+    ```js
     BX24.callMethod(
-        "crm.activity.list",
+        "crm.calllist.items.get",
         {
-            filter: {
-                "SUBJECT": "Обзвон #13",
-            },
-            select: ["ID"]
+            LIST_ID: 13,
+            FILTER: {
+                STATUS: "IN_WORK"
+            }
         },
         function(result) {
             if (result.error()) {
                 console.error(result.error());
-                return;
+            } else {
+                console.dir(result.data());
             }
-
-            let deals = result.data();
-
-            // Если дел нет, выходим
-            if (deals.length === 0) {
-                console.log("Дел с названием 'Обзвон #13' не найдено.");
-                return;
-            }
-
-            // Берем ID первого дела
-            let dealId = deals[0].ID;
-
-            // Вызываем метод удаления
-            BX24.callMethod(
-                'crm.activity.delete',
-                {
-                    id: dealId,
-                },
-                function(deleteResult) {
-                    if (deleteResult.error()) {
-                        console.error("Ошибка при удалении дела ID " + dealId + ": " + deleteResult.error());
-                    } else {
-                        console.log("Дело ID " + dealId + " успешно удалено.");
-                    }
-                }
-            );
         }
     );
     ```
 
+- cURL (Webhook)
+
+    ```bash
+    curl -X POST \
+         -H "Content-Type: application/json" \
+         -d '{"LIST_ID":13,"FILTER":{"STATUS":"IN_WORK"}}' \
+         https://**your_bitrix24**/rest/**user_id**/**webhook**/crm.calllist.items.get
+    ```
+
+- cURL (OAuth)
+
+    ```bash
+    curl -X POST \
+         -H "Content-Type: application/json" \
+         -d '{"LIST_ID":13,"FILTER":{"STATUS":"IN_WORK"},"auth":"**put_access_token_here**"}' \
+         https://**your_bitrix24**/rest/crm.calllist.items.get
+    ```
+
 - PHP
-  
+
     ```php
-    <?php
     require_once('crest.php');
 
-    // 1. Получаем список дел по названию
     $result = CRest::call(
-        'crm.deal.list',
-        [
-            'filter' => [
-                'TITLE' => 'Обзвон #13'
-            ],
-            'select' => ['ID']
-        ]
+        'crm.calllist.items.get',
+        [ 'LIST_ID' => 13, 'FILTER' => [ 'STATUS' => 'IN_WORK' ] ]
     );
 
-    if ($result['error']) {
-        echo 'Ошибка: ' . $result['error_description'];
-        exit;
-    }
-
-    $deals = $result['result'];
-
-    // Если дел нет, выходим
-    if (empty($deals)) {
-        echo "Дел с названием 'Обзвон #13' не найдено.\n";
-        exit;
-    }
-
-    // Берем ID первого дела
-    $dealId = $deals[0]['ID'];
-
-    // 2. Удаляем дело по ID
-    $result = CRest::call(
-        'crm.deal.delete',
-        [
-            'id' => $dealId
-        ]
-    );
-
-    if ($result['error']) {
-        echo "Ошибка при удалении дела ID $dealId: " . $result['error_description'] . "\n";
-    } else {
-        echo "Дело ID $dealId успешно удалено.\n";
-    }
+    echo '<PRE>';
+    print_r($result);
+    echo '</PRE>';
     ```
 
 
 
+## Обработка ответа
 
-## Обзор методов {#all-methods}
+HTTP-статус: **200**
 
-> Scope: [`crm`](../../scopes/permissions.md)
->
-> Кто может выполнять методы: пользователь с правами на чтение элементов CRM
+```json
+{
+    "result": [
+        {
+            "ID": 9,
+            "STATUS": "IN_WORK",
+            "ENTITY_TYPE": 3
+        },
+        {
+            "ID": 17,
+            "STATUS": "IN_WORK",
+            "ENTITY_TYPE": 3
+        },
+        {
+            "ID": 19,
+            "STATUS": "IN_WORK",
+            "ENTITY_TYPE": 3
+        }
+    ],
+    "time": {
+        "start": 1752475017.529502,
+        "finish": 1752475017.588903,
+        "duration": 0.05940103530883789,
+        "processing": 0.010075092315673828,
+        "date_start": "2025-07-14T09:36:57+03:00",
+        "date_finish": "2025-07-14T09:36:57+03:00",
+        "operating_reset_at": 1752475617,
+        "operating": 0
+    }
+}
+```
+
+### Возвращаемые данные
 
 #|
-|| **Метод** | **Описание** ||
-|| [crm.calllist.add](./crm-calllist-add.md) | Создает новый список обзвона ||
-|| [crm.calllist.get](./crm-calllist-get.md) | Возвращает информацию о списке обзвона ||
-|| [crm.calllist.items.get](./crm-calllist-items-get.md) | Возвращает участников списка обзвона ||
-|| [crm.calllist.list](./crm-calllist-list.md) | Возвращает список всех обзвонов ||
-|| [crm.calllist.statuslist](./crm-calllist-statuslist.md) | Возвращает список статусов обзвона ||
-|| [crm.calllist.update](./crm-calllist-update.md) | Обновляет состав списка обзвона ||
-|# 
+|| **Название**
+`тип` | **Описание** ||
+|| **result**
+[`array`](../../data-types.md) | Массив элементов со статусами обзвона и типом объекта ||
+|| **time**
+[`time`](../../data-types.md#time) | Информация о времени выполнения запроса ||
+|#
+
+## Обработка ошибок
+
+HTTP-статус: **400**
+
+```json
+{
+    "error": "Incorrect list id",
+    "error_description": "Передан некорректный идентификатор списка."
+}
+```
+
+
+
+### Возможные коды ошибок
+
+#|
+|| **Код** | **Описание** | **Значение** ||
+|| `400` | `Incorrect list id` | Некорректный идентификатор обзвона ||
+|| `400` | `Incorrect status` | Некорректный статус обзвона ||
+|| `403` | `Access denied` | Нет доступа к элементам списка ||
+|#
+
+
+
+## Продолжите изучение
+
+- [{#T}](./crm-calllist-add.md)
+- [{#T}](./crm-calllist-get.md)
+- [{#T}](./crm-calllist-list.md)
+- [{#T}](./crm-calllist-statuslist.md)
+- [{#T}](./crm-calllist-update.md) 

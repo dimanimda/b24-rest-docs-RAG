@@ -9,11 +9,10 @@ params: {"type":"object","required":["id"],"properties":{"id":{"type":"integer"}
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Открытые линии в Битрикс24
+# Получить чат для объекта CRM imopenlines.crm.chat.get
 
 
 
@@ -25,113 +24,152 @@ Auto-generated stub. Fill in params/returns/examples.
 
 
 
-- из файла Сергея: как они работают, какая связь между ними и коннекторами, какие сценарии в рест реализованы
+- отсутствует ответ в случае ошибки
 
 
 
 
 
-## Обзор методов
+> Scope: [`imopenlines`](../../../scopes/permissions.md)
+>
+> Кто может выполнять метод: любой пользователь
+
+Метод получает чаты для объекта CRM.
+
+## Параметры метода
+
+
 
 #|
-|| **Метод** | **Описание** ||
-|| [imopenlines.config.add](./imopenlines-config-add.md) | Добавляет новую открытую линию ||
-|| [imopenlines.config.delete](./imopenlines-config-delete.md) | Удаляет открытую линию ||
-|| [imopenlines.config.get](./imopenlines-config-get.md) | Получает открытую линию по Id ||
-|| [imopenlines.config.list.get](./imopenlines-config-list-get.md) | Получает список открытых линий ||
-|| [imopenlines.config.path.get](./imopenlines-config-path-get.md) | Получает ссылку на публичную страницу открытых линий портала ||
-|| [imopenlines.config.update](./imopenlines-config-update.md) | Изменяет открытую линию ||
-|| [imopenlines.network.join](./imopenlines-network-join.md) | Подключает внешнюю открытую линию к порталу ||
-|| [imopenlines.revision.get](./imopenlines-revision-get.md) | Получает информацию о ревизиях API ||
+|| **Название**
+`Тип` | **Описание** ||
+|| **CRM_ENTITY_TYPE***
+[`string`](../../../data-types.md) | Тип объекта CRM: 
+- `lead` — лид
+- `deal` — сделка
+- `company` — компания
+- `contact` — контакт
+ ||
+|| **CRM_ENTITY***
+[`integer`](../../../data-types.md) | Идентификатор объекта CRM ||
+|| **ACTIVE_ONLY**
+[`boolean`](../../../data-types.md) | Вернуть только активные чаты.
+
+Возможные значения:
+- `Y` — вернет только активные чаты
+- `N` — вернет все чаты
+ 
+По умолчанию — `Y` ||
 |#
 
-###  Чат-боты в открытых линиях
+## Примеры кода
+
+
+
+
+
+- cURL (Webhook)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"CRM_ENTITY_TYPE":"deal","CRM_ENTITY":288,"ACTIVE_ONLY":"N"}' \
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/imopenlines.crm.chat.get
+    ```
+
+- cURL (OAuth)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"CRM_ENTITY_TYPE":"deal","CRM_ENTITY":288,"ACTIVE_ONLY":"N","auth":"**put_access_token_here**"}' \
+    https://**put_your_bitrix24_address**/rest/imopenlines.crm.chat.get
+    ```
+
+- JS
+
+    ```js
+    BX24.callMethod(
+        'imopenlines.crm.chat.get',
+        {
+            CRM_ENTITY_TYPE: 'deal'
+            CRM_ENTITY: 288,
+            ACTIVE_ONLY: 'N'
+        },
+        function(result) {
+            if(result.error())
+            {
+                console.error(result.error().ex);
+            }
+            else
+            {
+                console.log(result.data());
+            }
+        }
+    );
+    ```
+
+- PHP
+
+    ```php
+    require_once('crest.php');
+
+    $result = CRest::call(
+        'imopenlines.crm.chat.get',
+        [
+            'CRM_ENTITY_TYPE' => 'deal',
+            'CRM_ENTITY' => 288,
+            'ACTIVE_ONLY' => 'N'
+        ]
+    );
+
+    echo '<PRE>';
+    print_r($result);
+    echo '</PRE>';
+    ```
+
+
+
+## Обработка ответа
+
+HTTP-статус: **200**
+
+```json
+{
+    "result": [
+        {
+            "CHAT_ID": "9852",
+            "CONNECTOR_ID": "livechat",
+            "CONNECTOR_TITLE": "Онлайн-чат"
+        }
+    ]
+}
+```
+
+### Возвращаемые данные
 
 #|
-|| **Метод** | **Описание** ||
-|| [imopenlines.bot.session.finish](./chat-bots/imopenlines-bot-session-finish.md) | Завершает диалог ||
-|| [imopenlines.bot.session.message.send](./chat-bots/imopenlines-bot-session-message-send.md) | Отправляет приветственное сообщение ||
-|| [imopenlines.bot.session.operator](./chat-bots/imopenlines-bot-session-operator.md) | Переключает диалог на свободного оператора ||
-|| [imopenlines.bot.session.transfer](./chat-bots/imopenlines-bot-session-transfer.md) | Переключает диалог на оператора по Id ||
+|| **Название**
+`тип` | **Описание** ||
+|| **result**
+[`object`](../../data-types.md) | Массив объектов. Каждый объект содержит описание чата ||
+|| **CHAT_ID**
+[`string`](../../data-types.md) | Идентификатор чата ||
+|| **CONNECTOR_ID**
+[`string`](../../data-types.md) | Идентификатор коннектора ||
+|| **CONNECTOR_TITLE**
+[`string`](../../data-types.md) | Название коннектора ||
 |#
 
-### Чаты в открытых линиях
+## Обработка ошибок
+
+### Возможные коды ошибок
 
 #|
-|| **Метод** | **Описание** ||
-|| [imopenlines.crm.chat.getLastId](./chats/imopenlines-crm-chat-get-last-id.md) | Получает Id последнего чата ||
-|| [imopenlines.crm.chat.get](./chats/imopenlines-crm-chat-get.md) | Получает чат для объекта CRM ||
-|| [imopenlines.crm.chat.user.add](./chats/imopenlines-crm-chat-user-add.md) | Добавляет пользователя к существующему чату ||
-|| [imopenlines.crm.chat.user.delete](./chats/imopenlines-crm-chat-user-delete.md) | Удаляет пользователя из чата ||
+|| **Код** | **Описание** ||
+|| **ACCESS_DENIED** | У текущего пользователя нет доступа ||
+|| **ERROR_ARGUMENT** | Один из аргументов не указан или указан неверно ||
 |#
-
-### Сообщения в открытых линиях
-
-
-
-- Методы
-
-    #|
-    || **Метод** | **Описание** ||
-    || [imopenlines.crm.message.add](./messages/imopenlines-crm-message-add.md) | Отправляет сообщение в открытую линию ||
-    || [imopenlines.message.quick.save](./messages/imopenlines-message-quick-save.md) | Сохраняет сообщение в качестве быстрого ответа ||
-    |#
-
-- События
-
-    #|
-    || **Событие** | **Вызывается** ||
-    || [OnOpenLineMessageAdd](./events/on-open-line-message-add.md) | При добавлении сообщения в чат ||
-    || [OnOpenLineMessageUpdate](./events/on-open-line-message-update.md) | При изменении сообщения в чате ||
-    || [OnOpenLineMessageDelete](./events/on-open-line-message-delete.md) | При удалении сообщения в чате ||
-    |#
-
-
-
-### Операторы открытых линий
-
-#|
-|| **Метод** | **Описание** ||
-|| [imopenlines.operator.another.finish](./operators/imopenlines-operator-another-finish.md) | Завершает диалог другого оператора ||
-|| [imopenlines.operator.answer](./operators/imopenlines-operator-answer.md) | Забирает диалог себе ||
-|| [imopenlines.operator.finish](./operators/imopenlines-operator-finish.md) | Завершает свой диалог ||
-|| [imopenlines.operator.skip](./operators/imopenlines-operator-skip.md) | Пропускает диалог ||
-|| [imopenlines.operator.spam](./operators/imopenlines-operator-spam.md) | Отмечает диалог в качестве «спама» ||
-|| [imopenlines.operator.transfer](./operators/imopenlines-operator-transfer.md) | Передает диалог другому оператору или в другую линию ||
-|#
-
-### Диалоги открытых линий
-
-
-
-- Методы
-
-    #|
-    || **Метод** | **Описание** ||
-    || [imopenlines.crm.lead.create](./sessions/imopenlines-crm-lead-create.md) | Создает лид на основании диалога ||
-    || [imopenlines.dialog.get](./sessions/imopenlines-dialog-get.md) | Получает информацию о диалоге (чате) оператора открытой линии ||
-    || [imopenlines.message.session.start](./sessions/imopenlines-message-session-start.md) | Начинает новый диалог на основании сообщения ||
-    || [imopenlines.session.head.vote](./sessions/imopenlines-session-head-vote.md) | Ставит оценку работе сотрудника в диалоге ||
-    || [imopenlines.session.history.get](./sessions/imopenlines-session-history-get.md) | Получает сообщения чата и диалога ||
-    || [imopenlines.session.intercept](./sessions/imopenlines-session-intercept.md) | Забирает диалог у текущего оператора ||
-    || [imopenlines.session.join](./sessions/imopenlines-session-join.md) | Присоединяется к диалогу ||
-    || [imopenlines.session.mode.pinAll](./sessions/imopenlines-session-mode-pin-all.md) | Закрепляет все доступные диалоги за оператором ||
-    || [imopenlines.session.mode.pin](./sessions/imopenlines-session-mode-pin.md) | Закрепляет или открепляет диалог ||
-    || [imopenlines.session.mode.silent](./sessions/imopenlines-session-mode-silent.md) | Переключает диалог в «скрытый» режим ||
-    || [imopenlines.session.mode.unpinAll](./sessions/imopenlines-session-mode-unpin-all.md) | Открепляет все диалоги от оператора ||
-    || [imopenlines.session.open](./sessions/imopenlines-session-open.md) | Получает чат по символьному коду ||
-    || [imopenlines.session.start](./sessions/imopenlines-session-start.md) | Начинает новый диалог ||
-    |#
-
-- События
-
-    #|
-    || **Событие** | **Вызывается** ||
-    || [OnSessionStart](./events/on-session-start.md) | При создании чата ||
-    || [OnSessionFinish](./events/on-session-finish.md) | При закрытии чата ||
-    |#
-
-
-
-
 

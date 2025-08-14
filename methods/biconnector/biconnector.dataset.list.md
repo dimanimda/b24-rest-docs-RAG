@@ -9,55 +9,259 @@ params: {"type":"object","properties":{"filter":{"type":"object"},"order":{"type
 returns: {"type":"array","items":{"type":"object"}}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# BIconnector: обзор методов
+# Получить список датасетов biconnector.dataset.list
 
-
-
-Методы работают только в контексте [приложения](../app-installation/index.md)
-
-
-
-> Scope: [`biconnector`](../scopes/permissions.md)
+> Scope: [`biconnector`](../../scopes/permissions.md)
 >
-> Кто может выполнять методы: пользователь с доступом к разделу «Рабочее место аналитика»
+> Кто может выполнять метод: пользователь с доступом к разделу «Рабочее место аналитика»
 
-## Коннектор
+Метод `biconnector.dataset.list` возвращает список датасетов по фильтру. Является реализацией списочного метода для датасетов.
 
-#|
-|| **Метод** | **Описание** ||
-|| [biconnector.connector.add](./connector/biconnector-connector-add.md) | Добавляет новый коннектор ||
-|| [biconnector.connector.update](./connector/biconnector-connector-update.md) | Обновляет существующий коннектор ||
-|| [biconnector.connector.get](./connector/biconnector-connector-get.md) | Возвращает информацию о коннекторе ||
-|| [biconnector.connector.list](./connector/biconnector-connector-list.md) | Возвращает список доступных коннекторов ||
-|| [biconnector.connector.delete](./connector/biconnector-connector-delete.md) | Удаляет коннектор ||
-|| [biconnector.connector.fields](./connector/biconnector-connector-fields.md) | Возвращает описание полей коннектора ||
-|#
-
-## Источники
+## Параметры метода
 
 #|
-|| **Метод** | **Описание** ||
-|| [biconnector.source.add](./source/biconnector-source-add.md) | Добавляет новый источник ||
-|| [biconnector.source.update](./source/biconnector-source-update.md) | Обновляет существующий источник ||
-|| [biconnector.source.get](./source/biconnector-source-get.md) | Возвращает информацию об источнике ||
-|| [biconnector.source.list](./source/biconnector-source-list.md) | Возвращает список доступных источников ||
-|| [biconnector.source.delete](./source/biconnector-source-delete.md) | Удаляет источник ||
-|| [biconnector.source.fields](./source/biconnector-source-fields.md) | Возвращает описание полей источника ||
+|| **Название**
+`тип` | **Описание** ||
+|| **select**
+[`string[]`](../../data-types.md) | Список полей, которые должны быть заполнены у датасетов в выборке. По умолчанию берутся все поля. 
+Не поддерживает поле `fields`, оно будет проигнорировано ||
+|| **filter**
+[`object`](../../data-types.md) | Фильтр для выборки датасетов. Пример формата:
+
+```json
+{
+    "field_1": "value_1",
+    "field_2": "value_2"
+}
+```
+
+К ключам `field_n` можно добавить префикс, уточняющий работу фильтра.
+Возможные значения префикса:
+- `>=` — больше либо равно
+- `>` — больше
+- `<=` — меньше либо равно
+- `<` — меньше
+- `@` — IN, в качестве значения передается массив
+- `!@` — NOT IN, в качестве значения передается массив
+- `%` — LIKE, поиск по подстроке. Символ `%` в значении фильтра передавать не нужно. Поиск ищет подстроку в любой позиции строки
+- `=%` — LIKE, поиск по подстроке. Символ `%` нужно передавать в значении. Примеры:
+    - `"мол%"` — ищет значения, начинающиеся с «мол»
+    - `"%мол"` — ищет значения, заканчивающиеся на «мол»
+    - `"%мол%"` — ищет значения, где «мол» может быть в любой позиции
+- `%=` — LIKE (аналогично `=%`)
+- `=` — равно, точное совпадение (используется по умолчанию)
+- `!=` — не равно
+- `!` — не равно
+
+Список доступных полей для фильтрации можно узнать с помощью метода [biconnector.dataset.fields](./biconnector-dataset-fields.md).
+
+Фильтр не поддерживает поле `fields`, оно будет проигнорировано
+||
+|| **order**
+[`object`](../../data-types.md) | Параметры сортировки. Пример формата:
+
+```
+{
+    field_1: value_1,
+    field_2: value_2,
+    ...,
+    field_n: value_n,
+}
+```
+
+где:
+- `field_n` — название поля, по которому будет произведена сортировка выборки датасетов
+- `value_n` — значение типа `string`, равное:
+    - `ASC` — сортировка по возрастанию
+    - `DESC` — сортировка по убыванию
+||
+|| **page**
+[`integer`](../../data-types.md) | Управление постраничной навигацией. Размер страницы результатов — 50 записей. Для перехода по результатам передавайте номер страницы ||
 |#
 
-## Датасеты
+## Примеры кода
+
+
+
+Получить список источников, у которых:
+- название начинается на `Sales`
+- описание не пустое
+- идентификатор источника равен `2` или `4`
+
+Для наглядности выбрать только необходимые поля:
+- идентификатор `id`
+- название `name`
+- описание `description`
+
+
+
+- JS
+
+    ```js
+    BX24.callMethod(
+        'biconnector.dataset.list',
+        {
+            select: ["id", "name", "description"],
+            filter: {
+                '%=name': "Sales%",
+                '!description': "",
+                "@sourceId": [2, 4]
+            },
+            order: {
+                dateCreate: "DESC"
+            }
+        },
+        (result) => {
+            result.error()
+                ? console.error(result.error())
+                : console.info(result.data());
+        }
+    );
+    ```
+
+- cURL (Webhook)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{
+        "select": ["id", "name", "description"],
+        "filter": {
+            "%=name": "Sales%",
+            "!description": "",
+            "@sourceId": [2, 4]
+        },
+        "order": {
+            "dateCreate": "DESC"
+        }
+    }' \
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/biconnector.dataset.list
+    ```
+
+- cURL (OAuth)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{
+        "select": ["id", "name", "description"],
+        "filter": {
+            "%=name": "Sales%",
+            "!description": "",
+            "@sourceId": [2, 4]
+        },
+        "order": {
+            "dateCreate": "DESC"
+        },
+        "auth": "**put_access_token_here**"
+    }' \
+    https://**put_your_bitrix24_address**/rest/biconnector.dataset.list
+    ```
+
+- PHP
+
+    ```php
+    require_once('crest.php');
+
+    $result = CRest::call(
+        'biconnector.dataset.list',
+        [
+            'select' => ["id", "name", "description"],
+            'filter' => ['%=name' => "Sales%", '!description' => "", '@sourceId' => [2, 4]],
+            'order' => ['dateCreate' => "DESC"]
+        ]
+    );
+
+    echo '<PRE>';
+    print_r($result);
+    echo '</PRE>';
+    ```
+
+
+
+## Обработка ответа
+
+HTTP-статус: **200**
+
+```json
+{
+    "result": [
+        {
+            "id": "9",
+            "name": "sales_data_main",
+            "description": "Monthly sales report"
+        },
+        {
+            "id": "6",
+            "name": "sales_data_first_filial",
+            "description": "Monthly sales report for first filial"
+        },
+        {
+            "id": "5",
+            "name": "sales_data_second_filial",
+            "description": "Monthly sales report for second filial"
+        }
+    ],
+    "time": {
+        "start": 1743061675.963969,
+        "finish": 1743061676.064591,
+        "duration": 0.10062193870544434,
+        "processing": 0.011152029037475586,
+        "date_start": "2025-03-27T07:47:55+00:00",
+        "date_finish": "2025-03-27T07:47:56+00:00"
+    }
+}
+```
+
+### Возвращаемые данные
 
 #|
-|| **Метод** | **Описание** ||
-|| [biconnector.dataset.add](./dataset/biconnector-dataset-add.md) | Добавляет новый датасет ||
-|| [biconnector.dataset.update](./dataset/biconnector-dataset-update.md) | Обновляет существующий датасет ||
-|| [biconnector.dataset.fields.update](./dataset/biconnector-dataset-fields-update.md) | Обновляет поля датасета ||
-|| [biconnector.dataset.get](./dataset/biconnector-dataset-get.md) | Возвращает информацию о датасете ||
-|| [biconnector.dataset.list](./dataset/biconnector-dataset-list.md) | Возвращает список доступных датасетов ||
-|| [biconnector.dataset.delete](./dataset/biconnector-dataset-delete.md) | Удаляет датасет ||
-|| [biconnector.dataset.fields](./dataset/biconnector-dataset-fields.md) | Возвращает описание полей датасета ||
+|| **result**
+[`object`](../../data-types.md) | Корневой элемент ответа. Содержит массив из объектов, содержащих информацию о полях датасетов. 
+
+Стоит учитывать, что структура полей может быть изменена из-за параметра `select` ||
+|| **time**
+[`time`](../../data-types.md#time) | Информация о времени выполнения запроса ||
 |#
+
+## Обработка ошибок
+
+HTTP-статус: **200**
+
+```json
+{
+    "error": "VALIDATION_SELECT_TYPE",
+    "error_description": "Parameter \"select\" must be array."
+}
+```
+
+
+
+### Возможные коды ошибок
+
+#|
+|| **Код** | **Описание** | **Значение** ||
+|| `VALIDATION_SELECT_TYPE` | Parameter "select" must be array. | В параметр `select` передан не объект ||
+|| `VALIDATION_FILTER_TYPE` | Parameter "filter" must be array. | В параметр `filter` передан не объект ||
+|| `VALIDATION_ORDER_TYPE` | Parameter "order" must be array. | В параметр `order` передан не объект ||
+|| `VALIDATION_FIELD_NOT_ALLOWED_IN_SELECT` | Field "#TITLE#" is not allowed in the "select". | Данные поля недопустимы в выборке ||
+|| `VALIDATION_FIELD_NOT_ALLOWED_IN_FILTER` | Field "#TITLE#" is not allowed in the "filter". | Данные поля недопустимы в фильтре ||
+|| `VALIDATION_FIELD_NOT_ALLOWED_IN_ORDER` | Field "#TITLE#" is not allowed in the "order". | Данные поля недопустимы для сортировки ||
+|#
+
+
+
+## Продолжите изучение
+
+- [{#T}](./biconnector-dataset-add.md)
+- [{#T}](./biconnector-dataset-update.md)
+- [{#T}](./biconnector-dataset-fields-update.md)
+- [{#T}](./biconnector-dataset-get.md)
+- [{#T}](./biconnector-dataset-fields.md)
+- [{#T}](./biconnector-dataset-delete.md)
+

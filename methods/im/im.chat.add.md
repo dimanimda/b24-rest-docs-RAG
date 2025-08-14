@@ -9,52 +9,119 @@ params: {"type":"object","required":["fields"],"properties":{"fields":{"type":"o
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Специальные операции в чатах: обзор методов
+# Создать чат im.chat.add
 
-Специальные операции помогают управлять чатами: отмечать сообщения как прочитанные, закреплять чаты, отключать уведомления или удалять диалоги из списка последних чатов.
 
-> Быстрый переход: [все методы и события](#all-methods) 
-> 
-> Пользовательская документация: [Чаты в Битрикс24: интерфейс и возможности](https://helpdesk.bitrix24.ru/open/21912520/)
 
-## Связь специальных операций с другими объектами
+Тут может не хватать некоторых данных — дополним в ближайшее время
 
-**Чат.** Специальные операции с чатами выполняются по идентификатору чата `DIALOG_ID` или `CHAT_ID`. Получить идентификатор чата можно методом создания чата [im.chat.add](../im-chat-add.md) или получения идентификатора чата [im.chat.get](../im-chat-get.md).
 
-## Закрепить чат
 
-Чтобы не потерять важный чат, закрепите его в начале списка. Закрепить или открепить чат можно методом [im.recent.pin](./im-recent-pin.md).
 
-## Прочитать чат
 
-Если вы хотите вернуться к прочитанному сообщению позже, используйте метку «Посмотреть позже». Метод `im.recent.unread` управляет этой меткой:
 
--  Параметр `ACTION` со значением `Y` устанавливает метку «Посмотреть позже»
 
--  Параметр `ACTION` со значением `N` отмечает все сообщения прочитанными и снимает метку
+- нужны правки под стандарт написания
+- не указаны типы параметров
+- отсутствуют примеры
+- не прописаны ссылки на несозданные ещё страницы
 
-Метод [im.dialog.read.all](./im-dialog-read-all.md) устанавливает метки «Прочитано» для всех диалогов.
 
-## Отключить уведомления чата
 
-В групповых чатах, где не требуется оперативно реагировать на сообщения, можно отключить уведомления. Метод [im.chat.mute](./im-chat-mute.md) позволяет отключить или включить уведомления.
 
-## Удалить чат из списка последних
 
-Метод [im.recent.hide](./im-recent-hide.md) удаляет диалог из списка последних чатов.
+> Scope: [`im`](../scopes/permissions.md)
+>
+> Кто может выполнять метод: любой пользователь
 
-## Обзор методов {#all-methods}
+Метод `im.chat.add` создаёт чат.
 
 #|
-|| **Метод** | **Описание** ||
-|| [im.recent.pin](./im-recent-pin.md) | Закрепляет чат вверху списка чатов ||
-|| [im.recent.unread](./im-recent-unread.md) | Управляет меткой «Прочитано» у чата ||
-|| [im.dialog.read.all](./im-dialog-read-all.md) | Устанавливает метку «Прочитано» для всех чатов ||
-|| [im.chat.mute](./im-chat-mute.md) | Отключает уведомления от чата ||
-|| [im.recent.hide](./im-recent-hide.md) | Удаляет чат из списка последних ||
+|| **Параметр** | **Пример** | **Описание** | **Ревизия** ||
+|| **TYPE**
+[`unknown`](../data-types.md) | `CHAT` | Тип чата OPEN \| CHAT (OPEN - открытый для вступления чат, CHAT - обычный чат по приглашениям, по-умолчанию CHAT) | 18 ||
+|| **TITLE**
+[`unknown`](../data-types.md) | `Мой новый закрытый чат` | Заголовок чата | 18 ||
+|| **DESCRIPTION**
+[`unknown`](../data-types.md) | `Очень важный чат` | Описание чата | 18 ||
+|| **COLOR**
+[`unknown`](../data-types.md) | `PINK` | Цвет чата для мобильного приложения: RED, GREEN, MINT, LIGHT_BLUE, DARK_BLUE, PURPLE, AQUA, PINK, LIME, BROWN, AZURE, KHAKI, SAND, MARENGO, GRAY, GRAPHITE | 18 ||
+|| **MESSAGE**
+[`unknown`](../data-types.md) | `Добро пожаловать в чат` | Первое приветственное сообщение в чате | 18 ||
+|| **USERS^*^**
+[`unknown`](../data-types.md) | `Array(1,2)` | Участники чата | 18 ||
+|| **AVATAR**
+[`unknown`](../data-types.md) | `base64 image` | Аватар чата в base64 формате | 18 ||
+|| **ENTITY_TYPE**
+[`unknown`](../data-types.md) | `CHAT` | Идентификатор сущности, может быть использован для поиска по этому полю и для легкого определения контекста в обработчиках событий [ONIMBOTMESSAGEADD](../chat-bots/messages/events/on-imbot-message-add.md), [ONIMBOTMESSAGEUPDATE](../chat-bots/messages/events/on-imbot-message-update.md), [ONIMBOTMESSAGEDELETE](../chat-bots/messages/events/on-imbot-message-delete.md) | 18 ||
+|| **ENTITY_ID**
+[`unknown`](../data-types.md) | `13` | Числовой идентификатор сущности, может быть использован для поиска чата и для легкого определения контекста в обработчиках событий  [ONIMBOTMESSAGEADD](../chat-bots/messages/events/on-imbot-message-add.md), [ONIMBOTMESSAGEUPDATE](../chat-bots/messages/events/on-imbot-message-update.md), [ONIMBOTMESSAGEDELETE](../chat-bots/messages/events/on-imbot-message-delete.md) | 18 ||
+|| **OWNER_ID**
+[`unknown`](../data-types.md) | `39` | Идентификатор владельца чата. Можно не указывать, владельцем будет тот, от кого идёт запрос. | 18 ||
 |#
 
+
+
+## Примеры
+
+
+
+
+
+- PHP
+
+    ```php
+    $result = restCommand(
+        'im.chat.add',
+        Array(
+            'TYPE' => 'CHAT',
+            'TITLE' => 'Мой новый закрытый чат',
+            'DESCRIPTION' => 'Очень важный чат',
+            'COLOR' => 'PINK',
+            'MESSAGE' => 'Добро пожаловать в чат',
+            'USERS' => Array(1,2),
+            'AVATAR' => 'base64 image',
+            'ENTITY_TYPE' => 'CHAT',
+            'ENTITY_ID' => 13,
+            'OWNER_ID' => 39,
+        ),
+        $_REQUEST["auth"]
+    );
+    ```
+
+
+
+
+
+## Ответ в случае успеха
+
+```json
+{
+    "result": 123
+}
+```
+
+## Ответ в случае ошибки
+
+```json
+{
+    "error": "USERS_EMPTY",
+    "error_description": "Не переданы участники чата"
+}
+```
+
+### Описание ключей
+
+- `error` – код возникшей ошибки
+- `error_description` – краткое описание возникшей ошибки
+
+### Возможные коды ошибок
+
+#|
+|| **Код** | **Описание** ||
+|| **USERS_EMPTY** | Не переданы участники чата ||
+|| **WRONG_REQUEST** | Что-то пошло не так ||
+|#

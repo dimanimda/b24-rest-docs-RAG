@@ -9,140 +9,232 @@ params: {"type":"object","required":["id"],"properties":{"id":{"type":"integer"}
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Календарь: обзор методов
-
-Календарь  помогает пользователям планировать встречи, задачи и мероприятия. Управлять календарями можно с помощью группы методов [calendar.section.*](#base).
-
-События календаря — это запланированные дела или встречи. Для создания, изменения, получения или удаления событий используется группа методов [calendar.event.*](./calendar-event/index.md).
-
-> Быстрый переход: [все методы и события](#all-methods) 
-> 
-> Пользовательская документация: [календарь Битрикс24](https://helpdesk.bitrix24.ru/open/17525000/)
-
-## Связь календаря с другими объектами
-
-**Пользователь.** Календарь имеет привязку к пользователю по идентификатору владельца календаря `ownerId` для типа календаря `user`. Получить идентификатор пользователя можно с помощью метода [user.get](../user/user-get.md).
-
-**Группа.** Календарь имеет привязку к группе по идентификатору владельца календаря `ownerId` для типа календаря `group`. Идентификатор можно получить методом [создания новой группы](../sonet-group/sonet-group-create.md) или методом [получения списка групп](../sonet-group/socialnetwork-api-workgroup-list.md).
-
-
-
-- [Как создать группу и проект](https://helpdesk.bitrix24.ru/open/22699004/)
-
-
-
-## Настройки календаря
-
-В основных настройках календаря указывается рабочий график компании, выходные и праздничные дни. Получить настройки можно методом [calendar.settings.get](./calendar-settings-get.md).
-
-В пользовательских настройках сотрудник может указать персональные особенности, например, часовой пояс или показ номеров недель. Получить пользовательские настройки можно методом [calendar.user.settings.get](./calendar-user-settings-get.md), установить — методом [calendar.user.settings.set.](./calendar-user-settings-set.md)
-
-
-
--  [Настройки календаря](https://helpdesk.bitrix24.ru/open/7397539/)
-
-
-
-## Бронирование ресурсов
-
-В Битрикс24 бронирование ресурсов осуществляется через пользовательское поле CRM типа `resourcebooking`. Такое поле можно создать в карточках [лида](../crm/leads/userfield/index.md) и [сделки](../crm/deals/user-defined-fields/index.md).
-
-Отслеживать занятость ресурсов можно в Календаре CRM. Технически ресурс — это секция календаря, а бронирование — это событие календаря.
-
-Управляет ресурсами группа методов [calendar.resource.\*.](./resource/index.md)
-
-
-
--  [Настраиваем бронирование ресурсов в CRM](https://helpdesk.bitrix24.ru/open/18260410/)
-
-
-
-## **Виджеты**
-
-В календарь можно встроить приложение. В списке видов отображения календаря есть место для встройки `CALENDAR_GRIDVIEW`, куда можно добавить [свой пункт](../widgets/calendar.md).
-
-
-
--  [{#T}](../widgets/index.md)
--  [{#T}](./calendar-grid-veiw.md)
-
-
-
-## Обзор методов и событий {#all-methods}
+# Получить пользовательские настройки календаря calendar.user.settings.get
 
 > Scope: [`calendar`](../scopes/permissions.md)
 >
 > Кто может выполнять метод: любой пользователь
 
-## Основные {#base}
+Метод получает пользовательские настройки календаря.
+
+Без параметров.
+
+## Примеры кода
 
 
 
-- Методы
-
-    #|
-    || **Метод** | **Описание** ||
-    || [calendar.section.add](./calendar-section-add.md) | Добавить новый календарь ||
-    || [calendar.section.update](./calendar-section-update.md) | Обновить календарь ||
-    || [calendar.section.get](./calendar-section-get.md) | Получить список календарей ||
-    || [calendar.section.delete](./calendar-section-delete.md) | Удалить календарь ||
-    || [calendar.settings.get](./calendar-settings-get.md) | Получить основные настройки календаря ||
-    || [calendar.user.settings.get](./calendar-user-settings-get.md) | Получить пользовательские настройки календаря ||
-    || [calendar.user.settings.set](./calendar-user-settings-set.md) | Установить пользовательские настройки календаря ||
-    |#
-
-- События
-
-    #|
-    || **Событие** | **Вызывается** ||
-    || [OnCalendarSectionAdd](./events/on-calendar-section-add.md) | При добавлении секции календаря или ресурса ||
-    || [OnCalendarSectionUpdate](./events/on-calendar-section-update.md) | При изменении секции календаря или ресурса ||
-    || [OnCalendarSectionDelete](./events/on-calendar-section-delete.md) | При удалении секции календаря или ресурса ||
-    |#
 
 
+- cURL (Webhook)
 
-## События календаря
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{}' \
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/calendar.user.settings.get
+    ```
 
+- cURL (OAuth)
 
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"auth":"**put_access_token_here**"}' \
+    https://**put_your_bitrix24_address**/rest/calendar.user.settings.get
+    ```
 
-- Методы
+- JS
 
-    #|
-    || **Метод** | **Описание** ||
-    || [calendar.event.add](./calendar-event/calendar-event-add.md) | Добавить событие ||
-    || [calendar.event.update](./calendar-event/calendar-event-update.md) | Обновить событие ||
-    || [calendar.event.getById](./calendar-event/calendar-event-get-by-id.md) | Получить событие по `id` ||
-    || [calendar.event.get](./calendar-event/calendar-event-get.md) | Получить список событий календаря ||
-    || [calendar.event.getNearest](./calendar-event/calendar-event-get-nearest.md) | Получить список будущих событий ||
-    || [calendar.event.delete](./calendar-event/calendar-event-delete.md) | Удалить событие ||
-    || [calendar.meeting.status.get](./calendar-event/calendar-meeting-status-get.md) | Получить статус участия текущего пользователя в событии ||
-    || [calendar.meeting.status.set](./calendar-event/calendar-meeting-status-set.md) | Установить статус участия в событии для текущего пользователя ||
-    || [calendar.accessibility.get](./calendar-event/calendar-accessibility-get.md) | Получить занятость пользователей из списка ||
-    |#
+    ```js
+    BX24.callMethod(
+        'calendar.user.settings.get',
+        {}
+    );
+    ```
 
-- События
+- PHP
 
-    #|
-    || **Событие** | **Вызывается** ||
-    || [OnCalendarEntryAdd](./calendar-event/events/on-calendar-entry-add.md) | При добавлении события ||
-    || [OnCalendarEntryUpdate](./calendar-event/events/on-calendar-entry-update.md) | При изменении события ||
-    || [OnCalendarEntryDelete](./calendar-event/events/on-calendar-entry-delete.md) | При удалении события ||
-    |#
+    ```php
+    require_once('crest.php');
+
+    $result = CRest::call(
+        'calendar.user.settings.get',
+        []
+    );
+
+    echo '<PRE>';
+    print_r($result);
+    echo '</PRE>';
+    ```
 
 
 
-## Бронирование ресурсов
+## Обработка ответа
+
+HTTP-статус: **200**
+
+```json
+{
+    "result": {
+        "view": "month",
+        "meetSection": "4",
+        "crmSection": "4",
+        "showDeclined": true,
+        "denyBusyInvitation": false,
+        "collapseOffHours": "N",
+        "showWeekNumbers": "N",
+        "showTasks": "Y",
+        "syncTasks": "N",
+        "showCompletedTasks": "N",
+        "lastUsedSection": "false",
+        "sendFromEmail": "",
+        "defaultSections": {
+            "user1": "4",
+            "group6": "49"
+        },
+        "syncPeriodPast": "3",
+        "syncPeriodFuture": "12",
+        "defaultReminders": {
+            "fullDay": [
+                {
+                    "type": "min",
+                    "count": 15
+                }
+            ],
+            "withTime": [
+                {
+                    "type": "min",
+                    "count": 50
+                }
+            ]
+        },
+        "timezoneName": "Europe/Riga",
+        "timezoneOffsetUTC": 7200,
+        "timezoneDefaultName": "",
+        "work_time_start": "9.00",
+        "work_time_end": "19.00"
+    },
+    "time": {
+        "start": 1734434829.455204,
+        "finish": 1734434829.797482,
+        "duration": 0.34227800369262695,
+        "processing": 0.0038161277770996094,
+        "date_start": "2024-12-17T11:27:09+00:00",
+        "date_finish": "2024-12-17T11:27:09+00:00"
+    }
+}
+```
+
+### Возвращаемые данные
 
 #|
-|| **Метод** | **Описание** ||
-|| [calendar.resource.add](./resource/calendar-resource-add.md) | Добавить ресурс ||
-|| [calendar.resource.update](./resource/calendar-resource-update.md) | Обновить ресурс ||
-|| [calendar.resource.list](./resource/calendar-resource-list.md) | Получить список ресурсов ||
-|| [calendar.resource.booking.list](./resource/calendar-resource-booking-list.md) | Получить бронирования ресурсов по фильтру ||
-|| [calendar.resource.delete](./resource/calendar-resource-delete.md) | Удалить ресурс ||
+|| **Название**
+`тип` | **Описание** ||
+|| **result**
+[`object`](../data-types.md) | Корневой элемент ответа ||
+|| **view**
+[`string`](../data-types.md) | Стандартное представление для календаря. Возможные значения:
+- `day` — день
+- `week` — неделя
+- `month` — месяц
+- `list` — список ||
+|| **meetSection**
+[`string`](../data-types.md) | Календарь для приглашений ||
+|| **crmSection**
+[`string`](../data-types.md) | Календарь для CRM ||
+|| **showDeclined**
+[`boolean`](../data-types.md) | Показывать события, в которых пользователь отказался принять участие ||
+|| **denyBusyInvitation**
+[`boolean`](../data-types.md) | Запрещать приглашать в событие, если время занято ||
+|| **collapseOffHours**
+[`string`](../data-types.md) | Скрывать нерабочее время в календаре в недельном и дневном представлении. Возможные значения:
+- `Y` — скрывать
+- `N` — не скрывать ||
+|| **showWeekNumbers**
+[`string`](../data-types.md) | Показывать номер недель. Возможные значения:
+- `Y` — показывать
+- `N` — не показывать ||
+|| **showTasks**
+[`string`](../data-types.md) | Отображать задачи в календаре. Возможные значения:
+- `Y` — отображать
+- `N` — не отображать ||
+|| **syncTasks**
+[`string`](../data-types.md) | Синхронизировать календарь задач. Возможные значения:
+- `Y` — да
+- `N` — нет ||
+|| **showCompletedTasks**
+[`string`](../data-types.md) | Отображать завершенные задачи. Возможные значения:
+- `Y` — отображать
+- `N` — не отображать  ||
+|| **lastUsedSection**
+[`string`](../data-types.md) | Идентификатор календаря, который используется при создании событий, если в параметрах не передан идентификатор календаря. 
+
+Значение по умолчанию — `false` ||
+|| **sendFromEmail**
+[`string`](../data-types.md) | E-mail для отправки почтовых приглашений ||
+|| **defaultSections**
+[`object`](../data-types.md) | Настройки предустановленных календарей.
+
+Ключем объекта настроек может быть:
+- `user[id]` — тип Календарь пользователя c идентификатором пользователя. Например, `user12` соответствует календарю пользователя с идентификатором `12`
+- `group[id]` — тип Календарь группы с идентификатором группы. Например, `group36` соответствует календарю группы с идентификатором `36`
+
+Значением объекта является идентификатор календаря ||
+|| **syncPeriodPast**
+[`string`](../data-types.md) | Количество месяцев для синхронизации в прошлом периоде ||
+|| **syncPeriodFuture**
+[`string`](../data-types.md) | Количество месяцев для синхронизации в будущем периоде ||
+|| **defaultReminders**
+[`object`](../data-types.md) | Объект со стандартными настройками [напоминаний о событии](#defaultReminders) ||
+|| **timezoneName**
+[`string`](../data-types.md) | Таймзона календаря ||
+|| **timezoneOffsetUTC**
+[`integer`](../data-types.md) | Смешение таймзоны относительно UTC в секундах ||
+|| **timezoneDefaultName**
+[`string`](../data-types.md) | Если параметр `timezoneName` не установлен, здесь будет указан часовой пояс из параметра `timezoneOffsetUTC` ||
+|| **work_time_start**
+[`string`](../data-types.md) | Время начала рабочего дня ||
+|| **work_time_end**
+[`string`](../data-types.md) | Время окончания рабочего дня ||
 |#
+
+#### Объект defaultReminders {#defaultReminders}
+
+#|
+|| **Название**
+`тип` | **Описание** ||
+|| **fullDay**
+[`array`](../data-types.md) | Массив [стандартных настроек напоминаний](#reminder-settings) для целодневных событий ||
+|| **withTime**
+[`array`](../data-types.md) | Массив [стандартных настроек напоминаний](#reminder-settings) для событий с указанием времени ||
+|#
+
+#### Объект настроек напоминания {#reminder-settings}
+
+#|
+|| **Название**
+`тип` | **Описание** ||
+|| **type**
+[`string`](../data-types.md) | Временной тип напоминания. Возможные значения:
+- `min` — минуты
+- `hour` — часы
+- `day` — дни ||
+|| **count**
+[`integer`](../data-types.md) | Числовое значение временного промежутка ||
+|#
+
+## Обработка ошибок
+
+
+
+## Продолжите изучение 
+
+- [{#T}](./index.md)
+- [{#T}](./calendar-settings-get.md)
+- [{#T}](./calendar-user-settings-set.md)
+

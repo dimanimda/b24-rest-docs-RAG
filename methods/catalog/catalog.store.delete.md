@@ -9,41 +9,154 @@ params: {"type":"object","required":["id"],"properties":{"id":{"type":"integer"}
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Склады в Торговом каталоге: обзор методов
-
-Склады помогают контролировать остатки, перемещения и поступления товаров. Вы всегда будете знать, где находятся нужные товары, и сможете вовремя распределять их между складами.
-
-Вы можете настроить права доступа для каждого склада. Тогда сотрудники будут видеть только свои документы складского учета и не смогут случайно выбрать другой склад при создании новых документов.
-
-> Быстрый переход: [все методы](#all-methods)
-> 
-> Пользовательская документация: 
-> - [Как начать работу со складским учетом](https://helpdesk.bitrix24.ru/open/17792114/)
-> - [Право на просмотр и выбор склада](https://helpdesk.bitrix24.ru/open/16342618/)
-
-## Связь складов с другими объектами
-
-**Остатки по складам.** Узнайте, сколько товаров осталось на складе, с помощью методов [catalog.storeproduct.*](../store-product/index.md).
-
-**Складской учет.** Добавляйте и изменяйте документы складского учета, используя методы [catalog.document.*](../document/index.md). При создании документов укажите в параметрах `storeFrom` и `storeTo` идентификаторы склада-отправителя и склада-получателя. Получить идентификаторы складов можно с помощью метода [catalog.store.list](./catalog-store-list.md).
-
-## Обзор методов {#all-methods}
+# Удалить склад catalog.store.delete
 
 > Scope: [`catalog`](../../scopes/permissions.md)
 >
 > Кто может выполнять метод: администратор
 
+Метод удаляет склад.
+
+## Параметры метода
+
+
+
 #|
-|| **Метод** | **Описание** ||
-|| [catalog.store.add](./catalog-store-add.md) | Добавляет склад ||
-|| [catalog.store.update](./catalog-store-update.md) | Изменяет склад ||
-|| [catalog.store.get](./catalog-store-get.md) | Возвращает значения полей склада по его идентификатору ||
-|| [catalog.store.list](./catalog-store-list.md) | Возвращает список складов по фильтру ||
-|| [catalog.store.delete](./catalog-store-delete.md) | Удаляет склад ||
-|| [catalog.store.getFields](./catalog-store-get-fields.md) | Возвращает доступные поля склада ||
+|| **Название**
+`тип` | **Описание** ||
+|| **id***
+[`catalog_store.id`](../data-types.md#catalog_store) | Идентификатор склада.
+
+Получить идентификаторы складов можно методом [catalog.store.list](./catalog-store-list.md) ||
 |#
+
+## Примеры кода
+
+
+
+
+
+- cURL (Webhook)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"id":1}' \
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/catalog.store.delete
+    ```
+
+- cURL (OAuth)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"id":1,"auth":"**put_access_token_here**"}' \
+    https://**put_your_bitrix24_address**/rest/catalog.store.delete
+    ```
+
+- JS
+
+    ```js
+    BX24.callMethod(
+        'catalog.store.delete',
+        {
+            id: 1,
+        },
+        function(result) {
+            if (result.error()) {
+                console.error(result.error());
+            } else {
+                console.info(result.data());
+            }
+        }
+    );
+    ```
+
+- PHP
+
+    ```php
+    require_once('crest.php');
+
+    $result = CRest::call(
+        'catalog.store.delete',
+        [
+            'id' => 1
+        ]
+    );
+
+    echo '<PRE>';
+    print_r($result);
+    echo '</PRE>';
+    ```
+
+
+
+## Обработка ответа
+
+HTTP-статус: **200**
+
+```json
+{
+    "result": true,
+    "time": {
+        "start": 1729516191.298727,
+        "finish": 1729516191.799495,
+        "duration": 0.5007679462432861,
+        "processing": 0.16301894187927246,
+        "date_start": "2024-10-21T16:09:51+03:00",
+        "date_finish": "2024-10-21T16:09:51+03:00",
+    }
+}
+```
+
+### Возвращаемые данные
+
+#|
+|| **Название**
+`тип` | **Описание** ||
+|| **result**
+[`boolean`](../../data-types.md) | Результат удаления склада ||
+|| **time**
+[`time`](../../data-types.md#time) | Информация о времени выполнения запроса ||
+|#
+
+## Обработка ошибок
+
+HTTP-статус: **400**
+
+```json
+{	
+    "error":200040300020,
+    "error_description":"Access Denied"
+}
+```
+
+
+
+### Возможные коды ошибок
+
+#|
+|| **Код** | **Описание** ||
+|| `200040300020` | Недостаточно прав для удаления склада ||
+|| `201100000000` | Склад с указанным идентификатором не найден ||
+|| `100` | Не указан или пустой параметр `id` ||
+|| `0` | На данный склад оформлены документы || 
+|| `0` | Другие ошибки (например, фатальные ошибки) || 
+|#
+
+
+
+## Продолжите изучение 
+
+- [{#T}](./catalog-store-add.md)
+- [{#T}](./catalog-store-update.md)
+- [{#T}](./catalog-store-get.md)
+- [{#T}](./catalog-store-list.md)
+- [{#T}](./catalog-store-get-fields.md)
+
 

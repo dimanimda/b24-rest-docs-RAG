@@ -9,101 +9,172 @@ params: {"type":"object","required":["id"],"properties":{"id":{"type":"integer"}
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Пользовательские поля сделок: обзор методов
-
-Пользовательские поля хранят информацию о сделке в различных форматах данных: строка, число, ссылка, адрес и другие. 
-
-> Быстрый переход: [все методы](#all-methods) 
-> 
-> Пользовательская документация: [Пользовательские поля в CRM](https://helpdesk.bitrix24.ru/open/22048980/)
-
-## Типы пользовательских полей
-
-Используйте метод [crm.userfield.types](../../universal/user-defined-fields/crm-userfield-types.md) для получения доступных типов пользовательских полей. Метод вернет ID и название типов полей.
-
-````
-    (
-        [ID] => double    
-        [title] => Число
-    )
-````
-
-Используйте метод [crm.userfield.fields](../../universal/user-defined-fields/crm-userfield-fields.md) для получения списка характеристик пользовательских полей. Метод вернет коды характеристик с их типом и названием.
-
-````
-    [MANDATORY] => Array
-                (
-                    [type] => char
-                    [title] => Обязательное
-                )
-````
-
-## Настройки пользовательских полей
-
-Используйте метод [crm.userfield.settings.fields](../../universal/user-defined-fields/crm-userfield-settings-fields.md), чтобы получить список доступных настроек. Метод вернет поддерживаемые настройки для запрошенного типа поля. 
-
-````
-    [DEFAULT_VALUE] => Array
-            (
-                [type] => double
-                [title] => Значение по умолчанию
-            )
-    [PRECISION] => Array
-            (
-                [type] => int
-                [title] => Точность
-            )
-````
-
-## Ошибки при работе с пользовательскими полями
-
-При создании или удалении пользовательских полей запрос может прерваться с ошибкой [INTERNAL_SERVER_ERROR](../../../../error-codes.md). Это внутренняя ошибка сервера. Причину ошибки можно найти в логах сервера на момент выполнения запроса: 
-* В облачном Битрикс24 напишите обращение в [техническую поддержку](../../../../bitrix-support.md) чтобы получить детали ошибки. 
-* В коробочном Битрикс24 запросите лог ошибок сервера у администратора сервера или администратора хостинга. После напишите в [техническую поддержку](../../../../bitrix-support.md) и приложите лог для анализа. 
-
-### Частые причины серверных ошибок
-
-1. Для сделок можно создать 1016 пользовательских полей — это ограничение архитектуры базы данных. Если в Битрикс24 уже есть 1016 полей для сделок, при попытке создать новое поле метод [crm.deal.userfield.add](./crm-deal-userfield-add.md) вернет ошибку [INTERNAL_SERVER_ERROR](../../../../error-codes.md). 
-
-    Проверить количество пользовательских полей сделок можно методом [crm.deal.userfield.list](./crm-deal-userfield-list.md). 
-
-2. На серверах есть ограничение для времени выполнения одного запроса — `max_execution_time`. Стандартное время — 60 секунд. Если запрос выполняется дольше, он прерывается с ошибкой [INTERNAL_SERVER_ERROR](../../../../error-codes.md). 
-
-    Время [создания](./crm-deal-userfield-add.md) или [удаления](./crm-deal-userfield-delete.md) пользовательского поля сделок зависит от количества сделок. Когда поле создается, оно добавляется во все карточки сделок. Когда поле удаляется, оно удаляется из всех карточек. Чем меньше сделок в вашем Битрикс24, тем быстрее создаются и удаляются поля.
-   
-    Чтобы проверить количество сделок в Битрикс24 используйте метод [crm.deal.list](../crm-deal-list.md).
-
-## Обзор методов {#all-methods}
+# Удалить пользовательское поле сделок crm.deal.userfield.delete
 
 > Scope: [`crm`](../../../scopes/permissions.md)
 >
-> Кто может выполнять методы: в зависимости от метода
+> Кто может выполнять метод: администратор CRM
+
+Метод `crm.deal.userfield.delete` удаляет пользовательское поле сделок.
+
+## Параметры метода
 
 
 
-- Методы
+#|
+|| **Название**
+`тип` | **Описание** ||
+|| **id***
+[`integer`](../../../data-types.md) | Идентификатор пользовательского поля, привязанного к сделке.
 
-    #|
-    || **Метод** | **Описание** ||
-    || [crm.deal.userfield.add](./crm-deal-userfield-add.md) | Создает новое пользовательское поле для сделок ||
-    || [crm.deal.userfield.update](./crm-deal-userfield-update.md) | Изменяет существующее пользовательское поле сделок ||
-    || [crm.deal.userfield.get](./crm-deal-userfield-get.md) | Получает пользовательское поле сделок по Id ||
-    || [crm.deal.userfield.list](./crm-deal-userfield-list.md) | Получает списка пользовательских полей сделок ||
-    || [crm.deal.userfield.delete](./crm-deal-userfield-delete.md) | Удаляет пользовательское поле сделок ||
-    |#
+Идентификатор можно получить с помощью методов [crm.deal.userfield.add](./crm-deal-userfield-add.md) или [crm.deal.userfield.list](./crm-deal-userfield-list.md) ||
+|#
 
-- События
-
-    #|
-    || **Событие** | **Вызывается** ||
-    || [onCrmDealUserFieldAdd](./events/on-crm-deal-user-field-add.md) | При добавлении пользовательского поля ||
-    || [onCrmDealUserFieldUpdate](./events/on-crm-deal-user-field-update.md) | При изменении пользовательского поля ||
-    || [onCrmDealUserFieldDelete](./events/on-crm-deal-user-field-delete.md) | При удалении пользовательского поля ||
-    || [onCrmDealUserFieldSetEnumValues](./events/on-crm-deal-user-field-set-enum-values.md) | При изменении набора значений для пользовательского поля списочного типа ||
-    |#
+## Примеры кода
 
 
+
+
+
+- cURL (Webhook)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"id":432}' \
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/crm.deal.userfield.delete
+    ```
+
+- cURL (OAuth)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"id":432,"auth":"**put_access_token_here**"}' \
+    https://**put_your_bitrix24_address**/rest/crm.deal.userfield.delete
+    ```
+
+- JS
+
+    ```js
+    BX24.callMethod(
+        'crm.deal.userfield.delete',
+        {
+            id: 432,
+        },
+        (result) => {
+            result.error()
+                ? console.error(result.error())
+                : console.info(result.data())
+            ;
+        },
+    );
+    ```
+
+- PHP
+
+    ```php
+    require_once('crest.php');
+
+    $result = CRest::call(
+        'crm.deal.userfield.delete',
+        [
+            'id' => 432
+        ]
+    );
+
+    echo '<PRE>';
+    print_r($result);
+    echo '</PRE>';
+    ```
+
+- PHP (B24PhpSdk)
+
+    ```php
+    try {
+        $userfieldId = 123; // Replace with the actual userfield ID you want to delete
+        $result = $serviceBuilder
+            ->getCRMScope()
+            ->dealUserfield()
+            ->delete($userfieldId);
+
+        if ($result->isSuccess()) {
+            print("Userfield deleted successfully.");
+        } else {
+            print("Failed to delete userfield.");
+        }
+    } catch (Throwable $e) {
+        print("An error occurred: " . $e->getMessage());
+    }
+    ```
+
+
+
+## Обработка ответа
+
+HTTP-статус: **200**
+
+```json
+{
+    "result": true,
+    "time": {
+        "start": 1724419843.518672,
+        "finish": 1724419844.120328,
+        "duration": 0.6016559600830078,
+        "processing": 0.1907808780670166,
+        "date_start": "2024-08-23T15:30:43+02:00",
+        "date_finish": "2024-08-23T15:30:44+02:00",
+        "operating": 0
+    }
+}
+```
+
+### Возвращаемые данные
+
+#|
+|| **Название**
+`тип` | **Описание** ||
+|| **result**
+[`boolean`](../../../data-types.md) | Корневой элемент ответа, содержит `true` в случае успеха ||
+|| **time**
+[`time`](../../../data-types.md#time) | Информация о времени выполнения запроса ||
+|#
+
+## Обработка ошибок
+
+HTTP-статус: **400**
+
+```json
+{
+    "error": "",
+    "error_description": "Access denied."
+}
+```
+
+
+
+### Возможные коды ошибок
+
+#|
+|| **Код** | **Описание** | **Значение** ||
+|| `400` | `ID is not defined or invalid` | Переданный `id` либо меньше или равен нулю, либо же не передан вовсе ||
+|| `403` | `Access denied` | Возникает в случаях, когда:
+- у пользователя нет административных прав
+- пользователь пытается удалить пользовательское поле, не привязанное к сделкам ||
+|| `ERROR_NOT_FOUND` | `The entity with ID 'id' is not found` | Пользовательское поле с переданным `id` не существует ||
+|| `400` | Ошибка удаления `FIELD_NAME` для объекта `ENTITY_ID` | Неизвестная ошибка при удалении ||
+|#
+
+
+
+## Продолжите изучение
+
+- [{#T}](./crm-deal-userfield-add.md)
+- [{#T}](./crm-deal-userfield-get.md)
+- [{#T}](./crm-deal-userfield-list.md)
+- [{#T}](./crm-deal-userfield-update.md)

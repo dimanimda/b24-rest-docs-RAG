@@ -9,417 +9,541 @@ params: {"type":"object"}
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Импортировать одну запись crm.item.import
+# Получить поля сделки crm.deal.fields
 
-> Scope: [`crm`](../../../scopes/permissions.md)
->
-> Кто может выполнять метод: любой пользователь с правом «импорта» элемента объекта CRM
+> Scope: [`crm`](../../scopes/permissions.md)
+> 
+> Кто может выполнять метод: любой пользователь
 
-Универсальный метод для импорта объектов в CRM.
-
-Об отличиях логики импорта от логики обычного добавления элементов можно прочитать в статье [{#T}](./index.md).
+Метод `crm.deal.fields` возвращает описание полей сделки, в том числе пользовательских.
+Таблицу с описанием стандартных полей можно найти в статье [Поля основных объектов CRM](../main-entities-fields.md).
 
 ## Параметры метода
 
-
-
-#|
-|| **Название**
-`тип`          | **Описание** ||
-|| **entityTypeId***
-[`integer`][3] | Идентификатор системного или [пользовательского типа](../user-defined-object-types/index.md), для которого нужно создать элемент ||
-|| **fields***
-[`object`][3]  | Объект формата:
-
-```js
-{
-    field_1: value_1,
-    field_2: value_2,
-    ...,
-    field_n: value_n,
-}
-```
-
-- `field_n` — название поля
-- `value_n` — значение поля
-
-Для мультиполей, например `PHONE`, `EMAIL` передавайте данные по структуре [crm_multifield](../../data-types.md#crm_multifield): 
-
-```js
-{
-    field_name: [
-        {
-            VALUE: "value_1",
-            VALUE_TYPE: "type_1"
-        },
-        {
-            VALUE: "value_2",
-            VALUE_TYPE: "type_2"
-        },
-        ...
-    ]
-}
-```
-
-- `field_name` — название поля, например `PHONE`
-- `VALUE` — значение поля, например номер телефона
-- `VALUE_TYPE` — тип значения, например `WORK`
-
-У каждого объекта CRM свой набор полей. Это значит, что набор полей для создания Лида не обязан подходить набору полей для создания Контакта или Смарт-процесса.
-
-Список доступных полей для каждого типа объектов описан [ниже](#parametr-fields).
-
-Некорректное поле в `fields` будет проигнорировано.
-
-Узнать набор полей также можно универсальным методом [crm.item.fields](../crm-item-fields.md) или методами для конкретных объектов CRM: 
-- [crm.lead.fields](../../leads/crm-lead-fields.md)
-- [crm.deal.fields](../../deals/crm-deal-fields.md)
-- [crm.contact.fields](../../contacts/crm-contact-fields.md)
-- [crm.company.fields](../../companies/crm-company-fields.md)
-- [crm.quote.fields](../../quote/crm-quote-fields.md)
-||
-|| **useOriginalUfNames**
-[`boolean`][1] | Параметр для управления форматом имен пользовательских полей в запросе и ответе.   
-Возможные значения:
-
-- `Y` — оригинальные имена пользовательских полей, например `UF_CRM_2_1639669411830`
-- `N` — имена пользовательских полей в camelCase, например `ufCrm2_1639669411830`
-
-По умолчанию — `N` ||
-|#
-
-
-
-Чтобы загрузить файл, в качестве значения пользовательского поля необходимо передать массив, где первый элемент — это имя файла, а второй — это закодированный в base64 контент файла.
+Без параметров.
 
 ## Примеры кода
 
 
 
-1. Как импортировать сделку
 
-   
 
-    - cURL (Webhook)
+- cURL (Webhook)
 
-        ```bash
-        curl -X POST \
-        -H "Content-Type: application/json" \
-        -H "Accept: application/json" \
-        -d '{"entityTypeId":2,"fields":{"title":"Новая сделка (специально для примера REST методов)","typeId":"SERVICE","categoryId":9,"stageId":"C9:UC_KN8KFI","isReccurring":"Y","probability":50,"currencyId":"RUB","isManualOpportunity":"Y","opportunity":999.99,"taxValue":99.9,"companyId":5,"contactId":4,"contactIds":[4,5],"quoteId":7,"begindate":"formatDate(monthAgo)","closedate":"formatDate(twelveDaysInAdvance)","opened":"N","comments":"commentsExample","assignedById":6,"sourceId":"WEB","sourceDescription":"Тут должно быть дополнительное описание об источнике","leadId":102,"additionalInfo":"Тут должна быть дополнительная информация","observers":[2,3],"utmSource":"google","utmMedium":"CPC","ufCrm_1721244707107":1111.1,"parentId1220":[1,2]}}' \
-        https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/crm.item.import
-        ```
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{}' \
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/crm.deal.fields
+    ```
 
-    - cURL (OAuth)
+- cURL (OAuth)
 
-        ```bash
-        curl -X POST \
-        -H "Content-Type: application/json" \
-        -H "Accept: application/json" \
-        -d '{"entityTypeId":2,"fields":{"title":"Новая сделка (специально для примера REST методов)","typeId":"SERVICE","categoryId":9,"stageId":"C9:UC_KN8KFI","isReccurring":"Y","probability":50,"currencyId":"RUB","isManualOpportunity":"Y","opportunity":999.99,"taxValue":99.9,"companyId":5,"contactId":4,"contactIds":[4,5],"quoteId":7,"begindate":"formatDate(monthAgo)","closedate":"formatDate(twelveDaysInAdvance)","opened":"N","comments":"commentsExample","assignedById":6,"sourceId":"WEB","sourceDescription":"Тут должно быть дополнительное описание об источнике","leadId":102,"additionalInfo":"Тут должна быть дополнительная информация","observers":[2,3],"utmSource":"google","utmMedium":"CPC","ufCrm_1721244707107":1111.1,"parentId1220":[1,2]},"auth":"**put_access_token_here**"}' \
-        https://**put_your_bitrix24_address**/rest/crm.item.import
-        ```
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"auth":"**put_access_token_here**"}' \
+    https://**put_your_bitrix24_address**/rest/crm.deal.fields
+    ```
 
-    - JS
+- JS
 
-        ```js
-        const formatDate = (date) => {
-            return date.toISOString().slice(0, 10);
-        };
-
-        const day = 60 * 60 * 24 * 1000;
-
-        const now = new Date();
-        const twelveDaysInAdvance = new Date(now.getTime() + 12 * day);
-        const monthAgo = new Date(now.getTime() - 30 * day);
-
-        const commentsExample = `
-        Пример комментария внутри сделки
-
-        [B]Жирный текст[/B]
-        [I]Курсив[/I]
-        [U]Подчеркнутый[/U]
-        [S]Зачеркнутый[/S]
-        [B][I][U][S]Микс[/S][/U][/I][/B]
-
-        [LIST]
-        [*]Элемент списка #1
-        [*]Элемент списка #2
-        [*]Элемент списка #3
-        [/LIST]
-
-        [LIST=1]
-        [*]Нумерованный элемент списка #1
-        [*]Нумерованный элемент списка #2
-        [*]Нумерованный элемент списка #3
-        [/LIST]
-        `;
-
+    ```js
         BX24.callMethod(
-            'crm.item.import', 
-            {
-                entityTypeId: 2,
-                fields: 
-                {
-                    title: "Новая сделка (специально для примера REST методов)",
-                    typeId: "SERVICE",
-                    categoryId: 9,
-                    stageId: "C9:UC_KN8KFI",
-                    isReccurring: "Y",
-                    probability: 50,
-                    currencyId: "RUB",
-                    isManualOpportunity: "Y",
-                    opportunity: 999.99,
-                    taxValue: 99.9,
-                    companyId: 5,
-                    contactId: 4,
-                    contactIds: [4, 5],
-                    quoteId: 7,
-                    begindate: formatDate(monthAgo),
-                    closedate: formatDate(twelveDaysInAdvance),
-                    opened: "N",
-                    comments: commentsExample,
-                    assignedById: 6,
-                    sourceId: "WEB",
-                    sourceDescription: "Тут должно быть дополнительное описание об источнике",
-                    leadId: 102,
-                    additionalInfo: "Тут должна быть дополнительная информация",
-                    observers: [2, 3],
-                    utmSource: "google",
-                    utmMedium: "CPC",
-                    ufCrm_1721244707107: 1111.1,
-                    parentId1220: [
-                        1,
-                        2,
-                    ],
-                },
-            },
-            (result) => 
-            {
-                result.error() 
-                    ? console.error(result.error()) 
+            'crm.deal.fields',
+            {},
+            (result) => {
+                result.error()
+                    ? console.error(result.error())
                     : console.info(result.data())
                 ;
-            }
-        );
-        ```
-
-    - PHP
-
-        ```php
-        require_once('crest.php');
-
-        $result = CRest::call(
-            'crm.item.import',
-            [
-                'entityTypeId' => 2,
-                'fields' => [
-                    'title' => "Новая сделка (специально для примера REST методов)",
-                    'typeId' => "SERVICE",
-                    'categoryId' => 9,
-                    'stageId' => "C9:UC_KN8KFI",
-                    'isReccurring' => "Y",
-                    'probability' => 50,
-                    'currencyId' => "RUB",
-                    'isManualOpportunity' => "Y",
-                    'opportunity' => 999.99,
-                    'taxValue' => 99.9,
-                    'companyId' => 5,
-                    'contactId' => 4,
-                    'contactIds' => [4, 5],
-                    'quoteId' => 7,
-                    'begindate' => formatDate(monthAgo),
-                    'closedate' => formatDate(twelveDaysInAdvance),
-                    'opened' => "N",
-                    'comments' => $commentsExample,
-                    'assignedById' => 6,
-                    'sourceId' => "WEB",
-                    'sourceDescription' => "Тут должно быть дополнительное описание об источнике",
-                    'leadId' => 102,
-                    'additionalInfo' => "Тут должна быть дополнительная информация",
-                    'observers' => [2, 3],
-                    'utmSource' => "google",
-                    'utmMedium' => "CPC",
-                    'ufCrm_1721244707107' => 1111.1,
-                    'parentId1220' => [
-                        1,
-                        2,
-                    ],
-                ],
-            ]
-        );
-
-        echo '<PRE>';
-        print_r($result);
-        echo '</PRE>';
-        ```
-
-   
-
-
-2. Как создать элемент смарт-процесса с набором пользовательских полей
-
-    
-
-    
-
-    
-
-    
-
-    - cURL (Webhook)
-
-        ```bash
-        curl -X POST \
-        -H "Content-Type: application/json" \
-        -H "Accept: application/json" \
-        -d '{
-            "entityTypeId": 1302,
-            "fields": {
-                "ufCrm44_1721812760630": "Строка для пользовательского поля типа Строка",
-                "ufCrm44_1721812814433": 81,
-                "ufCrm44_1721812853419": "'"$(date '+%Y-%m-%d')"'",
-                "ufCrm44_1721812885588": [
-                    "example.com",
-                    "second-example.com"
-                ],
-                "ufCrm44_1721812898903": [
-                    "green_pixel.png",
-                    "iVBORw0KGgoAAAANSUhEUgAAAIAAAAAMCAYAAACqTLVoAAAALklEQVR42u3SAQEAAAQDsEsuOj3YMqwy6fBWCSCAAAIgAAIgAAIgAAIgAAJw3QLOrRH1U/gU4gAAAABJRU5ErkJggg=="
-                ],
-                "ufCrm44_1721812915476": "300|RUB",
-                "ufCrm44_1721812935209": "Y",
-                "ufCrm44_1721812948498": 9999.9
-            }
-        }' \
-        https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/crm.item.import
-        ```
-
-    - cURL (OAuth)
-
-        ```bash
-        curl -X POST \
-        -H "Content-Type: application/json" \
-        -H "Accept: application/json" \
-        -d '{
-            "entityTypeId": 1302,
-            "fields": {
-                "ufCrm44_1721812760630": "Строка для пользовательского поля типа Строка",
-                "ufCrm44_1721812814433": 81,
-                "ufCrm44_1721812853419": "'"$(date '+%Y-%m-%d')"'",
-                "ufCrm44_1721812885588": [
-                    "example.com",
-                    "second-example.com"
-                ],
-                "ufCrm44_1721812898903": [
-                    "green_pixel.png",
-                    "iVBORw0KGgoAAAANSUhEUgAAAIAAAAAMCAYAAACqTLVoAAAALklEQVR42u3SAQEAAAQDsEsuOj3YMqwy6fBWCSCAAAIgAAIgAAIgAAIgAAJw3QLOrRH1U/gU4gAAAABJRU5ErkJggg=="
-                ],
-                "ufCrm44_1721812915476": "300|RUB",
-                "ufCrm44_1721812935209": "Y",
-                "ufCrm44_1721812948498": 9999.9
             },
-            "auth": "**put_access_token_here**"
-        }' \
-        https://**put_your_bitrix24_address**/rest/crm.item.import
-        ```
-
-    - JS
-
-        ```js
-        const greenPixelInBase64 = "iVBORw0KGgoAAAANSUhEUgAAAIAAAAAMCAYAAACqTLVoAAAALklEQVR42u3SAQEAAAQDsEsuOj3YMqwy6fBWCSCAAAIgAAIgAAIgAAIgAAJw3QLOrRH1U/gU4gAAAABJRU5ErkJggg==";
-
-        BX24.callMethod(
-            'crm.item.import', 
-            {
-                entityTypeId: 1302,
-                fields: {
-                    ufCrm44_1721812760630: "Строка для пользовательского поля типа Строка",
-                    ufCrm44_1721812814433: 81,
-                    ufCrm44_1721812853419: (new Date()).toISOString().slice(0, 10),
-                    ufCrm44_1721812885588: [
-                        "example.com",
-                        "second-example.com",
-                    ],
-                    ufCrm44_1721812898903: [
-                        "green_pixel.png",
-                        greenpixelBase64,
-                    ],
-                    ufCrm44_1721812915476: "300|RUB",
-                    ufCrm44_1721812935209: "Y",
-                    ufCrm44_1721812948498: 9999.9,
-                },
-            },
-            (result) => 
-            {
-                result.error() 
-                    ? console.error(result.error()) 
-                    : console.info(result.data())
-                ;
-            }
         );
-        ```
+    ```
 
-    - PHP
+- PHP
 
-        ```php
-        require_once('crest.php');
+    ```php
+    require_once('crest.php');
 
-        $result = CRest::call(
-            'crm.item.import',
-            [
-                'entityTypeId' => 1302,
-                'fields' => [
-                    'ufCrm44_1721812760630' => "Строка для пользовательского поля типа Строка",
-                    'ufCrm44_1721812814433' => 81,
-                    'ufCrm44_1721812853419' => date('Y-m-d'),
-                    'ufCrm44_1721812885588' => [
-                        "example.com",
-                        "second-example.com",
-                    ],
-                    'ufCrm44_1721812898903' => [
-                        "green_pixel.png",
-                        "iVBORw0KGgoAAAANSUhEUgAAAIAAAAAMCAYAAACqTLVoAAAALklEQVR42u3SAQEAAAQDsEsuOj3YMqwy6fBWCSCAAAIgAAIgAAIgAAIgAAJw3QLOrRH1U/gU4gAAAABJRU5ErkJggg==",
-                    ],
-                    'ufCrm44_1721812915476' => "300|RUB",
-                    'ufCrm44_1721812935209' => "Y",
-                    'ufCrm44_1721812948498' => 9999.9,
-                ],
-            ]
-        );
+    $result = CRest::call(
+        'crm.deal.fields',
+        []
+    );
 
-        echo '<PRE>';
-        print_r($result);
-        echo '</PRE>';
-        ```
+    echo '<PRE>';
+    print_r($result);
+    echo '</PRE>';
+    ```
 
-   
+- PHP (B24PhpSdk)
+
+    ```php        
+    try {
+        $id = 123; // Example deal ID
+        $dealService = $serviceBuilder->getCRMScope()->deal();
+        $dealResult = $dealService->get($id);
+        $itemResult = $dealResult->deal();
+        print("ID: " . $itemResult->ID . PHP_EOL);
+        print("Title: " . $itemResult->TITLE . PHP_EOL);
+        print("Type ID: " . $itemResult->TYPE_ID . PHP_EOL);
+        print("Category ID: " . $itemResult->CATEGORY_ID . PHP_EOL);
+        print("Stage ID: " . $itemResult->STAGE_ID . PHP_EOL);
+        print("Is New: " . ($itemResult->IS_NEW ? 'Yes' : 'No') . PHP_EOL);
+        print("Is Recurring: " . ($itemResult->IS_RECURRING ? 'Yes' : 'No') . PHP_EOL);
+        print("Probability: " . $itemResult->PROBABILITY . PHP_EOL);
+        print("Currency ID: " . $itemResult->CURRENCY_ID . PHP_EOL);
+        print("Opportunity: " . $itemResult->OPPORTUNITY . PHP_EOL);
+        print("Lead ID: " . $itemResult->LEAD_ID . PHP_EOL);
+        print("Company ID: " . $itemResult->COMPANY_ID . PHP_EOL);
+        print("Begin Date: " . ($itemResult->BEGINDATE ? $itemResult->BEGINDATE->format(DATE_ATOM) : 'N/A') . PHP_EOL);
+        print("Close Date: " . ($itemResult->CLOSEDATE ? $itemResult->CLOSEDATE->format(DATE_ATOM) : 'N/A') . PHP_EOL);
+    } catch (Throwable $e) {
+        print("Error: " . $e->getMessage() . PHP_EOL);
+    }
+    ```
+
+
 
 ## Обработка ответа
-
-Метод вернет массив `item` с идентификатором созданного элемента в случае успеха, либо сообщение об ошибке.
 
 HTTP-статус: **200**
 
 ```json
 {
     "result": {
-        "item": {
-            "id": 4
+        "ID": {
+            "type": "integer",
+            "isRequired": false,
+            "isReadOnly": true,
+            "isImmutable": false,
+            "isMultiple": false,
+            "isDynamic": false,
+            "title": "ID"
+        },
+        "TITLE": {
+            "type": "string",
+            "isRequired": false,
+            "isReadOnly": false,
+            "isImmutable": false,
+            "isMultiple": false,
+            "isDynamic": false,
+            "title": "Название"
+        },
+        "TYPE_ID": {
+            "type": "crm_status",
+            "isRequired": false,
+            "isReadOnly": false,
+            "isImmutable": false,
+            "isMultiple": false,
+            "isDynamic": false,
+            "statusType": "DEAL_TYPE",
+            "title": "Тип"
+        },
+        "CATEGORY_ID": {
+            "type": "crm_category",
+            "isRequired": false,
+            "isReadOnly": false,
+            "isImmutable": true,
+            "isMultiple": false,
+            "isDynamic": false,
+            "title": "Воронка"
+        },
+        "STAGE_ID": {
+            "type": "crm_status",
+            "isRequired": false,
+            "isReadOnly": false,
+            "isImmutable": false,
+            "isMultiple": false,
+            "isDynamic": false,
+            "statusType": "DEAL_STAGE",
+            "title": "Стадия сделки"
+        },
+        "STAGE_SEMANTIC_ID": {
+            "type": "string",
+            "isRequired": false,
+            "isReadOnly": true,
+            "isImmutable": false,
+            "isMultiple": false,
+            "isDynamic": false,
+            "title": "Группа стадии"
+        },
+        "IS_NEW": {
+            "type": "char",
+            "isRequired": false,
+            "isReadOnly": true,
+            "isImmutable": false,
+            "isMultiple": false,
+            "isDynamic": false,
+            "title": "Новая сделка"
+        },
+        "IS_RECURRING": {
+            "type": "char",
+            "isRequired": false,
+            "isReadOnly": false,
+            "isImmutable": false,
+            "isMultiple": false,
+            "isDynamic": false,
+            "title": "Регулярная сделка"
+        },
+        "IS_RETURN_CUSTOMER": {
+            "type": "char",
+            "isRequired": false,
+            "isReadOnly": false,
+            "isImmutable": false,
+            "isMultiple": false,
+            "isDynamic": false,
+            "title": "Повторная сделка"
+        },
+        "IS_REPEATED_APPROACH": {
+            "type": "char",
+            "isRequired": false,
+            "isReadOnly": false,
+            "isImmutable": false,
+            "isMultiple": false,
+            "isDynamic": false,
+            "title": "Повторное обращение"
+        },
+        "PROBABILITY": {
+            "type": "integer",
+            "isRequired": false,
+            "isReadOnly": false,
+            "isImmutable": false,
+            "isMultiple": false,
+            "isDynamic": false,
+            "title": "Вероятность"
+        },
+        "CURRENCY_ID": {
+            "type": "crm_currency",
+            "isRequired": false,
+            "isReadOnly": false,
+            "isImmutable": false,
+            "isMultiple": false,
+            "isDynamic": false,
+            "title": "Валюта"
+        },
+        "OPPORTUNITY": {
+            "type": "double",
+            "isRequired": false,
+            "isReadOnly": false,
+            "isImmutable": false,
+            "isMultiple": false,
+            "isDynamic": false,
+            "title": "Сумма"
+        },
+        "IS_MANUAL_OPPORTUNITY": {
+            "type": "char",
+            "isRequired": false,
+            "isReadOnly": false,
+            "isImmutable": false,
+            "isMultiple": false,
+            "isDynamic": false,
+            "title": "IS_MANUAL_OPPORTUNITY"
+        },
+        "TAX_VALUE": {
+            "type": "double",
+            "isRequired": false,
+            "isReadOnly": false,
+            "isImmutable": false,
+            "isMultiple": false,
+            "isDynamic": false,
+            "title": "Ставка налога"
+        },
+        "COMPANY_ID": {
+            "type": "crm_company",
+            "isRequired": false,
+            "isReadOnly": false,
+            "isImmutable": false,
+            "isMultiple": false,
+            "isDynamic": false,
+            "title": "Компания",
+            "settings": {
+                "parentEntityTypeId": 4
+            }
+        },
+        "CONTACT_ID": {
+            "type": "crm_contact",
+            "isRequired": false,
+            "isReadOnly": false,
+            "isImmutable": false,
+            "isMultiple": false,
+            "isDynamic": false,
+            "isDeprecated": true,
+            "title": "Контакт"
+        },
+        "CONTACT_IDS": {
+            "type": "crm_contact",
+            "isRequired": false,
+            "isReadOnly": false,
+            "isImmutable": false,
+            "isMultiple": true,
+            "isDynamic": false,
+            "title": "Контакты"
+        },
+        "QUOTE_ID": {
+            "type": "crm_quote",
+            "isRequired": false,
+            "isReadOnly": true,
+            "isImmutable": false,
+            "isMultiple": false,
+            "isDynamic": false,
+            "title": "Предложение",
+            "settings": {
+                "parentEntityTypeId": 7
+            }
+        },
+        "BEGINDATE": {
+            "type": "date",
+            "isRequired": false,
+            "isReadOnly": false,
+            "isImmutable": false,
+            "isMultiple": false,
+            "isDynamic": false,
+            "title": "Дата начала"
+        },
+        "CLOSEDATE": {
+            "type": "date",
+            "isRequired": false,
+            "isReadOnly": false,
+            "isImmutable": false,
+            "isMultiple": false,
+            "isDynamic": false,
+            "title": "Дата завершения"
+        },
+        "OPENED": {
+            "type": "char",
+            "isRequired": false,
+            "isReadOnly": false,
+            "isImmutable": false,
+            "isMultiple": false,
+            "isDynamic": false,
+            "title": "Доступна для всех"
+        },
+        "CLOSED": {
+            "type": "char",
+            "isRequired": false,
+            "isReadOnly": false,
+            "isImmutable": false,
+            "isMultiple": false,
+            "isDynamic": false,
+            "title": "Закрыта"
+        },
+        "COMMENTS": {
+            "type": "string",
+            "isRequired": false,
+            "isReadOnly": false,
+            "isImmutable": false,
+            "isMultiple": false,
+            "isDynamic": false,
+            "title": "Комментарий"
+        },
+        "ASSIGNED_BY_ID": {
+            "type": "user",
+            "isRequired": false,
+            "isReadOnly": false,
+            "isImmutable": false,
+            "isMultiple": false,
+            "isDynamic": false,
+            "title": "Ответственный"
+        },
+        "CREATED_BY_ID": {
+            "type": "user",
+            "isRequired": false,
+            "isReadOnly": true,
+            "isImmutable": false,
+            "isMultiple": false,
+            "isDynamic": false,
+            "title": "Кем создана"
+        },
+        "MODIFY_BY_ID": {
+            "type": "user",
+            "isRequired": false,
+            "isReadOnly": true,
+            "isImmutable": false,
+            "isMultiple": false,
+            "isDynamic": false,
+            "title": "Кем изменена"
+        },
+        "MOVED_BY_ID": {
+            "type": "user",
+            "isRequired": false,
+            "isReadOnly": true,
+            "isImmutable": false,
+            "isMultiple": false,
+            "isDynamic": false,
+            "title": "MOVED_BY_ID"
+        },
+        "DATE_CREATE": {
+            "type": "datetime",
+            "isRequired": false,
+            "isReadOnly": true,
+            "isImmutable": false,
+            "isMultiple": false,
+            "isDynamic": false,
+            "title": "Дата создания"
+        },
+        "DATE_MODIFY": {
+            "type": "datetime",
+            "isRequired": false,
+            "isReadOnly": true,
+            "isImmutable": false,
+            "isMultiple": false,
+            "isDynamic": false,
+            "title": "Дата изменения"
+        },
+        "MOVED_TIME": {
+            "type": "datetime",
+            "isRequired": false,
+            "isReadOnly": true,
+            "isImmutable": false,
+            "isMultiple": false,
+            "isDynamic": false,
+            "title": "MOVED_TIME"
+        },
+        "SOURCE_ID": {
+            "type": "crm_status",
+            "isRequired": false,
+            "isReadOnly": false,
+            "isImmutable": false,
+            "isMultiple": false,
+            "isDynamic": false,
+            "statusType": "SOURCE",
+            "title": "Источник"
+        },
+        "SOURCE_DESCRIPTION": {
+            "type": "string",
+            "isRequired": false,
+            "isReadOnly": false,
+            "isImmutable": false,
+            "isMultiple": false,
+            "isDynamic": false,
+            "title": "Дополнительно об источнике"
+        },
+        "LEAD_ID": {
+            "type": "crm_lead",
+            "isRequired": false,
+            "isReadOnly": true,
+            "isImmutable": false,
+            "isMultiple": false,
+            "isDynamic": false,
+            "title": "Лид",
+            "settings": {
+                "parentEntityTypeId": 1
+            }
+        },
+        "ADDITIONAL_INFO": {
+            "type": "string",
+            "isRequired": false,
+            "isReadOnly": false,
+            "isImmutable": false,
+            "isMultiple": false,
+            "isDynamic": false,
+            "title": "Дополнительная информация"
+        },
+        "LOCATION_ID": {
+            "type": "location",
+            "isRequired": false,
+            "isReadOnly": false,
+            "isImmutable": false,
+            "isMultiple": false,
+            "isDynamic": false,
+            "title": "Местоположение"
+        },
+        "ORIGINATOR_ID": {
+            "type": "string",
+            "isRequired": false,
+            "isReadOnly": false,
+            "isImmutable": false,
+            "isMultiple": false,
+            "isDynamic": false,
+            "title": "Внешний источник"
+        },
+        "ORIGIN_ID": {
+            "type": "string",
+            "isRequired": false,
+            "isReadOnly": false,
+            "isImmutable": false,
+            "isMultiple": false,
+            "isDynamic": false,
+            "title": "Идентификатор элемента во внешнем источнике"
+        },
+        "UTM_SOURCE": {
+            "type": "string",
+            "isRequired": false,
+            "isReadOnly": false,
+            "isImmutable": false,
+            "isMultiple": false,
+            "isDynamic": false,
+            "title": "Рекламная система"
+        },
+        "UTM_MEDIUM": {
+            "type": "string",
+            "isRequired": false,
+            "isReadOnly": false,
+            "isImmutable": false,
+            "isMultiple": false,
+            "isDynamic": false,
+            "title": "Тип трафика"
+        },
+        "UTM_CAMPAIGN": {
+            "type": "string",
+            "isRequired": false,
+            "isReadOnly": false,
+            "isImmutable": false,
+            "isMultiple": false,
+            "isDynamic": false,
+            "title": "Обозначение рекламной кампании"
+        },
+        "UTM_CONTENT": {
+            "type": "string",
+            "isRequired": false,
+            "isReadOnly": false,
+            "isImmutable": false,
+            "isMultiple": false,
+            "isDynamic": false,
+            "title": "Содержание кампании"
+        },
+        "UTM_TERM": {
+            "type": "string",
+            "isRequired": false,
+            "isReadOnly": false,
+            "isImmutable": false,
+            "isMultiple": false,
+            "isDynamic": false,
+            "title": "Условие поиска кампании"
+        },
+        "LAST_ACTIVITY_TIME": {
+            "type": "datetime",
+            "isRequired": false,
+            "isReadOnly": true,
+            "isImmutable": false,
+            "isMultiple": false,
+            "isDynamic": false,
+            "title": "LAST_ACTIVITY_TIME"
+        },
+        "LAST_ACTIVITY_BY": {
+            "type": "user",
+            "isRequired": false,
+            "isReadOnly": true,
+            "isImmutable": false,
+            "isMultiple": false,
+            "isDynamic": false,
+            "title": "LAST_ACTIVITY_BY"
         }
     },
     "time": {
-        "start": 1722940215.145257,
-        "finish": 1722940217.94124,
-        "duration": 2.795983076095581,
-        "processing": 2.4315829277038574,
-        "date_start": "2024-08-06T10:30:15+00:00",
-        "date_finish": "2024-08-06T10:30:17+00:00",
-        "operating": 2.4314892292022705
+        "start": 1724857659.824873,
+        "finish": 1724857660.790877,
+        "duration": 0.9660041332244873,
+        "processing": 0.3691408634185791,
+        "date_start": "2024-08-28T17:07:39+02:00",
+        "date_finish": "2024-08-28T17:07:40+02:00",
+        "operating": 0
     }
 }
 ```
@@ -430,59 +554,35 @@ HTTP-статус: **200**
 || **Название**
 `тип` | **Описание** ||
 || **result**
-[`object`][3] | Корневой элемент ответа. 
+[`object`](../../data-types.md) | Объект в формате:
 
-Содержит единственный ключ — `item` ||
-|| **item**
-[`object`][3] | Информация о созданном элементе. 
-
-Содержит единственный ключ — `id` ||
-|| **id**
-[`int`][3] | Идентификатор созданного элемента ||
-|| **time**
-[`time`][3] | Информация о времени выполнения запроса ||
-|#
-
-
-
-По умолчанию имена пользовательских полей передаются и возвращаются в camelCase, например `ufCrm2_1639669411830`.
-При передаче параметра `useOriginalUfNames` со значением `Y` пользовательские поля будут возвращаться с оригинальными именами, например `UF_CRM_2_1639669411830`.
-
-
-
-## Обработка ошибок
-
-HTTP-статус: **401**, **400**, **403**
-
-```json
+```
 {
-    "error": "NOT_FOUND",
-    "error_description": "Смарт-процесс не найден"
+    field_1: value_1,
+    field_2: value_2,
+    ...
+    field_n: value_n,
 }
 ```
 
-
-
-### Возможные коды ошибок
-
-#|
-|| **Статус** | **Код**                           | **Описание**                                                       | **Значение**                                                                                    ||
-|| `400`      | `NOT_FOUND`                       | Смарт-процесс не найден                                            | Возникает, при передаче невалидного `entityTypeId`                                              ||
-|| `400`      | `ACCESS_DENIED`                   | Доступ запрещен                                                    | У пользователя нет прав на добавление элементов типа `entityTypeId`                             ||
-|| `400`      | `CRM_FIELD_ERROR_VALUE_NOT_VALID` | Неверное значение поля "`field`"                                   | Передано неправильное значения поля `field`.
-
-Для системных полей типа `createdTime`, если запрос выполнен не от администратора ||
-|| `400`      | `100`                             | Expected iterable value for multiple field, but got `type` instead | В одно из множественных полей было передано значения типа `type`, хотя ожидался итерируемый тип. Также может возникать при некорректном запросе (некорректный JSON или заголовки запроса) ||
-|| `400`      | `CREATE_DYNAMIC_ITEM_RESTRICTED`  | Вы не можете создать новый элемент из-за ограничений вашего тарифа | Ограничения тарифа не позволяют создавать элементы смарт-процессов                              ||
-|| `401`      | `INVALID_CREDENTIALS`             | Неверные данные авторизации для запроса                            | Некорректный `ID` пользователя и/или код для в пути запроса                                       ||
-|| `403`      | `allowed_only_intranet_user`      | Действие разрешено только интранет-пользователям                   | Пользователь не является интранет-пользователем                                                 ||
+где:
+- `field_n` — поле сделки
+- `value_n` — информация о поле в формате [crm_rest_field_description](../data-types.md#crm_rest_field_description) ||
+|| **time**
+[`time`](../../data-types.md#time) | Информация о времени выполнения запроса ||
 |#
 
+## Обработка ошибок
+
+Метод не возвращает ошибки.
 
 
-## Продолжите изучение 
 
-- [{#T}](./index.md)
-- [{#T}](./crm-item-batch-import.md)
+## Продолжите изучение
 
-[3]: ../../data-types.md
+- [{#T}](./crm-deal-add.md)
+- [{#T}](./crm-deal-update.md)
+- [{#T}](./crm-deal-get.md)
+- [{#T}](./crm-deal-list.md)
+- [{#T}](./crm-deal-delete.md)
+

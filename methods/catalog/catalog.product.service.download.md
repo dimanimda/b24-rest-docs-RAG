@@ -9,55 +9,174 @@ params: {"type":"object"}
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Услуги: обзор методов
-
-Услуги — это нематериальные товары: консультации, работы или действия. Они могут использоваться в объектах CRM и быть связаны с физическими товарами.
-
-> Быстрый переход: [все методы](#all-methods) 
-> 
-> Пользовательская документация: [Услуги в CRM](https://helpdesk.bitrix24.ru/open/16560760/)
-
-## Связь услуг с другими объектами
-
-**Торговый каталог.** Услуга должна быть привязана к конкретному торговому каталогу. Получить идентификаторы доступных торговых каталогов можно с помощью метода [catalog.catalog.list](../../catalog/catalog-catalog-list.md).
-
-**Разделы торгового каталога.** Услуги обычно распределены по разделам. Чтобы создать и управлять разделами, используйте группу методов [catalog.section.\* ](../../section/index.md).
-
-**Изображения.** Услуга может содержать изображения: для анонса, детальное, дополнительное. Чтобы добавить изображения, используйте методы [catalog.productImage.\*](../../product-image/index.md), чтобы скачать — метод [catalog.product.service.download](./catalog-product-service-download.md).
-
-**Единицы измерения.** Для услуги выбирают единицу измерения, например, часы для консультаций. Добавить или изменить единицу измерения можно с помощью методов [catalog.measure.\* ](../../measure/index.md).
-
-**НДС.** Ставку НДС можно задать для каждой услуги отдельно. Работать со ставками можно через методы [catalog.vat.\*](../../vat/index.md).
-
-**Пользователь**. В каждой услуге хранятся идентификаторы пользователей, которые ее создали и изменили. Информацию о пользователе можно получить с помощью методов [user.get](../../../user/user-get.md) и [user.search](../../../user/user-search.md).
-
-**Свойства товаров и вариаций.** Услуги имеют свойства, которые отличают их друг от друга. Это могут быть тип услуги, срок выполнения или статус услуги. Работать со свойствами можно с помощью методов [catalog.productProperty.\*](../../product-property/index.md).
-
-**CRM.** Услуги связаны с CRM следующим образом:
-
-- услугу можно добавить в список товаров [лида](../../../crm/leads/index.md), [сделки](../../../crm/deals/index.md), [счета](../../../crm/universal/invoice.md), [смарт-процесса](../../../crm/universal/index.md) и [предложения](../../../crm/quote/index.md).
-
-- [лиды](../../../crm/leads/index.md), [сделки](../../../crm/deals/index.md), [смарт-процессы](../../../crm/universal/index.md), [счета](../../../crm/universal/invoice.md), [контакты](../../../crm/contacts/index.md) и [компании](../../../crm/companies/index.md) можно указать в услугах с помощью свойства типа «Привязка к элементам CRM».
-
-**Корзина заказа**. Услугу можно добавить, изменить или удалить из корзины с помощью группы методов [sale.basketitem.\*](../../../sale/basket-item/index.md).
-
-## Обзор методов {#all-methods}
+# Скачать файлы услуги catalog.product.service.download
 
 > Scope: [`catalog`](../../../scopes/permissions.md)
 >
 > Кто может выполнять метод: администратор
 
+Метод скачивает файлы услуги по переданным параметрам. 
+
+## Параметры метода
+
+
+
 #|
-|| **Метод** | **Описание** ||
-|| [catalog.product.service.add](./catalog-product-service-add.md) | Добавляет услугу ||
-|| [catalog.product.service.update](./catalog-product-service-update.md) | Обновляет поля услуги ||
-|| [catalog.product.service.get](./catalog-product-service-get.md) | Возвращает значения полей услуги по идентификатору ||
-|| [catalog.product.service.list](./catalog-product-service-list.md) | Возвращает список услуг по фильтру ||
-|| [catalog.product.service.download](./catalog-product-service-download.md) | Скачивает файлы услуги по переданным параметрам ||
-|| [catalog.product.service.delete](./catalog-product-service-delete.md) | Удаляет услугу ||
-|| [catalog.product.service.getFieldsByFilter](./catalog-product-service-get-fields-by-filter.md) | Возвращает поля услуги по фильтру ||
+|| **Название**
+`тип` | **Описание** ||
+|| **fields***
+[`object`](../../../data-types.md) | Значения полей для скачивания файлов услуги ||
 |#
+
+### Параметр fields
+
+
+
+#|
+|| **Название**
+`тип` | **Описание** ||
+|| **fileId***
+[`integer`](../../../data-types.md) | Идентификатор зарегистрированного файла.
+
+Для получения идентификаторов файлов услуги необходимо использовать [catalog.product.service.get](./catalog-product-service-get.md) либо [catalog.product.service.list](./catalog-product-service-list.md)
+||
+|| **productId***
+[`catalog_product_service.id`](../../data-types.md#catalog_product_service) | Идентификатор услуги.
+
+Для получения идентификаторов услуги необходимо использовать [catalog.product.service.list](./catalog-product-service-list.md)
+||
+|| **fieldName***
+[`string`](../../../data-types.md) | Имя поля (свойства или поля элемента информационного блока), в котором хранится файл. Возможные значения:
+- `DETAIL_PICTURE` — детальная картинка
+- `PREVIEW_PICTURE` — картинка для анонса
+- `PROPERTY_N` — свойство, где `N` — идентификатор свойства либо код свойства
+
+Для получения существующих идентификаторов либо кодов свойств услуг необходимо использовать [catalog.productProperty.list](../../product-property/catalog-product-property-list.md)
+||
+|#
+
+## Примеры кода
+
+
+
+
+
+- cURL (Webhook)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"fields":{"fileId":6497,"productId":1265,"fieldName":"detailPicture"}}' \
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webhook_here**/catalog.product.service.download
+    ```
+
+- cURL (OAuth)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"fields":{"fileId":6497,"productId":1265,"fieldName":"detailPicture"},"auth":"**put_access_token_here**"}' \
+    https://**put_your_bitrix24_address**/rest/catalog.product.service.download
+    ```
+
+- JS
+
+    ```js
+    BX24.callMethod(
+        'catalog.product.service.download',
+        {
+            fields: {
+                fileId: 6497,
+                productId: 1265,
+                fieldName: 'detailPicture',
+            }
+        },
+        function(result) {
+            if (result.error()) {
+                console.error(result.error());
+            } else {
+                console.info(result.data());
+            }
+        }
+    );
+    ```
+
+- PHP
+
+    ```php
+    require_once('crest.php');
+
+    $result = CRest::call(
+        'catalog.product.service.download',
+        [
+            'fields' => [
+                'fileId' => 6497,
+                'productId' => 1265,
+                'fieldName' => 'detailPicture'
+            ]
+        ]
+    );
+
+    echo '<PRE>';
+    print_r($result);
+    echo '</PRE>';
+    ```
+
+
+
+## Обработка ответа
+
+HTTP-статус: **200**
+
+В качестве ответа приходит файл по переданным параметрам.
+
+### Возвращаемые данные
+
+Возвращается файл по переданным параметрам.
+
+## Обработка ошибок
+
+HTTP-статус: **400**
+
+```json
+{	
+    "error":0,
+    "error_description":"Required fields: fileId"
+}
+```
+
+
+
+### Возможные коды ошибок
+
+#|
+|| **Код** | **Описание** ||
+|| `200040300010` | Недостаточно прав для чтения торгового каталога
+|| 
+|| `0` | Услуга с указанным идентификатором не существует
+|| 
+|| `0` | Указанное свойство не существует либо не является файловым
+|| 
+|| `0` | Файл с указанным идентификатором не существует
+|| 
+|| `0` | Не переданы обязательные поля
+|| 
+|| `0` | Другие ошибки (например, фатальные ошибки)
+|| 
+|#
+
+
+
+## Продолжите изучение
+
+- [{#T}](./catalog-product-service-add.md)
+- [{#T}](./catalog-product-service-update.md)
+- [{#T}](./catalog-product-service-get.md)
+- [{#T}](./catalog-product-service-list.md)
+- [{#T}](./catalog-product-service-delete.md)
+- [{#T}](./catalog-product-service-get-fields-by-filter.md)

@@ -9,40 +9,90 @@ params: {"type":"object","properties":{"filter":{"type":"object"},"order":{"type
 returns: {"type":"array","items":{"type":"object"}}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# CRM-поставщики: обзор методов
+# Получить список привязок CRM-сущностей (Контакта/Компании) к документам catalog.documentcontractor.list
 
 
 
-CRM-поставщики доступны с версии модуля Торговый каталог 23.0.0 и REST API 23.100.0.
+Тут может не хватать некоторых данных — дополним в ближайшее время
 
 
 
-Поставщики — это физические и юридические лица, которые поставляют товары. В CRM их добавляют как контакты и компании, но они не участвуют в сделках, лидах, предложениях. Данные CRM-поставщиков указывают только в документах прихода. К одному документу можно прикрепить несколько контактов и одну компанию.
 
-> Быстрый переход: [все методы](#all-methods) 
-> 
-> Пользовательская документация: [Поставщики в Складском учете](https://helpdesk.bitrix24.ru/open/16734758)
 
-## Связь поставщиков с другими объектами
 
-**Складской учет.** Поставщиков указывают в документах прихода. Для работы с документами используйте методы [catalog.document.\*](../document/index.md).
 
-**CRM.** Поставщики — это объекты CRM. Для работы с ними используйте универсальные методы [crm.item.\*](../../crm/universal/index.md).
+- не указана обязательность параметров
+- отсутствует ответ в случае ошибки
+- нет примеров на др. языках
+  
 
-## Обзор методов {#all-methods}
+
+
 
 > Scope: [`catalog`](../../scopes/permissions.md)
 >
 > Кто может выполнять метод: любой пользователь
 
+```http
+catalog.documentcontractor.list(select, filter, order, start)
+```
+
+Метод получает список привязок CRM-сущностей (Контакта/Компании) к документам по фильтру. 
+
+Возвращает список привязок со структурой, описанной в параметре **select** (если не задан, то выводятся все поля, как в методе [getFields](catalog-documentcontractor-get-fields.md)).
+
+## Параметры
+
 #|
-|| **Метод** | **Описание** ||
-|| [catalog.documentcontractor.add](./catalog-documentcontractor-add.md) | Добавляет привязку поставщика к документу ||
-|| [catalog.documentcontractor.delete](./catalog-documentcontractor-delete.md) | Удаляет привязку поставщика к документу по идентификатору привязки ||
-|| [catalog.documentcontractor.getFields](./catalog-documentcontractor-get-fields.md) | Возвращает список привязок поставщиков к документам по фильтру ||
-|| [catalog.documentcontractor.list](./catalog-documentcontractor-list.md) | Возвращает поля с привязками CRM-поставщиков к складским документам ||
+|| **Параметр** | **Описание** ||
+|| **select**
+[`object`](../../data-types.md) | Поля, соответствующие доступному списку полей [fields](catalog-documentcontractor-get-fields.md). ||
+|| **filter**
+[`object`](../../data-types.md) | Поля, соответствующие доступному списку полей [fields](catalog-documentcontractor-get-fields.md). ||
+|| **order**
+[`object`](../../data-types.md) | Поля, соответствующие доступному списку полей [fields](catalog-documentcontractor-get-fields.md). ||
+|| **start**
+[`string`](../../data-types.md) | Номер страницы вывода. Работает для https запросов. ||
 |#
+
+
+
+## Примеры
+
+
+
+- JS
+  
+    ```js
+    BX.callMethod(
+        'catalog.documentcontractor.list',
+        {
+            select: ['id', 'documentId'],
+            order: {'id': 'desc'},
+            filter:
+            {
+                'documentId': 6,
+                'entityTypeId': 3
+            }
+        },
+
+        function(result)
+        {
+            console.log(result.data())
+            result.next();
+        }
+    );
+    ```
+- Для HTTPS:
+
+    ```http
+    https://ваш_портал/rest/catalog.documentcontractor.list?auth=_ключ_авторизации_&start=50
+    ```
+
+
+
+
+

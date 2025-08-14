@@ -1,7 +1,7 @@
 ---
 method: catalog.document.cancel
 scope: catalog
-deprecated: true
+deprecated: false
 aliases: []
 rate_limit_per_sec: 2
 pagination: unknown
@@ -9,102 +9,73 @@ params: {"type":"object"}
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Отменить проведение документа catalog.document.unconfirm
+# Отменить проведение документа складского учета catalog.document.cancel
 
-> Scope: [`catalog`](../../../scopes/permissions.md)
+
+
+Тут может не хватать некоторых данных — дополним в ближайшее время
+
+
+
+
+
+
+
+- не указана обязательность параметров
+- отсутствует ответ в случае ошибки
+- нет примеров на др. языках
+  
+
+
+
+
+> Scope: [`catalog`](../../scopes/permissions.md)
 >
-> Кто может выполнять метод: администратор
+> Кто может подписаться: любой пользователь
 
+## Описание
 
+```http
+catalog.document.cancel(id)
+```
 
-Метод `catalog.document.unconfirm` продолжает работать, но у него есть более актуальный аналог [catalog.document.cancel](../catalog-document-cancel.md).
+Метод отменяет проведение документа по ID.
 
-
-
-Метод `catalog.document.unconfirm` отменяет проведение документа. 
-
-## Параметры метода
-
-
+## Параметры
 
 #|
-|| **Название**
-`тип` | **Описание** ||
-|| **id***
-[`integer`](../../../data-types.md)| Идентификатор документа ||
+|| **Параметр** | **Описание** ||
+|| **id**
+[`integer`](../../data-types.md)| Идентификатор документа складского учёта. ||
 |#
 
-## Примеры кода
 
 
+## Примеры
 
 
-
-- cURL (Webhook)
-
-    ```bash
-    curl -X POST \
-    -H "Content-Type: application/json" \
-    -H "Accept: application/json" \
-    -d '{"id":42}' \
-    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/catalog.document.unconfirm
-    ```
-
-- cURL (OAuth)
-
-    ```bash
-    curl -X POST \
-    -H "Content-Type: application/json" \
-    -H "Accept: application/json" \
-    -d '{"id":42,"auth":"**put_access_token_here**"}' \
-    https://**put_your_bitrix24_address**/rest/catalog.document.unconfirm
-    ```
 
 - JS
 
     ```js
     BX24.callMethod(
-        'catalog.document.unconfirm',
+        'catalog.document.cancel',
         {
-            'id': 42,
+            id: 112
         },
         function(result)
         {
             if(result.error())
-                console.error(result.error());
+                console.error(result.error().ex);
             else
                 console.log(result.data());
         }
     );
     ```
 
-- PHP
 
-    ```php
-    require_once('crest.php');
-
-    $result = CRest::call(
-        'catalog.document.unconfirm',
-        [
-            'id' => 42
-        ]
-    );
-
-    echo '<PRE>';
-    print_r($result);
-    echo '</PRE>';
-    ```
-
-
-
-## Продолжите изучение 
-
-- [{#T}](./catalog-document-confirm.md)
-- [{#T}](./catalog-document-fields.md)
-- [{#T}](./catalog-document-element-fields.md)
 
 

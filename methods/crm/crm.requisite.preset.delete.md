@@ -9,61 +9,155 @@ params: {"type":"object","required":["id"],"properties":{"id":{"type":"integer"}
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# О шаблонах реквизитов
+# Удалить шаблон реквизита crm.requisite.preset.delete
 
 > Scope: [`crm`](../../../scopes/permissions.md)
 >
-> Кто может выполнять методы: любой пользователь
+> Кто может выполнять метод: любой пользователь
 
-## Поля шаблона реквизитов
+Метод удаляет шаблон реквизитов по идентификатору.
 
-#|
-|| **Название** | **Описание** | **Чтение** | **Запись** | **Обязательное** | **Неизменяемое** ||
-|| **ID**
-[`integer`](../../../data-types.md) | Идентификатор реквизита. Создается автоматически и уникален в рамках портала | Да | Нет | Нет | Да ||
-|| **ENTITY_TYPE_ID**
-[`integer`](../../../data-types.md) | Идентификатор типа родительского объекта.
+## Параметры метода
 
-Идентификаторы типов объектов CRM отдает метод [crm.enum.ownertype](../../auxiliary/enum/crm-enum-owner-type.md) | Да | Да | Да | Да ||
-|| **COUNTRY_ID**
-[`integer`](../../../data-types.md) | Идентификатор страны, которой соответствует набор полей шаблона реквизита (для получения доступных значений смотрите метод [crm.requisite.preset.countries](./crm-requisite-preset-countries.md)) | Да | Да | Да | Да ||
-|| **DATE_CREATE**
-[`datetime`](../../../data-types.md) | Дата создания | Да | Нет | Нет | Нет ||
-|| **DATE_MODIFY**
-[`datetime`](../../../data-types.md) | Дата изменения. Содержит пустую строку, если шаблон не менялся после создания | Да | Нет | Нет | Нет ||
-|| **CREATED_BY_ID**
-[`user`](../../../data-types.md) | Идентификатор пользователя, создавшего реквизит | Да | Нет | Нет | Нет ||
-|| **MODIFY_BY_ID**
-[`user`](../../../data-types.md) | Идентификатор пользователя, изменившего реквизит | Да | Нет | Нет | Нет ||
-|| **NAME**
-[`string`](../../../data-types.md) | Название реквизита | Да | Да | Да | Нет ||
-|| **XML_ID**
-[`string`](../../../data-types.md) | Внешний ключ. Используется для операций обмена. Идентификатор объекта внешней информационной базы. 
 
-Назначение поля может меняться конечным разработчиком. 
-
-Каждое приложение обеспечивает уникальность значений в этом поле. Рекомендуется использовать уникальный префикс для избежания коллизий с другими приложениями. 
-
-В CRM зарезервированы значения вида `#CRM_REQUISITE_PRESET_DEF_...` для идентификации шаблонов, которые используются по умолчанию. Не следует использовать эти идентификаторы для своих целей, так как это может привести к нарушению логики | Да | Да | Нет | Нет ||
-|| **ACTIVE**
-[`char`](../../../data-types.md) | Признак активности. Используются значения `Y` или `N`. Определяет доступность шаблона в списке выбора при добавлении реквизитов | Да | Да | Нет | Нет ||
-|| **SORT**
-[`integer`](../../../data-types.md) | Сортировка | Да | Да | Нет | Нет ||
-|#
-
-## Обзор методов
 
 #|
-|| **Метод** | **Описание** ||
-|| [crm.requisite.preset.add](./crm-requisite-preset-add.md) | Создает новый шаблон реквизитов ||
-|| [crm.requisite.preset.update](./crm-requisite-preset-update.md) | Изменяет шаблон реквизита ||
-|| [crm.requisite.preset.countries](./crm-requisite-preset-countries.md) | Возвращает возможный список стран для шаблонов реквизита ||
-|| [crm.requisite.preset.get](./crm-requisite-preset-get.md) | Возвращает шаблон реквизитов по идентификатору ||
-|| [crm.requisite.preset.list](./crm-requisite-preset-list.md) | Возвращает список шаблонов реквизитов по фильтру ||
-|| [crm.requisite.preset.delete](./crm-requisite-preset-delete.md) | Удаляет шаблон реквизитов ||
-|| [crm.requisite.preset.fields](./crm-requisite-preset-fields.md) | Возвращает формально описание полей шаблона реквизитов ||
+|| **Название**
+`тип` | **Описание** ||
+|| **id***
+[`integer`](../../../data-types.md) | Идентификатор шаблона реквизита. Можно получить с помощью метода [`crm.requisite.preset.list`](./crm-requisite-preset-list.md) ||
 |#
+
+## Примеры кода
+
+
+
+Поиск шаблонов по привязке к стране:
+
+
+
+- cURL (Webhook)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"id":347}' \
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/crm.requisite.preset.delete
+    ```
+
+- cURL (OAuth) 
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"id":347,"auth":"**put_access_token_here**"}' \
+    https://**put_your_bitrix24_address**/rest/crm.requisite.preset.delete
+    ```
+
+- JS
+
+    ```js
+    BX24.callMethod(
+        "crm.requisite.preset.delete",
+        {
+            id: 347    // Идентификатор удаляемого шаблона
+        },
+        function(result)
+        {
+            if(result.error())
+                console.error(result.error());
+            else
+                console.dir(result.data());
+        }
+    );
+    ```
+
+- PHP
+
+    ```php
+    require_once('crest.php');
+
+    $result = CRest::call(
+        'crm.requisite.preset.delete',
+        [
+            'id' => 347
+        ]
+    );
+
+    echo '<PRE>';
+    print_r($result);
+    echo '</PRE>';
+    ```
+
+
+
+## Обработка ответа
+
+HTTP-статус: **200**
+
+```json
+{
+    "result": true,
+    "time": {
+        "start": 1716554949.294631,
+        "finish": 1716554949.795059,
+        "duration": 0.5004279613494873,
+        "processing": 0.057311058044433594,
+        "date_start": "2024-05-24T14:49:09+02:00",
+        "date_finish": "2024-05-24T14:49:09+02:00",
+        "operating": 0
+    }
+}
+```
+
+### Возвращаемые данные
+
+#|
+|| **Название**
+`тип` | **Описание** ||
+|| **result**
+[`boolean`](../../../data-types.md) | Результат удаления шаблона:
+- `true` — шаблон удален
+- `false` — шаблон не удален 
+||
+|| **time**
+[`time`](../../../data-types.md) | Информация о времени выполнения запроса ||
+|#
+
+## Обработка ошибок
+
+HTTP-статус: **40x**, **50x**
+
+```json
+{
+    "error": "",
+    "error_description": "The Preset with ID '347' is not found"
+}
+```
+
+
+
+### Возможные коды ошибок
+
+#|  
+|| **Код** | **Описание** ||
+|| `The Preset with ID '347' is not found` | Шаблон с указанным идентификатором не найден ||
+|| `Access denied` | Недостаточно прав доступа для удаления шаблона ||
+|#
+
+
+
+## Продолжите изучение
+
+- [{#T}](./crm-requisite-preset-add.md)
+- [{#T}](./crm-requisite-preset-update.md)
+- [{#T}](./crm-requisite-preset-countries.md)
+- [{#T}](./crm-requisite-preset-get.md)
+- [{#T}](./crm-requisite-preset-list.md)
+- [{#T}](./crm-requisite-preset-fields.md)
+

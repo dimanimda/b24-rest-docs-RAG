@@ -9,30 +9,142 @@ params: {"type":"object","required":["id"],"properties":{"id":{"type":"integer"}
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Дополнительные контентные блоки
+# Удалить набор дополнительных контентных блоков для записи таймлайна crm.timeline.layout.blocks.delete
 
-Методы для работы с дополнительным контентными блоками в таймлайне:
+> Scope: [`crm`](../../../scopes/permissions.md)
+>
+> Кто может выполнять метод: администратор
+
+Метод `crm.timeline.layout.blocks.delete` удаляет набор дополнительных контентных блоков для записи таймлайна.
+
+В рамках приложения можно удалить только тот набор дополнительных контентных блоков, который был установлен через это приложение.
+
+## Параметры метода
+
+
 
 #|
-|| **Метод** | **Описание** ||
-|| [crm.timeline.layout.blocks.set](./crm-timeline-layout-blocks-set.md) | Устанавливает набор дополнительных контентных блоков в запись таймлайна ||
-|| [crm.timeline.layout.blocks.get](./crm-timeline-layout-blocks-get.md) | Получает установленный приложением набор дополнительных контентных блоков для записи таймлайна ||
-|| [crm.timeline.layout.blocks.delete](./crm-timeline-layout-blocks-delete.md) | Удаляет установленный приложением набор дополнительных контентных блоков для записи таймлайна ||
+|| **Название**
+`тип` | **Описание** ||
+|| **entityTypeId***
+[`integer`](../../../data-types.md) | Идентификатор типа сущности, к которому привязана запись таймлайна ||
+|| **entityId***
+[`integer`](../../../data-types.md) | Идентификатор сущности, к которой привязана запись таймлайна ||
+|| **timelineId***
+[`integer`](../../../data-types.md) | Идентификатор записи таймлайна ||
 |#
 
-## Удаление записей таймлайна
+## Примеры кода
 
-При удалении записи таймлайна, будут безвозвратно удалены и наборы дополнительных контентных блоков, добавленные приложениями.
+Удалить набор дополнительных контентных блоков для записи таймлайна с `id = 8`, привязанного к сделке с `id = 4`:
 
-## Удаление Приложения
 
-При удалении Приложения, будут безвозвратно удалены все наборы дополнительных контентных блоков, добавленные им в записи таймлайна.
 
-## Смотрите также
 
-- [Пример тестового Приложения](./content-blocks-test-app.md)
-- [Методы для работы с наборами дополнительных контентных блоков для дел](../activities/layout-blocks/index.md)
+
+- cURL (Webhook)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"entityTypeId":2,"entityId":4,"timelineId":8}' \
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webhook_here**/crm.timeline.layout.blocks.delete
+    ```
+
+- cURL (OAuth)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"entityTypeId":2,"entityId":4,"timelineId":8,"auth":"**put_access_token_here**"}' \
+    https://**put_your_bitrix24_address**/rest/crm.timeline.layout.blocks.delete
+    ```
+
+- JS
+
+    ```js
+    BX24.callMethod(
+        'crm.timeline.layout.blocks.delete',
+        {
+            entityTypeId: 2, // Сделка
+            entityId: 4,     // ID Сделки
+            timelineId: 8,   // ID Записи таймлайна привязанного к данной сделке
+        },
+        (result) => {
+            if (result.error()) {
+                console.error(result.error());
+            } else {
+                console.info(result.data());
+            }
+        },
+    );
+    ```
+
+- PHP
+
+    ```php
+    require_once('crest.php');
+    $result = CRest::call(
+        'crm.timeline.layout.blocks.delete',
+        [
+            'entityTypeId' => 2,
+            'entityId' => 4,
+            'timelineId' => 8,
+        ]
+    );
+    echo '';
+    print_r($result);
+    echo '';
+    ```
+
+
+
+
+## Обработка ответа
+
+HTTP-статус: **200**
+
+Возвращает `{ success: true }` в случае успешного удаления набора дополнительных контентных блоков, иначе `null`.
+
+```json
+{
+    "success": true
+}
+```
+
+## Обработка ошибок
+
+HTTP-статус: **400**
+
+```json
+{
+    "error": "ERROR_WRONG_CONTEXT",
+    "error_description": "Вызов метода возможен только в контексте rest приложения"
+}
+```
+
+
+
+### Возможные коды ошибок
+
+#|
+|| **Код** | **Описание** ||
+|| `ERROR_WRONG_CONTEXT` | Вызов метода возможен только в контексте rest приложения ||
+|| `OWNER_NOT_FOUND` | Элемент, к которому привязана запись таймлайна, не найден ||
+|| `NOT_FOUND` | Не найдена запись таймлайна или набор дополнительных контентных блоков ||
+|| `ACCESS_DENIED` | Доступ запрещен ||
+|#
+
+
+
+## Продолжите изучение 
+
+- [{#T}](./index.md)
+- [{#T}](./crm-timeline-layout-blocks-set.md)
+- [{#T}](./crm-timeline-layout-blocks-get.md)
+- [{#T}](./content-blocks-test-app.md)

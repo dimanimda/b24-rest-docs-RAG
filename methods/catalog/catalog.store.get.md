@@ -9,31 +9,31 @@ params: {"type":"object","required":["id"],"properties":{"id":{"type":"integer"}
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Получить товары сделки crm.deal.productrows.get
+# Получить значения полей склада catalog.store.get
 
-> Scope: [`crm`](../../scopes/permissions.md)
+> Scope: [`catalog`](../../scopes/permissions.md)
 >
-> Кто может выполнять метод: пользователь с правом «чтения» сделки
+> Кто может выполнять метод: администратор
 
-Метод `crm.deal.productrows.get` возвращает товарные позиции сделки.
+Метод возвращает значения полей склада по его идентификатору.
+
+## Параметры метода
+
+
 
 #|
 || **Название**
 `тип` | **Описание** ||
-|| **id^*^**
-[`integer`](../../data-types.md) | Идентификатор сделки. Можно получить с помощью метода получения списка сделок: [`crm.deal.list`](./crm-deal-list.md) или при создании сделки: [`crm.deal.add`](./crm-deal-add.md) ||
+|| **id***
+[`catalog_store.id`](../data-types.md#catalog_store) | Идентификатор склада.
+
+Получить идентификаторы складов можно методом [catalog.store.list](./catalog-store-list.md) ||
 |#
 
-
-
-
 ## Примеры кода
-
-Получить товарные позиции сделки с `id = 5`
 
 
 
@@ -43,36 +43,36 @@ Auto-generated stub. Fill in params/returns/examples.
 
     ```bash
     curl -X POST \
-	-H "Content-Type: application/json" \
-	-H "Accept: application/json" \
-	-d '{"id":5}' \
-	https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/crm.deal.productrows.get
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"id":1}' \
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/catalog.store.get
     ```
 
 - cURL (OAuth)
 
     ```bash
     curl -X POST \
-	-H "Content-Type: application/json" \
-	-H "Accept: application/json" \
-	-d '{"id":5,"auth":"**put_access_token_here**"}' \
-	https://**put_your_bitrix24_address**/rest/crm.deal.productrows.get
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"id":1,"auth":"**put_access_token_here**"}' \
+    https://**put_your_bitrix24_address**/rest/catalog.store.get
     ```
 
 - JS
 
     ```js
     BX24.callMethod(
-        'crm.deal.productrows.get',
-        {
-            id: 5,
+        'catalog.store.get', {
+            id: 1
         },
-        (result) => {
-            result.error()
-                ? console.error(result.error())
-                : console.info(result.data())
-            ;
-        },
+        function(result) {
+            if (result.error()) {
+                console.error(result.error());
+            } else {
+                console.info(result.data());
+            }
+        }
     );
     ```
 
@@ -81,18 +81,17 @@ Auto-generated stub. Fill in params/returns/examples.
     ```php
     require_once('crest.php');
 
-	$result = CRest::call(
-		'crm.deal.productrows.get',
-		[
-			'id' => 5
-		]
-	);
+    $result = CRest::call(
+        'catalog.store.get',
+        [
+            'id' => 1
+        ]
+    );
 
-	echo '<PRE>';
-	print_r($result);
-	echo '</PRE>';
+    echo '<PRE>';
+    print_r($result);
+    echo '</PRE>';
     ```
-
 
 
 
@@ -102,77 +101,40 @@ HTTP-статус: **200**
 
 ```json
 {
-	"result": [
-		{
-			"ID": "5",
-			"OWNER_ID": "5",
-			"OWNER_TYPE": "D",
-			"PRODUCT_ID": 450,
-			"PRODUCT_NAME": "Товар #2",
-			"ORIGINAL_PRODUCT_NAME": "Товар #2",
-			"PRODUCT_DESCRIPTION": null,
-			"PRICE": 899.1,
-			"PRICE_EXCLUSIVE": 899.1,
-			"PRICE_NETTO": 999,
-			"PRICE_BRUTTO": 999,
-			"PRICE_ACCOUNT": "899.10",
-			"QUANTITY": 1,
-			"DISCOUNT_TYPE_ID": 2,
-			"DISCOUNT_RATE": 10,
-			"DISCOUNT_SUM": 99.9,
-			"TAX_RATE": null,
-			"TAX_INCLUDED": "Y",
-			"CUSTOMIZED": "Y",
-			"MEASURE_CODE": 796,
-			"MEASURE_NAME": "шт",
-			"SORT": 10,
-			"XML_ID": "sale_basket_651",
-			"TYPE": 1,
-			"STORE_ID": 0,
-			"RESERVE_ID": 31,
-			"DATE_RESERVE_END": "26.12.2024",
-			"RESERVE_QUANTITY": 1
-		},
-		{
-			"ID": "4",
-			"OWNER_ID": "5",
-			"OWNER_TYPE": "D",
-			"PRODUCT_ID": 449,
-			"PRODUCT_NAME": "Товар #1",
-			"ORIGINAL_PRODUCT_NAME": "Товар #1",
-			"PRODUCT_DESCRIPTION": "Детальное описание",
-			"PRICE": 100,
-			"PRICE_EXCLUSIVE": 100,
-			"PRICE_NETTO": 100,
-			"PRICE_BRUTTO": 100,
-			"PRICE_ACCOUNT": "100.00",
-			"QUANTITY": 1,
-			"DISCOUNT_TYPE_ID": 2,
-			"DISCOUNT_RATE": 0,
-			"DISCOUNT_SUM": 0,
-			"TAX_RATE": null,
-			"TAX_INCLUDED": "Y",
-			"CUSTOMIZED": "Y",
-			"MEASURE_CODE": 796,
-			"MEASURE_NAME": "шт",
-			"SORT": 20,
-			"XML_ID": "sale_basket_650",
-			"TYPE": 1,
-			"STORE_ID": 1,
-			"RESERVE_ID": 30,
-			"DATE_RESERVE_END": "26.12.2024",
-			"RESERVE_QUANTITY": 1
-		}
-	],
-	"time": {
-		"start": 1734969122.936213,
-		"finish": 1734969123.586089,
-		"duration": 0.6498758792877197,
-		"processing": 0.14046597480773926,
-		"date_start": "2024-12-23T17:52:02+02:00",
-		"date_finish": "2024-12-23T17:52:03+02:00",
-		"operating": 0
-	}
+    "result": {
+        "store": {
+            "active": "Y",
+            "address": "пр. Московский д. 52",
+            "code": "store_1",
+            "dateCreate": "2024-10-18T16:30:45+03:00",
+            "dateModify": "2024-10-21T14:29:06+03:00",
+            "description": "Описание",
+            "email": "test@test.ru",
+            "gpsN": 54.71411,
+            "gpsS": 21.56675,
+            "id": 1,
+            "imageId": {
+                "id": 1,
+                "url": "\/upload\/iblock\/6f1\/bkm7jmwso31wisk423gtp28iagy2e8v0\/test.jpeg"
+            },
+            "issuingCenter": "N",
+            "modifiedBy": 1,
+            "phone": "8 (495) 212 85 06",
+            "schedule": "Пн.-Пт. с 9:00 до 20:00, Сб.-Вс. с 11:00 до 18:00",
+            "sort": 100,
+            "title": "Склад 1",
+            "userId": 1,
+            "xmlId": null
+        }
+    },
+    "time": {
+        "start": 1729519143.740275,
+        "finish": 1729519144.2594,
+        "duration": 0.5191249847412109,
+        "processing": 0.0425570011138916,
+        "date_start": "2024-10-21T16:59:03+03:00",
+        "date_finish": "2024-10-21T16:59:04+03:00",
+    }
 }
 ```
 
@@ -182,98 +144,12 @@ HTTP-статус: **200**
 || **Название**
 `тип` | **Описание** ||
 || **result**
-[`productrow[]`](#productrow) | Корневой элемент ответа, содержащий массив товарных позиций сделки ||
+[`object`](../../data-types.md) | Корневой элемент ответа ||
+|| **store**
+[`catalog_store`](../data-types.md#catalog_store) | Объект с информацией о складе ||
 || **time**
 [`time`](../../data-types.md#time) | Информация о времени выполнения запроса ||
 |#
-
-#### Тип productrow {#productrow}
-
-#|
-|| **Название**
-`тип` | **Описание** ||
-|| **ID**
-[`integer`](../../data-types.md) | Идентификатор товарной позиции ||
-|| **OWNER_ID**
-[`integer`](../../data-types.md) | Идентификатор сущности, к которой привязан товар. Для данного метода всегда будет равен `id` сделки ||
-|| **OWNER_TYPE**
-[`string`](../../data-types.md) | Строковый идентификатор типа сущности, к которому привязан товар. Для данного метода всегда будет равен `D` ||
-|| **PRODUCT_ID**
-[`integer`](../../data-types.md) | Идентификатор товара в каталоге. `0` если не из каталога
-
-Для получения более подробной информации о товаре используйте [`catalog.product.get`](../../catalog/product/catalog-product-get.md)
-||
-|| **PRODUCT_NAME**
-[`string`](../../data-types.md) | Наименование товарной позиции ||
-|| **ORIGINAL_PRODUCT_NAME**
-[`string`](../../data-types.md) | Наименование товарной позиции в каталоге ||
-|| **PRODUCT_DESCRIPTION**
-[`string`](../../data-types.md) | Описание товарной позиции ||
-|| **PRICE**
-[`double`](../../data-types.md) | Итоговая стоимость товара за единицу ||
-|| **PRICE_EXCLUSIVE**
-[`double`](../../data-types.md) | Стоимость за единицу с учетом скидок, без учета налогов ||
-|| **PRICE_NETTO**
-[`double`](../../data-types.md) | Стоимость за единицу без учета скидок и налогов ||
-|| **PRICE_BRUTTO**
-[`double`](../../data-types.md) | Стоимость за единицу без учета скидок, но с учетом налогов ||
-|| **PRICE_ACCOUNT**
-[`string`](../../data-types.md) | Стоимость товара в "валюте отчетов" ||
-|| **QUANTITY**
-[`integer`](../../data-types.md) | Количество единиц товара ||
-|| **DISCOUNT_TYPE_ID**
-[`integer`](../../data-types.md) | Тип скидки
-Возможные типы:
- - `1` - Абсолютный
- - `2` - Процентный
-
-||
-|| **DISCOUNT_RATE**
-[`double`](../../data-types.md) | Значение скидки в процентах (если используется тип скидки с процентным значением) ||
-|| **DISCOUNT_SUM**
-[`double`](../../data-types.md) | Абсолютное значение скидки (если используется тип скидки с абсолютным значением) ||
-|| **TAX_RATE**
-[`double`](../../data-types.md) | Ставка налога в процентах ||
-|| **TAX_INCLUDED**
-[`boolean`](../../data-types.md) | Индикатор того, включен ли налог в стоимость
-Возможные значения:
-- `Y` – налог включен
-- `N` – налог не включен
-
-||
-|| **CUSTOMIZED**
-[`boolean`](../../data-types.md) | Изменен (Устаревшее)
-Возможные значения:
- - `Y` - Да
- - `N` - Нет
-
-||
-|| **MEASURE_CODE**
-[`catalog_measure.code`](../../catalog/data-types.md#catalog_measure) | Код единицы измерения ||
-|| **MEASURE_NAME**
-[`string`](../../data-types.md) | Текстовое представление единицы измерения (например - шт, кг, м, л и т.д.) ||
-|| **SORT**
-[`integer`](../../data-types.md) | Сортировка ||
-|| **XML_ID**
-[`string`](../../data-types.md) | Внешний код товара ||
-|| **TYPE**
-[`integer`](../../data-types.md) | Тип товара
-Возможные значения: 
- - `1` - Простой товар
- - `4` - Торговое предложение/вариация
- - `7` - Услуга
-
-||
-|| **STORE_ID**
-[`integer`](../../data-types.md) | Идентификатор склада. Для получения подробной информации о складе используйте [`catalog.store.get`](../../catalog/store/catalog-store-get.md) ||
-|| **RESERVE_ID**
-[`integer`](../../data-types.md) | Идентификатор резерва ||
-|| **DATE_RESERVE_END**
-[`date`](../../data-types.md) | Дата окончания резервации ||
-|| **RESERVE_QUANTITY**
-[`integer`](../../data-types.md) | Количество зарезервированных единиц товара ||
-|#
-
 
 ## Обработка ошибок
 
@@ -281,8 +157,8 @@ HTTP-статус: **400**
 
 ```json
 {
-  "error": "",
-  "error_description": "The parameter id is invalid or not defined."
+    "error":200040300010,
+    "error_description":"Access Denied"
 }
 ```
 
@@ -291,15 +167,20 @@ HTTP-статус: **400**
 ### Возможные коды ошибок
 
 #|
-|| **Описание** | **Значение** ||
-|| The parameter id is invalid or not defined. | В параметр `id` передано некорректное значение ||
-|| Access denied | У пользователя нет прав на «чтение» сделки  ||
-|| Not found | Сделка с переданным `id` не найдена ||
+|| **Код** | **Описание** ||
+|| `200040300010` | Недостаточно прав для просмотра склада ||
+|| `201100000000` | Склад с указанным идентификатором не найден ||
+|| `100` | Не указан параметр `id` || 
+|| `0` | Другие ошибки (например, фатальные ошибки) || 
 |#
 
 
 
-## Продолжите изучение
+## Продолжите изучение 
 
-- [{#T}](./crm-deal-productrows-set.md)
+- [{#T}](./catalog-store-add.md)
+- [{#T}](./catalog-store-update.md)
+- [{#T}](./catalog-store-list.md)
+- [{#T}](./catalog-store-delete.md)
+- [{#T}](./catalog-store-get-fields.md)
 

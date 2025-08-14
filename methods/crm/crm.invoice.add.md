@@ -9,39 +9,323 @@ params: {"type":"object","required":["fields"],"properties":{"fields":{"type":"o
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Счета (старые)
+# Добавить счет crm.invoice.add
 
 > Scope: [`crm`](../../../scopes/permissions.md)
 >
 > Кто может выполнять метод: любой пользователь
 
+
+
+Метод устарел. Рекомендуется использовать  [`Универсальные методы для счетов`](../../universal/invoice.md)
+
+
+
+Метод создает новый счет.
+
+Если необходимо в счете указать какие реквизиты покупателя/продавца (т.к. их может быть несколько у компании), то используйте метод [crm.requisite.link.register](../../requisites/links/crm-requisite-link-register.md).
+
+В создаваемом счете обязательно должны быть указаны компании продавца и покупателя:
+- `UF_COMPANY_ID`, если покупатель - компания или `UF_CONTACT_ID`, если покупатель - контакт 
+- `UF_MYCOMPANY_ID` - продавец 
+
+Идентификаторы, указанные в **crm.requisite.link.register** и в создаваемом счете, должны соответствовать покупателю и продавцу.
+
+## Параметры метода
+
+
+
 #|
-|| **Метод** | **Описание** ||
-|| [crm.invoice.add](./crm-invoice-add.md) | Создает новый счет. ||
-|| [crm.invoice.delete](./crm-invoice-delete.md) | Удаляет счет. ||
-|| [crm.invoice.fields](./crm-invoice-fields.md) | Возвращает описание полей счета и товаров, входящих в него. ||
-|| [crm.invoice.get](./crm-invoice-get.md) | Возвращает счет по идентификатору. ||
-|| [crm.invoice.list](./crm-invoice-list.md) | Возвращает список счетов. ||
-|| [crm.invoice.recurring.add](./crm-invoice-recurring-add.md) | Добавляет новую настройку для регулярного счета. ||
-|| [crm.invoice.recurring.delete](./crm-invoice-recurring-delete.md) | Удаляет существующую настройку для шаблона регулярного счета. ||
-|| [crm.invoice.recurring.expose](./crm-invoice-recurring-expose.md) | Создает новый счет из шаблона. ||
-|| [crm.invoice.recurring.fields](./crm-invoice-recurring-fields.md) | Возвращает список полей настройки шаблона регулярного счета c описанием. ||
-|| [crm.invoice.recurring.get](./crm-invoice-recurring-get.md) | Возвращает поля настройки шаблона регулярного счета по идентификатору. ||
-|| [crm.invoice.recurring.list](./crm-invoice-recurring-list.md) | Возвращает список настроек шаблонов регулярных счетов по фильтру. ||
-|| [crm.invoice.recurring.update](./crm-invoice-recurring-update.md) | Обновляет существующую настройку для шаблона регулярного счета. ||
-|| [crm.invoice.update](./crm-invoice-update.md) | Обновляет существующий счет. ||
-|| [crm.invoice.userfield.add](./crm-invoice-user-field-add.md) | Создает новое пользовательское поле для счетов. ||
-|| [crm.invoice.userfield.delete](./crm-invoice-user-field-delete.md) | Удаляет пользовательское поле счетов. ||
-|| [crm.invoice.userfield.get](./crm-invoice-user-field-get.md) | Возвращает пользовательское поле счетов по идентификатору. ||
-|| [crm.invoice.userfield.list](./crm-invoice-user-field-list.md) | Возвращает список пользовательских полей счетов по фильтру. ||
-|| [crm.invoice.userfield.update](./crm-invoice-user-field-update.md) | Обновляет существующее пользовательское поле счетов. ||
-|| [crm.paysystem.fields](./crm-pay-system-fields.md) | Возвращает описание полей для способов оплаты. ||
-|| [crm.paysystem.list](./crm-pay-system-list.md) | Возвращает список способов оплаты. ||
-|| [crm.persontype.fields](./crm-person-type-fields.md) | Возвращает описание полей для типов плательщиков. ||
-|| [crm.persontype.list](./crm-person-type-list.md) | Возвращает список типов плательщиков. ||
-|| [crm.invoice.getexternallink](./crm-invoice-get-external-link.md) | Возвращает ссылку на счет. ||
+|| **Название**
+`тип` | **Описание** ||
+|| **fields**
+[`array`](../../../data-types.md) | Значения полей для создания счета.
+
+Чтобы узнать требуемый формат полей, выполните метод [crm.invoice.fields](./crm-invoice-fields.md) и посмотрите формат пришедших значений этих полей ||
 |#
+
+## Примеры кода
+
+
+
+### Пример 1
+
+
+
+- cURL (OAuth)
+
+    ```http
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"fields":{"ORDER_TOPIC":"Счет для юр. лица","STATUS_ID":"P","DATE_INSERT":"'$(date -Iseconds --utc --date='TZ="Europe/Moscow" now')'","PAY_VOUCHER_DATE":"'$(date -Iseconds --utc --date='TZ="Europe/Moscow" now')'","PAY_VOUCHER_NUM":"876","DATE_MARKED":"'$(date -Iseconds --utc --date='TZ="Europe/Moscow" now')'","REASON_MARKED":"Счет оплачен сразу.","COMMENTS":"комментарий менеджера","USER_DESCRIPTION":"комментарий для клиента","DATE_BILL":"'$(date -Iseconds --utc --date='TZ="Europe/Moscow" now')'","DATE_PAY_BEFORE":"'$(date -Iseconds --utc --date='TZ="Europe/Moscow" +1 month')'","RESPONSIBLE_ID":1,"UF_DEAL_ID":10,"UF_COMPANY_ID":5,"UF_CONTACT_ID":2,"PERSON_TYPE_ID":2,"PAY_SYSTEM_ID":6,"INVOICE_PROPERTIES":{"COMPANY":"ООО \"Новые технологии\"","COMPANY_ADR":"543000 Москва, ул. Песчаная, д. 15, оф. 55 (юр)","INN":"","KPP":"","CONTACT_PERSON":"Борис Соколов","EMAIL":"pr@logistics-north.com","PHONE":"8 (495) 234-54-32","FAX":"","ZIP":"","CITY":"","LOCATION":"","ADDRESS":""},"PRODUCT_ROWS":[{"ID":0,"PRODUCT_ID":438,"PRODUCT_NAME":"Товар 01","QUANTITY":1,"PRICE":100},{"ID":0,"PRODUCT_ID":515,"PRODUCT_NAME":"Товар 77","QUANTITY":1,"PRICE":118}]}}' \
+    https://**put_your_bitrix24_address**/rest/crm.invoice.add?auth=**put_access_token_here**
+    ```
+
+- JS
+
+    ```js
+    var current = new Date();
+    var nextMonth = new Date();
+    nextMonth.setMonth(current.getMonth() + 1);
+
+    var date2str = function(d)
+    {
+        return d.getFullYear() + '-' + paddatepart(1 + d.getMonth()) + '-' + paddatepart(d.getDate()) + 'T' + paddatepart(d.getHours()) + ':' + paddatepart(d.getMinutes()) + ':' + paddatepart(d.getSeconds()) + '+03:00';
+    };
+
+    var paddatepart = function(part)
+    {
+        return part >= 10 ? part.toString() : '0' + part.toString();
+    };
+
+    BX24.callMethod(
+        "crm.invoice.add",
+        {
+            "fields": {
+                "ORDER_TOPIC": "Счет для юр. лица",
+                "STATUS_ID": "P",
+                "DATE_INSERT": date2str(current),
+                "PAY_VOUCHER_DATE": date2str(current),
+                "PAY_VOUCHER_NUM": "876",
+                "DATE_MARKED": date2str(current),
+                "REASON_MARKED": "Счет оплачен сразу.",
+                "COMMENTS": "комментарий менеджера",
+                "USER_DESCRIPTION": "комментарий для клиента",
+                "DATE_BILL": date2str(current),
+                "DATE_PAY_BEFORE": date2str(nextMonth),
+                "RESPONSIBLE_ID": 1,
+                "UF_DEAL_ID": 10,
+                "UF_COMPANY_ID": 5,
+                "UF_CONTACT_ID": 2,
+                "PERSON_TYPE_ID": 2,
+                "PAY_SYSTEM_ID": 6,
+                "INVOICE_PROPERTIES": {
+                    "COMPANY": "ООО \"Новые технологии\"",
+                    "COMPANY_ADR": "543000 Москва, ул. Песчаная, д. 15, оф. 55 (юр)",
+                    "INN": "",
+                    "KPP": "",
+                    "CONTACT_PERSON": "Борис Соколов",
+                    "EMAIL": "pr@logistics-north.com",
+                    "PHONE": "8 (495) 234-54-32",
+                    "FAX": "",
+                    "ZIP": "",
+                    "CITY": "",
+                    "LOCATION": "",
+                    "ADDRESS": ""
+                },
+                "PRODUCT_ROWS": [
+                    {"ID": 0, "PRODUCT_ID": 438, "PRODUCT_NAME": "Товар 01", "QUANTITY": 1, "PRICE": 100},
+                    {"ID": 0, "PRODUCT_ID": 515, "PRODUCT_NAME": "Товар 77", "QUANTITY": 1, "PRICE": 118}
+                ]
+            }
+        },
+        function(result)
+        {
+            if(result.error())
+                console.error(result.error());
+            else
+                console.info("Создан счет с ID " + result.data());
+        }
+    );
+    ```
+
+- PHP
+
+    ```php
+    require_once('crest.php');
+
+    $current = new DateTime();
+    $nextMonth = (new DateTime())->modify('+1 month');
+
+    function date2str($d) {
+        return $d->format('Y-m-d\TH:i:s+03:00');
+    }
+
+    $result = CRest::call(
+        'crm.invoice.add',
+        [
+            'fields' => [
+                'ORDER_TOPIC' => 'Счет для юр. лица',
+                'STATUS_ID' => 'P',
+                'DATE_INSERT' => date2str($current),
+                'PAY_VOUCHER_DATE' => date2str($current),
+                'PAY_VOUCHER_NUM' => '876',
+                'DATE_MARKED' => date2str($current),
+                'REASON_MARKED' => 'Счет оплачен сразу.',
+                'COMMENTS' => 'комментарий менеджера',
+                'USER_DESCRIPTION' => 'комментарий для клиента',
+                'DATE_BILL' => date2str($current),
+                'DATE_PAY_BEFORE' => date2str($nextMonth),
+                'RESPONSIBLE_ID' => 1,
+                'UF_DEAL_ID' => 10,
+                'UF_COMPANY_ID' => 5,
+                'UF_CONTACT_ID' => 2,
+                'PERSON_TYPE_ID' => 2,
+                'PAY_SYSTEM_ID' => 6,
+                'INVOICE_PROPERTIES' => [
+                    'COMPANY' => 'ООО "Новые технологии"',
+                    'COMPANY_ADR' => '543000 Москва, ул. Песчаная, д. 15, оф. 55 (юр)',
+                    'INN' => '',
+                    'KPP' => '',
+                    'CONTACT_PERSON' => 'Борис Соколов',
+                    'EMAIL' => 'pr@logistics-north.com',
+                    'PHONE' => '8 (495) 234-54-32',
+                    'FAX' => '',
+                    'ZIP' => '',
+                    'CITY' => '',
+                    'LOCATION' => '',
+                    'ADDRESS' => ''
+                ],
+                'PRODUCT_ROWS' => [
+                    ['ID' => 0, 'PRODUCT_ID' => 438, 'PRODUCT_NAME' => 'Товар 01', 'QUANTITY' => 1, 'PRICE' => 100],
+                    ['ID' => 0, 'PRODUCT_ID' => 515, 'PRODUCT_NAME' => 'Товар 77', 'QUANTITY' => 1, 'PRICE' => 118]
+                ]
+            ]
+        ]
+    );
+
+    echo '<PRE>';
+    print_r($result);
+    echo '</PRE>';
+    ```
+
+
+
+### Пример 2
+
+
+
+- cURL (OAuth)
+
+    ```http
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"fields":{"ORDER_TOPIC":"Счет для физ. лица","STATUS_ID":"P","DATE_INSERT":"'$(date -Iseconds --utc --date='TZ="Europe/Moscow" now')'","PAY_VOUCHER_DATE":"'$(date -Iseconds --utc --date='TZ="Europe/Moscow" now')'","PAY_VOUCHER_NUM":"876","DATE_MARKED":"'$(date -Iseconds --utc --date='TZ="Europe/Moscow" now')'","REASON_MARKED":"оплатили","COMMENTS":"комментарий","USER_DESCRIPTION":"комментарий клиенту","DATE_BILL":"'$(date -Iseconds --utc --date='TZ="Europe/Moscow" now')'","DATE_PAY_BEFORE":"'$(date -Iseconds --utc --date='TZ="Europe/Moscow" +1 month')'","RESPONSIBLE_ID":1,"UF_DEAL_ID":8,"UF_COMPANY_ID":0,"UF_CONTACT_ID":3,"PERSON_TYPE_ID":1,"PAY_SYSTEM_ID":6,"INVOICE_PROPERTIES":{"FIO":"Глеб Титов","EMAIL":"boss@yt-soft.net","PHONE":"","ZIP":"","CITY":"","LOCATION":"","ADDRESS":""},"PRODUCT_ROWS":[{"ID":0,"PRODUCT_ID":438,"PRODUCT_NAME":"Товар 01","QUANTITY":1,"PRICE":100},{"ID":0,"PRODUCT_ID":515,"PRODUCT_NAME":"Товар 77","QUANTITY":1,"PRICE":118}]}}' \
+    https://**put_your_bitrix24_address**/rest/crm.invoice.add?auth=**put_access_token_here**
+    ```
+
+- JS
+
+    ```js
+    var current = new Date();
+    var nextMonth = new Date();
+    nextMonth.setMonth(current.getMonth() + 1);
+
+    var date2str = function(d)
+    {
+        return d.getFullYear() + '-' + paddatepart(1 + d.getMonth()) + '-' + paddatepart(d.getDate()) + 'T' + paddatepart(d.getHours()) + ':' + paddatepart(d.getMinutes()) + ':' + paddatepart(d.getSeconds()) + '+03:00';
+    };
+
+    var paddatepart = function(part)
+    {
+        return part >= 10 ? part.toString() : '0' + part.toString();
+    };
+
+    BX24.callMethod(
+        "crm.invoice.add",
+        {
+            "fields": {
+                "ORDER_TOPIC": "Счет для физ. лица",
+                "STATUS_ID": "P",
+                "DATE_INSERT": date2str(current),
+                "PAY_VOUCHER_DATE": date2str(current),
+                "PAY_VOUCHER_NUM": "876",
+                "DATE_MARKED": date2str(current),
+                "REASON_MARKED": "оплатили",
+                "COMMENTS": "комментарий",
+                "USER_DESCRIPTION": "комментарий клиенту",
+                "DATE_BILL": date2str(current),
+                "DATE_PAY_BEFORE": date2str(nextMonth),
+                "RESPONSIBLE_ID": 1,
+                "UF_DEAL_ID": 8,
+                "UF_COMPANY_ID": 0,
+                "UF_CONTACT_ID": 3,
+                "PERSON_TYPE_ID": 1,
+                "PAY_SYSTEM_ID": 6,
+                "INVOICE_PROPERTIES": {
+                    "FIO": "Глеб Титов",
+                    "EMAIL": "boss@yt-soft.net",
+                    "PHONE": "",
+                    "ZIP": "",
+                    "CITY": "",
+                    "LOCATION": "",
+                    "ADDRESS": ""
+                },
+                "PRODUCT_ROWS": [
+                    {"ID": 0, "PRODUCT_ID": 438, "PRODUCT_NAME": "Товар 01", "QUANTITY": 1, "PRICE": 100},
+                    {"ID": 0, "PRODUCT_ID": 515, "PRODUCT_NAME": "Товар 77", "QUANTITY": 1, "PRICE": 118}
+                ]
+            }
+        },
+        function(result)
+        {
+            if(result.error())
+                console.error(result.error());
+            else
+                console.info("Создан счет с ID " + result.data());
+        }
+    );
+    ```
+
+- PHP
+
+    ```php
+    require_once('crest.php');
+
+    $current = new DateTime();
+    $nextMonth = (new DateTime())->modify('+1 month');
+
+    function date2str($d) {
+        return $d->format('Y-m-d\TH:i:s+03:00');
+    }
+
+    $result = CRest::call(
+        'crm.invoice.add',
+        [
+            'fields' => [
+                'ORDER_TOPIC' => 'Счет для физ. лица',
+                'STATUS_ID' => 'P',
+                'DATE_INSERT' => date2str($current),
+                'PAY_VOUCHER_DATE' => date2str($current),
+                'PAY_VOUCHER_NUM' => '876',
+                'DATE_MARKED' => date2str($current),
+                'REASON_MARKED' => 'оплатили',
+                'COMMENTS' => 'комментарий',
+                'USER_DESCRIPTION' => 'комментарий клиенту',
+                'DATE_BILL' => date2str($current),
+                'DATE_PAY_BEFORE' => date2str($nextMonth),
+                'RESPONSIBLE_ID' => 1,
+                'UF_DEAL_ID' => 8,
+                'UF_COMPANY_ID' => 0,
+                'UF_CONTACT_ID' => 3,
+                'PERSON_TYPE_ID' => 1,
+                'PAY_SYSTEM_ID' => 6,
+                'INVOICE_PROPERTIES' => [
+                    'FIO' => 'Глеб Титов',
+                    'EMAIL' => 'boss@yt-soft.net',
+                    'PHONE' => '',
+                    'ZIP' => '',
+                    'CITY' => '',
+                    'LOCATION' => '',
+                    'ADDRESS' => ''
+                ],
+                'PRODUCT_ROWS' => [
+                    ['ID' => 0, 'PRODUCT_ID' => 438, 'PRODUCT_NAME' => 'Товар 01', 'QUANTITY' => 1, 'PRICE' => 100],
+                    ['ID' => 0, 'PRODUCT_ID' => 515, 'PRODUCT_NAME' => 'Товар 77', 'QUANTITY' => 1, 'PRICE' => 118]
+                ]
+            ]
+        ]
+    );
+
+    echo '<PRE>';
+    print_r($result);
+    echo '</PRE>';
+    ```
+
+
+

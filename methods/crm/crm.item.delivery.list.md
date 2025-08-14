@@ -9,17 +9,16 @@ params: {"type":"object","properties":{"filter":{"type":"object"},"order":{"type
 returns: {"type":"array","items":{"type":"object"}}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Перепривязать позицию доставки к другому документу crm.item.payment.delivery.setDelivery
+# Получить список доставок объекта CRM crm.item.delivery.list
 
-> Scope: [`crm`](../../../../scopes/permissions.md)
+> Scope: [`crm`](../../../scopes/permissions.md)
 >
-> Кто может выполнять метод: требуется право на изменение заказа оплаты
+> Кто может выполнять метод: требуется право на чтение объекта crm, из которого выбираются доставки
 
-Метод перепривязывает позицию доставки к другому документу доставки.
+Метод получает список доставок конкретного объекта crm.
 
 ## Параметры метода
 
@@ -28,13 +27,16 @@ Auto-generated stub. Fill in params/returns/examples.
 #|
 || **Название**
 `тип` | **Описание** ||
-|| **id***
-[`integer`](../../../../data-types.md) | Идентификатор позиции доставки в оплате.
-Можно получить с помощью метода [`crm.item.payment.delivery.list`](./crm-item-payment-delivery-list.md)  ||
-|| **deliveryId***
-[`sale_order_shipment.id`](../../../../sale/data-types.md#sale_order_shipment) | Идентификатор доставки.
+|| **entityId***
+[`integer`](../../../data-types.md) | Идентификатор объекта crm ||
+|| **entityTypeId***
+[`integer`](../../../data-types.md) | Идентификатор [`типа объекта crm`](../../data-types.md#тип-объекта-crm)  ||
+|| **filter**
+[`object`](../../../data-types.md) | Дополнительный фильтр для случаев, когда нужно получить не все доставки объекта crm, а по какому-то более специфичному фильтру. 
+Формат параметра `filter` соответствует описанному в методе [`sale.shipment.list`](../../../sale/shipment/sale-shipment-list.md) ||
+|| **order**
+[`object`](../../../data-types.md) | Формат параметра `order` соответствует описанному в методе [`sale.shipment.list`](../../../sale/shipment/sale-shipment-list.md) ||
 
-Можно получить с помощью метода [`crm.item.delivery.list`](../../delivery/crm-item-delivery-list.md) (ключ id)  ||
 |#
 
 ## Примеры кода
@@ -49,27 +51,30 @@ Auto-generated stub. Fill in params/returns/examples.
     curl -X POST \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"id":1201,"deliveryId":4073}' \
-    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webhook_here**/crm.item.payment.delivery.setDelivery
+    -d '{"entityId":13127,"entityTypeId":2,"filter":{"@id":[4077,4078]}}' \
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webhook_here**/crm.item.delivery.list
     ```
 
-- cURL (OAuth) 
+- cURL (OAuth)
 
     ```http
     curl -X POST \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"id":1201,"deliveryId":4073,"auth":"**put_access_token_here**"}' \
-    https://**put_your_bitrix24_address**/rest/crm.item.payment.delivery.setDelivery
+    -d '{"entityId":13127,"entityTypeId":2,"filter":{"@id":[4077,4078]},"auth":"**put_access_token_here**"}' \
+    https://**put_your_bitrix24_address**/rest/crm.item.delivery.list
     ```
 
 - JS
 
     ```js
     BX24.callMethod(
-        'crm.item.payment.delivery.setDelivery', {
-            id: 1201,
-            deliveryId: 4073,
+        'crm.item.delivery.list', {
+            entityId: 13127,
+            entityTypeId: 2,
+            filter: {
+                "@id": [4077, 4078]
+            },
         },
         function(result) {
             if (result.error()) {
@@ -87,10 +92,13 @@ Auto-generated stub. Fill in params/returns/examples.
     require_once('crest.php');
 
     $result = CRest::call(
-        'crm.item.payment.delivery.setDelivery',
+        'crm.item.delivery.list',
         [
-            'id' => 1201,
-            'deliveryId' => 4073
+            'entityId' => 13127,
+            'entityTypeId' => 2,
+            'filter' => [
+                "@id" => [4077, 4078]
+            ]
         ]
     );
 
@@ -107,14 +115,35 @@ HTTP-статус: **200**
 
 ```json
 {
-   "result":true,
+   "result":[
+      {
+         "id":4077,
+         "accountNumber":"3657\/2",
+         "deducted":"N",
+         "dateDeducted":null,
+         "deliveryId":228,
+         "priceDelivery":79.99,
+         "currency":"RUB",
+         "deliveryName":"Uber Taxi (Cargo)"
+      },
+      {
+         "id":4078,
+         "accountNumber":"3657\/3",
+         "deducted":"N",
+         "dateDeducted":null,
+         "deliveryId":228,
+         "priceDelivery":79.99,
+         "currency":"RUB",
+         "deliveryName":"Uber Taxi (Cargo)"
+      }
+   ],
    "time":{
-      "start":1716296989.985067,
-      "finish":1716296991.216063,
-      "duration":1.2309961318969727,
-      "processing":0.8141369819641113,
-      "date_start":"2024-05-21T16:09:49+03:00",
-      "date_finish":"2024-05-21T16:09:51+03:00"
+      "start":1716369036.246855,
+      "finish":1716369036.734466,
+      "duration":0.4876110553741455,
+      "processing":0.18442106246948242,
+      "date_start":"2024-05-22T12:10:36+03:00",
+      "date_finish":"2024-05-22T12:10:36+03:00"
    }
 }
 ```
@@ -125,9 +154,9 @@ HTTP-статус: **200**
 || **Название**
 `тип` | **Описание** ||
 || **result**
-[`boolean`](../../../../data-types.md) | Результат операции ||
+[`sale_order_shipment_crm_simple`](./crm-item-delivery-get.md#sale_order_shipment_crm_simple) | Массив объектов, содержащий краткую информацию о выбранных доставках ||
 || **time**
-[`time`](../../../../data-types.md) | Информация о времени выполнения запроса ||
+[`time`](../../../data-types.md) | Информация о времени выполнения запроса ||
 |#
 
 ## Обработка ошибок
@@ -137,7 +166,7 @@ HTTP-статус: **400**
 ```json
 {
    "error":0,
-   "error_description":"Payable item has not been found"
+   "error_description":"Недостаточно прав"
 }
 ```
 
@@ -147,7 +176,6 @@ HTTP-статус: **400**
 
 #|
 || **Код** | **Описание** ||
-|| `0` | Позиция доставки не найдена ||
 || `0` | Доступ запрещен ||
 || `100` | Не переданы обязательные поля ||
 || `0` | Другие ошибки (например, фатальные ошибки) ||
@@ -157,7 +185,5 @@ HTTP-статус: **400**
 
 ## Продолжите изучение
 
-- [{#T}](./crm-item-payment-delivery-add.md)
-- [{#T}](./crm-item-payment-delivery-delete.md)
-- [{#T}](./crm-item-payment-delivery-list.md)
+- [{#T}](./crm-item-delivery-get.md)
 

@@ -9,52 +9,104 @@ params: {"type":"object","required":["id"],"properties":{"id":{"type":"integer"}
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Специальные операции в чатах: обзор методов
+# Получить идентификатор чата im.chat.get
 
-Специальные операции помогают управлять чатами: отмечать сообщения как прочитанные, закреплять чаты, отключать уведомления или удалять диалоги из списка последних чатов.
 
-> Быстрый переход: [все методы и события](#all-methods) 
-> 
-> Пользовательская документация: [Чаты в Битрикс24: интерфейс и возможности](https://helpdesk.bitrix24.ru/open/21912520/)
 
-## Связь специальных операций с другими объектами
+Тут может не хватать некоторых данных — дополним в ближайшее время
 
-**Чат.** Специальные операции с чатами выполняются по идентификатору чата `DIALOG_ID` или `CHAT_ID`. Получить идентификатор чата можно методом создания чата [im.chat.add](../im-chat-add.md) или получения идентификатора чата [im.chat.get](../im-chat-get.md).
 
-## Закрепить чат
 
-Чтобы не потерять важный чат, закрепите его в начале списка. Закрепить или открепить чат можно методом [im.recent.pin](./im-recent-pin.md).
 
-## Прочитать чат
 
-Если вы хотите вернуться к прочитанному сообщению позже, используйте метку «Посмотреть позже». Метод `im.recent.unread` управляет этой меткой:
 
--  Параметр `ACTION` со значением `Y` устанавливает метку «Посмотреть позже»
 
--  Параметр `ACTION` со значением `N` отмечает все сообщения прочитанными и снимает метку
+- нужны правки под стандарт написания
+- не указаны типы параметров
+- отсутствуют примеры
+- отсутствует ответ в случае ошибки
+- не прописаны ссылки на несозданные ещё страницы
+- из файла Сергея: непонятно, в каком контексте метод применим, надо уточнить
 
-Метод [im.dialog.read.all](./im-dialog-read-all.md) устанавливает метки «Прочитано» для всех диалогов.
 
-## Отключить уведомления чата
 
-В групповых чатах, где не требуется оперативно реагировать на сообщения, можно отключить уведомления. Метод [im.chat.mute](./im-chat-mute.md) позволяет отключить или включить уведомления.
 
-## Удалить чат из списка последних
 
-Метод [im.recent.hide](./im-recent-hide.md) удаляет диалог из списка последних чатов.
+> Scope: [`im`](../scopes/permissions.md)
+>
+> Кто может выполнять метод: любой пользователь
 
-## Обзор методов {#all-methods}
+Метод `im.chat.get` получает идентификатор чата.
 
 #|
-|| **Метод** | **Описание** ||
-|| [im.recent.pin](./im-recent-pin.md) | Закрепляет чат вверху списка чатов ||
-|| [im.recent.unread](./im-recent-unread.md) | Управляет меткой «Прочитано» у чата ||
-|| [im.dialog.read.all](./im-dialog-read-all.md) | Устанавливает метку «Прочитано» для всех чатов ||
-|| [im.chat.mute](./im-chat-mute.md) | Отключает уведомления от чата ||
-|| [im.recent.hide](./im-recent-hide.md) | Удаляет чат из списка последних ||
+|| **Параметр** | **Пример** | **Описание** ||
+|| **ENTITY_TYPE^*^**
+[`unknown`](../data-types.md) | `CRM`, `LINES`, `LIVECHAT` | Идентификатор сущности. Может быть использован для поиска чата и для легкого определения контекста в обработчиках событий:
+- [ONIMBOTMESSAGEADD](../chat-bots/messages/events/on-imbot-message-add.md),
+- [ONIMBOTMESSAGEUPDATE](../chat-bots/messages/events/on-imbot-message-update.md),
+- [ONIMBOTMESSAGEDELETE](../chat-bots/messages/events/on-imbot-message-delete.md) ||
+|| **ENTITY_ID^*^**
+[`unknown`](../data-types.md) | `LEAD`\|`13` | Числовой идентификатор сущности. Может быть использован для поиска чата и для легкого определения контекста в обработчиках событий:
+- [ONIMBOTMESSAGEADD](../chat-bots/messages/events/on-imbot-message-add.md),
+- [ONIMBOTMESSAGEUPDATE](../chat-bots/messages/events/on-imbot-message-update.md),
+- [ONIMBOTMESSAGEDELETE](../chat-bots/messages/events/on-imbot-message-delete.md) ||
 |#
 
+
+
+## Примеры
+
+
+
+
+
+- JS
+
+    ```js
+    BX24.callMethod(
+        'im.chat.get',
+        {
+            ENTITY_TYPE: "LINES",
+            ENTITY_ID: "telegrambot|2|209607941|744"
+        
+        },
+        (result) => {
+            result.error()
+                ? console.error(result.error())
+                : console.info(result.data())
+            ;
+        },
+    );
+    ```
+
+- PHP
+
+    ```php
+    $result = restCommand(
+        'im.chat.get',
+        Array(
+            'ENTITY_TYPE' => 'CRM',
+            'ENTITY_ID' => 'LEAD|13',
+        ),
+        $_REQUEST[
+            "auth"
+        ]
+    );
+    ```
+
+
+
+
+
+## Ответ в случае успеха
+
+```json
+{
+    "result": 10
+}
+```
+
+**Результат выполнения**: возвращает идентификатор чата `CHAT_ID` или `null`.

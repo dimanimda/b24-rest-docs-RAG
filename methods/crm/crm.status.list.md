@@ -9,113 +9,317 @@ params: {"type":"object","properties":{"filter":{"type":"object"},"order":{"type
 returns: {"type":"array","items":{"type":"object"}}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Зарегистрировать звонок в Битрикс24 telephony.externalcall.register
+# Получить список элементов справочника по фильтру crm.status.list
+
+> Scope: [`crm`](../../scopes/permissions.md)
+>
+> Кто может выполнять метод: любой пользователь
+
+Метод `crm.status.list` возвращает список элементов справочника по фильтру.
+
+## Параметры метода
 
 
-
-Тут может не хватать некоторых данных — дополним в ближайшее время
-
-
-
-
-
-
-
-- отсутствуют примеры
-- отсутствует ответ в случае успеха
-- отсутствует ответ в случае ошибки
-
-
-
-
-
-
-
-Метод `telephony.externalcall.register` регистрирует звонок в Битрикс24, для чего ищет в CRM соответствующий номеру объект. Если находит, то добавляет звонок в привязке к найденному объекту. Если не находит, то может автоматически создать лид.
-
-При использовании `telephony.externalcall.register` ответственным за новый лид будет автоматически назначен первый ответственный за данного клиента ранее. Сменить такого ответственного можно в дальнейшем через [telephony.externalcall.finish](telephony-external-call-finish.md).
-
-Одновременно с регистрацией звонка метод опционально может показать пользователю карточку звонка. Пользователь, которому показывается карточка, идентифицируется либо по `USER_ID`, либо по `USER_PHONE_INNER`. (То есть поля помечены как обязательные, но фактически нужно только одно из двух.)
-
-Не нужно повторно вызывать этот метод для звонков, полученных на событии [OnExternalCallStart](./events/on-external-call-start.md). Эти звонки уже зарегистрированы в системе и для них надо вызывать только [telephony.externalcall.finish](telephony-external-call-finish.md) в конце звонка.
-
-
-
-Повторный вызов `telephony.externalcall.register` с теми же параметрами, без закрытия предыдущего звонка методом `telephony.externalcall.finish`, выдает тот же `CALL_ID` в течение 30 минут.
-
-
-
-Для создания дела "звонок" необходимо также вызывать метод `telephony.externalcall.finish`.
 
 #|
-|| **Параметр** / **Тип** | **Описание** ||
-|| **USER_PHONE_INNER**^*^ 
-[`string`](../data-types.md) | Внутренний номер пользователя. ||
-|| **USER_ID**^*^ 
-[`int`](../data-types.md) | Идентификатор пользователя. ||
-|| **PHONE_NUMBER**^*^ 
-[`string`](../data-types.md) | Номер телефона. ||
-|| **CALL_START_DATE** 
-[`string`](../data-types.md) | Дата/время звонка в формате iso8601. Обратите внимание, что в дате необходимо передавать часовой пояс, для избежания искажения времени звонка. Пример: `2021-02-03T18:25:10+03:00`. ||
-|| **CRM_CREATE** 
-[`int`](../data-types.md) | [0\/1] - Автоматическое создание в CRM сущности, связанной со звонком. При необходимости создает в CRM лид или сделку, в зависимости от [настроек и режима работы CRM](*mode).
+|| **Название**
+`тип` | **Описание** ||
+|| **order** 
+[`object`](../../data-types.md) | Объект формата:
 
- Обратите внимание, что дело звонка создается при любом значении этого параметра, если создание возможно. ||
-|| **CRM_SOURCE** 
-[`string`](../data-types.md) | STATUS_ID источника из справочника источников. Получить список источников можно методом `crm.status.list` с фильтром по "ENTITY_ID": "SOURCE". ||
-|| **CRM_ENTITY_TYPE** 
-[`string`](../data-types.md) | Тип объекта CRM, из карточки которого совершается звонок - CONTACT \| COMPANY \| LEAD. ||
-|| **CRM_ENTITY_ID** 
-[`int`](../data-types.md) | Идентификатор объекта CRM, тип которого указан в CRM_ENTITY_TYPE. ||
-|| **SHOW** 
-[`int`](../data-types.md) | [0/1] Показывать ли карточку звонка (по умолчанию 1). ||
-|| **CALL_LIST_ID** 
-[`int`](../data-types.md) | Идентификатор [списка обзвона](../crm/call-list/index.md), к которому должен быть привязан звонок. ||
-|| **LINE_NUMBER** 
-[`string`](../data-types.md) | Номер внешней линии, через который совершался звонок (см. [telephony.externalLine.add](telephony-external-line-add.md)).
+```
+{
+    field_1: value_1,
+    field_2: value_2,
+    ...,
+    field_n: value_n,
+}
+```
+
+- `field_n` — название поля, по которому будет произведена сортировка элементов справочника
+- `value_n` — значение типа `string`, равное:
+    - `ASC` — сортировка по возрастанию
+    - `DESC` — сортировка по убыванию
+- 
+ Список полей для сортировки можно узнать методом [crm.status.fields](./crm-status-fields.md) ||
+|| **filter** 
+[`object`](../../data-types.md) | Объект формата:
+
+```
+{
+    field_1: value_1,
+    field_2: value_2,
+    ...,
+    field_n: value_n,
+}
+```
+
+- `field_n` — название поля, по которому будет отфильтрована выборка элементов
+- `value_n` — значение фильтра
+
+Список полей для фильтрации можно узнать методом [crm.status.fields](./crm-status-fields.md) ||
+|#
+
+## Примеры кода
 
 
 
-Значения из этого параметра используются в сценариях сквозной аналитики Битрикс24. Поэтому решения по интеграции с телефонией для каталога Приложения24 в обязательном порядке должны передавать здесь номер, на который был совершён регистрируемый входящий звонок. 
+
+
+- JS
+
+    ```js
+    BX24.callMethod(
+        "crm.status.list",
+        {
+            order: { SORT: "ASC" },
+            filter: { ENTITY_ID: "DEAL_STAGE" }
+        },
+        function(result) {
+            if(result.error())
+                console.error(result.error());
+            else
+                console.dir(result.data());
+        }
+    );
+    ```
+
+- cURL (Webhook)
+
+    ```bash
+    curl -X POST \
+         -H "Content-Type: application/json" \
+         -H "Accept: application/json" \
+         -d '{"order":{"SORT":"ASC"},"filter":{"ENTITY_ID":"DEAL_STAGE"}}' \
+         https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/crm.status.list
+    ```
+
+- cURL (OAuth)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"order":{"SORT":"ASC"},"filter":{"ENTITY_ID":"DEAL_STAGE"},"auth":"**put_access_token_here**"}' \
+    https://**put_your_bitrix24_address**/rest/crm.status.list
+    ```
+
+- PHP
+
+    ```php
+    require_once('crest.php');
+
+    $result = CRest::call(
+        'crm.status.list',
+        [
+            'order' => [ 'SORT' => 'ASC' ],
+            'filter' => [ 'ENTITY_ID' => 'DEAL_STAGE' ]
+        ]
+    );
+
+    echo '<PRE>';
+    print_r($result);
+    echo '</PRE>';
+    ```
 
 
 
-||
-|| **TYPE**^*^ 
-[`integer`](../data-types.md) | Тип звонка:
-1 - исходящий
-2 - входящий
-3 - входящий с перенаправлением
-4 - обратный ||
+## Обработка ответа
+
+HTTP-статус: **200**
+
+```json
+{
+    "result": [
+        {
+            "ID": "101",
+            "ENTITY_ID": "DEAL_STAGE",
+            "STATUS_ID": "NEW",
+            "NAME": "Новая",
+            "NAME_INIT": "Новая",
+            "SORT": "10",
+            "SYSTEM": "Y",
+            "CATEGORY_ID": null,
+            "COLOR": "#39A8EF",
+            "SEMANTICS": null,
+            "EXTRA": {
+                "SEMANTICS": "process",
+                "COLOR": "#39A8EF"
+            }
+        },
+        {
+            "ID": "103",
+            "ENTITY_ID": "DEAL_STAGE",
+            "STATUS_ID": "PREPARATION",
+            "NAME": "Подготовка документов",
+            "NAME_INIT": "",
+            "SORT": "20",
+            "SYSTEM": "N",
+            "CATEGORY_ID": null,
+            "COLOR": "#2FC6F6",
+            "SEMANTICS": null,
+            "EXTRA": {
+                "SEMANTICS": "process",
+                "COLOR": "#2FC6F6"
+            }
+        },
+        {
+            "ID": "105",
+            "ENTITY_ID": "DEAL_STAGE",
+            "STATUS_ID": "PREPAYMENT_INVOICE",
+            "NAME": "Cчет на предоплату",
+            "NAME_INIT": "",
+            "SORT": "30",
+            "SYSTEM": "N",
+            "CATEGORY_ID": null,
+            "COLOR": "#55D0E0",
+            "SEMANTICS": null,
+            "EXTRA": {
+                "SEMANTICS": "process",
+                "COLOR": "#55D0E0"
+            }
+        },
+        {
+            "ID": "107",
+            "ENTITY_ID": "DEAL_STAGE",
+            "STATUS_ID": "EXECUTING",
+            "NAME": "В работе",
+            "NAME_INIT": "",
+            "SORT": "40",
+            "SYSTEM": "N",
+            "CATEGORY_ID": null,
+            "COLOR": "#47E4C2",
+            "SEMANTICS": null,
+            "EXTRA": {
+                "SEMANTICS": "process",
+                "COLOR": "#47E4C2"
+            }
+        },
+        {
+            "ID": "109",
+            "ENTITY_ID": "DEAL_STAGE",
+            "STATUS_ID": "FINAL_INVOICE",
+            "NAME": "Финальный счет",
+            "NAME_INIT": "",
+            "SORT": "50",
+            "SYSTEM": "N",
+            "CATEGORY_ID": null,
+            "COLOR": "#FFA900",
+            "SEMANTICS": null,
+            "EXTRA": {
+                "SEMANTICS": "process",
+                "COLOR": "#FFA900"
+            }
+        },
+        {
+            "ID": "111",
+            "ENTITY_ID": "DEAL_STAGE",
+            "STATUS_ID": "WON",
+            "NAME": "Сделка успешна",
+            "NAME_INIT": "Сделка успешна",
+            "SORT": "60",
+            "SYSTEM": "Y",
+            "CATEGORY_ID": null,
+            "COLOR": "#7BD500",
+            "SEMANTICS": "S",
+            "EXTRA": {
+                "SEMANTICS": "success",
+                "COLOR": "#7BD500"
+            }
+        },
+        {
+            "ID": "113",
+            "ENTITY_ID": "DEAL_STAGE",
+            "STATUS_ID": "LOSE",
+            "NAME": "Сделка провалена",
+            "NAME_INIT": "Сделка провалена",
+            "SORT": "70",
+            "SYSTEM": "Y",
+            "CATEGORY_ID": null,
+            "COLOR": "#FF5752",
+            "SEMANTICS": "F",
+            "EXTRA": {
+                "SEMANTICS": "failure",
+                "COLOR": "#FF5752"
+            }
+        },
+        {
+            "ID": "115",
+            "ENTITY_ID": "DEAL_STAGE",
+            "STATUS_ID": "APOLOGY",
+            "NAME": "Анализ причины провала",
+            "NAME_INIT": "",
+            "SORT": "80",
+            "SYSTEM": "N",
+            "CATEGORY_ID": null,
+            "COLOR": "#FF5752",
+            "SEMANTICS": "F",
+            "EXTRA": {
+                "SEMANTICS": "apology",
+                "COLOR": "#FF5752"
+            }
+        }
+    ],
+    "total": 8,
+    "time": {
+        "start": 1752146147.312812,
+        "finish": 1752146147.354549,
+        "duration": 0.04173684120178223,
+        "processing": 0.00507807731628418,
+        "date_start": "2025-07-10T14:15:47+03:00",
+        "date_finish": "2025-07-10T14:15:47+03:00",
+        "operating_reset_at": 1752146747,
+        "operating": 0
+    }
+}
+```
+
+### Возвращаемые данные
+
+#|
+|| **Название**
+`тип` | **Описание** ||
+|| **result**
+[`array`](../../data-types.md) | Массив объектов с информацией об элементах справочника ||
+|| **total**
+[`integer`](../../data-types.md) | Общее количество найденных элементов ||
+|| **time**
+[`time`](../../data-types.md#time) | Информация о времени выполнения запроса ||
+|#
+
+## Обработка ошибок
+
+HTTP-статус: **400**
+
+```json
+{
+    "error": "Invalid parameters.",
+    "error_description": "Переданы некорректные параметры."
+}
+```
+
+
+
+### Возможные коды ошибок
+
+#|
+|| **Код** | **Описание** | **Значение** ||
+|| `400`     | `Access denied.` | Нет прав на выполнение операции ||
+|| `400`     | `Invalid parameters.` | Переданы некорректные параметры ||
 |#
 
 
 
-## Возвращаемые данные
+## Продолжите изучение
 
-#|
-|| **Значение** / **Тип** | **Описание** ||
-|| **CALL_ID** 
-[`string`](../data-types.md) | Идентификатор звонка внутри Битрикс24. ||
-|| **CRM_CREATED_LEAD** 
-[`int`](../data-types.md) | Идентификатор созданного лида (создается, если в CRM не найден объект по входящему номеру). ||
-|| **CRM_ENTITY_ID** 
-[`int`](../data-types.md) | Идентификатор найденного в CRM объекта. ||
-|| **CRM_ENTITY_TYPE** 
-[`string`](../data-types.md) | Тип найденного в CRM объекта по входящему номеру CONTACT \| COMPANY \| LEAD. ||
-|| **CRM_CREATED_ENTITIES** 
-[`array`](../data-types.md) | Массив автоматически созданных в CRM сущностей при регистрации звонка. Формат:
-- ENTITY_TYPE - тип созданной сущности
-- ENTITY_ID - идентификатор созданной сущности ||
-|| **LEAD_CREATION_ERROR** 
-[`string`](../data-types.md) | Текст ошибки, возникшей при попытке создания лида в CRM. ||
-|#
-
-[*mode]: Существует: 
-- простой режим (без лидов) - при котором будет создаваться сделка, а не лид;
-- режим повторных продаж, при котором будет создавать сделка/лид даже если сущность в сrm найдена. (Но не будет создаваться если есть активная сделка/лид или номер внесен в черный список crm).
+- [{#T}](./crm-status-fields.md)
+- [{#T}](./crm-status-get.md)
+- [{#T}](./crm-status-add.md)
+- [{#T}](./crm-status-update.md)
+- [{#T}](./crm-status-delete.md) 
+- [{#T}](../../../tutorials/crm/how-to-get-lists/how-to-get-elements-by-stage-filter.md)
+- [{#T}](../../../tutorials/crm/how-to-add-crm-objects/how-to-add-category-to-spa.md)
 

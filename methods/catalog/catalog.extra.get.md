@@ -9,82 +9,159 @@ params: {"type":"object","required":["id"],"properties":{"id":{"type":"integer"}
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Цены в Торговом каталоге: обзор методов
-
-Товар может иметь одну или несколько цен. Для каждой цены указываются:
-
-- валюта: российский рубль, доллар США, евро
-
-- тип: розничная, оптовая, партнерская
-
-Это позволяет настраивать ценообразование в зависимости от типа клиента, региона или условий сотрудничества.
-
-> Быстрый переход: [все методы и события](#all-methods) 
->
-> Пользовательская документация: [Право на изменение цены продажи товара в ĸаталоге](https://helpdesk.bitrix24.ru/open/16342446/)
-
-## Связь цен с другими объектами
-
-**Тип цены.** Каждая цена принадлежит к определенному типу цен. Задать и изменить тип цены можно с помощью методов [catalog.priceType.*](../price-type/index.md).
-
-**Валюта.** Цена указывается в выбранной валюте. Работать с валютами можно через методы [crm.currency.*](../../crm/currency/index.md).
-
-**Наценка.** Она влияет на формирование цены. Получить наценку позволяет метод [catalog.extra.get](../extra/catalog-extra-get.md).
-
-**Товар.** Цена всегда привязана к товару. Создать и отредактировать товар можно с помощью групп методов:
-
-- [catalog.product.*](../product/index.md) — для простых товаров
-
-- [catalog.product.service.*](../product/service/index.md) — для услуг
-
-- [catalog.product.sku.*](../product/sku/index.md) — для головных товаров с вариациями
-
-- [catalog.product.offer.*](../product/offer/index.md) — для вариаций товаров
-
-
-
-- [Валюты в CRM](https://helpdesk.bitrix24.ru/open/6987305/)
-
-- [Как создать новый товар в каталоге](https://helpdesk.bitrix24.ru/open/11657084/)
-
-- [Услуги в CRM](https://helpdesk.bitrix24.ru/open/16560760/)
-
-- [Работа с вариациями товара](https://helpdesk.bitrix24.ru/open/11657102/)
-
-
-
-## Обзор методов и событий {#all-methods}
+# Получить значения полей наценки по идентификатору catalog.extra.get
 
 > Scope: [`catalog`](../../scopes/permissions.md)
 >
 > Кто может выполнять метод: администратор
 
+Метод возвращает информацию о наценке по ее идентификатору.
+
+## Параметры метода
 
 
-- Методы
 
-    #|
-    || **Метод** | **Описание** ||
-    || [catalog.price.add](./catalog-price-add.md) | Добавляет цену товара ||
-    || [catalog.price.delete](./catalog-price-delete.md) | Удаляет цену товара ||
-    || [catalog.price.get](./catalog-price-get.md) | Возвращает значения полей цены товара по идентификатору ||
-    || [catalog.price.getFields](./catalog-price-get-fields.md) | Возвращает поля цен товаров ||
-    || [catalog.price.list](./catalog-price-list.md) | Возвращает список цен товаров по фильтру ||
-    || [catalog.price.modify](./catalog-price-modify.md) | Изменяет элементы коллекции цен товара ||
-    || [catalog.price.update](./catalog-price-update.md) | Обновляет поля цены товара ||
-    |#
+#|
+|| **Название**
+`тип` | **Описание** ||
+|| **id***
+[`catalog_extra.id`](../data-types.md#catalog_extra) | Идентификатор наценки ||
+|#
 
-- События
-
-    #|
-    || **Событие** | **Вызывается** ||
-    || [CATALOG.PRICE.ON.ADD](./events/catalog-price-on-add.md)| При добавлении цены ||
-    || [CATALOG.PRICE.ON.UPDATE](./events/catalog-price-on-update.md)| При обновлении цены ||
-    || [CATALOG.PRICE.ON.DELETE](./events/catalog-price-on-delete.md)| При удалении цены ||
-    |#
+## Примеры кода
 
 
+
+
+
+- cURL (Webhook)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"id":1}' \
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/catalog.extra.get
+    ```
+
+- cURL (OAuth)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"id":1,"auth":"**put_access_token_here**"}' \
+    https://**put_your_bitrix24_address**/rest/catalog.extra.get
+    ```
+
+- JS
+
+    ```js
+    BX24.callMethod(
+        'catalog.extra.get',
+        {
+            id: 1
+        },
+        function(result)
+        {
+            if(result.error())
+                console.error(result.error());
+            else
+                console.log(result.data());
+        }
+    );
+    ```
+
+- PHP
+
+    ```php
+    require_once('crest.php');
+
+    $result = CRest::call(
+        'catalog.extra.get',
+        [
+            'id' => 1
+        ]
+    );
+
+    echo '<PRE>';
+    print_r($result);
+    echo '</PRE>';
+    ```
+
+
+
+## Обработка ответа
+
+HTTP-статус: **200**
+
+```json
+{
+    "result": {
+        "extra": {
+            "id": 1,
+            "name": "test",
+            "percentage": 5.10
+        }
+    },
+    "time": {
+        "start": 1716558215.93495,
+        "finish": 1716558216.20731,
+        "duration": 0.272363901138306,
+        "processing": 0.028817892074585,
+        "date_start": "2024-10-24T16:40:59+02:00",
+        "date_finish": "2024-10-24T16:40:59+02:00",
+        "operating": 0
+    }
+}
+```
+
+### Возвращаемые данные
+
+#|
+|| **Название**
+`тип` | **Описание** ||
+|| **result**
+[`object`](../../data-types.md) | Корневой элемент ответа ||
+|| **extra**
+[`catalog_extra`](../data-types.md#catalog_price_type) | Объект с информацией о наценке с заданным идентификатором ||
+|| **time**
+[`time`](../../data-types.md#time) | Информация о времени выполнения запроса ||
+|#
+
+## Обработка ошибок
+
+HTTP-статус: **400**
+
+```json
+{
+    "error": 200040300010,
+    "error_description": "Access Denied"
+}
+```
+
+
+
+### Возможные коды ошибок
+
+#|
+|| **Код** | **Описание** ||
+|| `200040300010` | Недостаточно прав для чтения
+||
+|| `202000000000` | Наценки с таким идентификатором не существует 
+||
+|| `100` | Не указан параметр `id`
+|| 
+|| `0` | Другие ошибки (например, фатальные ошибки)
+|| 
+|#
+
+
+
+## Продолжите изучение
+
+- [{#T}](./catalog-extra-list.md)
+- [{#T}](./catalog-extra-get-fields.md)

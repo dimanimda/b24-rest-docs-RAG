@@ -9,141 +9,156 @@ params: {"type":"object"}
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Таймлайн и дела в CRM: обзор методов
+#  Закрепить запись в таймлайне crm.timeline.item.pin
 
-Таймлайн — это основное рабочее пространство в карточке элемента CRM. В нем фиксируется:
-
-* системная информация о работе с элементом: смена стадии,  оплата, создание элементов на основании текущего
-* пользовательская информация: дела CRM (задачи, письма, звонки) и записи таймлайна (комментарии, сгенерированные по шаблону документы, лог-записи приложений)
-
-> Быстрый переход: [все методы и события](#all-methods) 
-> 
-> Пользовательская документация: [таймлайн в Битрикс24](https://helpdesk.bitrix24.ru/open/23960160/), [универсальное дело в Битрикс24](https://helpdesk.bitrix24.ru/open/21064046/)
-
-## Дела
-
-Дела в CRM делятся на входящие и запланированные:
-
-* Входящие — дела, поступившие от клиента, например письмо или звонок. Для таких дел важно верно указать параметр `DIRECTION` = `1`, чтобы сработал счетчик входящих дел CRM
-* Запланированные — дела, которые создают сотрудники, например задачи или универсальные дела
-  
-Подробнее о делах и методах управления ими — в статье [Дела в CRM: обзор методов](./activities/index.md).
-
-## Таймлайн
-
-Записи таймлайна делятся на два типа: 
-
-* Комментарии. Добавлять, удалять, изменять, получать комментарии можно через группу методов [crm.timeline.comment.*](./comments/index.md)
-* Лог-записи. Добавлять, удалять, изменять, получать лог-записи можно через группу методов [crm.timeline.logmessage.*](./logmessage/index.md)
-  
-Управлять связями записей таймлайна с элементами CRM можно методами группы [crm.timeline.bindings.*.](./bindings/index.md) 
-
-## Виджеты
-
-В дела и записи таймлайна можно встроить приложение. Благодаря встройке можно будет использовать приложение и не покидать карточку CRM. Для встраивания используют специальные места, в таймлайне их два:
-
-* [Кнопка над таймлайном карточки элемента](../../widgets/crm/detail-activity.md) `CRM_XXX_DETAIL_ACTIVITY`, `CRM_DYNAMIC_XXX_DETAIL_ACTIVITY`
-* [Пункт контекстного меню дела в карточке элемента](../../widgets/crm/activity-timeline-menu.md) `CRM_XXX_ACTIVITY_TIMELINE_MENU`
-
-
-
-- [Механизм встройки виджетов](../../widgets/index.md)
-- [Создать дела из приложений](./activities/app-embedding/activity-app.md)
-
-
-
-## Дополнительные возможности 
-
-**Текстовые заметки** можно добавлять к делам и комментариям таймлайна и  удалять их. Используйте группу методов [crm.timeline.note.*](./note/index.md).
-
-**Контентные блоки** можно добавлять к комментариям таймлайна и удалять их. Используйте группу методов [crm.timeline.layout.blocks.*](./layout-blocks/index.md).
-
-* [Доступные контентные блоки](./activities/configurable/structure/body.md#contentblockdto)
-
-
-## Обзор методов и событий {#all-methods}
-
-> Scope: [`crm`](../../scopes/permissions.md)
+> Scope: [`crm`](../../../scopes/permissions.md)
 >
-> Кто может выполнять методы: в зависимости от метода
+> Кто может выполнять метод: любой пользователь
 
-### Комментарии таймлайна
+Метод `crm.timeline.item.pin` закрепляет запись в таймлайне.
 
-
-
-- Методы
-
-    #|
-    || **Метод** | **Описание** ||
-    || [crm.timeline.comment.add](./comments/crm-timeline-comment-add.md)   | Добавляет новый комментарий в таймлайн ||
-    || [crm.timeline.comment.update](./comments/crm-timeline-comment-update.md)  |  Обновляет комментарий ||
-    || [crm.timeline.comment.get](./comments/crm-timeline-comment-get.md)   |  Получает информацию о комментарии ||
-    || [crm.timeline.comment.list](./comments/crm-timeline-comment-list.md) |  Получает список всех комментариев для элемента CRM ||
-    || [crm.timeline.comment.delete](./comments/crm-timeline-comment-delete.md)  |  Удаляет комментарий ||
-    || [crm.timeline.comment.fields](./comments/crm-timeline-comment-fields.md)  | Получает список полей комментария таймлайна ||
-    |#
-
-- События
-
-    #|
-    || **Событие** | **Вызывается** ||
-    || [onCrmTimelineCommentAdd](./comments/events/on-Crm-Timeline-Comment-Add.md) | При созданиии нового комментария в таймлайн ||
-    || [onCrmTimelineCommentUpdate](./comments/events/on-Crm-Timeline-Comment-Update.md) | При обновление комментария в таймлайн  ||
-    || [onCrmTimelineCommentDelete](./comments/events/on-Crm-Timeline-Comment-Delete.md) | При удалении комментария в таймлайн  ||
-    |#
+## Параметры метода
 
 
-
-### Заметки к записи таймлайна
 
 #|
-|| **Метод** | **Описание** ||
-|| [crm.timeline.note.get](./note/crm-timeline-note-get.md) | Получает информацию о заметке ||
-|| [crm.timeline.note.save](./note/crm-timeline-note-save.md) | Сохраняет заметку ||
-|| [crm.timeline.note.delete](./note/crm-timeline-note-delete.md) | Удаляет заметку ||
+|| **Название**
+`тип` | **Описание** ||
+|| **id***
+[`integer`](../../../data-types.md) | Идентификатор записи таймлайна, например `999`. Получить id можно методом [crm.timeline.comment.list](../comments/crm-timeline-comment-list.md) ||
+|| **ownerTypeId***
+[`integer`](../../data-types.md#object_type) | [Идентификатор типа объекта CRM](../../data-types.md#object_type), к которому привязана запись, например `2` для сделки ||
+|| **ownerId***
+[`integer`](../../../data-types.md) | Идентификатор элемента CRM, к которому привязана запись, например `10` ||
+|#
+
+## Примеры кода
+
+
+
+
+
+- cURL (Webhook)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"id": 999, "ownerTypeId": 2, "ownerId": 10}' \
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webhook_here**/crm.timeline.item.pin
+    ```
+
+- cURL (OAuth)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"id":999,"ownerTypeId":2,"ownerId":10,"auth":"**put_access_token_here**"}' \
+    https://**put_your_bitrix24_address**/rest/crm.timeline.item.pin
+    ```
+
+- JS
+
+    ```js
+    BX24.callMethod(
+        "crm.timeline.item.pin",
+        {
+            id: 999,
+            ownerTypeId: 2,
+            ownerId: 10,
+        }, result => {
+            if (result.error())
+                console.error(result.error());
+            else
+                console.dir(result.data());
+        }
+    );
+    ```
+
+- PHP
+
+    ```php
+    require_once('crest.php');
+
+    $result = CRest::call(
+        'crm.timeline.item.pin',
+        [
+            'id' => 999,
+            'ownerTypeId' => 2,
+            'ownerId' => 10
+        ]
+    );
+
+    echo '<PRE>';
+    print_r($result);
+    echo '</PRE>';
+    ```
+
+
+
+## Обработка ответа
+
+HTTP-статус: **200**
+
+```json
+{
+    "result": null,
+    "time": {
+        "start": 1712132792.910734,
+        "finish": 1712132793.530359,
+        "duration": 0.6196250915527344,
+        "processing": 0.032338857650756836,
+        "date_start": "2024-04-03T10:26:32+02:00",
+        "date_finish": "2024-04-03T10:26:33+02:00",
+        "operating_reset_at": 1705765533,
+        "operating": 3.3076241016387939
+    }
+}
+```
+
+### Возвращаемые данные
+
+#|
+|| **Название**
+`тип` | **Описание** ||
+|| **result**
+[`null`](../../../data-types.md) | Результат операции. Всегда возвращает `null` ||
+|| **time**
+[`time`](../../../data-types.md#time) | Информация о времени выполнения запроса ||
+|#
+
+## Обработка ошибок
+
+HTTP-статус: **400**
+
+```json
+{
+    "error": "NOT_FOUND",
+    "error_description": "Not found."
+}
+```
+
+
+
+### Возможные коды ошибок
+
+#|
+|| **Код** | **Описание** ||
+|| `0` | Только три события можно добавить в избранное ||
+|| `100` | Не переданы обязательные поля ||
+|| `ACCESS_DENIED` | Недостаточно прав для выполнения операции ||
+|| `NOT_FOUND` | Элемент не найден ||
+|| `OWNER_NOT_FOUND` | Владелец элемента не найден ||
+|| `CAN_NOT_CHANGE_PINNED` | Невозможно выполнить операцию ||
 |#
 
 
-### Управление связями записи таймлайна
 
-#|
-|| **Метод** | **Описание** ||
-|| [crm.timeline.bindings.bind](./bindings/crm-timeline-bindings-bind.md) | Добавляет связь записи таймлайна с элементом CRM ||
-|| [crm.timeline.bindings.list](./bindings/crm-timeline-bindings-list.md) | Получает список связей для записи в таймлайне ||
-|| [crm.timeline.bindings.unbind](./bindings/crm-timeline-bindings-unbind.md) | Удаляет связь записи таймлайна с элементом CRM ||
-|| [crm.timeline.bindings.fields](./bindings/crm-timeline-bindings-fields.md) | Получает поля связи элементов CRM и записи в таймлайне таймлайна ||
-|#
+## Продолжите изучение
 
-### Дополнительные контентные блоки
-
-#|
-|| **Метод** | **Описание** ||
-|| [crm.timeline.layout.blocks.set](./layout-blocks/crm-timeline-layout-blocks-set.md) | Устанавливает набор дополнительных контентных блоков в запись таймлайна ||
-|| [crm.timeline.layout.blocks.get](./layout-blocks/crm-timeline-layout-blocks-get.md) | Получает установленный приложением набор дополнительных контентных блоков для записи таймлайна ||
-|| [crm.timeline.layout.blocks.delete](./layout-blocks/crm-timeline-layout-blocks-delete.md) | Удаляет установленный приложением набор дополнительных контентных блоков для записи таймлайна ||
-|#
-
-### Журнал лог-записей приложения
-
-#|
-|| **Метод** | **Описание** ||
-|| [crm.timeline.logmessage.add](./logmessage/crm-timeline-logmessage-add.md) | Добавляет новую лог-запись в таймлайн ||
-|| [crm.timeline.logmessage.get](./logmessage/crm-timeline-logmessage-get.md) | Получает информацию о лог-записи ||
-|| [crm.timeline.logmessage.list](./logmessage/crm-timeline-logmessage-list.md) | Получает список всех лог-записей для определенного элемента ||
-|| [crm.timeline.logmessage.delete](./logmessage/crm-timeline-logmessage-delete.md) | Удаляет лог-запись ||
-|| [crm.timeline.icon.*](./logmessage/icons/index.md) | Управляют иконками записей ||
-|| [crm.timeline.logo.*](./logmessage/logo/index.md) | Управляют логотипами записей ||
-|#
-
-### Действия с записями в таймлайне
-
-#|
-|| **Метод** | **Описание** ||
-|| [crm.timeline.item.pin](./actions/crm-timeline-item-pin.md) | Закрепляет запись в таймлайне ||
-|| [crm.timeline.item.unpin](./actions/crm-timeline-item-unpin.md) | Открепляет запись в таймлайне ||
-|#
+- [{#T}](./crm-timeline-item-unpin.md)
 

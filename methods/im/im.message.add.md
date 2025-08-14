@@ -9,160 +9,186 @@ params: {"type":"object","required":["fields"],"properties":{"fields":{"type":"o
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Диск: обзор методов
-
-Диск — это инструмент для работы с файлами. Он позволяет:
-
-- хранить документы компании и личные файлы
-- загружать, редактировать документы и просматривать историю изменений
-- настраивать права доступа к файлам и папкам 
-- делиться файлами через публичные ссылки с внешними пользователями
-- синхронизировать файлы с компьютером
-
-Диск интегрирован с Задачами, Чатами, CRM, Рабочими группами и другими инструментами Битрикс24. Это упрощает работу за счет быстрого доступа к файлам, совместной работы над ними и автоматизации документооборота.  
-
-> Быстрый переход: [все методы](#all-methods) 
->
-> Пользовательская документация: [Битрикс24 Диск](https://helpdesk.bitrix24.ru/open/20811344/)
-
-## Хранилища Диска
-
-Есть три вида хранилищ:
-
-- личные хранилища пользователей
-- общее хранилище компании
-- хранилища рабочих групп
-
-Хранилищами можно управлять с помощью группы методов [disk.storage.*](./storage/index.md).
+# Добавить сообщение im.message.add
 
 
 
-- [Что хранится на Моем диске в Битрикс24](https://helpdesk.bitrix24.ru/open/18634620/)
-- [Общий диск в Битрикс24](https://helpdesk.bitrix24.ru/open/19228208/)
+Тут может не хватать некоторых данных — дополним в ближайшее время
 
 
 
-## Работа с папками и файлами
-
-Папки и файлы можно создавать, перемещать, удалять, а также изменять права доступа  к ним. Для этого используйте группы методов [disk.folder.*](./folder/index.md) и [disk.file.*](./file/index.md).
-
-Узнать версию файла можно с помощью метода [disk.version.get](./version/disk-version-get.md).
 
 
 
-- [Документы Онлайн: начало работы](https://helpdesk.bitrix24.ru/open/20338924/)
-- [Права доступа к Моему диску в Битрикс24](https://helpdesk.bitrix24.ru/open/19492254/)
-- [Сколько хранятся версии документа на Диске](https://helpdesk.bitrix24.ru/open/18869612/)
+
+- нужны правки под стандарт написания
+- не указаны типы параметров
+- отсутствуют примеры
 
 
 
-## Связь Диска с другими объектами
-
-**CRM.** Файлы можно прикрепить к делам и коммерческим предложениям. За работу с делами отвечает группа методов [crm.activity.*](../crm/timeline/activities/index.md), за работу с предложениями — [crm.quote.*](../crm/quote/crm-quote-add.md).
-
-**Бизнес-процессы.** Можно запустить для документов общего диска. Управление бизнес-процессами выполняется методами [bizproc.workflow.*](../bizproc/index.md).
-
-**Задачи.** Файлы прикрепляются к описанию задачи и комментариям. Все участники задачи могут просматривать, редактировать и скачивать прикрепленные файлы. Работать с задачами и комментариями необходимо через методы групп [tasks.task.*](../tasks/index.md) и [task.commentitem.*](../tasks/comment-item/index.md). 
-
-**Календарь.** Файлы добавляются к событию и становятся доступными всем участникам. Создать и изменить событие можно с помощью методов [calendar.event.*](../calendar/index.md).
-
-**Лента новостей.** Файлы прикрепляются к сообщениям и комментариям. Метод [log.blogpost.add](../log/log-blogpost-add.md) создает новое сообщение, а метод [log.blogcomment.add](../log/log-blogcomment-add.md) — новый комментарий.
-
-**Почта.** Вложения из писем сохраняются на Диске. С письмами можно работать только через интерфейс Битрикс24. Если письмо сохранено в CRM, то с вложениями можно взаимодействовать методами [crm.activity.*](../crm/timeline/activities/index.md) через поле `FILES`. 
-
-**Рабочие группы и проекты.** Диск интегрирован [в рабочие группы и проекты](../sonet-group/sonet-group-create.md), для каждого из них есть отдельное хранилище.
-
-**Универсальные списки.** Элементы списка связаны с Диском через [поле](../lists/fields/index.md) типа Файл (Диск). Создать и изменить элемент можно с помощью методов [lists.element.*](../lists/elements/index.md).
-
-**Чаты.** Пользователи могут обмениваться документами, фото, видео и аудио. Файлы можно просматривать и скачивать, а документы — редактировать в чате без скачивания. Прикрепленные файлы доступны всем участникам чата. Метод [im.message.add](../chats/messages/im-message-add.md) отправляет сообщение с файлом в чат.
 
 
-
-- [Бизнес-процессы на диске в Битрикс24](https://helpdesk.bitrix24.ru/open/20703790/)
-- [Диск в группах и проектах](https://helpdesk.bitrix24.ru/open/16697770/)
-- [Как загрузить файл из облачного хранилища в Битрикс24](https://helpdesk.bitrix24.ru/open/19545084/)
-- [Как использовать публичные и внутренние ссылки на файлы в Битрикс24](https://helpdesk.bitrix24.ru/open/19096030/)
-
-
-
-## Обзор методов {#all-methods}
-
-> Scope: [`disk`](../scopes/permissions.md)
+> Scope: [`im`](../../scopes/permissions.md)
 >
 > Кто может выполнять метод: любой пользователь
 
-### Версия
+Метод `im.message.add` отправляет сообщение от текущего пользователя в чат.
 
 #|
-|| **Метод** | **Описание** ||
-|| [disk.version.get](version/disk-version-get.md) | Возвращает версию по идентификатору ||
+|| **Параметр** | **Пример** | **Описание** | **Ревизия** ||
+|| **DIALOG_ID^*^**
+[`string`](../../data-types.md) | `chat13`
+или
+`256` | Идентификатор диалога. Формат:
+- **chatXXX** – чат получателя, если сообщение для чатах
+- **XXX** – идентификатор получателя, если сообщение для приватного диалога | 18 ||
+|| **MESSAGE^*^**
+[`text`](../../data-types.md) | `Текст сообщения` | Текст сообщения.
+Поддерживается [форматирование](./index.html) | 18 ||
+|| **SYSTEM**
+[`boolean`](../../data-types.md) | `N` | Отображать сообщения в виде системного сообщения или нет, необязательное поле, по умолчанию 'N' | 18 ||
+|| **ATTACH**
+[`object`](../../data-types.md) | [Пример](./attachments/index.html) | Вложение | 18 ||
+|| **URL_PREVIEW**
+[`boolean`](../../data-types.md) | `Y` | Преобразовывать ссылки в rich-ссылки, необязательное поле, по умолчанию 'Y' | 18 ||
+|| **KEYBOARD**
+[`object`](../../data-types.md) | [Пример](./keyboards.html) | Клавиатура | 18 ||
+|| **MENU**
+[`object`](../../data-types.md) | [Пример](./menu.html) | Контекстное меню | 18 ||
 |#
 
-### Папка
+
+
+## Примеры
+
+
+
+
+
+- cURL (Webhook)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{DIALOG_ID: "chat5",MESSAGE: "Сообщение [B]с вложением[/B] цвета primary и поддержкой [I]bb-кодов[/I]",ATTACH: [{MESSAGE: "API будет доступно в обновлении [B]im 24.0.0[/B]"}]}' \
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/im.message.add
+    ```
+
+- cURL (OAuth)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{DIALOG_ID: "chat5",MESSAGE: "Сообщение [B]с вложением[/B] цвета primary и поддержкой [I]bb-кодов[/I]",ATTACH: [{MESSAGE: "API будет доступно в обновлении [B]im 24.0.0[/B]"}]}' \
+    https://**put_your_bitrix24_address**/rest/im.message.add
+    ```
+
+- JS
+
+    ```js
+    BX24.callMethod(    
+        'im.message.add',
+        {
+            DIALOG_ID: "chat5",
+            MESSAGE: "Сообщение [B]с вложением[/B] цвета primary и поддержкой [I]bb-кодов[/I]",
+            ATTACH: [
+                {
+                    MESSAGE: "API будет доступно в обновлении [B]im 24.0.0[/B]"
+                },
+            ],
+        },
+        function(result) {
+            console.log('response', result.answer);
+            if(result.error())
+                alert("Error: " + result.error());
+            else
+            console.log(result.data());
+        }
+    );
+    ```
+
+- PHP
+
+    ```php
+    require_once('crest.php');
+
+    $result = CRest::call(
+        'im.message.add',
+        [
+            "DIALOG_ID" => "chat20921",
+            "MESSAGE"   => "Сообщение [B]с вложением[/B] цвета primary и поддержкой [I]bb-кодов[/I]",
+            "ATTACH":   => [
+                [
+                    "MESSAGE" => "API будет доступно в обновлении [B]im 24.0.0[/B]"
+                ],
+            ],
+        ]
+    );
+
+    echo '<pre>';
+    print_r($result);
+    echo '</pre>';
+    ```
+
+
+
+
+
+- [Пример использования метода в приложении «ЭхоБот»](https://github.com/bitrix24com/bots)
+
+
+
+## Ответ в случае успеха
+
+```json
+{
+    "result": 11
+}
+```
+
+**Результат выполнения**: идентификатор сообщения `MESSAGE_ID` или ошибка.
+
+## Ответ в случае ошибки
+
+```json
+{
+    "error": "USER_ID_EMPTY",
+    "error_description": "Идентификатор получателя не задан в случае отправки сообщения в чат один-на-один"
+}
+```
+
+### Описание ключей
+
+- `error` – код возникшей ошибки
+- `error_description` – краткое описание возникшей ошибки
+
+### Возможные коды ошибок
 
 #|
-|| **Метод** | **Описание** ||
-|| [disk.folder.getfields](folder/disk-folder-get-fields.md) | Возвращает описание полей папки ||
-|| [disk.folder.get](folder/disk-folder-get.md) | Возвращает папку по идентификатору ||
-|| [disk.folder.getchildren](folder/disk-folder-get-children.md) | Возвращает список файлов и папок, которые находятся непосредственно в папке ||
-|| [disk.folder.addsubfolder](folder/disk-folder-add-subfolder.md) | Создает дочернюю папку ||
-|| [disk.folder.copyto](folder/disk-folder-copy-to.md) | Копирует папку в указанную папку ||
-|| [disk.folder.moveto](folder/disk-folder-move-to.md) | Перемещает папку в указанную папку ||
-|| [disk.folder.rename](folder/disk-folder-rename.md) | Переименовывает папку ||
-|| [disk.folder.deletetree](folder/disk-folder-delete-tree.md) | Уничтожает папку и все ее дочерние элементы навсегда ||
-|| [disk.folder.markdeleted](folder/disk-folder-mark-deleted.md) | Перемещает папку в корзину ||
-|| [disk.folder.restore](folder/disk-folder-restore.md) | Восстанавливает папку из корзины ||
-|| [disk.folder.uploadfile](folder/disk-folder-upload-file.md) | Загружает новый файл в указанную папку ||
-|| [disk.folder.getExternalLink](folder/disk-folder-get-external-link.md) | Возвращает публичную ссылку ||
+|| **Код** | **Описание** ||
+|| **USER_ID_EMPTY** | Идентификатор получателя не задан в случае отправки сообщения в чат один-на-один ||
+|| **CHAT_ID_EMPTY** | Идентификатор чата получателя не задан в случае отправки сообщения в чат ||
+|| **ACCESS_ERROR** | Недостаточно прав для отправки сообщения ||
+|| **MESSAGE_EMPTY** | Не передан текст сообщения ||
+|| **ATTACH_ERROR** | Весь переданный объект вложения не прошел валидацию ||
+|| **ATTACH_OVERSIZE** | Превышен максимально допустимый размер вложения (30 Кб) ||
+|| **KEYBOARD_ERROR** | Весь переданный объект клавиатуры не прошел валидацию ||
+|| **KEYBOARD_OVERSIZE** | Превышен максимально допустимый размер клавиатуры (30 Кб) ||
+|| **MENU_ERROR** | Весь переданный объект меню не прошел валидацию ||
+|| **MENU_OVERSIZE** | Превышен максимально допустимый размер меню (30 Кб) ||
+|| **PARAMS_ERROR** | Что-то пошло не так ||
 |#
 
-### Права доступа
+## Ссылки по теме
 
-#|
-|| **Метод** | **Описание** ||
-|| [disk.rights.getTasks](rights/disk-rights-get-tasks.md) | Позволяет получить список уровней доступов, которые можно использовать в назначении прав ||
-|#
+- [Как работать с набираемыми клавиатурами](./keyboards.html)
+- [Как работать с вложениями](./attachments/index.html)
+- [Форматирование сообщений](./index.html)
+- [Работа с контекстным меню](./menu.html)
 
-### Прикрепленный файл
-
-#|
-|| **Метод** | **Описание** ||
-|| [disk.attachedObject.get](attached-object/disk-attached-object-get.md) | Возвращает информацию о прикрепленном файле ||
-|#
-
-### Файл
-
-#|
-|| **Метод** | **Описание** ||
-|| [disk.file.getfields](file/disk-file-get-fields.md) | Возвращает описание полей файла ||
-|| [disk.file.get](file/disk-file-get.md) | Возвращает файл по идентификатору ||
-|| [disk.file.rename](file/disk-file-rename.md) | Переименовывает файл ||
-|| [disk.file.copyto](file/disk-file-copy-to.md) | Копирует файл в указанную папку ||
-|| [disk.file.moveto](file/disk-file-move-to.md) | Перемещает файл в указанную папку ||
-|| [disk.file.delete](file/disk-file-delete.md) | Уничтожает файл навсегда ||
-|| [disk.file.markdeleted](file/disk-file-mark-deleted.md) | Перемещает файл в корзину ||
-|| [disk.file.restore](file/disk-file-restore.md) | Восстанавливает файл из корзины ||
-|| [disk.file.uploadversion](file/disk-file-upload-version.md) | Загружает новую версию файла ||
-|| [disk.file.getVersions](file/disk-file-get-versions.md) | Возвращает список версий файла ||
-|| [disk.file.restoreFromVersion](file/disk-file-restore-from-version.md) | Восстанавливает файл из конкретной версии ||
-|| [disk.file.getExternalLink](file/disk-file-get-external-link.md) | Возвращает публичную ссылку на файл ||
-|#
-
-### Хранилище
-
-#|
-|| **Метод** | **Описание** ||
-|| [disk.storage.getfields](storage/disk-storage-get-fields.md) | Возвращает описание полей хранилища ||
-|| [disk.storage.get](storage/disk-storage-get.md) | Возвращает хранилище по идентификатору ||
-|| [disk.storage.rename](storage/disk-storage-rename.md) | Переименовывает хранилище. Допустимо переименование только хранилища приложения (см. [disk.storage.getforapp](storage/disk-storage-get-for-app.md)) ||
-|| [disk.storage.getlist](storage/disk-storage-get-list.md) | Возвращает список доступных хранилищ ||
-|| [disk.storage.gettypes](storage/disk-storage-get-types.md) | Возвращает список типов хранилищ ||
-|| [disk.storage.addfolder](storage/disk-storage-add-folder.md) | Создает папку в корне хранилища ||
-|| [disk.storage.getchildren](storage/disk-storage-get-children.md) | Возвращает список файлов и папок, которые находятся непосредственно в корне хранилища ||
-|| [disk.storage.uploadfile](storage/disk-storage-upload-file.md) | Загружает новый файл в корне хранилища ||
-|| [disk.storage.getforapp](storage/disk-storage-get-for-app.md) | Возвращает описание хранилища, с которым может работать приложение для хранения своих данных (файлов и папок) ||
-|#

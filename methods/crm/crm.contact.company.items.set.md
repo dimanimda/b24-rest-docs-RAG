@@ -9,148 +9,221 @@ params: {"type":"object"}
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Контакты в CRM: обзор методов
+# Установить набор компаний, связанных с указанным контактом crm.contact.company.items.set
 
-Контакт — объект CRM, в котором хранятся данные клиентов — физических лиц. В карточке контакта находятся телефоны, электронные адреса, идентификаторы мессенджеров в специальном формате, позволяющем использовать их для коммуникации с клиентом сразу через Битрикс. 
-
-> Быстрый переход: [все методы и события](#all-methods) 
-> 
-> Пользовательская документация: [контакты в Битрикс24](https://helpdesk.bitrix24.ru/open/5491741/) 
-
-## Связь контакта с другими объектами CRM
-
-**Сделка, лид, смарт-процесс.** У любого объекта CRM, в котором доступно стандартное поле `Клиент`, есть связь с контактами. Изменение связи регулируется через группы методов [сделок](../deals/index.md), [лидов](../leads/index.md), [смарт-процессов](../universal/index.md). 
-
-**Компания.** Один контакт может быть привязан к нескольким компаниям. Для управления этой связью используется группа методов [crm.contact.company.*](./company/index.md).  Когда вы выбираете компанию в поле `Клиент` в сделках или смарт-процессах, все связанные с ней контакты подтягиваются в поле автоматически. 
-
-**Реквизиты.** Сами реквизиты это отдельный объект, для их создания или изменения используются методы группы [crm.requisite.*](../requisites/index.md) и [crm.address.*](../requisites/addresses/index.md). В карточке контакта они выводятся в поле `Реквизиты`. 
-
-
-
-- [Связь между сделками, контактами и компаниями](https://helpdesk.bitrix24.ru/open/2501159/)
-- [Связи реквизитов с объектами CRM](../requisites/links/index.md)
-- [Изменения в работе с адресами и реквизитами в CRM](https://helpdesk.bitrix24.ru/open/11706682/)
-
-
-
-## Карточка контакта
-
-Основное рабочее пространство в контакте — это вкладка Общее его карточки. Она состоит из двух частей: 
-
-* левая, в ней располагаются поля с информацией. Если системных полей недостаточно, вы можете создать собственные пользовательские поля. Они позволяют хранить информацию в различных форматах данных: строка, число, ссылка, адрес и другие. Для создания, изменения, получения или удаления пользовательских полей контактов используется группа методов [crm.contact.userfield.*](./userfield/index.md)
-
-* правая, в ней располагается таймлайн контакта.  В нем можно создавать, редактировать, фильтровать, удалять дела CRM — группа методов [crm.activity.*](../timeline/activities/index.md), и записи таймлайна — группа методов [crm.timeline.*](../timeline/index.md)
-
-Параметрами карточки контакта можно управлять через группу методов [crm.contact.details.configuration.*](./custom-form/index.md). 
-
-
-
-- [Карточка CRM: возможности и настройки](https://helpdesk.bitrix24.ru/open/22804914/)
-- [Системные поля в CRM](https://helpdesk.bitrix24.ru/open/18478840/)
-- [Пользовательские поля в CRM](https://helpdesk.bitrix24.ru/open/22048980/)
-- [Таймлайн в элементе CRM](https://helpdesk.bitrix24.ru/open/23960160/)
-
-
-
-## Виджеты
-
-В карточку контакта можно встроить приложение. Благодаря встраиванию можно будет использовать приложение и не покидать карточку контакта.
-
-Есть два сценария встройки:
-
-* Использовать специальные [места встраивания](../../widgets/crm/index.md). Например, через создание своей вкладки
-* Создать [пользовательское поле](../../../tutorials/crm/crm-widgets/widget-as-field-in-lead-page.md), в которое будет загружается интерфейс вашего приложения
-
-
-
-- [Механизм встройки виджетов](../../widgets/index.md)
-- [Встроить виджет в карточку CRM](../../../tutorials/crm/crm-widgets/widget-as-detail-tab.md)
-
-
-
-## Обзор методов и событий {#all-methods}
-
-> Scope: [`crm`](../../scopes/permissions.md)
+> Scope: [`crm`](../../../scopes/permissions.md)
 >
-> Кто может выполнять методы: в зависимости от метода
+> Кто может выполнять метод: любой пользователь с правом «изменения» контактов
 
-### Основные
+Метод `crm.contact.company.items.set` устанавливает набор компаний, связанных с указанным контактом.
 
-
-
-- Методы
-  
-    #|
-    || **Метод** | **Описание** ||
-    || [crm.contact.add](./crm-contact-add.md) | Создает новый контакт ||
-    || [crm.contact.update](./crm-contact-update.md) | Обновляет существующий контакт ||
-    || [crm.contact.get](./crm-contact-get.md) | Возвращает контакт по идентификатору ||
-    || [crm.contact.list](./crm-contact-list.md) | Возвращает список контактов по фильтру ||
-    || [crm.contact.delete](./crm-contact-delete.md) | Удаляет контакт и все связанные с ним объекты ||
-    || [crm.contact.fields](./crm-contact-fields.md) | Возвращает описание полей контакта, в том числе пользовательских ||
-    |#
-
-- События
-
-    #|
-    || **Событие** | **Вызывается** ||
-    || [onCrmContactAdd](./events/on-crm-contact-add.md) | При создании контакта ||
-    || [onCrmContactUpdate](./events/on-crm-contact-update.md) | При изменении контакта ||
-    || [onCrmContactDelete](./events/on-crm-contact-delete.md) | При удалении контакта ||
-    |#
+## Параметры метода
 
 
-
-
-### Компании
 
 #|
-|| **Метод** | **Описание** ||
-|| [crm.contact.company.add](./company/crm-contact-company-add.md) | Добавляет компанию к указанному контакту ||
-|| [crm.contact.company.items.get](./company/crm-contact-company-items-get.md) | Получает набор компаний, связанных с указанным контактом ||
-|| [crm.contact.company.items.set](./company/crm-contact-company-items-set.md) | Устанавливает набор компаний, связанных с указанным контактом ||
-|| [crm.contact.company.delete](./company/crm-contact-company-delete.md) | Удаляет компанию из указанного контакта ||
-|| [crm.contact.company.items.delete](./company/crm-contact-company-items-delete.md) | Очищает набор компаний, связанных с указанным контактом ||
-|| [crm.contact.company.fields](./company/crm-contact-company-fields.md) | Возвращает описание полей для связи контакт-компания ||
+|| **Название**
+`тип` | **Описание** ||
+|| **id***
+[`integer`][1] | Идентификатор контакта.
+
+Идентификатор можно получить с помощью методов [crm.contact.list](../crm-contact-list.md) или [crm.contact.add](../crm-contact-add.md)
+||
+|| **items***
+[`object[]`][1] | Набор объектов, которые описывают привязанные компании к контакту. Структура отдельно взятого объекта привязки смотрите [ниже](#contact_company_binding) ||
 |#
 
-### Пользовательские поля
+### Структура объекта привязки {#contact_company_binding}
 
 
-
-- Методы
-
-    #|
-    || **Метод** | **Описание** ||
-    || [crm.contact.userfield.add](./userfield/crm-contact-userfield-add.md) | Создает пользовательское поле для контактов ||
-    || [crm.contact.userfield.update](./userfield/crm-contact-userfield-update.md) | Изменяет существующее пользовательское поле контактов ||
-    || [crm.contact.userfield.get](./userfield/crm-contact-userfield-get.md) | Возвращает пользовательское поле контактов по Id ||
-    || [crm.contact.userfield.list](./userfield/crm-contact-userfield-list.md) | Возвращает список пользовательских полей контактов ||
-    || [crm.contact.userfield.delete](./userfield/crm-contact-userfield-delete.md) | Удаляет пользовательское поле контактов ||
-    |#
-
-- События
-
-    #|
-    || **Событие** | **Вызывается** ||
-    || [onCrmContactUserFieldAdd](./userfield/events/on-crm-contact-user-field-add.md) | При добавлении пользовательского поля ||
-    || [onCrmContactUserFieldUpdate](./userfield/events/on-crm-contact-user-field-update.md) | При изменении пользовательского поля ||
-    || [onCrmContactUserFieldDelete](./userfield/events/on-crm-contact-user-field-delete.md) | При удалении пользовательского поля ||
-    || [onCrmContactUserFieldSetEnumValues](./userfield/events/on-crm-contact-user-field-set-enum-values.md) | При изменении набора значений для пользовательского поля списочного типа ||
-    |#
-
-
-
-### Управление карточками контактов
 
 #|
-|| **Метод** | **Описание** ||
-|| [crm.contact.details.configuration.get](./custom-form/crm-contact-details-configuration-get.md) | Получает настройки карточки контактов ||
-|| [crm.contact.details.configuration.reset](./custom-form/crm-contact-details-configuration-reset.md) | Сбрасывает настройки карточки контактов ||
-|| [crm.contact.details.configuration.set](./custom-form/crm-contact-details-configuration-set.md) | Устанавливает настройки карточки контактов ||
-|| [crm.contact.details.configuration.forceCommonScopeForAll](./custom-form/crm-contact-details-configuration-force-common-scope-for-all.md) | Позволяет принудительно установить общую карточку контактов для всех пользователей ||
+|| **Название**
+`тип` | **Описание** ||
+|| **COMPANY_ID***
+[`crm_entity`][2] | Идентификатор компании, который будет привязан к контакту.
+
+Идентификатор можно получить с помощью метода [crm.item.list](../../universal/crm-item-list.md) по `entityTypeId = 4` ||
+|| **IS_PRIMARY**
+[`boolean`][1] | Является ли привязка первичной. Возможные значения:
+- `Y` — да
+- `N` — нет
+
+Если нет привязки с `IS_PRIMARY = Y`, то она выставляется у первой привязки в `items`.
+
+Если передано несколько привязок с `IS_PRIMARY = Y`, то первичной будет считаться первая привязка с `IS_PRIMARY = Y`
+||
+|| **SORT**
+[`integer`][1] | Индекс сортировки.
+
+По умолчанию `i + 10`, где `i` — максимальный индекс сортировки у существующих и переданных привязок для текущего контакта или `0` в случае, если `SORT` не передан ни у одной из привязок и если у контакта отсутствуют привязки.
+
+Если передана уже существующая привязка без параметра `SORT`, то значение по умолчанию не выставится (значение останется тем же) ||
 |#
+
+## Примеры кода
+
+
+
+Установить у контакта с `id = 82` следующие привязанные компании:
+- компания с `id = 8`, сделать ее первичной и установить `SORT = 100`
+- компания с `id = 9`, установить `SORT = 200`
+- компания с `id = 10`, установить `SORT = 400`
+
+
+
+- cURL (Webhook)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"id":82,"items":[{"COMPANY_ID":8,"IS_PRIMARY":"Y","SORT":100},{"COMPANY_ID":9,"SORT":200},{"COMPANY_ID":10,"SORT":400}]}' \
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/crm.contact.company.items.set
+    ```
+
+- cURL (OAuth)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"id":82,"items":[{"COMPANY_ID":8,"IS_PRIMARY":"Y","SORT":100},{"COMPANY_ID":9,"SORT":200},{"COMPANY_ID":10,"SORT":400}],"auth":"**put_access_token_here**"}' \
+    https://**put_your_bitrix24_address**/rest/crm.contact.company.items.set
+    ```
+
+- JS
+
+    ```js
+    BX24.callMethod(
+        'crm.contact.company.items.set',
+        {
+            id: 82,
+            items: [
+                {
+                    COMPANY_ID: 8,
+                    IS_PRIMARY: "Y",
+                    SORT: 100,
+                },
+                {
+                    COMPANY_ID: 9,
+                    SORT: 200,
+                },
+                {
+                    COMPANY_ID: 10,
+                    SORT: 400,
+                }
+            ],
+        },
+        (result) => {
+            result.error()
+                ? console.error(result.error())
+                : console.info(result.data())
+            ;
+        },
+    );
+    ```
+
+- PHP
+
+    ```php
+    require_once('crest.php');
+
+    $result = CRest::call(
+        'crm.contact.company.items.set',
+        [
+            'id' => 82,
+            'items' => [
+                [
+                    'COMPANY_ID' => 8,
+                    'IS_PRIMARY' => 'Y',
+                    'SORT' => 100,
+                ],
+                [
+                    'COMPANY_ID' => 9,
+                    'SORT' => 200,
+                ],
+                [
+                    'COMPANY_ID' => 10,
+                    'SORT' => 400,
+                ]
+            ]
+        ]
+    );
+
+    echo '<PRE>';
+    print_r($result);
+    echo '</PRE>';
+    ```
+
+
+
+## Обработка ответа
+
+HTTP-статус: **200**
+
+```json
+{
+    "result": true,
+    "time": {
+        "start": 1724139480.073569,
+        "finish": 1724139481.016709,
+        "duration": 0.9431400299072266,
+        "processing": 0.4230809211730957,
+        "date_start": "2024-08-20T09:38:00+02:00",
+        "date_finish": "2024-08-20T09:38:01+02:00",
+        "operating": 0
+    }
+}
+```
+
+### Возвращаемые данные
+
+#|
+|| **Название**
+`тип` | **Описание** ||
+|| **result**
+[`boolean`][1] | Корневой элемент ответа. Содержит `true` в случае успеха ||
+|| **time**
+[`time`][1] | Информация о времени выполнения запроса ||
+|#
+
+## Обработка ошибок
+
+HTTP-статус: **400**
+
+```json
+{
+    "error": "",
+    "error_description": "The parameter items must be array."
+}
+```
+
+
+
+### Возможные коды ошибок
+
+#|
+|| **Код** | **Описание** | **Значение** ||
+|| `-`     | `The parameter ownerEntityID is invalid or not defined` | Передан `id` меньше 0 или не передан вовсе ||
+|| `-`     | `The parameter items must be array` | В `items` передан не массив ||
+|| `ACCESS_DENIED` | `Access denied!` | У пользователя нет прав на изменения контактов ||
+|| `-`     | `Not found` | Контакт с переданным `id` не найден ||
+|#
+
+
+
+## Продолжите изучение
+
+- [{#T}](./crm-contact-company-add.md)
+- [{#T}](./crm-contact-company-delete.md)
+- [{#T}](./crm-contact-company-fields.md)
+- [{#T}](./crm-contact-company-items-get.md)
+- [{#T}](./crm-contact-company-items-delete.md)
+
+[1]: ../../../data-types.md
+[2]: ../../data-types.md
+

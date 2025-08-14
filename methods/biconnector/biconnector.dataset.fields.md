@@ -9,55 +9,241 @@ params: {"type":"object"}
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# BIconnector: обзор методов
+# Получить поля датасета biconnector.dataset.fields
+
+> Scope: [`biconnector`](../../scopes/permissions.md)
+> 
+> Кто может выполнять метод: пользователь с доступом к разделу «Рабочее место аналитика»
+
+Метод `biconnector.dataset.fields` возвращает описание полей датасета.
+Таблицу с описанием стандартных полей можно найти в статье [Датасеты: обзор методов](./index.md#dataset).
+
+## Параметры метода
+
+Без параметров.
+
+## Примеры кода
 
 
 
-Методы работают только в контексте [приложения](../app-installation/index.md)
+
+
+- JS
+
+    ```js
+    BX24.callMethod(
+        'biconnector.dataset.fields',
+        {},
+        (result) => {
+            result.error()
+                ? console.error(result.error())
+                : console.info(result.data());
+        },
+    );
+    ```
+
+- cURL (Webhook)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{}' \
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/biconnector.dataset.fields
+    ```
+
+- cURL (OAuth)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"auth":"**put_access_token_here**"}' \
+    https://**put_your_bitrix24_address**/rest/biconnector.dataset.fields
+    ```
+
+- PHP
+
+    ```php
+    require_once('crest.php');
+
+    $result = CRest::call(
+        'biconnector.dataset.fields',
+        []
+    );
+
+    echo '<PRE>';
+    print_r($result);
+    echo '</PRE>';
+    ```
 
 
 
-> Scope: [`biconnector`](../scopes/permissions.md)
->
-> Кто может выполнять методы: пользователь с доступом к разделу «Рабочее место аналитика»
 
-## Коннектор
+## Обработка ответа
+
+HTTP-статус: **200**
+
+```json
+{
+  "result": {
+    "fields": [
+      {
+        "title": "id",
+        "type": "integer",
+        "isRequired": true,
+        "isReadOnly": true,
+        "isImmutable": false,
+        "isMultiple": false
+      },
+      {
+        "title": "sourceId",
+        "type": "integer",
+        "isRequired": true,
+        "isReadOnly": false,
+        "isImmutable": true,
+        "isMultiple": false
+      },
+      {
+        "title": "name",
+        "type": "string",
+        "isRequired": true,
+        "isReadOnly": false,
+        "isImmutable": true,
+        "isMultiple": false
+      },
+      {
+        "title": "type",
+        "type": "string",
+        "isRequired": true,
+        "isReadOnly": true,
+        "isImmutable": false,
+        "isMultiple": false
+      },
+      {
+        "title": "description",
+        "type": "string",
+        "isRequired": false,
+        "isReadOnly": false,
+        "isImmutable": false,
+        "isMultiple": false
+      },
+      {
+        "title": "externalName",
+        "type": "string",
+        "isRequired": true,
+        "isReadOnly": false,
+        "isImmutable": true,
+        "isMultiple": false
+      },
+      {
+        "title": "externalCode",
+        "type": "string",
+        "isRequired": true,
+        "isReadOnly": false,
+        "isImmutable": true,
+        "isMultiple": false
+      },
+      {
+        "title": "externalId",
+        "type": "integer",
+        "isRequired": true,
+        "isReadOnly": true,
+        "isImmutable": false,
+        "isMultiple": false
+      },
+      {
+        "title": "dateCreate",
+        "type": "datetime",
+        "isRequired": true,
+        "isReadOnly": true,
+        "isImmutable": false,
+        "isMultiple": false
+      },
+      {
+        "title": "dateUpdate",
+        "type": "datetime",
+        "isRequired": true,
+        "isReadOnly": true,
+        "isImmutable": false,
+        "isMultiple": false
+      },
+      {
+        "title": "createdById",
+        "type": "integer",
+        "isRequired": true,
+        "isReadOnly": true,
+        "isImmutable": false,
+        "isMultiple": false
+      },
+      {
+        "title": "updatedById",
+        "type": "integer",
+        "isRequired": true,
+        "isReadOnly": true,
+        "isImmutable": false,
+        "isMultiple": false
+      },
+      {
+        "title": "fields",
+        "type": "array",
+        "isRequired": true,
+        "isReadOnly": false,
+        "isImmutable": false,
+        "isMultiple": true
+      }
+    ]
+  },
+  "time": {
+    "start": 1740757652.264398,
+    "finish": 1740757652.343882,
+    "duration": 0.0794839859008789,
+    "processing": 2.002716064453125e-5,
+    "date_start": "2025-02-28T15:47:32+00:00",
+    "date_finish": "2025-02-28T15:47:32+00:00"
+  }
+}
+```
+
+## Возвращаемые данные
 
 #|
-|| **Метод** | **Описание** ||
-|| [biconnector.connector.add](./connector/biconnector-connector-add.md) | Добавляет новый коннектор ||
-|| [biconnector.connector.update](./connector/biconnector-connector-update.md) | Обновляет существующий коннектор ||
-|| [biconnector.connector.get](./connector/biconnector-connector-get.md) | Возвращает информацию о коннекторе ||
-|| [biconnector.connector.list](./connector/biconnector-connector-list.md) | Возвращает список доступных коннекторов ||
-|| [biconnector.connector.delete](./connector/biconnector-connector-delete.md) | Удаляет коннектор ||
-|| [biconnector.connector.fields](./connector/biconnector-connector-fields.md) | Возвращает описание полей коннектора ||
+|| **Название**
+`тип` | **Описание** ||
+|| **result**
+[`object`](../../data-types.md) | Объект в формате:
+
+```
+{
+    field_1: value_1,
+    field_2: value_2,
+    ...
+    field_n: value_n,
+}
+```
+
+где:
+- `field_n` — поле датасета
+- `value_n` — [информация о поле](../connector/index.md#description) ||
+|| **time**
+[`time`](../../data-types.md#time) | Информация о времени выполнения запроса ||
 |#
 
-## Источники
+## Обработка ошибок
 
-#|
-|| **Метод** | **Описание** ||
-|| [biconnector.source.add](./source/biconnector-source-add.md) | Добавляет новый источник ||
-|| [biconnector.source.update](./source/biconnector-source-update.md) | Обновляет существующий источник ||
-|| [biconnector.source.get](./source/biconnector-source-get.md) | Возвращает информацию об источнике ||
-|| [biconnector.source.list](./source/biconnector-source-list.md) | Возвращает список доступных источников ||
-|| [biconnector.source.delete](./source/biconnector-source-delete.md) | Удаляет источник ||
-|| [biconnector.source.fields](./source/biconnector-source-fields.md) | Возвращает описание полей источника ||
-|#
+Метод не возвращает ошибки.
 
-## Датасеты
 
-#|
-|| **Метод** | **Описание** ||
-|| [biconnector.dataset.add](./dataset/biconnector-dataset-add.md) | Добавляет новый датасет ||
-|| [biconnector.dataset.update](./dataset/biconnector-dataset-update.md) | Обновляет существующий датасет ||
-|| [biconnector.dataset.fields.update](./dataset/biconnector-dataset-fields-update.md) | Обновляет поля датасета ||
-|| [biconnector.dataset.get](./dataset/biconnector-dataset-get.md) | Возвращает информацию о датасете ||
-|| [biconnector.dataset.list](./dataset/biconnector-dataset-list.md) | Возвращает список доступных датасетов ||
-|| [biconnector.dataset.delete](./dataset/biconnector-dataset-delete.md) | Удаляет датасет ||
-|| [biconnector.dataset.fields](./dataset/biconnector-dataset-fields.md) | Возвращает описание полей датасета ||
-|#
+
+## Продолжите изучение
+
+- [{#T}](./biconnector-dataset-add.md)
+- [{#T}](./biconnector-dataset-update.md)
+- [{#T}](./biconnector-dataset-fields-update.md)
+- [{#T}](./biconnector-dataset-get.md)
+- [{#T}](./biconnector-dataset-list.md)
+- [{#T}](./biconnector-dataset-delete.md)
+

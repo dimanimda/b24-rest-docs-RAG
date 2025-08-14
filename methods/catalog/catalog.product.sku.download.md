@@ -9,51 +9,174 @@ params: {"type":"object"}
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Головные товары: обзор методов
-
-Головной товар — это товар с вариациями. Например, футболка — головной товар, а синяя футболка M и белая футболка L — его вариации. Головной товар не является товарной единицей. Он объединяет вариации и хранит общую информацию: название, описание, категорию. Цена, валюта, НДС, единица измерения, количество на складе указываются отдельно в каждой вариации.
-
-Отличия головного товара от простого товара:
-
-- головной товар нельзя купить — нужно выбрать одну из его вариаций. Для работы с вариациями используйте группу методов [catalog.product.offer.\*](../offer/index.md).
-
-- простой товар — единичный товар без вариаций. Его можно сразу добавить в корзину и купить. Для работы с простыми товарами используйте группу методов [catalog.product.\*](../index.md).
-
-> Быстрый переход: [все методы](#all-methods) 
-> 
-> Пользовательская документация: [Как создать новый товар в каталоге](https://helpdesk.bitrix24.ru/open/11657084/)
-
-## Связь головных товаров с другими объектами
-
-**Торговый каталог.** Товар должен быть привязан к конкретному торговому каталогу. Получить идентификаторы доступных торговых каталогов можно с помощью метода [catalog.catalog.list](../../catalog/catalog-catalog-list.md).
-
-**Разделы торгового каталога.** Головные товары обычно распределены по разделам. Чтобы создать и управлять разделами, используйте группу методов [catalog.section.\* ](../../section/index.md).
-
-**Изображения.** Головной товар может содержать изображения: для анонса, детальное, дополнительное. Чтобы добавить изображения, используйте методы [catalog.productImage.\*](../../product-image/index.md), чтобы скачать — метод [catalog.product.sku.download](./catalog-product-sku-download.md).
-
-**Пользователь**. В каждом товаре хранятся идентификаторы пользователей, которые его создали и изменили. Информацию о пользователе можно получить с помощью методов [user.get](../../../user/user-get.md) и [user.search](../../../user/user-search.md).
-
-**Свойства товаров и вариаций.** Головные товары могут иметь дополнительные свойства: производитель, сезон или материал. Работать со свойствами можно с помощью методов [catalog.productProperty.\*](../../product-property/index.md).
-
-**CRM.** В головных товарах можно указать [лиды](../../../crm/leads/index.md), [сделки](../../../crm/deals/index.md), [смарт-процессы](../../../crm/universal/index.md), [счета](../../../crm/universal/invoice.md), [контакты](../../../crm/contacts/index.md) и [компании](../../../crm/companies/index.md) с помощью свойства типа «Привязка к элементам CRM».
-
-## Обзор методов {#all-methods}
+# Скачать файлы головного товара catalog.product.sku.download
 
 > Scope: [`catalog`](../../../scopes/permissions.md)
 >
 > Кто может выполнять метод: администратор
 
+Метод скачивает файлы головного товара по переданным параметрам. 
+
+## Параметры метода
+
+
+
 #|
-|| **Метод** | **Описание** ||
-|| [catalog.product.sku.add](./catalog-product-sku-add.md) | Добавляет головной товар в торговый каталог ||
-|| [catalog.product.sku.update](./catalog-product-sku-update.md) | Обновляет поля головного товара ||
-|| [catalog.product.sku.get](./catalog-product-sku-get.md) | Возвращает значения полей головного товара по идентификатору ||
-|| [catalog.product.sku.list](./catalog-product-sku-list.md) | Возвращает список головных товаров по фильтру ||
-|| [catalog.product.sku.download](./catalog-product-sku-download.md) | Скачивает файлы головного товара по переданным параметрам ||
-|| [catalog.product.sku.delete](./catalog-product-sku-delete.md) | Удаляет головной товар ||
-|| [catalog.product.sku.getFieldsByFilter](./catalog-product-sku-get-fields-by-filter.md) | Возвращает поля головного товара по фильтру ||
+|| **Название**
+`тип` | **Описание** ||
+|| **fields***
+[`object`](../../../data-types.md) | Значения полей для скачивания файлов головного товара ||
 |#
+
+### Параметр fields
+
+
+
+#|
+|| **Название**
+`тип` | **Описание** ||
+|| **fileId***
+[`integer`](../../../data-types.md) | Идентификатор зарегистрированного файла.
+
+Для получения идентификаторов файлов головного товара необходимо использовать [catalog.product.sku.get](./catalog-product-sku-get.md) либо [catalog.product.sku.list](./catalog-product-sku-list.md)
+||
+|| **productId***
+[`catalog_product_sku.id`](../../data-types.md#catalog_product_sku) | Идентификатор головного товара.
+
+Для получения идентификаторов головных товаров необходимо использовать [catalog.product.sku.list](./catalog-product-sku-list.md)
+||
+|| **fieldName***
+[`string`](../../../data-types.md) | Имя поля (свойства или поля элемента информационного блока), в котором хранится файл. Возможные значения:
+- `DETAIL_PICTURE` — детальная картинка
+- `PREVIEW_PICTURE` — картинка для анонса
+- `PROPERTY_N` — свойство, где `N` — идентификатор свойства либо код свойства
+
+Для получения существующих идентификаторов либо кодов свойств головных товаров необходимо использовать [catalog.productProperty.list](../../product-property/catalog-product-property-list.md)
+||
+|#
+
+## Примеры кода
+
+
+
+
+
+- cURL (Webhook)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"fields":{"fileId":6546,"productId":1289,"fieldName":"detailPicture"}}' \
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/catalog.product.sku.download
+    ```
+
+- cURL (OAuth)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"fields":{"fileId":6546,"productId":1289,"fieldName":"detailPicture"},"auth":"**put_access_token_here**"}' \
+    https://**put_your_bitrix24_address**/rest/catalog.product.sku.download
+    ```
+
+- JS
+
+    ```js
+    BX24.callMethod(
+        'catalog.product.sku.download',
+        {
+            fields: {
+                fileId: 6546,
+                productId: 1289,
+                fieldName: 'detailPicture',
+            }
+        },
+        function(result) {
+            if (result.error()) {
+                console.error(result.error());
+            } else {
+                console.info(result.data());
+            }
+        }
+    );
+    ```
+
+- PHP
+
+    ```php
+    require_once('crest.php');
+
+    $result = CRest::call(
+        'catalog.product.sku.download',
+        [
+            'fields' => [
+                'fileId' => 6546,
+                'productId' => 1289,
+                'fieldName' => 'detailPicture'
+            ]
+        ]
+    );
+
+    echo '<PRE>';
+    print_r($result);
+    echo '</PRE>';
+    ```
+
+
+
+## Обработка ответа
+
+HTTP-статус: **200**
+
+В качестве ответа приходит файл по переданным параметрам.
+
+### Возвращаемые данные
+
+Возвращается файл по переданным параметрам.
+
+## Обработка ошибок
+
+HTTP-статус: **400**
+
+```json
+{	
+    "error":0,
+    "error_description":"Required fields: fileId"
+}
+```
+
+
+
+### Возможные коды ошибок
+
+#|
+|| **Код** | **Описание** ||
+|| `200040300010` | Недостаточно прав для чтения торгового каталога
+|| 
+|| `0` | Головной товар с указанным идентификатором не существует
+|| 
+|| `0` | Указанное свойство не существует либо не является файловым
+|| 
+|| `0` | Файл с указанным идентификатором не существует
+|| 
+|| `0` | Не переданы обязательные поля
+|| 
+|| `0` | Другие ошибки (например, фатальные ошибки)
+|| 
+|#
+
+
+
+## Продолжите изучение
+
+- [{#T}](./catalog-product-sku-add.md)
+- [{#T}](./catalog-product-sku-update.md)
+- [{#T}](./catalog-product-sku-get.md)
+- [{#T}](./catalog-product-sku-list.md)
+- [{#T}](./catalog-product-sku-delete.md)
+- [{#T}](./catalog-product-sku-get-fields-by-filter.md)

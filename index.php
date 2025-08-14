@@ -1,6 +1,9 @@
 <?php
 declare(strict_types=1);
 
+// Composer autoload (for Parsedown/ParsedownExtra)
+@include __DIR__ . '/vendor/autoload.php';
+
 // Base web path of this app (folder under site root). Auto-detect by default.
 $webDir = rtrim(str_replace('\\','/', dirname($_SERVER['SCRIPT_NAME'] ?? '/')), '/');
 if ($webDir === '' || $webDir === '.') { $webDir = '/'; }
@@ -38,18 +41,103 @@ function h(string $s): string { return htmlspecialchars($s, ENT_QUOTES | ENT_SUB
 function renderMarkdown(string $file): string {
     $md = @file_get_contents($file);
     if ($md === false) return '<p>File not found</p>';
-    // try Parsedown
-    $html = '';
-    if (class_exists('Parsedown')) {
-        $p = new Parsedown();
-        if (method_exists($p, 'setSafeMode')) { $p->setSafeMode(true); }
-        $html = $p->text($md);
-    } else {
-        // very simple fallback: wrap code fences and paragraphs
-        $html = nl2br(h($md));
-        $html = preg_replace('/```([\s\S]*?)```/m', '<pre><code>$1</code></pre>', (string)$html);
+    // init Parsedown if available
+    $pd = null;
+    $parsedownClass = '\\Parsedown';
+    if (class_exists($parsedownClass)) {
+        $pd = new $parsedownClass();
+        if (method_exists($pd, 'setSafeMode')) { $pd->setSafeMode(true); }
     }
+    // preprocess: strip templating/frontmatter; tables converted to GFM if any leftovers
+    $md = preprocessBitrixMarkdown($md);
+    // Convert any leftover Bitrix tables to GFM to be safe
+    $md = preg_replace_callback('/^#\|[\t ]*\R([\s\S]*?)^\|#[\t ]*$/m', function ($m) {
+        $block = $m[1];
+        $lines = preg_split('/\R/', $block);
+        $rows = [];
+        $current = null;
+        foreach ($lines as $line) {
+            $trim = trim($line);
+            if ($trim === '') { if ($current !== null) { $current['tail'][] = ''; } continue; }
+            if (str_starts_with($trim, '||')) {
+                if ($current !== null) { $rows[] = $current; }
+                $content = preg_replace('/^\|\|/','', $trim);
+                $content = rtrim($content);
+                $content = preg_replace('/\|\|$/','', $content);
+                $cells = array_map('trim', preg_split('/\s*\|\s*/', $content));
+                $current = ['cells' => $cells, 'tail' => []];
+            } else {
+                if ($current !== null) { $current['tail'][] = $line; }
+            }
+        }
+        if ($current !== null) { $rows[] = $current; }
+        if (!$rows) { return $m[0]; }
+        foreach ($rows as &$r) { if (!empty($r['tail'])) { $r['cells'][count($r['cells'])-1] .= "\n".implode("\n", $r['tail']); } }
+        unset($r);
+        $headers = $rows[0]['cells'];
+        $out = '| ' . implode(' | ', array_map('trim', $headers)) . " |\n";
+        $out .= '| '.implode(' | ', array_map(fn($c)=> str_repeat('-', max(3, strlen(strip_tags($c)))), $headers))." |\n";
+        for ($i=1; $i<count($rows); $i++) {
+            $out .= '| '.implode(' | ', array_map('trim', $rows[$i]['cells']))." |\n";
+        }
+        return $out;
+    }, $md);
+    $md = preg_replace_callback('/((?:^[\t ]*\|\|.*$\R?){2,})/m', function ($m) {
+        $block = $m[1];
+        $lines = preg_split('/\R/', trim($block));
+        $rows = [];
+        foreach ($lines as $line) {
+            $trim = trim($line);
+            if ($trim === '' || !str_starts_with($trim, '||')) { continue; }
+            $content = preg_replace('/^\|\|/','', $trim);
+            $content = rtrim($content);
+            $content = preg_replace('/\|\|$/','', $content);
+            $cells = array_map('trim', preg_split('/\s*\|\s*/', $content));
+            $rows[] = $cells;
+        }
+        if (count($rows) < 2) { return $m[0]; }
+        $headers = $rows[0];
+        $out = '| ' . implode(' | ', $headers) . " |\n";
+        $out .= '| '.implode(' | ', array_map(fn($c)=> str_repeat('-', max(3, strlen(strip_tags($c)))), $headers))." |\n";
+        for ($i=1; $i<count($rows); $i++) {
+            $out .= '| '.implode(' | ', $rows[$i])." |\n";
+        }
+        return $out;
+    }, $md);
+    // render markdown
+    if ($pd) {
+        return $pd->text($md);
+    }
+    // fallback: simple formatting
+    // Avoid <br> inside code fences
+    $html = h($md);
+    $html = preg_replace_callback('/```([a-zA-Z0-9_-]*)\n([\s\S]*?)```/', function($m){
+        $lang = $m[1]; $code = $m[2];
+        return '<pre><code class="lang-'.h($lang).'">'.h($code).'</code></pre>';
+    }, $html);
+    // Convert remaining newlines to <br> outside code blocks
+    $parts = preg_split('#(<pre[\s\S]*?<\/pre>)#i', $html, -1, PREG_SPLIT_DELIM_CAPTURE);
+    $rebuilt = '';
+    foreach ($parts as $chunk) {
+        if ($chunk === '') continue;
+        if (preg_match('#^<pre[\s\S]*<\/pre>$#i', $chunk)) {
+            $rebuilt .= $chunk; // keep code blocks intact
+        } else {
+            $rebuilt .= preg_replace("/\n/", "<br>\n", $chunk);
+        }
+    }
+    $html = $rebuilt;
     return $html;
+}
+
+function preprocessBitrixMarkdown(string $md): string {
+    // Strip YAML frontmatter if present
+    $md = preg_replace('/^---\s*[\r\n]([\s\S]*?)\r?\n---\s*[\r\n]/', '', $md, 1);
+    // Remove liquid-like includes/macros
+    $md = preg_replace('/\{\%[\s\S]*?\%\}/u', '', $md);
+    $md = preg_replace('/\{\{[\s\S]*?\}\}/u', '', $md);
+    // Note: Bitrix tables are converted to GFM in generator; no HTML table conversion here
+    return $md;
 }
 
 $pageTitle = 'Bitrix24 REST (RAG)';
@@ -68,12 +156,12 @@ if ($methodParam !== '' && isset($methodToPath[$methodParam])) {
         $home = rtrim($webDir, '/'); if ($home==='') { $home = '/'; }
         $contentHtml .= '<nav><a href="'.$home.'/">Home</a> › <a href="'.$home.'/?scope='.h($scope).'">'.h($scope).'</a> › '.h($methodParam).'</nav>';
         $contentHtml .= '<h1>'.h($methodParam).'</h1>';
+        // Render Markdown only
         $contentHtml .= renderMarkdown($file);
         $contentHtml .= '<p><a href="'.$webDir.'/">← Back</a></p>';
     }
 } else {
     // List view
-    $pageTitle = $pageTitle;
     $contentHtml .= '<h1>Bitrix24 REST (RAG)</h1>';
     $contentHtml .= '<div id="controls">'
         .'<input id="q" type="search" placeholder="Search method (e.g. crm.deal.get)" /> '
@@ -90,7 +178,7 @@ if ($methodParam !== '' && isset($methodToPath[$methodParam])) {
 $embeddedIndex = json_encode($index, JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);
 
 ?><!doctype html>
-<html>
+<html lang="ru">
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>

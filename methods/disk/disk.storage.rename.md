@@ -9,11 +9,23 @@ params: {"type":"object"}
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Методы работы с хранилищем
+# Переименовать хранилище disk.storage.rename
+
+
+
+
+
+- не указаны типы параметров
+- не указана обязательность параметров
+- отсутствуют примеры (должно быть три примера - curl, js, php)
+- отсутствует ответ в случае ошибки
+
+
+
+
 
 
 
@@ -25,15 +37,57 @@ Auto-generated stub. Fill in params/returns/examples.
 >
 > Кто может выполнять метод: любой пользователь
 
+Метод `disk.storage.rename` переименовывает хранилище. Допустимо переименование только хранилища приложения (см. [disk.storage.getforapp](./disk-storage-get-for-app.md)).
+
+## Параметры
+
 #|
-|| **Метод** | **Описание** ||
-|| [disk.storage.getfields](./disk-storage-get-fields.md) | Возвращает описание полей хранилища. ||
-|| [disk.storage.get](./disk-storage-get.md) | Возвращает хранилище по идентификатору. ||
-|| [disk.storage.rename](./disk-storage-rename.md) | Переименовывает хранилище. Допустимо переименование только хранилища приложения (см. [disk.storage.getforapp](./disk-storage-get-for-app.md)). ||
-|| [disk.storage.getlist](./disk-storage-get-list.md) | Возвращает список доступных хранилищ. ||
-|| [disk.storage.gettypes](./disk-storage-get-types.md) | Возвращает список типов хранилищ. ||
-|| [disk.storage.addfolder](./disk-storage-add-folder.md) | Создает папку в корне хранилища. ||
-|| [disk.storage.getchildren](./disk-storage-get-children.md) | Возвращает список файлов и папок, которые находятся непосредственно в корне хранилища. ||
-|| [disk.storage.uploadfile](./disk-storage-upload-file.md) | Загружает новый файл в корне хранилища. ||
-|| [disk.storage.getforapp](./disk-storage-get-for-app.md) | Возвращает описание хранилища, с которым может работать приложение для хранения своих данных (файлов и папок). ||
+||  **Параметр** / **Тип**| **Описание** ||
+|| **id**
+[`unknown`](../../data-types.md) | Идентификатор хранилища. ||
+|| **newName**
+[`unknown`](../../data-types.md) | Новое имя. ||
 |#
+
+## Пример
+
+
+
+- JS
+
+    ```js
+    BX24.callMethod(
+        "disk.storage.rename",
+        {
+            id: 2,
+            newName: 'New name for storage'
+        },
+        function (result)
+        {
+            if (result.error())
+                console.error(result.error());
+            else
+                console.dir(result.data());
+        }
+    );
+    ```
+
+
+
+
+
+## Ответ в случае успеха
+
+> 200 OK
+
+```json
+"result": {
+    "ID": "2", //идентификатор
+    "NAME": "Маркетинг и реклама", //название
+    "CODE": null, //символьный код
+    "MODULE_ID": "disk",
+    "ENTITY_TYPE": "group", //тип сущности (см. disk.storage.gettypes)
+    "ENTITY_ID": "1", //идентификатор сущности
+    "ROOT_OBJECT_ID": "2" //идентификатор корневой папки
+}
+```

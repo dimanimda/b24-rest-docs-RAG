@@ -9,11 +9,10 @@ params: {"type":"object","required":["fields"],"properties":{"fields":{"type":"o
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Методы работы со свойствами элементов хранилища данных
+# Добавить дополнительное свойство элементов хранилища entity.item.property.add
 
 
 
@@ -21,14 +20,71 @@ Auto-generated stub. Fill in params/returns/examples.
 
 
 
+
+
+
+
+- нужны правки под стандарт написания
+- отсутствуют примеры
+- отсутствует ответ в случае ошибки
+
+
+
+
+
 > Scope: [`entity`](../../../scopes/permissions.md)
 >
 > Кто может выполнять метод: любой пользователь
 
+Метод `entity.item.property.add` добавляет дополнительное свойство элементов хранилища. Пользователь должен обладать правами на управление (**Х**) хранилищем.
+
+## Параметры
+
 #|
-|| **Метод** | **Описание** ||
-|| [entity.item.property.get](./entity-item-property-get.md) | Получение списка дополнительных свойств элементов хранилища. ||
-|| [entity.item.property.add](./entity-item-property-add.md) | Добавление дополнительного свойства элементов хранилища. ||
-|| [entity.item.property.update](./entity-item-property-update.md) | Обновление дополнительного свойства элементов хранилища. ||
-|| [entity.item.property.delete](./entity-item-property-delete.md) | Удаление дополнительного свойства элементов хранилища. ||
+|| **Параметр** | **Описание** ||
+|| **ENTITY^*^**
+[`string`](../../../data-types.md) | Обязательный. Строковый идентификатор хранилища. ||
+|| **PROPERTY^*^**
+[`string`](../../../data-types.md) | Обязательный. Строковый идентификатор свойства. ||
+|| **NAME^*^**
+[`string`](../../../data-types.md) | Обязательный. Наименование свойства. ||
+|| **TYPE^*^**
+[`unknown`](../../../data-types.md) | Обязательный. Тип свойства (**S** - строка, **N** - число, **F** - файл). ||
 |#
+
+
+
+## Примеры
+
+
+
+- JS
+
+    ```js
+    BX24.callMethod(
+        'entity.item.property.add',
+        {
+            ENTITY: 'menu_new',
+            PROPERTY: 'new_prop',
+            NAME: 'Новое свойство',
+            TYPE: 'S'
+        }
+    );
+    ```
+
+- HTTP
+
+    ```http
+    https://my.bitrix24.ru/rest/entity.item.property.add.json?ENTITY=menu_new&NAME=%D0%9D%D0%BE%D0%B2%D0%BE%D0%B5%20%D1%81%D0%B2%D0%BE%D0%B9%D1%81%D1%82%D0%B2%D0%BE&PROPERTY=new_prop&TYPE=S&auth=e690b44d2b3827d2eb9d4dbe59406dbb
+    ```
+
+
+
+
+
+## Ответ в случае успеха
+
+> 200 OK
+```json
+{"result":true}
+```

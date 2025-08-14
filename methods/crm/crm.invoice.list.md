@@ -1,7 +1,7 @@
 ---
 method: crm.invoice.list
 scope: crm
-deprecated: false
+deprecated: true
 aliases: []
 rate_limit_per_sec: 2
 pagination: start
@@ -9,110 +9,96 @@ params: {"type":"object","properties":{"filter":{"type":"object"},"order":{"type
 returns: {"type":"array","items":{"type":"object"}}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Удалить привязку заказа к объекту CRM crm.orderentity.deleteByFilter
+# Получить список счетов crm.invoice.list
 
 > Scope: [`crm`](../../../scopes/permissions.md)
 >
-> Кто может выполнять метод: администратор интернет-магазина
+> Кто может выполнять метод: любой пользователь
 
-Метод удаляет привязку заказа к объекту CRM.
+
+
+Метод устарел. Рекомендуется использовать  [`Универсальные методы для счетов`](../../universal/invoice.md)
+
+
+
+Метод возвращает список счетов. Является реализацией списочного метода для счетов.
+
+При выборке используйте маски:
+
+- "*" — для выборки всех полей (без пользовательских)
+- "UF_*" — для выборки всех пользовательских полей.
+
+Свойства и товарные позиции счета метод не возвращает.
+Для получения свойств и товарных позиций нужно использовать метод [crm.invoice.get](./crm-invoice-get.md).
 
 ## Параметры метода
 
-
-
-#|
-|| **Название**
-`тип` | **Описание** ||
-|| **fields***
-[`object`](../../../data-types.md) | Значения полей для удаления привязки ||
-|#
-
-### Параметр fields
+См. описание [списочных методов](../../../how-to-call-rest-api/list-methods-pecularities.md).
 
 
 
 #|
 || **Название**
 `тип` | **Описание** ||
-|| **orderId***
-[`sale_order.id`](../../../sale/data-types.md#sale_order) | Идентификатор заказа ||
-|| **ownerTypeId***
-[`integer`](../../../data-types.md) | Идентификатор [типа объекта CRM](../../data-types.md#object_type).
-
-Привязка возможна только к сделке или счету
-||
-|| **ownerId***
-[`integer`](../../../data-types.md) | Идентификатор объекта CRM.
-
-Для сделок может быть получен методом [crm.deal.list](../../deals/crm-deal-list.md).
-
-Для счетов может быть получен методом [crm.invoice.list](../../outdated/invoice/crm-invoice-list.md)
-||
+|| **filter**
+ | Фильтр записей. По умолчанию отдаются все записи, без фильтрации ||
+|| **order**
+ | Сортировка записей. Поддерживается сортировка по тем же полям, что и в фильтре ||
 |#
 
 ## Примеры кода
 
 
 
-Добавить привязку заказа к сделке:
+Пример выводит данные в консоль. Если нужно вывести данные по-другому, то реализуйте свою обработку данных, возвращенных вызовами `result.data()` и `result.error()`.
 
 
 
 - cURL (Webhook)
 
-    ```bash
+    ```http
     curl -X POST \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"fields":{"orderId":5125,"ownerId":6933,"ownerTypeId":2}}' \
-    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webhook_here**/crm.orderentity.deletebyfilter
+    -d '{"order":{"DATE_INSERT":"ASC"},"filter":{">PRICE":100},"select":["ID","ACCOUNT_NUMBER","ORDER_TOPIC","DATE_INSERT","STATUS_ID","PRICE","CURRENCY_ID"]}' \
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/crm.invoice.list
     ```
 
-- cURL (OAuth) 
+- cURL (OAuth)
 
-    ```bash
+    ```http
     curl -X POST \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"fields":{"orderId":5125,"ownerId":6933,"ownerTypeId":2},"auth":"**put_access_token_here**"}' \
-    https://**put_your_bitrix24_address**/rest/crm.orderentity.deletebyfilter
+    -d '{"order":{"DATE_INSERT":"ASC"},"filter":{">PRICE":100},"select":["ID","ACCOUNT_NUMBER","ORDER_TOPIC","DATE_INSERT","STATUS_ID","PRICE","CURRENCY_ID"],"auth":"**put_access_token_here**"}' \
+    https://**put_your_bitrix24_address**/rest/crm.invoice.list
     ```
 
 - JS
 
     ```js
     BX24.callMethod(
-        "crm.orderentity.deletebyfilter",
+        "crm.invoice.list",
         {
-            fields: {
-                orderId: 5125,
-                ownerId: 6933,
-                ownerTypeId: 2
-            }
+            "order": { "DATE_INSERT": "ASC" },
+            "filter": { ">PRICE": 100 },
+            "select": [ "ID", "ACCOUNT_NUMBER", "ORDER_TOPIC", "DATE_INSERT", "STATUS_ID", "PRICE", "CURRENCY_ID" ]
         },
-    )
-        .then(
-            function(result)
+        function(result)
+        {
+            if(result.error())
+                console.error(result.error());
+            else
             {
-                if (result.error())
-                {
-                    console.error(result.error());
-                }
-                else
-                {
-                    console.log(result);
-                }
-            },
-            function(error)
-            {
-                console.info(error);
+                console.dir(result.data());
+                if(result.more())
+                    result.next();
             }
-        );
+        }
+    );
     ```
 
 - PHP
@@ -121,13 +107,11 @@ Auto-generated stub. Fill in params/returns/examples.
     require_once('crest.php');
 
     $result = CRest::call(
-        'crm.orderentity.deletebyfilter',
+        'crm.invoice.list',
         [
-            'fields' => [
-                'orderId' => 5125,
-                'ownerId' => 6933,
-                'ownerTypeId' => 2
-            ]
+            'order' => ['DATE_INSERT' => 'ASC'],
+            'filter' => ['>PRICE' => 100],
+            'select' => ['ID', 'ACCOUNT_NUMBER', 'ORDER_TOPIC', 'DATE_INSERT', 'STATUS_ID', 'PRICE', 'CURRENCY_ID']
         ]
     );
 
@@ -138,74 +122,90 @@ Auto-generated stub. Fill in params/returns/examples.
 
 
 
-## Обработка ответа
-
-HTTP-статус: **200**
-
-```json
-{
-    "result": true,
-    "time": {
-        "start": 1719325693.109545,
-        "finish": 1719325695.863527,
-        "duration": 2.7539820671081543,
-        "processing": 1.773292064666748,
-        "date_start": "2024-06-25T16:28:13+02:00",
-        "date_finish": "2024-06-25T16:28:15+02:00",
-        "operating": 0
-    }
-}
-```
-
-### Возвращаемые данные
+## Поля, возвращаемые методом
 
 #|
-|| **Название**
-`тип` | **Описание** ||
-|| **result**
-[`boolean`](../../../data-types.md) | Содержит признак успешного завершения операции ||
-|| **time**
-[`time`](../../../data-types.md) | Информация о времени выполнения запроса ||
+|| **Поле** / **Тип** | **Описание** | **Примечание** ||
+|| **ID**
+[`integer`](../../../data-types.md) | Идентификатор | Только для чтения ||
+|| **ACCOUNT_NUMBER**
+[`string`](../../../data-types.md) | Номер | Обязательное ||
+|| **COMMENTS**
+[`text`](../../../data-types.md) | Комментарий менеджера | ||
+|| **CREATED_BY**
+[`integer`](../../../data-types.md) | Создано пользователем | Только для чтения ||
+|| **CURRENCY**
+[`crm_currency`](../../../data-types.md) | Идентификатор валюты | Только для чтения ||
+|| **DATE_BILL**
+[`date`](../../../data-types.md) | Дата выставления | ||
+|| **DATE_INSERT**
+[`datetime`](../../../data-types.md) | Дата создания | ||
+|| **DATE_MARKED**
+[`datetime`](../../../data-types.md) | Дата отклонения | Указывается, если счёт отклонён ||
+|| **DATE_PAY_BEFORE**
+[`date`](../../../data-types.md) | Срок оплаты | ||
+|| **DATE_PAYED**
+[`datetime`](../../../data-types.md) | Дата перевода в состояние оплаты | Только для чтения ||
+|| **DATE_STATUS**
+[`datetime`](../../../data-types.md) | Дата изменения статуса | Только для чтения ||
+|| **DATE_UPDATE**
+[`datetime`](../../../data-types.md) | Дата изменения | Только для чтения ||
+|| **EMP_PAYED_ID**
+[`integer`](../../../data-types.md) | Идентификатор пользователя, который последним перевёл счёт в состояние "оплачен" | Только для чтения ||
+|| **EMP_STATUS_ID**
+[`integer`](../../../data-types.md) | Идентификатор пользователя, который последним поменял статус счёта | Только для чтения ||
+|| **LID**
+[`integer`](../../../data-types.md) | Идентификатор сайта | Только для чтения ||
+|| **IS_RECURRING**
+[`char`](../../../data-types.md) | Флаг шаблона регулярной сделки | ||
+|| **XML_ID**
+[`string`](../../../data-types.md) | Внешний код | ||
+|| **ORDER_TOPIC**
+[`string`](../../../data-types.md) | Тема | Обязательное ||
+|| **PAY_SYSTEM_ID**
+[`integer`](../../../data-types.md) | Идентификатор печатной формы | Обязательное ||
+|| **PAY_VOUCHER_DATE**
+[`date`](../../../data-types.md) | Дата оплаты | Указывается, если счёт оплачен ||
+|| **PAY_VOUCHER_NUM**
+[`string`](../../../data-types.md) | Номер документа оплаты | Указывается, если счёт оплачен ||
+|| **PAYED**
+[`char`](../../../data-types.md) | Признак оплаченности | Только для чтения ||
+|| **PERSON_TYPE_ID**
+[`integer`](../../../data-types.md) | Идентификатор типа плательщика | Обязательное ||
+|| **PRICE**
+[`double`](../../../data-types.md) | Сумма | Только для чтения ||
+|| **REASON_MARKED**
+[`string`](../../../data-types.md) | Комментарий статуса | Указывается, если счёт оплачен или отклонён ||
+|| **RESPONSIBLE_EMAIL**
+[`string`](../../../data-types.md) | E-mail ответственного | Только для чтения ||
+|| **RESPONSIBLE_ID**
+[`integer`](../../../data-types.md) | Идентификатор ответственного | ||
+|| **RESPONSIBLE_LAST_NAME**
+[`string`](../../../data-types.md) | Фамилия ответственного | Только для чтения ||
+|| **RESPONSIBLE_LOGIN**
+[`string`](../../../data-types.md) | Логин ответственного | Только для чтения ||
+|| **RESPONSIBLE_NAME**
+[`string`](../../../data-types.md) | Имя ответственного | Только для чтения ||
+|| **RESPONSIBLE_PERSONAL_PHOTO**
+[`integer`](../../../data-types.md) | Идентификатор фото ответственного | Только для чтения ||
+|| **RESPONSIBLE_SECOND_NAME**
+[`string`](../../../data-types.md) | Отчество ответственного | Только для чтения ||
+|| **RESPONSIBLE_WORK_POSITION**
+[`string`](../../../data-types.md) | Должность ответственного | Только для чтения ||
+|| **STATUS_ID**
+[`crm_status`](../../../data-types.md) | Идентификатор статуса | Идентификатор справочника "INVOICE_STATUS" ||
+|| **TAX_VALUE**
+[`double`](../../../data-types.md) | Сумма налога | Только для чтения ||
+|| **UF_COMPANY_ID**
+[`integer`](../../../data-types.md) | Идентификатор компании | Указывается, если плательщик "Юридическое лицо" ||
+|| **UF_CONTACT_ID**
+[`integer`](../../../data-types.md) | Идентификатор контакта | Указывается, если плательщик "Физическое лицо", либо в качестве контактного лица компании ||
+|| **UF_MYCOMPANY_ID**
+[`integer`](../../../data-types.md) | Идентификатор своей компании | Указывается в качестве компании с реквизитами счёта (привязка к реквизитам устанавливается отдельно) ||
+|| **UF_DEAL_ID**
+[`integer`](../../../data-types.md) | Идентификатор связанной сделки | ||
+|| **UF_QUOTE_ID**
+[`integer`](../../../data-types.md) | Идентификатор связанного коммерческого предложения | ||
+|| **USER_DESCRIPTION**
+[`string`](../../../data-types.md) | Комментарий | ||
 |#
-
-## Обработка ошибок
-
-HTTP-статус: **400**
-
-```json
-{
-    "error": "0",
-    "error_description": "Required fields: ownerId, orderId"
-}
-```
-
-
-
-### Возможные ошибки
-
-#|  
-|| **Код** | **Описание** ||
-|| `200040300020` | `Access Denied` 
-Недостаточно прав доступа
-||
-|| `201640400004` | `entity relation is not exists` 
-Не найдена привязка заказа к объекту CRM
-||
-|| `200540400001` | `order does not exist` 
-Не найден заказ
-||
-|| `0` | `Required fields: #FIELDS#` 
-Не указаны обязательные поля (`#FIELDS#` — список полей через запятую)
-||
-|| `0` | Различные ошибки сохранения заказа
-||
-|#
-
-
-
-## Продолжите изучение
-
-- [{#T}](./crm-order-entity-add.md)
-- [{#T}](./crm-order-entity-list.md)
-- [{#T}](./crm-order-entity-get-fields.md)
-

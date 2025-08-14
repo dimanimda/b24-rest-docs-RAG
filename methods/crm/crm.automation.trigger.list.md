@@ -9,22 +9,147 @@ params: {"type":"object","properties":{"filter":{"type":"object"},"order":{"type
 returns: {"type":"array","items":{"type":"object"}}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Обзор методов
+# Получить список триггеров crm.automation.trigger.list
 
 > Scope: [`crm`](../../../scopes/permissions.md)
 >
-> Кто может выполнять метод: администратор с доступом к CRM в контексте приложения  
+> Кто может выполнять метод: администратор с доступом к CRM в контексте приложения 
 
-Все методы работы с триггерами приложений запускаются только в контексте приложения.
+Метод получает список приложений и триггеров.
+
+Запускать метод можно только в контексте приложения.
+
+Без параметров.
+
+## Примеры кода
+
+
+
+
+
+- cURL (Webhook)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{}' \
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webhook_here**/crm.automation.trigger.list
+    ```
+
+- cURL (OAuth)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"auth":"**put_access_token_here**"}' \
+    https://**put_your_bitrix24_address**/rest/crm.automation.trigger.list
+    ```
+
+- JS
+
+    ```js
+    BX24.callMethod(
+        'crm.automation.trigger.list',
+        {},
+        function(result) 
+        {
+            if(result.error())
+                console.error(result.error());
+            else
+                console.dir(result.data());
+        }
+    );
+    ```
+
+- PHP
+
+    ```php
+    require_once('crest.php');
+
+    $result = CRest::call(
+        'crm.automation.trigger.list',
+        []
+    );
+
+    echo '<PRE>';
+    print_r($result);
+    echo '</PRE>';
+    ```
+
+
+
+## Обработка ответа
+
+HTTP-статус: **200**
+
+```json
+{
+    "result": [
+        {
+            "NAME": "Trigger 1",
+            "CODE": "trigger1"
+        }
+        {
+            "NAME": "Trigger 2",
+            "CODE": "trigger2"
+        }
+    ],
+    "time":{
+        "start":1718952595.479501,
+        "finish":1718952595.594397,
+        "duration":0.11489605903625488,
+        "processing":0.007472038269042969,
+        "date_start":"2024-06-21T06:49:55+00:00",
+        "date_finish":"2024-06-21T06:49:55+00:00"
+    }
+}
+```
+
+### Возвращаемые данные
 
 #|
-|| **Метод** | **Описание** ||
-|| [crm.automation.trigger.add](./crm-automation-trigger-add.md) | Добавляет триггер ||
-|| [crm.automation.trigger.execute](./crm-automation-trigger-execute.md) | Запускает выполнение триггера ||
-|| [crm.automation.trigger.list](./crm-automation-trigger-list.md) | Получает список приложений и триггеров ||
-|| [crm.automation.trigger.delete](./crm-automation-trigger-delete.md) | Удаляет триггер ||
+|| **Название**
+`тип` | **Описание** ||
+|| **result**
+[`object`](../../../data-types.md) | Возвращает массив добавленных приложением триггеров с полями `NAME` и `CODE` ||
+|| **time**
+[`time`](../../../data-types.md) | Информация о времени выполнения запроса ||
 |#
+
+## Обработка ошибок
+
+HTTP-статус: **400**
+
+```json
+{
+    "error":"ACCESS_DENIED",
+    "error_description":"Access denied! Admin permissions required"
+}
+```
+
+
+
+### Возможные коды ошибок
+
+#|
+|| **Код** | **Cообщение об ошибке** | **Описание** ||
+|| Пустая строка | Access denied. | Пользователь не прошел предварительную проверку прав на доступ к CRM ||
+|| ACCESS_DENIED | Access denied! Admin permissions required | Не пройдена проверка прав на администратора ||
+|| ACCESS_DENIED | Access denied! Application context required | Метод вызван вне контекста приложения ||
+|#
+
+
+
+## Продолжите изучение 
+
+- [{#T}](./crm-automation-trigger-add.md)
+- [{#T}](./crm-automation-trigger-execute.md)
+- [{#T}](./crm-automation-trigger-delete.md)
+
+
+

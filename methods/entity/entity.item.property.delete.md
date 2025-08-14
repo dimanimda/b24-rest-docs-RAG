@@ -9,11 +9,10 @@ params: {"type":"object","required":["id"],"properties":{"id":{"type":"integer"}
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Методы работы со свойствами элементов хранилища данных
+# Удалить дополнительное свойство элементов хранилища entity.item.property.delete
 
 
 
@@ -21,14 +20,64 @@ Auto-generated stub. Fill in params/returns/examples.
 
 
 
+
+
+
+
+- отсутствуют примеры
+- отсутствует ответ в случае ошибки
+
+
+
+
+
 > Scope: [`entity`](../../../scopes/permissions.md)
 >
 > Кто может выполнять метод: любой пользователь
 
+Метод  удаляет дополнительные свойства элементов хранилища. Пользователь должен обладать правами на управление (**Х**) хранилищем.
+
+## Параметры
+
 #|
-|| **Метод** | **Описание** ||
-|| [entity.item.property.get](./entity-item-property-get.md) | Получение списка дополнительных свойств элементов хранилища. ||
-|| [entity.item.property.add](./entity-item-property-add.md) | Добавление дополнительного свойства элементов хранилища. ||
-|| [entity.item.property.update](./entity-item-property-update.md) | Обновление дополнительного свойства элементов хранилища. ||
-|| [entity.item.property.delete](./entity-item-property-delete.md) | Удаление дополнительного свойства элементов хранилища. ||
+|| **Параметр** | **Описание** ||
+|| **ENTITY^*^**
+[`string`](../../../data-types.md) | Обязательный. Строковый идентификатор хранилища. ||
+|| **PROPERTY^*^**
+[`string`](../../../data-types.md) | Обязательный. Строковый идентификатор свойства. ||
 |#
+
+
+
+## Примеры
+
+
+
+- JS
+
+    ```js
+    BX24.callMethod(
+        'entity.item.property.delete',
+        {
+            ENTITY: 'menu_new',
+            PROPERTY: 'new_prop'
+        }
+    );
+    ```
+
+- HTTP
+
+    ```http
+    https://my.bitrix24.ru/rest/entity.item.property.delete.json?ENTITY=menu_new&PROPERTY=new_prop&auth=d92dd12b9b9b904254776104eed2bb76
+    ```
+
+
+
+
+
+## Ответ в случае успеха
+
+> 200 OK
+```json
+{"result":true}
+```

@@ -9,82 +9,96 @@ params: {"type":"object","required":["id"],"properties":{"id":{"type":"integer"}
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Цены в Торговом каталоге: обзор методов
+# Событие при удалении цены CATALOG.PRICE.ON.DELETE
 
-Товар может иметь одну или несколько цен. Для каждой цены указываются:
-
-- валюта: российский рубль, доллар США, евро
-
-- тип: розничная, оптовая, партнерская
-
-Это позволяет настраивать ценообразование в зависимости от типа клиента, региона или условий сотрудничества.
-
-> Быстрый переход: [все методы и события](#all-methods) 
+> Scope: [`catalog`](../../../scopes/permissions.md)
 >
-> Пользовательская документация: [Право на изменение цены продажи товара в ĸаталоге](https://helpdesk.bitrix24.ru/open/16342446/)
+> Кто может подписаться: любой пользователь
 
-## Связь цен с другими объектами
+Событие происходит при удалении цены.
 
-**Тип цены.** Каждая цена принадлежит к определенному типу цен. Задать и изменить тип цены можно с помощью методов [catalog.priceType.*](../price-type/index.md).
+## Что получает обработчик
 
-**Валюта.** Цена указывается в выбранной валюте. Работать с валютами можно через методы [crm.currency.*](../../crm/currency/index.md).
+Данные передаются в виде POST-запроса {.b24-info}
 
-**Наценка.** Она влияет на формирование цены. Получить наценку позволяет метод [catalog.extra.get](../extra/catalog-extra-get.md).
+```
+[
+    'event' => 'CATALOG.PRICE.ON.DELETE',    
+    'event_handler_id' => 1,
+    'data' => [
+        'FIELDS' => [
+            'ID' => 1,
+        ],
+    ],
+    'ts' => 1714649632,
+    'auth' => [
+        'access_token' => 's6p6eclrvim6da22ft9ch94ekreb52lv',
+        'expires_in' => 3600,
+        'scope' => 'catalog',
+        'domain' => 'some-domain.bitrix24.com',
+        'server_endpoint' => 'https://oauth.bitrix24.tech/rest/',
+        'status' => 'F',
+        'client_endpoint' => 'https://some-domain.bitrix24.com/rest/',
+        'member_id' => 'a223c6b3710f85df22e9377d6c4f7553',
+        'refresh_token' => '4s386p3q0tr8dy89xvmt96234v3dljg8',
+        'application_token' => '51856fefc120afa4b628cc82d3935cce',
+    ],
+]
+```
 
-**Товар.** Цена всегда привязана к товару. Создать и отредактировать товар можно с помощью групп методов:
-
-- [catalog.product.*](../product/index.md) — для простых товаров
-
-- [catalog.product.service.*](../product/service/index.md) — для услуг
-
-- [catalog.product.sku.*](../product/sku/index.md) — для головных товаров с вариациями
-
-- [catalog.product.offer.*](../product/offer/index.md) — для вариаций товаров
-
-
-
-- [Валюты в CRM](https://helpdesk.bitrix24.ru/open/6987305/)
-
-- [Как создать новый товар в каталоге](https://helpdesk.bitrix24.ru/open/11657084/)
-
-- [Услуги в CRM](https://helpdesk.bitrix24.ru/open/16560760/)
-
-- [Работа с вариациями товара](https://helpdesk.bitrix24.ru/open/11657102/)
-
-
-
-## Обзор методов и событий {#all-methods}
-
-> Scope: [`catalog`](../../scopes/permissions.md)
->
-> Кто может выполнять метод: администратор
+## Параметры
 
 
 
-- Методы
+#|
+|| **Название**
+`тип` | **Описание** ||
+|| **event***
+[`string`](../../data-types.md) | Символьный код события ||
+|| **event_handler_id***
+[`integer`](../../data-types.md) | Идентификатор обработчика события ||
+|| **data***
+[`object`](../../data-types.md) | Объект с данными события.
 
-    #|
-    || **Метод** | **Описание** ||
-    || [catalog.price.add](./catalog-price-add.md) | Добавляет цену товара ||
-    || [catalog.price.delete](./catalog-price-delete.md) | Удаляет цену товара ||
-    || [catalog.price.get](./catalog-price-get.md) | Возвращает значения полей цены товара по идентификатору ||
-    || [catalog.price.getFields](./catalog-price-get-fields.md) | Возвращает поля цен товаров ||
-    || [catalog.price.list](./catalog-price-list.md) | Возвращает список цен товаров по фильтру ||
-    || [catalog.price.modify](./catalog-price-modify.md) | Изменяет элементы коллекции цен товара ||
-    || [catalog.price.update](./catalog-price-update.md) | Обновляет поля цены товара ||
-    |#
+Структура описана [ниже](#data) ||
+|| **ts***
+[`integer`](../../data-types.md) | Timestamp отправки события из очереди событий ||
+|| **auth***
+[`object`](../../data-types.md) | Объект с параметрами авторизации и данными о портале, на котором произошло событие ||
+|#
 
-- События
-
-    #|
-    || **Событие** | **Вызывается** ||
-    || [CATALOG.PRICE.ON.ADD](./events/catalog-price-on-add.md)| При добавлении цены ||
-    || [CATALOG.PRICE.ON.UPDATE](./events/catalog-price-on-update.md)| При обновлении цены ||
-    || [CATALOG.PRICE.ON.DELETE](./events/catalog-price-on-delete.md)| При удалении цены ||
-    |#
+### Параметр data {#data}
 
 
+
+#|
+|| **Название**
+`тип` | **Описание** ||
+|| **FIELDS***
+[`object`](../../data-types.md) | Объект со свойствами цены.
+
+Структура описана [ниже](#fields) ||
+|#
+
+### Параметр FIELDS {#fields}
+
+
+
+#|
+|| **Название**
+`тип` | **Описание** ||
+|| **ID***
+[`catalog_price.id`](../../data-types.md#catalog_price) | Идентификатор цены. Получить все поля цены по ее идентификатору можно с помощью метода [catalog.price.get](../catalog-price-get.md) ||
+|#
+
+### Параметр auth {#auth}
+
+
+
+## Продолжите изучение
+
+- [{#T}](./catalog-price-on-add.md)
+- [{#T}](./catalog-price-on-update.md)

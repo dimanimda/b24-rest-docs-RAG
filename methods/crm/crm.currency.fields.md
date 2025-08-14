@@ -9,86 +9,261 @@ params: {"type":"object"}
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Валюты в CRM: обзор методов
-
-Валюта в CRM помогает работать с клиентами из разных стран. Например, основная валюта, в которой компания ведет расчеты, — рубли. В сделку менеджер добавляет товары с ценой в рублях, а клиент платит в удобной ему валюте — тенге. Менеджеру достаточно изменить валюту сделки в карточке — Битрикс автоматически посчитает стоимость товаров в тенге по заданному в настройках курсу.
-
-> Быстрый переход: [все методы и события](#all-methods) 
-> 
-> Пользовательская документация: [валюты в Битрикс24](https://helpdesk.bitrix24.ru/open/6987305/)
-
-## Связь валюты с объектами CRM
-
-**Товары.** Стоимость товарной позиции можно указать через [методы цен](../../catalog/price/index.md). Поля всех типов цен составные — сумма и валюта изменяются отдельно. Для указания или изменения валюты используйте параметр `currency`, передавайте в него идентификатор валюты в формате `RUB`.
-
-**Стандартное поле «Сумма и валюта».** Поле показывает сумму товаров и валюту в [сделках](../deals/index.md), [лидах](../leads/index.md), [счетах](../universal/invoice.md), [предложениях](../quote/index.md),  [смарт-процессах](../universal/index.md). Поле `Сумма и валюта` — составное, сумма и валюта изменяются отдельно. Для указания или изменения валюты используйте параметр `CURRENCY_ID`, передавайте в него идентификатор валюты в формате `RUB`.
-
-**Пользовательское поле типа «Деньги».** Для указания или изменения значения валюты  передавайте в поле сумму и код валюты в формате `100|RUB`.
-
-## Базовая валюта
-
-Базовая валюта — валюта, в которой компания ведет расчеты.
-
-* Если создать или изменить элемент CRM, не передававя код валюты, — базовая валюта устанавливается автоматически
-* Если изменить валюту в поле, стоимость будет пересчитана по курсу базовой валюты
-
-Чтобы узнать базовую валюту, используйте метод [crm.currency.base.get](./crm-currency-base-get.md). Изменить базовую валюту — метод [crm.currency.base.set](./crm-currency-base-set.md). 
-
-## Курс валюты
-
-Курс любой валюты в Битрикс рассчитывается по отношению к базовой валюте. 
-
-
-
-Когда вы изменяете базовую валюту, соотношение курсов автоматически не пересчитывается. 
-
-
-
-Чтобы изменить курс валюты к базовой, используйте метод изменения валюты — [crm.currency.update](./crm-currency-update.md). Соотношение устанавливайте в параметре `AMOUNT`.
-
-## Локализация валюты
-
-Локализация валют — это правила написания чисел и расположения знака валюты на разных языках.
-
-Для изменения или удаления настроек локализации валюты используйте группу методов [crm.currency.localizations.*](./localizations/index.md).
-
-## Обзор методов {#all-methods}
+# Получить поля валюты crm.currency.fields
 
 > Scope: [`crm`](../../scopes/permissions.md)
 >
-> Кто может выполнять метод: зависит от метода
+> Кто может выполнять метод: любой пользователь с доступом к настройкам CRM
 
+Метод получает описание полей валюты. Каждое поле описывается в виде структуры настроек поля [crm_rest_field_description](../data-types.md#crm_rest_field_description).
 
+Без параметров.
 
-
-- Методы
-
-    #|
-    || **Метод** | **Описание** ||
-    || [crm.currency.add](./crm-currency-add.md) | Создает новую валюту ||
-    || [crm.currency.update](./crm-currency-update.md) | Обновляет существующую валюту ||
-    || [crm.currency.get](./crm-currency-get.md) | Возвращает валюту по символьному идентификатору ||
-    || [crm.currency.list](./crm-currency-list.md) | Возвращает список валют ||
-    || [crm.currency.delete](./crm-currency-delete.md) | Удаляет валюту ||
-    || [crm.currency.fields](./crm-currency-fields.md) | Возвращает описание полей валюты ||
-    || [crm.currency.base.get](./crm-currency-base-get.md) | Получает символьный идентификатор базовой валюты ||
-    || [crm.currency.base.set](./crm-currency-base-set.md) | Меняет базовую валюту ||
-    |#
-
-- События
-
-    #|
-    || **Событие** | **Вызывается** ||
-    || [onCrmCurrencyAdd](./events/on-crm-currency-add.md) | При создании валюты ||
-    || [onCrmCurrencyUpdate](./events/on-crm-currency-update.md) | При обновлении валюты ||
-    || [onCrmCurrencyDelete](./events/on-crm-currency-delete.md) | При удалении валюты ||
-    |#
+## Примеры кода
 
 
 
 
 
+- cURL (Webhook)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{}' \
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webhook_here**/crm.currency.fields
+    ```
+
+- cURL (OAuth)
+
+    ```bash
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{}' \
+    https://**put_your_bitrix24_address**/rest/crm.currency.fields?auth=**put_access_token_here**
+    ```
+
+- JS
+
+    ```js
+    BX24.callMethod(
+        "crm.currency.fields",
+        {},
+    )
+    .then(
+        function(result)
+        {
+            if (result.error())
+            {
+                console.error(result.error());
+            }
+            else
+            {
+                console.log(result.data());
+            }
+        },
+        function(error)
+        {
+            console.info(error);
+        }
+    );
+    ```
+
+- PHP
+
+    ```php
+    require_once('crest.php');
+
+    $result = CRest::call(
+        'crm.currency.fields'
+    );
+
+    echo '<PRE>';
+    print_r($result);
+    echo '</PRE>';
+    ```
+
+
+
+## Обработка ответа
+
+HTTP-статус: **200**
+
+```json
+{
+    "result": {
+        "CURRENCY": {
+            "type": "string",
+            "isRequired": false,
+            "isReadOnly": false,
+            "isImmutable": false,
+            "isMultiple": false,
+            "isDynamic": false,
+            "title": "Валюта"
+        },
+        "AMOUNT_CNT": {
+            "type": "int",
+            "isRequired": false,
+            "isReadOnly": false,
+            "isImmutable": false,
+            "isMultiple": false,
+            "isDynamic": false,
+            "title": "Номинал"
+        },
+        "AMOUNT": {
+            "type": "double",
+            "isRequired": false,
+            "isReadOnly": false,
+            "isImmutable": false,
+            "isMultiple": false,
+            "isDynamic": false,
+            "title": "Курс обмена"
+        },
+        "BASE": {
+            "type": "char",
+            "isRequired": false,
+            "isReadOnly": true,
+            "isImmutable": false,
+            "isMultiple": false,
+            "isDynamic": false,
+            "title": "Базовая валюта"
+        },
+        "SORT": {
+            "type": "int",
+            "isRequired": false,
+            "isReadOnly": false,
+            "isImmutable": false,
+            "isMultiple": false,
+            "isDynamic": false,
+            "title": "Сортировка"
+        },
+        "DATE_UPDATE": {
+            "type": "datetime",
+            "isRequired": false,
+            "isReadOnly": true,
+            "isImmutable": false,
+            "isMultiple": false,
+            "isDynamic": false,
+            "title": "Дата изменения"
+        },
+        "LID": {
+            "type": "string",
+            "isRequired": false,
+            "isReadOnly": true,
+            "isImmutable": false,
+            "isMultiple": false,
+            "isDynamic": false,
+            "title": "Сайт"
+        },
+        "FORMAT_STRING": {
+            "type": "string",
+            "isRequired": false,
+            "isReadOnly": true,
+            "isImmutable": false,
+            "isMultiple": false,
+            "isDynamic": false,
+            "title": "Строка формата для вывода валюты"
+        },
+        "FULL_NAME": {
+            "type": "string",
+            "isRequired": false,
+            "isReadOnly": true,
+            "isImmutable": false,
+            "isMultiple": false,
+            "isDynamic": false,
+            "title": "Название"
+        },
+        "DEC_POINT": {
+            "type": "string",
+            "isRequired": false,
+            "isReadOnly": true,
+            "isImmutable": false,
+            "isMultiple": false,
+            "isDynamic": false,
+            "title": "Десятичная точка при выводе"
+        },
+        "THOUSANDS_SEP": {
+            "type": "string",
+            "isRequired": false,
+            "isReadOnly": true,
+            "isImmutable": false,
+            "isMultiple": false,
+            "isDynamic": false,
+            "title": "Свой разделитель тысяч при выводе"
+        },
+        "DECIMALS": {
+            "type": "int",
+            "isRequired": false,
+            "isReadOnly": true,
+            "isImmutable": false,
+            "isMultiple": false,
+            "isDynamic": false,
+            "title": "Количество десятичных знаков"
+        },
+        "LANG": {
+            "type": "currency_localization",
+            "isRequired": false,
+            "isReadOnly": false,
+            "isImmutable": false,
+            "isMultiple": true,
+            "isDynamic": false,
+            "title": "Привязка к языку"
+        }
+    },
+    "time": {
+        "start": 1716974732.518201,
+        "finish": 1716974733.260832,
+        "duration": 0.7426309585571289,
+        "processing": 0.018947124481201172,
+        "date_start": "2024-05-29T11:25:32+02:00",
+        "date_finish": "2024-05-29T11:25:33+02:00",
+        "operating": 0
+    }
+}
+```
+
+### Возвращаемые данные
+
+#|
+|| **Название**
+`тип` | **Описание** ||
+|| **result**
+[`object`](../../data-types.md) | Объект со списком доступных полей в формате `{"field_1": "value_1", ... "field_N": "value_N"}`, где `field_N` – идентификатор поля объекта crm_currency, а `value` — объект типа [crm_rest_field_description](../data-types.md#crm_rest_field_description) ||
+|| **time**
+[`time`](../../data-types.md) | Информация о времени выполнения запроса ||
+|#
+
+## Обработка ошибок
+
+HTTP-статус: **400**
+
+```json
+{
+    "error": "",
+    "error_description": "Access denied."
+}
+```
+
+
+
+### Возможные коды ошибок
+
+#|
+|| **Код** | **Описание** | **Значение** ||
+|| Пустая строка | Access denied. | Недостаточно прав доступа ||
+|#
+
+
+
+## Продолжите изучение 
+
+- [{#T}](./crm-currency-add.md)
+- [{#T}](./crm-currency-update.md)
+- [{#T}](./crm-currency-get.md)
+- [{#T}](./crm-currency-list.md)
+- [{#T}](./crm-currency-delete.md)

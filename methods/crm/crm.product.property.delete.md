@@ -9,33 +9,96 @@ params: {"type":"object","required":["id"],"properties":{"id":{"type":"integer"}
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Товары
+# Удалить свойство товаров crm.product.property.delete
 
 > Scope: [`crm`](../../../scopes/permissions.md)
 >
-> Кто может выполнять метод: зависит от метода
+> Кто может выполнять метод: администратор, пользователь с правом «Разрешить изменять настройки» в CRM
+
+
+
+Метод `crm.product.property.delete` продолжает работать, но у него есть более актуальный аналог [catalog.productProperty.delete](../../../catalog/product-property/catalog-product-property-delete.md).
+
+
+
+Метод `crm.product.property.delete` удаляет свойство товаров.
+
+## Параметры метода
+
+
 
 #|
-|| **Метод** | **Описание** ||
-|| [crm.product.add](./crm-product-add.md) | Создает новый товар ||
-|| [crm.product.delete](./crm-product-delete.md) | Удаляет товар ||
-|| [crm.product.fields](./crm-product-fields.md) | Возвращает описание полей товара ||
-|| [crm.product.get](./crm-product-get.md) | Возвращает товар по идентификатору ||
-|| [crm.product.list](./crm-product-list.md) | Возвращает список товаров по фильтру ||
-|| [crm.product.update](./crm-product-update.md) | Обновляет существующий товар ||
-|| [crm.product.property.types](./crm-product-property-types.md) | Возвращает список типов свойств товаров ||
-|| [crm.product.property.fields](./crm-product-property-fields.md) | Возвращает описание полей для свойств товаров ||
-|| [crm.product.property.settings.fields](./crm-product-property-settings-fields.md) | Возвращает описание полей дополнительных настроек свойства товаров пользовательского типа ||
-|| [crm.product.property.enumeration.fields](./crm-product-property-enumeration-fields.md) | Возвращает описание полей элемента свойства товаров списочного типа ||
-|| [crm.product.property.add](./crm-product-property-add.md) | Создает новое свойство товаров ||
-|| [crm.product.property.get](./crm-product-property-get.md) | Возвращает свойство товаров по идентификатору ||
-|| [crm.product.property.list](./crm-product-property-list.md) | Возвращает список свойств товаров ||
-|| [crm.product.property.update](./crm-product-property-update.md) | Обновляет существующее свойство товаров ||
-|| [crm.product.property.delete](./crm-product-property-delete.md) | Удаляет свойство товаров ||
+|| **Название**
+`тип` | **Описание** ||
+|| **id**
+[`integer`](../../../data-types.md) | Идентификатор товара ||
 |#
 
-Общий список **событий товаров** приведен в статье [События](./events-custom/index.md).
+## Примеры кода
+
+
+
+
+
+- cURL (Webhook)
+
+    ```http
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"id":"your_property_id"}' \ # Replace 'your_property_id' with the actual property ID
+    https://**put_your_bitrix24_address**/rest/**put_your_user_id_here**/**put_your_webbhook_here**/crm.product.property.delete
+    ```
+
+- cURL (OAuth)
+
+    ```http
+    curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"id":"your_property_id","auth":"**put_access_token_here**"}' \ # Replace 'your_property_id' with the actual property ID
+    https://**put_your_bitrix24_address**/rest/crm.product.property.delete
+    ```
+
+- JS
+
+    ```js
+    var id = prompt("Введите ID");
+    BX24.callMethod(
+        "crm.product.property.delete",
+        {
+            id: id
+        },
+        function(result)
+        {
+            if(result.error())
+                console.error(result.error());
+            else
+                console.info(result.data());
+        }
+    );
+    ```
+
+- PHP
+
+    ```php
+    require_once('crest.php');
+
+    $id = 'your_property_id'; // Replace 'your_property_id' with the actual property ID
+
+    $result = CRest::call(
+        'crm.product.property.delete',
+        [
+            'id' => $id
+        ]
+    );
+
+    echo '<PRE>';
+    print_r($result);
+    echo '</PRE>';
+    ```
+
+

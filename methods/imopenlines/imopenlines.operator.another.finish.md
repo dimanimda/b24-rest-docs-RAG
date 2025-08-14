@@ -9,11 +9,10 @@ params: {"type":"object"}
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Операторы открытых линий
+# Завершить диалог другого оператора imopenlines.operator.another.finish
 
 
 
@@ -25,19 +24,88 @@ Auto-generated stub. Fill in params/returns/examples.
 
 
 
-- из файла Сергея: где указываются, как это выглядит в интерфейсе
+- отсутствуют параметры или поля
+- не указаны типы параметров
+- отсутствуют примеры
+- отсутствует ответ в случае успеха
+- отсутствует ответ в случае ошибки
 
 
+
+
+
+> Scope: [`imopenlines`](../../../scopes/permissions.md)
+>
+> Кто может выполнять метод: любой пользователь
+
+Метод завершает диалог другого оператора.
+
+## Параметры метода
 
 
 
 #|
-|| **Метод** | **Описание** ||
-|| [imopenlines.operator.another.finish](./imopenlines-operator-another-finish.md) | Завершает диалог другого оператора ||
-|| [imopenlines.operator.answer](./imopenlines-operator-answer.md) | Забирает диалог себе ||
-|| [imopenlines.operator.finish](./imopenlines-operator-finish.md) | Завершает свой диалог ||
-|| [imopenlines.operator.skip](./imopenlines-operator-skip.md) | Пропускает диалог ||
-|| [imopenlines.operator.spam](./imopenlines-operator-spam.md) | Отмечает диалог в качестве «спама» ||
-|| [imopenlines.operator.transfer](./imopenlines-operator-transfer.md) | Передает диалог другому оператору или в другую линию ||
+|| **Название**
+`Тип` | **Пример** | **Описание** ||
+|| **CHAT_ID***
+[`unknown`](../../../data-types.md) |`2020` | Идентификатор чата ||
 |#
 
+## Примеры
+
+
+
+
+
+- cURL (Webhook)
+
+    // пример для cURL (Webhook)
+
+- cURL (OAuth)
+
+    // пример для cURL (OAuth)
+
+- JS
+
+    ```javascript
+    BX.callMethod(
+        'imopenlines.operator.another.finish',
+        {
+            CHAT_ID: 2024
+        },
+        function(result)
+        {
+            if(result.error())
+            {
+                console.error(result.error().ex);
+            }
+            else
+            {
+                console.log(result.data());
+            }
+        }
+    );
+    ```
+
+- PHP
+
+    // пример для php
+
+
+
+## Ответ в случае успеха
+
+```json
+true
+```
+
+## Ответ в случае ошибки
+
+### Возможные коды ошибок
+
+#|
+|| **Код** | **Описание** ||
+|| **ACCESS_DENIED** | У текущего пользователя нет доступа к указанному чату ||
+|| **CHAT_TYPE** | Указанный чат не является открытой линией ||
+|| **CHAT_ID** | Указан некорректный идентификатор чата ||
+|#

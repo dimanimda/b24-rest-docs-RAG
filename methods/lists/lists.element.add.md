@@ -9,103 +9,134 @@ params: {"type":"object","required":["fields"],"properties":{"fields":{"type":"o
 returns: {"type":"object"}
 ---
 
-Auto-generated stub. Fill in params/returns/examples.
 
 ---
 
-# Универсальные списки: обзор методов
-
-Универсальные списки — это инструмент для создания и управления структурированной информацией. Они позволяют создавать настраиваемые таблицы c различными типами полей: текст, число, дата, файл и другие.
-
-Универсальные списки интегрируются с модулями *Битрикс24*, что дает возможность автоматизировать обработку данных и управлять доступом. Представьте, что есть список заявок на отпуск сотрудников. Для списка настроен бизнес-процесс и заданы права так, что только руководитель и сотрудники HR-отдела могут изменять заявки. В результате, когда сотрудник подает заявку на отпуск, HR-менеджер автоматически получает уведомление, чтобы рассмотреть и одобрить или отклонить заявку.
-
-Каждый список представляет собой [информационный блок](*iblock). Используйте группу методов [lists.*](./lists/index.md) для работы со списками.
-
-> Быстрый переход: [все методы](#all-methods) 
->
-> Пользовательская документация: [списки в Битрикс24](https://helpdesk.bitrix24.ru/open/5316091/)
-
-## Структура списков
-
-**Разделы**. Используются для группировки информации и построения удобной иерархии. Управление разделами выполняется через методы [lists.section.*](./sections/index.md).
-
-**Элементы**. Хранят основную информацию. Управляются группой методов [lists.element.*](./elements/index.md).
-
-## Бизнес-процессы
-
-Бизнес-процессы в универсальных списках создают индивидуальный сценарий обработки элементов. Управление бизнес-процессами выполняется с помощью групп методов [bizproc.workflow.*](../bizproc/index.md) и [bizproc.task.*](../bizproc/bizproc-task/bizproc-task-list.md).
+# Создать элемент универсального списка lists.element.add
 
 
 
-- [Включение бизнес-процессов в списке](https://helpdesk.bitrix24.ru/open/5322575/)
+Тут может не хватать некоторых данных — дополним в ближайшее время
 
 
 
-## Поля
 
-Поля элементов уникальны для каждого списка. Создавать, изменять и удалять поля можно с помощью группы методов [lists.field.*](./fields/index.md).
 
-Параметр `TYPE` определяет тип данных поля. Перечень доступных типов приведен в описании параметра `FIELDS` метода [lists.field.add](./fields/lists-field-add.md). 
 
-Информация в универсальных списках может быть связана с CRM и Диском через поля следующих типов:
-- Привязка к элементам CRM (`S:ECrm`)
-- Файл (Диск) (`S:DiskFile`)
 
-Об особенностях этих типов читайте в статье [Поля универсального списка: обзор методов](./fields/index.md).
+- не указаны типы параметров
+- отсутствуют примеры
+- отсутствует ответ в случае успеха
+- отсутствует ответ в случае ошибки
+- не прописаны ссылки на несозданные ещё страницы
 
-## Рабочие группы и проекты
 
-Универсальные списки интегрированы [в рабочие группы и проекты](../sonet-group/sonet-group-create.md). Создавать свои списки можно внутри любой группы или проекта с различными уровнями доступа для участников.
 
-Идентификатор типа инфоблоков `IBLOCK_TYPE_ID` для списков групп принимает значение `lists_socnet`.
 
-## Обзор методов {#all-methods}
 
-> Scope: [`lists`](../scopes/permissions.md)
+> Scope: [`lists`](../../scopes/permissions.md)
 >
 > Кто может выполнять метод: любой пользователь
 
-### Списки
+Метод `lists.element.add` создаёт элемент списка. В случае успешного создания элемента ответ `true`, иначе *Exception*.
+
+Чтобы загрузить файлы в поле типа «Файл» передавайте контент в формате [Base64](../../files/how-to-upload-files.md).
+
+Чтобы загрузить файлы в поле типа «Файл (Диск)» необходимо:
+
+1. использовать rest api модуля disk: disk.folder.uploadfile и disk.storage.uploadfile. В ответе при загрузке этих файлов, вы будете получать `"FILE_ID": 290`.
+2. Получить список `ID` загруженных файлов.
+3. Затем с помощью rest api модуля lists добавлять файлы в нужное поле:
+
+## Параметры
 
 #|
-|| **Метод** | **Описание** ||
-|| [lists.add](./lists/lists-add.md) | Создает список ||
-|| [lists.delete](./lists/lists-delete.md) | Удаляет список ||
-|| [lists.get](./lists/lists-get.md) | Возвращает данные по спискам ||
-|| [lists.update](./lists/lists-update.md) | Обновляет существующий список ||
-|| [lists.get.iblock.type.id](./lists/lists-get-iblock-type-id.md) | Возвращает идентификатор типа инфоблока ||
+|| **Параметр** | **Описание** ||
+|| **IBLOCK_TYPE_ID**^*^
+[`unknown`](../../data-types.md) | Идентификатор типа инфоблока (обязательно):
+- **lists** - тип инфоблока списка
+- **bitrix_processes** - тип инфоблока процессов
+- **lists_socnet** - тип инфоблока списков групп ||
+|| **IBLOCK_CODE/IBLOCK_ID**^*^
+[`unknown`](../../data-types.md) | Код или `id` инфоблока (обязательно) ||
+|| **ELEMENT_CODE**^*^
+[`unknown`](../../data-types.md) | Код элемента инфоблока (обязательно) ||
+|| **LIST_ELEMENT_URL**
+[`unknown`](../../data-types.md) | Шаблон адреса к элементам списка ||
+|| **FIELDS**
+[`unknown`](../../data-types.md) | Массив полей и значений. В поле типа Файл `F` нельзя передавать идентификатор файла с Диска ||
+|| **SOCNET_GROUP_ID**^*^
+[`unknown`](../../data-types.md) | `id` группы (обязательно, если список создается для группы); ||
 |#
 
-### Элементы
 
-#|
-|| **Метод** | **Описание** ||
-|| [lists.element.add](./elements/lists-element-add.md) | Создает элемент списка ||
-|| [lists.element.delete](./elements/lists-element-delete.md) | Удаляет элемент списка ||
-|| [lists.element.get](./elements/lists-element-get.md) | Возвращает список элементов или элемент ||
-|| [lists.element.update](./elements/lists-element-update.md) | Обновляет элемент списка ||
-|| [lists.element.get.file.url](./elements/lists-element-get-file-url.md) | Возвращает путь к файлу ||
-|#
 
-### Поля
+## Примеры
 
-#|
-|| **Метод** | **Описание** ||
-|| [lists.field.add](./fields/lists-field-add.md) | Создает поле списка ||
-|| [lists.field.delete](./fields/lists-field-delete.md) | Удаляет поле списка ||
-|| [lists.field.get](./fields/lists-field-get.md) | Возвращает данные поля ||
-|| [lists.field.type.get](./fields/lists-field-type-get.md) | Возвращает доступные типы полей для указанного списка ||
-|| [lists.field.update](./fields/lists-field-update.md) | Обновляет поле списка ||
-|#
 
-### Разделы
 
-#|
-|| **Метод** | **Описание** ||
-|| [lists.section.add](./sections/lists-section-add.md) | Создает раздел списка ||
-|| [lists.section.get](./sections/lists-section-get.md) | Возвращает даные о разделах ||
-|| [lists.section.update](./sections/lists-section-update.md) | Обновляет раздел списка ||
-|| [lists.section.delete](./sections/lists-section-delete.md) | Удаляет раздел списка ||
-|#
+- JS
 
-[*iblock]: Информационный блок — это специальный объект для хранения новостей, услуг, статей, каталогов товаров и других данных, имеющих четкую структуру.
+    ```js
+    var params = {
+        'IBLOCK_TYPE_ID': 'lists_socnet',
+        'IBLOCK_CODE': 'rest_1',
+        'ELEMENT_CODE': 'element_1',
+        'LIST_ELEMENT_URL': '#list_id#/element/#section_id#/#element_id#/',
+        'FIELDS': {
+            'NAME': 'Test element',
+            'PROPERTY_62': 'Text string',
+            'PROPERTY_63': {
+                '0': '7',
+                '1': '9',
+                '2': '10'
+            }
+        }
+    };
+    BX24.callMethod(
+        'lists.element.add',
+        params,
+        function(result)
+        {
+            if(result.error())
+                alert("Error: " + result.error());
+            else
+                alert("Success: " + result.data());
+        }
+    );
+    ```
+
+
+
+Пример добавления файла:
+
+
+
+- JS
+
+    ```js
+    var params = {
+        'IBLOCK_TYPE_ID': 'lists',
+        'IBLOCK_ID': '41',
+        'ELEMENT_CODE': 'element1',
+        'FIELDS': {
+            'NAME': 'Test element 1',
+            'PROPERTY_122': document.getElementById('fileInputId') // PROPERTY_122 - Пользовательское свойство типа "Файл"
+        }
+    };
+    BX24.callMethod(
+        'lists.element.add',
+        params,
+        function(result)
+        {
+            if(result.error())
+                alert("Error: " + result.error());
+            else
+                alert("Success: " + result.data());
+        }
+    );
+    ```
+
+
+
+
